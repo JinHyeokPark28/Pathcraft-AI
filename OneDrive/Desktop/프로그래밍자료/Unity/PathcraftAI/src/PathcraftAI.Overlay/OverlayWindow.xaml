@@ -1,0 +1,23 @@
+﻿<Window x:Class="PathcraftAI.Overlay.OverlayWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        Background="#AA222222"
+        Topmost="True"
+        ResizeMode="NoResize"
+        Width="320" Height="170"
+        ShowInTaskbar="False"
+        Title="Overlay">
+    <Border CornerRadius="12" BorderThickness="1" BorderBrush="#66000000" Padding="10">
+        <StackPanel>
+            <TextBlock Text="Pathcraft AI Overlay" FontWeight="Bold" Foreground="White" Margin="0,0,0,8"/>
+            <TextBlock Text="{Binding CharacterName}" Foreground="White"/>
+            <TextBlock Text="{Binding ClassAsc}"     Foreground="White" Opacity="0.8"/>
+            <TextBlock Text="{Binding DpsText}"      Foreground="#FF99FF99" Margin="0,6,0,0"/>
+            <TextBlock Text="{Binding EhpText}"      Foreground="#FF99CCFF"/>
+            <TextBlock Text="{Binding ResText}"      Foreground="#FFCCCC99"/>
+            <Button Content="닫기 (ESC)" Click="Close_Click" Margin="0,10,0,0"/>
+        </StackPanel>
+    </Border>
+</Window>

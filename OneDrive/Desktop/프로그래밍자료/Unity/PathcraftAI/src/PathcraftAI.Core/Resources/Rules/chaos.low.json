@@ -1,0 +1,10 @@
+﻿{
+  "id": "CHAOS.RES.LOW",
+  "severity": "Critical",
+  "message": "카오스 저항이 낮습니다.",
+  "detect": {
+    "path": "stats.res.chaos",
+    "lt": 0
+  },
+  "suggestions": [ "Amethyst Flask", "Chaos res on ring/belt", "Purity of Elements" ]
+}

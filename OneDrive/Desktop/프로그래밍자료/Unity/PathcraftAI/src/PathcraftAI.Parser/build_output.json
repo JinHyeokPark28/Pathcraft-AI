@@ -1,0 +1,52 @@
+{
+  "meta": {
+    "mode": "SC",
+    "league": "TestLeague",
+    "build_notes": "sample notes",
+    "source": "pob"
+  },
+  "character": {
+    "name": "Aromi",
+    "class": "Witch",
+    "ascendancy": "Occultist",
+    "level": 92
+  },
+  "stats": {
+    "dps": 123456,
+    "ehp": 54321,
+    "res": {
+      "fire": 75,
+      "cold": 75,
+      "lightning": 75,
+      "chaos": 0
+    }
+  },
+  "gear": [
+    {
+      "slot": "Weapon 1",
+      "name": "Void Battery",
+      "reasoning": {
+        "text": "Spell build synergy",
+        "source": "notes",
+        "tags": [
+          "spell",
+          "crit"
+        ]
+      },
+      "alternatives": [
+        "Rare Wand",
+        "Divinarius"
+      ]
+    }
+  ],
+  "issues": [
+    {
+      "level": "Critical",
+      "message": "Chaos res is low",
+      "suggestions": [
+        "Amethyst Flask"
+      ],
+      "code": "CHAOS_RES_LOW"
+    }
+  ]
+}

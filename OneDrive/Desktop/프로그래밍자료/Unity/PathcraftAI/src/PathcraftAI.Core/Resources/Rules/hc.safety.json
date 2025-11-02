@@ -1,0 +1,11 @@
+﻿{
+  "id": "HC.SAFETY.MIN",
+  "severity": "Warning",
+  "when": { "mode": "HC" },
+  "detect": {
+    "path": "stats.ehp",
+    "lt": 25000
+  },
+  "message": "HC 최소 생존 EHP 미달",
+  "suggestions": [ "Granite/Jade Flask", "Armour/Evasion on chest", "Life nodes in wheel" ]
+}
