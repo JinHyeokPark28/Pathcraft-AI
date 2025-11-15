@@ -65,7 +65,8 @@ def analyze_user_build(access_token: str, character_name: str) -> Dict:
         return {}
 
     character_info = character_data.get('character', {})
-    items = character_data.get('items', [])
+    # POE API returns items in 'character.equipment' field
+    items = character_info.get('equipment', [])
 
     print(f"[OK] {character_info.get('name')} Lv{character_info.get('level')} {character_info.get('class')}")
     print(f"[OK] Found {len(items)} items")
@@ -133,13 +134,18 @@ def extract_unique_items(items: List[Dict]) -> List[Dict]:
     unique_items = []
 
     for item in items:
-        # frameType: 3 = unique
-        if item.get('frameType') == 3:
-            name = item.get('typeLine', item.get('name', 'Unknown'))
+        # frameType: 3 = unique, rarity: 'Unique'
+        if item.get('frameType') == 3 or item.get('rarity') == 'Unique':
+            # For unique items, 'name' field contains the unique name, 'typeLine' contains base type
+            unique_name = item.get('name', '')
+            base_type = item.get('typeLine', '')
+            # Use unique name if available, otherwise fall back to base type
+            display_name = unique_name if unique_name else base_type
             slot = item.get('inventoryId', 'Unknown')
 
             unique_items.append({
-                "name": name,
+                "name": display_name,
+                "base_type": base_type,
                 "slot": slot,
                 "sockets": item.get('sockets', []),
                 "socketed_items": item.get('socketedItems', [])
