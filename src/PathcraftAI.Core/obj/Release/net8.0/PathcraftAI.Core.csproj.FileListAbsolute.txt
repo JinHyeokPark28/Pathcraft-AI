@@ -1,0 +1,11 @@
+C:\Users\vnddn\OneDrive\Desktop\프로그래밍자료\Unity\PathcraftAI\src\PathcraftAI.Core\bin\Release\net8.0\PathcraftAI.Core.deps.json
+C:\Users\vnddn\OneDrive\Desktop\프로그래밍자료\Unity\PathcraftAI\src\PathcraftAI.Core\bin\Release\net8.0\PathcraftAI.Core.dll
+C:\Users\vnddn\OneDrive\Desktop\프로그래밍자료\Unity\PathcraftAI\src\PathcraftAI.Core\bin\Release\net8.0\PathcraftAI.Core.pdb
+C:\Users\vnddn\OneDrive\Desktop\프로그래밍자료\Unity\PathcraftAI\src\PathcraftAI.Core\obj\Release\net8.0\PathcraftAI.Core.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\vnddn\OneDrive\Desktop\프로그래밍자료\Unity\PathcraftAI\src\PathcraftAI.Core\obj\Release\net8.0\PathcraftAI.Core.AssemblyInfoInputs.cache
+C:\Users\vnddn\OneDrive\Desktop\프로그래밍자료\Unity\PathcraftAI\src\PathcraftAI.Core\obj\Release\net8.0\PathcraftAI.Core.AssemblyInfo.cs
+C:\Users\vnddn\OneDrive\Desktop\프로그래밍자료\Unity\PathcraftAI\src\PathcraftAI.Core\obj\Release\net8.0\PathcraftAI.Core.csproj.CoreCompileInputs.cache
+C:\Users\vnddn\OneDrive\Desktop\프로그래밍자료\Unity\PathcraftAI\src\PathcraftAI.Core\obj\Release\net8.0\PathcraftAI.Core.dll
+C:\Users\vnddn\OneDrive\Desktop\프로그래밍자료\Unity\PathcraftAI\src\PathcraftAI.Core\obj\Release\net8.0\refint\PathcraftAI.Core.dll
+C:\Users\vnddn\OneDrive\Desktop\프로그래밍자료\Unity\PathcraftAI\src\PathcraftAI.Core\obj\Release\net8.0\PathcraftAI.Core.pdb
+C:\Users\vnddn\OneDrive\Desktop\프로그래밍자료\Unity\PathcraftAI\src\PathcraftAI.Core\obj\Release\net8.0\ref\PathcraftAI.Core.dll

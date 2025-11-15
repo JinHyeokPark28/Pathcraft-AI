@@ -1,0 +1,27 @@
+﻿{
+  "meta": { "version": 1 },
+  "gear": [
+    {
+      "slot": "Weapon 1",
+      "match": { "tagsAny": [ "spell", "crit" ] },
+      "text": "스펠 크리 기반 핵심봉: 주문 레벨/크리 확률/크리 배율로 DPS를 크게 올려줍니다.",
+      "tags": [ "DPS", "Core" ]
+    },
+    {
+      "slot": "Chest",
+      "match": { "tagsAny": [ "life", "armour" ] },
+      "text": "생명력/방어구로 맵 구간 생존력 확보. 초반엔 베테랑 방어구 노드와 시너지가 좋습니다.",
+      "tags": [ "EHP", "Progression" ]
+    },
+    {
+      "slot": "Ring",
+      "match": { "tagsAny": [ "res" ] },
+      "text": "저항 보정 슬롯. 카오스 저항이 낮다면 한쪽을 카오스 저항으로 세팅하세요.",
+      "tags": [ "Resist", "QoL" ]
+    }
+  ],
+  "fallback": {
+    "text": "이 슬롯은 빌드 운영을 보조합니다. 현재 스탯 기준 부족한 항목을 보완하세요.",
+    "tags": [ "General" ]
+  }
+}

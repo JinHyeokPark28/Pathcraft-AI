@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git commit:*)",
+      "Bash(git push:*)",
+      "Bash(git remote add:*)",
+      "Bash(\".venv/Scripts/pip\" install pobapi==0.4.*)",
+      "Bash(.venv/Scripts/python.exe -c \"from pobapi import pob_xml_parser; print(''pobapi import success'')\")",
+      "Bash(.venv/Scripts/python.exe:*)",
+      "Bash(findstr:*)",
+      "Bash(dir:*)",
+      "Bash(timeout /t 30)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

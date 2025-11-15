@@ -1,0 +1,30 @@
+public class BuildModel
+{
+    public string Mode { get; set; }
+    public string League { get; set; }
+    public CharacterInfo Character { get; set; }
+    public Stats Stats { get; set; }
+}
+
+public class CharacterInfo
+{
+    public string Name { get; set; }
+    public string Class { get; set; }
+    public string Ascendancy { get; set; }
+    public int Level { get; set; }
+}
+
+public class Stats
+{
+    public double Dps { get; set; }
+    public double Ehp { get; set; }
+    public Resist Res { get; set; }
+}
+
+public class Resist
+{
+    public int Fire { get; set; }
+    public int Cold { get; set; }
+    public int Lightning { get; set; }
+    public int Chaos { get; set; }
+}

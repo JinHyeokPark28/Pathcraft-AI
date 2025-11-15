@@ -1,0 +1,9 @@
+﻿{
+  "id": "GEAR.ALIAS",
+  "normalize": {
+    "map": {
+      "Void Battery": [ "VoidBattery", "VB" ],
+      "Loreweave": [ "Lore Weave", "Lore-weave" ]
+    }
+  }
+}

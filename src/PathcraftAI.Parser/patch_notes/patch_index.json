@@ -1,0 +1,72 @@
+{
+  "3.27.0c": {
+    "date": "2025-11-13",
+    "title": "3.27.0c Patch Notes Preview",
+    "file": "patch_3_27_0c.json"
+  },
+  "3.27.0b": {
+    "date": "2025-11-05",
+    "title": "Patch Notes - 3.27.0b Patch Notes (restartless)",
+    "file": "patch_3_27_0b.json"
+  },
+  "3.26.0k": {
+    "date": "2025-10-28",
+    "title": "3.26.0k Patch Notes",
+    "file": "patch_3_26_0k.json"
+  },
+  "3.26.0i": {
+    "date": "2025-09-24",
+    "title": "3.26.0i Patch Notes",
+    "file": "patch_3_26_0i.json"
+  },
+  "3.26.0f": {
+    "date": "2025-07-31",
+    "title": "Patch Notes - 3.26.0f Patch Notes - Forum - Path of Exile",
+    "file": "patch_3_26_0f.json"
+  },
+  "3.26.0d": {
+    "date": "2025-07-01",
+    "title": "Patch Notes - 3.26.0d Patch Notes - Forum - Path of Exile",
+    "file": "patch_3_26_0d.json"
+  },
+  "3.26.0c": {
+    "date": "2025-06-24",
+    "title": "Patch Notes - 3.26.0c Hotfix 7 - Forum - Path of Exile",
+    "file": "patch_3_26_0c.json"
+  },
+  "3.26.0b": {
+    "date": "2025-06-16",
+    "title": "3.26.0b Patch Notes (restartless)",
+    "file": "patch_3_26_0b.json"
+  },
+  "3.25.3d": {
+    "date": "2025-02-27",
+    "title": "Patch Notes - 3.25.3d Hotfix 3 - Forum - Path of Exile",
+    "file": "patch_3_25_3d.json"
+  },
+  "0.1.0c": {
+    "date": "2024-12-11",
+    "title": "Early Access Patch Notes - 0.1.0c Hotfix 1 - Forum - Path of Exile",
+    "file": "patch_0_1_0c.json"
+  },
+  "3.24.2": {
+    "date": "2024-05-22",
+    "title": "Patch Notes - 3.24.2 Hotfix 7",
+    "file": "patch_3_24_2.json"
+  },
+  "3.24.1": {
+    "date": "2024-04-18",
+    "title": "Patch Notes - 3.24.1 Hotfix 2",
+    "file": "patch_3_24_1.json"
+  },
+  "3.24.0c": {
+    "date": "2024-04-08",
+    "title": "Snitching Works - Patch Notes - 3.24.0c Hotfix 2 - Einhar/Huck T17 shenanigans fixed",
+    "file": "patch_3_24_0c.json"
+  },
+  "3.24.0b": {
+    "date": "2024-04-05",
+    "title": "Patch Notes - 3.24.0b Hotfix 3 - Forum - Path of Exile",
+    "file": "patch_3_24_0b.json"
+  }
+}

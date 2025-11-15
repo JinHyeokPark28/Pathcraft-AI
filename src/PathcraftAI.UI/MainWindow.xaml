@@ -1,0 +1,12 @@
+﻿<Window x:Class="PathcraftAI.UI.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Pathcraft AI" Height="420" Width="640">
+    <Grid Margin="12">
+        <StackPanel>
+            <TextBlock Text="Pathcraft AI" FontSize="20" FontWeight="Bold" Margin="0,0,0,8"/>
+            <TextBlock Text="Ctrl+F8: Overlay 토글 / Ctrl+F9: 클릭-스루 토글" Opacity="0.7" Margin="0,0,0,12"/>
+            <Button Content="Show Overlay (수동)" Width="200" Height="32" Click="ShowOverlay_Click"/>
+        </StackPanel>
+    </Grid>
+</Window>

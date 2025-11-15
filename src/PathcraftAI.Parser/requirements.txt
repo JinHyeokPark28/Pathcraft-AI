@@ -1,0 +1,10 @@
+requests==2.*
+beautifulsoup4==4.*
+pobapi==0.5.0
+unstdlib==1.6
+dataslots==1.0.1
+six
+praw==7.*
+slpp==1.*
+google-api-python-client
+python-dotenv

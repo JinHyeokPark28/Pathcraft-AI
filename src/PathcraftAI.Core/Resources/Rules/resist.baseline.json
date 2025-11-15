@@ -1,0 +1,21 @@
+﻿{
+  "id": "RESIST.BASELINE",
+  "description": "기본 저항 기준",
+  "targets": [ "stats.res" ],
+  "rules": [
+    {
+      "league": "any",
+      "mapTierMin": 0,
+      "requirements": {
+        "fire": 75,
+        "cold": 75,
+        "lightning": 75
+      }
+    },
+    {
+      "league": "any",
+      "mapTierMin": 11,
+      "requirements": { "chaos": 30 }
+    }
+  ]
+}

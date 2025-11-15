@@ -1,0 +1,174 @@
+{
+  "version": 3,
+  "targets": {
+    "net8.0-windows7.0": {
+      "PathcraftAI.Core/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v8.0",
+        "compile": {
+          "bin/placeholder/PathcraftAI.Core.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/PathcraftAI.Core.dll": {}
+        }
+      },
+      "PathcraftAI.LLM/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v8.0",
+        "dependencies": {
+          "PathcraftAI.Core": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/PathcraftAI.LLM.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/PathcraftAI.LLM.dll": {}
+        }
+      },
+      "PathcraftAI.Overlay/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v8.0",
+        "dependencies": {
+          "PathcraftAI.Core": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/PathcraftAI.Overlay.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/PathcraftAI.Overlay.dll": {}
+        },
+        "frameworkReferences": [
+          "Microsoft.WindowsDesktop.App.WPF"
+        ]
+      },
+      "PathcraftAI.Parser/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v8.0",
+        "dependencies": {
+          "PathcraftAI.Core": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/PathcraftAI.Parser.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/PathcraftAI.Parser.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "PathcraftAI.Core/1.0.0": {
+      "type": "project",
+      "path": "../PathcraftAI.Core/PathcraftAI.Core.csproj",
+      "msbuildProject": "../PathcraftAI.Core/PathcraftAI.Core.csproj"
+    },
+    "PathcraftAI.LLM/1.0.0": {
+      "type": "project",
+      "path": "../PathcraftAI.LLM/PathcraftAI.LLM.csproj",
+      "msbuildProject": "../PathcraftAI.LLM/PathcraftAI.LLM.csproj"
+    },
+    "PathcraftAI.Overlay/1.0.0": {
+      "type": "project",
+      "path": "../PathcraftAI.Overlay/PathcraftAI.Overlay.csproj",
+      "msbuildProject": "../PathcraftAI.Overlay/PathcraftAI.Overlay.csproj"
+    },
+    "PathcraftAI.Parser/1.0.0": {
+      "type": "project",
+      "path": "../PathcraftAI.Parser/PathcraftAI.Parser.csproj",
+      "msbuildProject": "../PathcraftAI.Parser/PathcraftAI.Parser.csproj"
+    }
+  },
+  "projectFileDependencyGroups": {
+    "net8.0-windows7.0": [
+      "PathcraftAI.Core >= 1.0.0",
+      "PathcraftAI.LLM >= 1.0.0",
+      "PathcraftAI.Overlay >= 1.0.0",
+      "PathcraftAI.Parser >= 1.0.0"
+    ]
+  },
+  "packageFolders": {
+    "C:\\Users\\vnddn\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+  },
+  "project": {
+    "version": "1.0.0",
+    "restore": {
+      "projectUniqueName": "C:\\Users\\vnddn\\OneDrive\\Desktop\\프로그래밍자료\\Unity\\PathcraftAI\\src\\PathcraftAI.UI\\PathcraftAI.UI.csproj",
+      "projectName": "PathcraftAI.UI",
+      "projectPath": "C:\\Users\\vnddn\\OneDrive\\Desktop\\프로그래밍자료\\Unity\\PathcraftAI\\src\\PathcraftAI.UI\\PathcraftAI.UI.csproj",
+      "packagesPath": "C:\\Users\\vnddn\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\vnddn\\OneDrive\\Desktop\\프로그래밍자료\\Unity\\PathcraftAI\\src\\PathcraftAI.UI\\obj\\",
+      "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
+      "configFilePaths": [
+        "C:\\Users\\vnddn\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+      ],
+      "originalTargetFrameworks": [
+        "net8.0-windows"
+      ],
+      "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "https://api.nuget.org/v3/index.json": {}
+      },
+      "frameworks": {
+        "net8.0-windows7.0": {
+          "targetAlias": "net8.0-windows",
+          "projectReferences": {
+            "C:\\Users\\vnddn\\OneDrive\\Desktop\\프로그래밍자료\\Unity\\PathcraftAI\\src\\PathcraftAI.Core\\PathcraftAI.Core.csproj": {
+              "projectPath": "C:\\Users\\vnddn\\OneDrive\\Desktop\\프로그래밍자료\\Unity\\PathcraftAI\\src\\PathcraftAI.Core\\PathcraftAI.Core.csproj"
+            },
+            "C:\\Users\\vnddn\\OneDrive\\Desktop\\프로그래밍자료\\Unity\\PathcraftAI\\src\\PathcraftAI.LLM\\PathcraftAI.LLM.csproj": {
+              "projectPath": "C:\\Users\\vnddn\\OneDrive\\Desktop\\프로그래밍자료\\Unity\\PathcraftAI\\src\\PathcraftAI.LLM\\PathcraftAI.LLM.csproj"
+            },
+            "C:\\Users\\vnddn\\OneDrive\\Desktop\\프로그래밍자료\\Unity\\PathcraftAI\\src\\PathcraftAI.Overlay\\PathcraftAI.Overlay.csproj": {
+              "projectPath": "C:\\Users\\vnddn\\OneDrive\\Desktop\\프로그래밍자료\\Unity\\PathcraftAI\\src\\PathcraftAI.Overlay\\PathcraftAI.Overlay.csproj"
+            },
+            "C:\\Users\\vnddn\\OneDrive\\Desktop\\프로그래밍자료\\Unity\\PathcraftAI\\src\\PathcraftAI.Parser\\PathcraftAI.Parser.csproj": {
+              "projectPath": "C:\\Users\\vnddn\\OneDrive\\Desktop\\프로그래밍자료\\Unity\\PathcraftAI\\src\\PathcraftAI.Parser\\PathcraftAI.Parser.csproj"
+            }
+          }
+        }
+      },
+      "warningProperties": {
+        "warnAsError": [
+          "NU1605"
+        ]
+      },
+      "restoreAuditProperties": {
+        "enableAudit": "true",
+        "auditLevel": "low",
+        "auditMode": "direct"
+      },
+      "SdkAnalysisLevel": "9.0.300"
+    },
+    "frameworks": {
+      "net8.0-windows7.0": {
+        "targetAlias": "net8.0-windows",
+        "imports": [
+          "net461",
+          "net462",
+          "net47",
+          "net471",
+          "net472",
+          "net48",
+          "net481"
+        ],
+        "assetTargetFallback": true,
+        "warn": true,
+        "frameworkReferences": {
+          "Microsoft.NETCore.App": {
+            "privateAssets": "all"
+          },
+          "Microsoft.WindowsDesktop.App.WPF": {
+            "privateAssets": "none"
+          }
+        },
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.306/PortableRuntimeIdentifierGraph.json"
+      }
+    }
+  }
+}
