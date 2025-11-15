@@ -209,6 +209,55 @@
 
 ---
 
+### Phase 5: 인게임 오버레이 (Week 13-16) - 선택사항
+
+#### 기본 오버레이
+- [ ] **게임 감지 및 오버레이**
+  - [ ] POE 프로세스 감지 (PathOfExile_x64.exe)
+  - [ ] 투명 윈도우 생성 (WPF Layered Window)
+  - [ ] Always-on-top 설정
+  - [ ] 단축키 토글 (F10)
+  - [ ] Ctrl+C 클립보드 감지
+
+#### 가격 체크 (POE Overlay 기능)
+- [ ] **아이템 가격 표시**
+  - [ ] 클립보드에서 아이템 데이터 파싱
+  - [ ] poe.ninja API 호출
+  - [ ] 가격 오버레이 표시
+  - [ ] 커런시/유니크/레어 지원
+
+#### AI 아이템 추천 (🔥 킬러 기능)
+- [ ] **캐릭터 상태 분석**
+  - [ ] POE API로 현재 캐릭터 정보 읽기
+  - [ ] 레벨, 저항, 생명력, ES 추출
+  - [ ] POB 빌드 연동 (목표 장비)
+  - [ ] 소지 커런시 파싱
+
+- [ ] **AI "지금 쓸까?" 분석**
+  - [ ] 레벨 단계 확인
+    - Level 28 → Tabula Rasa 추천
+    - Level 70 → 엔드게임 장비 필요
+  - [ ] 저항 부족 감지
+    - Cold 30% 부족 → 반지/목걸이 추천
+  - [ ] 예산 고려
+    - 소지금 50c → 100c 아이템 대안 제시
+  - [ ] DPS/생존력 개선도 예측
+  - [ ] Python AI 분석 스크립트 (ai_item_advisor.py)
+
+- [ ] **대안 추천**
+  - [ ] 저렴한 대안 아이템
+  - [ ] 비슷한 옵션 검색
+  - [ ] 업그레이드 경로 제시
+
+#### 빌드 가이드 오버레이
+- [ ] **레벨링 체크리스트**
+  - [ ] F10 토글 UI
+  - [ ] 다음 스킬 변경 알림
+  - [ ] 다음 업그레이드 아이템
+  - [ ] 완료 항목 체크
+
+---
+
 ## 🐛 Known Issues
 
 ### High Priority
@@ -259,6 +308,12 @@
 - [ ] 단계별 로드맵
 - [ ] 메타 분석
 
+### Sprint 6 (Week 13-16): 인게임 오버레이 (선택)
+- [ ] 기본 오버레이 (게임 감지, 투명 윈도우)
+- [ ] 가격 체크 (POE Overlay 기능)
+- [ ] AI 아이템 추천 (차별화 🔥)
+- [ ] 빌드 가이드 오버레이
+
 ---
 
 ## 🎯 Milestones
@@ -288,6 +343,13 @@
 - All features complete
 - Build debugger working
 - Documentation complete
+
+### M6: Overlay Release (Target: 2026-03-01) - 선택사항
+- In-game overlay working
+- AI item recommendation (🔥 킬러 기능)
+- Price check integration
+- Leveling guide overlay
+- POE Overlay 완전 대체 가능
 
 ---
 
