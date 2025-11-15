@@ -121,9 +121,9 @@
 
 ---
 
-### Phase 2: AI 기능 (Week 5-6)
+### Phase 2: AI 기능 & 프리미엄 (Week 5-6)
 
-#### API 키 설정
+#### API 키 설정 (무료 기능)
 - [ ] **설정 화면**
   - [ ] API 키 입력 UI (GPT/Gemini/Claude)
   - [ ] 키 검증 기능
@@ -135,7 +135,7 @@
   - [ ] Python 코드 작성
   - [ ] C# 연동
 
-#### AI 분석 화면
+#### AI 분석 화면 (무료 기능)
 - [ ] **분석 결과 UI**
   - [ ] 빌드 개요 섹션
   - [ ] 장점/단점 리스트
@@ -145,7 +145,17 @@
 - [ ] **AI 모델 선택**
   - [ ] 드롭다운 (GPT/Gemini/Claude)
   - [ ] 각 모델별 설정
-  - [ ] 비용 예상 표시
+  - [ ] 토큰 사용량 표시
+
+#### 프리미엄 기능
+- [ ] **3일 무료 체험**
+  - [ ] 체험 시작 UI
+  - [ ] 체험 기간 추적 (로컬 저장)
+  - [ ] 체험 종료 알림
+
+- [ ] **광고 제거 로직**
+  - [ ] 프리미엄 상태 확인
+  - [ ] 광고 표시/숨김 토글
 
 ---
 
@@ -232,10 +242,12 @@
 - [ ] Python 백엔드 연동
 - [ ] 무료 기능 (검색, 북마크)
 
-### Sprint 3 (Week 5-6): AI Features
-- [ ] API 키 설정 UI
-- [ ] AI 분석 화면
-- [ ] 3개 AI 모델 통합
+### Sprint 3 (Week 5-6): AI Features & Premium
+- [ ] API 키 설정 UI (무료 기능)
+- [ ] AI 분석 화면 (무료 기능)
+- [ ] 3개 AI 모델 통합 (무료 기능)
+- [ ] 3일 무료 체험 시스템
+- [ ] 광고 제거 로직
 
 ### Sprint 4 (Week 7-8): Monetization
 - [ ] 광고 SDK
@@ -261,9 +273,10 @@
 - Free features complete
 - Python integration stable
 
-### M3: AI Features (Target: 2026-01-01)
-- 3 AI models integrated
-- API key management
+### M3: AI Features & Premium (Target: 2026-01-01)
+- 3 AI models integrated (무료 기능)
+- API key management (무료 기능)
+- 3일 무료 체험 시스템
 - Premium features ready
 
 ### M4: Public Beta (Target: 2026-01-15)
