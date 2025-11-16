@@ -1,0 +1,27 @@
+# PathcraftAI Auto Patch Monitor - Crontab Configuration
+# Add this to your crontab with: crontab patch_monitor.crontab
+#
+# GGG Patch Schedule (NZ timezone):
+# - Major patches: Wed/Thu morning (9 AM NZ = 5 AM Korea = 4 PM UTC-1day)
+# - Hotfixes: Any time (usually within 24h of major patch)
+#
+# Strategy: Check every 6 hours to catch patches ASAP
+# Cost: ~$0.04/day (4 checks * $0.01 GPT-4 analysis)
+
+# Environment variables (set these in your shell profile or here)
+# DISCORD_WEBHOOK_PATCHES=your_webhook_url
+# YOUTUBE_API_KEY=your_youtube_key
+# PATHCRAFT_OPENAI_KEY=your_openai_key
+# TWITTER_BEARER_TOKEN=your_twitter_token (optional)
+# REDDIT_CLIENT_ID=your_reddit_id (optional)
+# REDDIT_CLIENT_SECRET=your_reddit_secret (optional)
+
+# Check every 6 hours (4 times per day)
+0 */6 * * * cd /path/to/Pathcraft-AI/src/PathcraftAI.Parser && /usr/bin/python3 patch_monitor_cron.py >> patch_monitor_cron.log 2>&1
+
+# Alternative: Check only during GGG patch windows (more cost-effective)
+# NZ Morning (9 AM NZ = 5 AM Korea)
+# 0 5 * * 3,4 cd /path/to/Pathcraft-AI/src/PathcraftAI.Parser && /usr/bin/python3 patch_monitor_cron.py >> patch_monitor_cron.log 2>&1
+
+# Alternative: Check every 12 hours (2 times per day, cheaper)
+# 0 0,12 * * * cd /path/to/Pathcraft-AI/src/PathcraftAI.Parser && /usr/bin/python3 patch_monitor_cron.py >> patch_monitor_cron.log 2>&1

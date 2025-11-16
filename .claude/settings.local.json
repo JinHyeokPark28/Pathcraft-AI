@@ -9,7 +9,10 @@
       "Bash(.venv/Scripts/python.exe:*)",
       "Bash(findstr:*)",
       "Bash(dir:*)",
-      "Bash(timeout /t 30)"
+      "Bash(timeout /t 30)",
+      "Bash(git add:*)",
+      "Bash(python -m pip install:*)",
+      "Bash(timeout 10 python:*)"
     ],
     "deny": [],
     "ask": []

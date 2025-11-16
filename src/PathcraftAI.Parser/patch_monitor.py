@@ -521,13 +521,104 @@ Focus on:
         logger.info(f"[Auto-Update] ⏸️ No update needed (severity: {severity})")
         return False
 
+    def send_discord_notification(
+        self,
+        webhook_url: str,
+        news_items: List[Dict[str, Any]]
+    ):
+        """
+        Send Discord webhook notification for new patches
+
+        Args:
+            webhook_url: Discord webhook URL
+            news_items: List of news items with analysis
+        """
+        try:
+            import requests
+
+            for item in news_items:
+                analysis = item.get('analysis', {})
+                severity = analysis.get('severity', 'unknown')
+                summary = analysis.get('summary', 'No summary available')
+                impact = ', '.join(analysis.get('impact', []))
+
+                # Severity emoji
+                severity_emoji = {
+                    'critical': '🔴',
+                    'major': '🟠',
+                    'minor': '🟡',
+                    'hotfix': '🔧',
+                    'unknown': '⚪'
+                }.get(severity, '⚪')
+
+                # Build embed
+                embed = {
+                    "title": f"{severity_emoji} POE Patch Detected",
+                    "description": item.get('title', item.get('text', 'Unknown'))[:200],
+                    "url": item.get('url', ''),
+                    "color": {
+                        'critical': 0xFF0000,  # Red
+                        'major': 0xFFA500,     # Orange
+                        'minor': 0xFFFF00,     # Yellow
+                        'hotfix': 0x00FF00,    # Green
+                        'unknown': 0x808080    # Gray
+                    }.get(severity, 0x808080),
+                    "fields": [
+                        {
+                            "name": "Severity",
+                            "value": severity.upper(),
+                            "inline": True
+                        },
+                        {
+                            "name": "Source",
+                            "value": item.get('source', 'Unknown').upper(),
+                            "inline": True
+                        },
+                        {
+                            "name": "Impact",
+                            "value": impact if impact else 'None specified',
+                            "inline": False
+                        },
+                        {
+                            "name": "Summary",
+                            "value": summary[:1024],
+                            "inline": False
+                        }
+                    ],
+                    "footer": {
+                        "text": "PathcraftAI Auto Patch Monitor"
+                    },
+                    "timestamp": datetime.utcnow().isoformat()
+                }
+
+                payload = {
+                    "username": "PathcraftAI Patch Monitor",
+                    "avatar_url": "https://web.poecdn.com/image/favicon/ogimage.png",
+                    "embeds": [embed]
+                }
+
+                response = requests.post(webhook_url, json=payload, timeout=10)
+                response.raise_for_status()
+
+                logger.info(f"[Discord] ✅ Notification sent: {severity} patch")
+
+        except Exception as e:
+            logger.error(f"[Discord] ❌ Failed to send notification: {e}")
+
 
 def main():
     """Test patch monitoring"""
+    import argparse
+
+    parser = argparse.ArgumentParser(description='PathcraftAI Patch Monitor')
+    parser.add_argument('--hours', type=int, default=24, help='Monitor last N hours (default: 24)')
+    parser.add_argument('--discord-webhook', type=str, help='Discord webhook URL for notifications')
+    args = parser.parse_args()
+
     monitor = PatchMonitor()
 
-    # Monitor last 24 hours
-    news = monitor.monitor_all_sources(hours_ago=24)
+    # Monitor last N hours
+    news = monitor.monitor_all_sources(hours_ago=args.hours)
 
     print("\n" + "="*60)
     print("Patch Monitoring Results")
@@ -545,6 +636,12 @@ def main():
             print("⚡ AUTO-UPDATE TRIGGERED")
 
     print("="*60)
+
+    # Send Discord notification if webhook provided
+    if args.discord_webhook and news:
+        print("\n[Discord] Sending notifications...")
+        monitor.send_discord_notification(args.discord_webhook, news)
+        print("[Discord] ✅ Notifications sent")
 
 
 if __name__ == '__main__':
