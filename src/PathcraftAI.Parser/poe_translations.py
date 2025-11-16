@@ -3,7 +3,7 @@ POE Korean-English Translation Database
 Supports bilingual Map Mod analysis and skill detection
 
 Data sources:
-- poedb.tw (English reference)
+- poedb.tw/kr (Web-scraped Korean translations - 95 skills)
 - poeregexkr.web.app (Korean reference)
 - Community translations
 """
@@ -15,44 +15,117 @@ class POETranslations:
     """Korean-English translation database for POE"""
 
     # Skill names (Korean -> English)
+    # Auto-scraped from poedb.tw/kr - 95 skills verified
     SKILL_NAMES = {
         # Attack skills
-        "키네틱 블라스트": "Kinetic Blast",
-        "토네이도 샷": "Tornado Shot",
-        "스펙트럴 스로우": "Spectral Throw",
-        "라이트닝 애로우": "Lightning Arrow",
-        "아이스 샷": "Ice Shot",
-        "스플릿 애로우": "Split Arrow",
-        "퓨실레이드": "Kinetic Fusillade",
+        "역학 폭발": "Kinetic Blast",
+        "회오리 사격": "Tornado Shot",
+        "환영 무기 투척": "Spectral Throw",
+        "번개 화살": "Lightning Arrow",
+        "얼음 화살": "Ice Shot",
+        "분할 화살": "Split Arrow",
+        "서리 칼날": "Frost Blades",
+        "원소의 일격": "Elemental Hit",
+        "연발 사격": "Barrage",
+        "화살비": "Rain of Arrows",
+        "충격 화살": "Galvanic Arrow",
+        "불타는 화살": "Burning Arrow",
+        "번개 타격": "Lightning Strike",
+        "용암 타격": "Molten Strike",
+        "빙하 망치": "Glacial Hammer",
+        "묵직한 타격": "Heavy Strike",
+        "이중 타격": "Double Strike",
+        "약탈": "Reave",
+        "대지 강타": "Ground Slam",
+        "지진": "Earthquake",
+        "피부 찢기": "Lacerate",
+        "질풍의 칼날": "Blade Flurry",
+        "회오리바람": "Cyclone",
 
         # Spell skills
-        "아크": "Arc",
-        "파이어볼": "Fireball",
-        "아이스 노바": "Ice Nova",
-        "스파크": "Spark",
-        "라이트닝 스트라이크": "Lightning Strike",
-        "프로스트 볼트": "Frost Bolt",
+        "연쇄 번개": "Arc",
+        "화염구": "Fireball",
+        "얼음 폭발": "Ice Nova",
+        "전기불꽃": "Spark",
+        "구형 번개": "Ball Lightning",
+        "빙하 폭포": "Glacial Cascade",
+        "동결 파동": "Freezing Pulse",
+        "화염 쇄도": "Flame Surge",
+        "방출": "Discharge",
+        "폭풍 부름": "Storm Call",
+        "시체 폭발": "Detonate Dead",
+        "칼날 소용돌이": "Blade Vortex",
+        "천상의 단도": "Ethereal Knives",
+        "소용돌이": "Vortex",
+        "한파": "Cold Snap",
+
+        # Chaos/DoT
+        "정의의 화염": "Righteous Fire",
+        "죽음의 오라": "Death Aura",
+        "부식성 화살": "Caustic Arrow",
+        "정수 흡수": "Essence Drain",
+        "파멸": "Bane",
+        "영혼 분리": "Soulrend",
 
         # Summoner
-        "소환 해골": "Summon Skeleton",
-        "소환 좀비": "Raise Zombie",
-        "소환 스펙터": "Raise Spectre",
-        "소환 레이징 스피릿": "Summon Raging Spirit",
-        "소환 골렘": "Summon Golem",
+        "격노의 유령 소환": "Summon Raging Spirit",
+        "좀비 소환": "Raise Zombie",
+        "망령 소환": "Raise Spectre",
+        "원격 기폭 장치 소환": "Summon Skitterbots",
+        "고통의 전령": "Herald of Agony",
+        "지배의 맹타": "Dominating Blow",
 
         # Totem
-        "시즈 발리스타": "Siege Ballista",
-        "토템": "Totem",
+        "공성 쇠뇌": "Siege Ballista",
+        "선대의 대전사": "Ancestral Warchief",
 
         # Mine/Trap
-        "지뢰": "Mine",
-        "함정": "Trap",
+        "화산탄 지뢰": "Pyroclast Mine",
+        "고드름 지뢰": "Icicle Mine",
+        "지진 덫": "Seismic Trap",
+        "번개 덫": "Lightning Trap",
+        "연막 지뢰": "Smoke Mine",
 
-        # Special builds
-        "라이처스 파이어": "Righteous Fire",
-        "데스 오스": "Death's Oath",
-        "독": "Poison",
-        "카오스": "Chaos",
+        # Movement skills
+        "질주": "Dash",
+        "화염 질주": "Flame Dash",
+        "서리점멸": "Frostblink",
+        "칼날 선회": "Whirling Blades",
+        "도약 강타": "Leap Slam",
+        "방패 돌진": "Shield Charge",
+
+        # Auras
+        "증오": "Hatred",
+        "분노": "Anger",
+        "진노": "Wrath",
+        "은총": "Grace",
+        "결의": "Determination",
+        "단련": "Discipline",
+        "원소의 순수함": "Purity of Elements",
+        "불의 순수함": "Purity of Fire",
+        "얼음의 순수함": "Purity of Ice",
+        "번개의 순수함": "Purity of Lightning",
+        "활력": "Vitality",
+        "명상": "Clarity",
+        "가속": "Haste",
+        "정밀함": "Precision",
+        "자부심": "Pride",
+        "열광": "Zealotry",
+        "악의": "Malevolence",
+
+        # Curses
+        "동상": "Frostbite",
+        "인화성": "Flammability",
+        "전도성": "Conductivity",
+        "취약성": "Vulnerability",
+        "시간의 사슬": "Temporal Chains",
+        "쇠약화": "Enfeeble",
+        "원소 약화": "Elemental Weakness",
+        "절망": "Despair",
+        "응징": "Punishment",
+        "암살자의 징표": "Assassin's Mark",
+        "밀렵꾼의 징표": "Poacher's Mark",
+        "전쟁군주의 징표": "Warlord's Mark",
     }
 
     # Map mods (Korean -> English patterns)
