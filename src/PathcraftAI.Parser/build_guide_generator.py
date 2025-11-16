@@ -142,7 +142,28 @@ def call_openai(prompt: str, model: str, api_key: Optional[str]) -> str:
         return guide
 
     except Exception as e:
-        print(f"[ERROR] OpenAI API call failed: {e}")
+        print(f"[ERROR] Model {model} failed: {e}")
+
+        # Fine-tuned 실패 시 GPT-4 Fallback
+        if model.startswith("ft:"):
+            print("[INFO] Fine-tuned model failed, falling back to gpt-4")
+            try:
+                response = client.chat.completions.create(
+                    model="gpt-4",
+                    messages=[
+                        {"role": "system", "content": "You are a Path of Exile build guide expert. Create comprehensive, accurate build guides based on the provided data."},
+                        {"role": "user", "content": prompt}
+                    ],
+                    temperature=0.7,
+                    max_tokens=4000
+                )
+                guide = response.choices[0].message.content
+                print(f"[OK] Fallback to GPT-4 successful")
+                return guide
+            except Exception as fallback_error:
+                print(f"[ERROR] GPT-4 fallback also failed: {fallback_error}")
+
+        # 최종 Fallback: Mock
         print("[INFO] Falling back to mock guide")
         return generate_mock_guide("", {})
 

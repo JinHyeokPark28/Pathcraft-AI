@@ -373,4 +373,34 @@
 
 ---
 
-**Next Action:** C# WPF 프로젝트 초기화 및 기본 UI 구현 시작
+## 📋 Phase 7: Fine-tuned LLM Integration (2025-11-16)
+
+### Phase 7.1: Smart Fallback Logic ✅
+- [x] **build_guide_generator.py Fallback 개선**
+  - [x] Fine-tuned 실패 시 GPT-4 Fallback
+  - [x] GPT-4 실패 시 Mock Fallback
+  - [x] 기존 Mock/GPT-4/Claude 기능 100% 유지
+  - [x] 테스트: Mock guide generation
+  - [x] requirements.txt에 openai, anthropic 추가
+
+### Phase 7.2: Fine-tuning 데이터 수집 (계획)
+- [ ] Reddit r/pathofexile 10,000 Q&A 수집
+- [ ] YouTube 자막 1,000개 빌드 가이드
+- [ ] POE Wiki 크롤링
+- [ ] poe.ninja 메타 데이터 통합
+- [ ] 데이터 정제 및 포맷팅
+
+### Phase 7.3: Fine-tuning 실행 (계획)
+- [ ] OpenAI Fine-tuning API 호출
+- [ ] 모델 학습 (비용: $129)
+- [ ] 품질 검증
+- [ ] 모델 ID 획득: ft:gpt-3.5-turbo:pathcraftai:poe-expert-v1
+
+### Phase 7.4: Expert Tier 베타 (계획)
+- [ ] 베타 테스터 10명 모집
+- [ ] 피드백 수집
+- [ ] Fine-tuned vs GPT-4 품질 비교
+
+---
+
+**Next Action:** Phase 7.2 - Fine-tuning 데이터 수집 시작
