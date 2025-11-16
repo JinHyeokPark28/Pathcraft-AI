@@ -196,36 +196,66 @@ PathcraftAI는 POE 플레이어를 위한 원스톱 빌드 솔루션입니다.
 
 ### 7.1 Tier Structure
 
-| Feature | Free | Supporter ($5/월) | Expert ($15/월) |
-|---------|------|-------------------|-----------------|
+| Feature | Free | Premium ($2/월) | Patron ($5/월) |
+|---------|------|-----------------|----------------|
 | YouTube 검색 | ✅ | ✅ | ✅ |
 | POB 링크 추출 | ✅ | ✅ | ✅ |
 | 가격 정보 | ✅ | ✅ | ✅ |
-| AI 가이드 | Mock | GPT-4/Claude (5회) | Fine-tuned (무제한) |
+| AI 가이드 | Mock | GPT-4 (10회/월) | Fine-tuned (무제한) |
+| OAuth 빌드 분석 | ❌ | ✅ (5개/월) | ✅ (무제한) |
 | 광고 | 있음 | 없음 | 없음 |
+| 우선 지원 | ❌ | ⚠️ (이메일) | ✅ (Discord) |
+| 베타 기능 | ❌ | ❌ | ✅ |
 
-### 7.2 Revenue Model
-- 광고: Google AdSense
-- Supporter: Patreon / Ko-fi
-- Expert: 자체 결제 (Stripe)
+### 7.2 Pricing
 
-### 7.3 Cost Analysis (MAU 1,000)
+**Monthly:**
+- Free: $0
+- Premium: $2/월
+- Patron: $5/월
+
+**Annual (17% discount):**
+- Premium: $20/년 (vs $24)
+- Patron: $50/년 (vs $60)
+
+### 7.3 Revenue Model
+
+**Payment Methods:**
+- Patreon (월간/연간)
+- Ko-fi (후원)
+- Stripe (자체 결제, 향후)
+
+### 7.4 Cost Analysis (MAU 1,000)
 
 **Revenue:**
-- Free Tier (900명): $300/월 (광고)
-- Supporter (50명 × $5): $250/월
-- Expert (10명 × $15): $150/월
-- **Total Revenue: $700/월**
+- Free Tier (900명): $600/월 (광고)
+- Premium (80명 × $2, 8% 전환): $160/월
+- Patron (20명 × $5, 2% 전환): $100/월
+- **Total Revenue: $860/월**
 
 **Costs:**
-- LLM API (Fine-tuned): $8.40/월
-  - Supporter: 50명 × 5회 × $0.03 = $7.50
-  - Expert: 10명 × 20회 × $0.0045 = $0.90
+- LLM API: $26.70/월
+  - Premium: 80명 × 10회 × $0.03 = $24.00
+  - Patron: 20명 × 30회 × $0.0045 = $2.70
 - Hosting: $0 (Desktop app)
-- Payment Processing: $35 (5%)
-- **Total Costs: $43.40/월**
+- Payment Processing: $13 (5% of $260)
+- **Total Costs: $39.70/월**
 
-**Profit: $656.60/월 (93% margin)**
+**Profit: $820.30/월 (95% margin)**
+
+### 7.5 Competitive Analysis
+
+| 제품 | 가격 | 주요 기능 | PathcraftAI 차별화 |
+|------|------|-----------|-------------------|
+| **POE Overlay** | Premium (비공개) | 인게임 가격 체크 | **AI 빌드 가이드** |
+| **Xiletrade** | 무료 | 가격 체크만 | **Fine-tuned LLM** |
+| **POE Vault** | 무료 (광고) | 수동 큐레이션 | **자동화 + 최신** |
+| **PathcraftAI** | **$0/$2/$5** | 통합 솔루션 | **OAuth + AI 분석** |
+
+**Pricing Strategy:**
+- Premium $2: POE Overlay 대비 **투명하고 저렴**
+- Patron $5: Fine-tuned LLM 독점 기능
+- Annual 17% 할인: 장기 고객 확보
 
 ---
 
