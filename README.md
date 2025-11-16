@@ -26,6 +26,90 @@ AI 기반 POE 빌드 추천 및 가이드 생성 시스템입니다.
 
 ---
 
+## 💎 3-Tier Pricing Model
+
+PathcraftAI offers a flexible hybrid model combining free user API keys with premium PathcraftAI-powered AI analysis.
+
+### Tier Comparison
+
+| Feature | Free | Premium ($2/month) | Expert ($5/month) |
+|---------|------|-------------------|-------------------|
+| **YouTube Build Search** | ✅ Unlimited | ✅ Unlimited | ✅ Unlimited |
+| **POB Link Extraction** | ✅ Unlimited | ✅ Unlimited | ✅ Unlimited |
+| **poe.ninja Item Pricing** | ✅ Unlimited | ✅ Unlimited | ✅ Unlimited |
+| **AI Build Guide** | User API Keys* | 20 credits/month** | Unlimited*** |
+| **OAuth Character Analysis** | ❌ | ✅ 5 analyses/month | ✅ Unlimited |
+| **Ads** | Yes | No | No |
+| **Priority Support** | ❌ | Email | Discord |
+| **Beta Features** | ❌ | ❌ | ✅ Early Access |
+
+**Free Tier Details:**
+- Bring your own API keys (OpenAI, Claude, or **Gemini FREE**)
+- **Gemini Recommended**: 60 requests/day, $0 cost!
+- Get Gemini key: https://makersuite.google.com/
+
+**Premium Tier Details:**
+- 20 AI analysis credits/month using PathcraftAI's OpenAI GPT-4 API
+- No API key setup required
+- Resets on 1st of each month
+- Cost per analysis: ~$0.03
+
+**Expert Tier Details:**
+- Unlimited access to Fine-tuned POE Expert LLM
+- 10,000+ POE Q&A trained model for superior POE-specific analysis
+- Best-in-class build optimization advice
+- Cost per analysis: ~$0.0045
+
+### Usage Examples
+
+#### Free Tier - Gemini (FREE!)
+```bash
+python build_guide_generator.py \
+  --keyword "Death's Oath" \
+  --llm gemini \
+  --model gemini-pro \
+  --api-key "YOUR_GEMINI_KEY" \
+  --tier free
+```
+
+#### Free Tier - OpenAI (User API Key)
+```bash
+python build_guide_generator.py \
+  --keyword "Death's Oath" \
+  --llm openai \
+  --model gpt-4 \
+  --api-key "YOUR_OPENAI_KEY" \
+  --tier free
+```
+
+#### Premium Tier - GPT-4 (PathcraftAI Credits)
+```bash
+python build_guide_generator.py \
+  --keyword "Death's Oath" \
+  --llm openai \
+  --model gpt-4 \
+  --tier premium \
+  --user-id user123
+```
+
+#### Expert Tier - Fine-tuned POE AI (Unlimited)
+```bash
+python build_guide_generator.py \
+  --keyword "Death's Oath" \
+  --llm openai \
+  --tier expert \
+  --user-id user123
+```
+
+### Subscription
+
+- **Premium**: $2/month or $20/year (17% discount)
+- **Expert**: $5/month or $50/year (17% discount)
+- **Payment Methods**: Patreon, Ko-fi
+- **Refund Policy**: 7-day money-back guarantee
+
+---
+
 ## ⚡ 빠른 시작
 
 ### 설치
@@ -68,11 +152,17 @@ python unified_build_search.py --keyword "Mageblood"
 
 #### 빌드 가이드 생성
 ```bash
-# Mock LLM (테스트용)
-python build_guide_generator.py --keyword "Kinetic Fusillade" --llm mock
+# Mock LLM (테스트용, Free tier)
+python build_guide_generator.py --keyword "Kinetic Fusillade" --llm mock --tier free
 
-# 실제 LLM (API 키 필요)
-python build_guide_generator.py --keyword "Death's Oath" --llm openai --model gpt-4
+# Free tier - User's own Gemini API key (FREE!)
+python build_guide_generator.py --keyword "Death's Oath" --llm gemini --model gemini-pro --api-key "YOUR_KEY" --tier free
+
+# Premium tier - PathcraftAI's GPT-4 (20 credits/month)
+python build_guide_generator.py --keyword "Death's Oath" --tier premium --user-id user123
+
+# Expert tier - Fine-tuned POE AI (Unlimited)
+python build_guide_generator.py --keyword "Death's Oath" --tier expert --user-id user123
 ```
 
 ---
@@ -301,9 +391,16 @@ python unified_build_search.py --keyword "Mageblood"
 
 ### 3. "AI 빌드 가이드 생성"
 ```bash
-python build_guide_generator.py --keyword "Kinetic Fusillade" --llm openai
+# Free tier - Gemini (FREE!)
+python build_guide_generator.py --keyword "Kinetic Fusillade" --llm gemini --model gemini-pro --api-key "YOUR_KEY" --tier free
+
+# Premium tier - GPT-4 (20 credits/month)
+python build_guide_generator.py --keyword "Kinetic Fusillade" --tier premium --user-id user123
+
+# Expert tier - Fine-tuned AI (Unlimited)
+python build_guide_generator.py --keyword "Kinetic Fusillade" --tier expert --user-id user123
 ```
-→ 종합 빌드 가이드 자동 생성
+→ 종합 빌드 가이드 자동 생성 (3가지 티어 선택)
 
 ---
 

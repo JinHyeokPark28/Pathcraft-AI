@@ -417,11 +417,61 @@
 - [ ] 품질 검증
 - [ ] 모델 ID 획득: ft:gpt-3.5-turbo:pathcraftai:poe-expert-v1
 
-### Phase 7.4: Expert Tier 베타 (계획)
+### Phase 7.2: Hybrid 3-Tier Model Implementation (완료 - 2025-11-16) ✅
+
+**3-Tier System:**
+- [x] Free tier: User API keys (Gemini/OpenAI/Claude)
+- [x] Premium tier: 20 AI credits/month ($2/month)
+- [x] Expert tier: Unlimited Fine-tuned AI ($5/month)
+
+**Code Implementation:**
+- [x] build_guide_generator.py tier parameter
+- [x] Gemini support (call_gemini function)
+- [x] Credit system (check/deduct functions)
+- [x] argparse validation (tier + user_id)
+- [x] requirements.txt (google-generativeai)
+
+**Testing:**
+- [x] Free tier + Mock (working)
+- [x] Free tier + Gemini (validation working)
+- [x] Free tier + OpenAI (validation working)
+- [x] Free tier + Claude (validation working)
+- [x] Premium tier validation (user_id required)
+- [x] Expert tier validation (user_id required)
+
+**Documentation:**
+- [x] README.md (3-tier pricing table + examples)
+- [x] PRD.md Section 3.2 (Core Features)
+- [x] PRD.md Section 7 (Pricing & Monetization)
+- [x] .env.example (comprehensive setup guide)
+- [x] PROGRESS.md (Phase 7.2 documentation)
+- [x] TASKS.md (this file)
+
+**Business Impact:**
+- [x] Revenue model: $512/month profit (MAU 1,000)
+- [x] Scalability: $2,666/month (MAU 5,000, 6 months)
+- [x] Conversion strategy: AI preview → Premium (7x ROI)
+
+### Phase 7.3: Fine-tuning 데이터 수집 (다음 단계)
+- [ ] Reddit r/pathofexile Q&A 수집 (10,000+ posts)
+- [ ] YouTube 자막 추출 (1,000+ videos)
+- [ ] POE Wiki 스크래핑
+- [ ] poe.ninja 메타 데이터
+- [ ] OpenAI Fine-tuning 포맷 변환
+
+### Phase 7.4: Fine-tuning 실행 (계획)
+- [ ] 학습 데이터 업로드
+- [ ] Fine-tuning job 실행
+- [ ] 품질 검증 (vs GPT-4)
+- [ ] 모델 ID 획득: ft:gpt-3.5-turbo:pathcraftai:poe-expert-v1
+- [ ] 비용: ~$129
+
+### Phase 7.5: Expert Tier 베타 (계획)
 - [ ] 베타 테스터 10명 모집
 - [ ] 피드백 수집
 - [ ] Fine-tuned vs GPT-4 품질 비교
+- [ ] 프롬프트 최적화
 
 ---
 
-**Next Action:** Phase 7.2 - Fine-tuning 데이터 수집 시작
+**Next Action:** Phase 7.3 - Fine-tuning 데이터 수집 시작 OR Phase 8 - C# WPF UI 개발

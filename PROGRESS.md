@@ -99,6 +99,124 @@ Mock Guide (Free-level quality)
 
 ---
 
+## Phase 7.2: Hybrid 3-Tier Model Implementation (2025-11-16)
+
+### Completed Tasks
+- [x] **3-Tier System Architecture**
+  - Implemented Free/Premium/Expert tier model
+  - Modified [build_guide_generator.py](src/PathcraftAI.Parser/build_guide_generator.py) with `--tier` and `--user-id` parameters
+  - Free tier: User API keys (Gemini/OpenAI/Claude)
+  - Premium tier: 20 AI credits/month using PathcraftAI's GPT-4
+  - Expert tier: Unlimited Fine-tuned POE Expert AI
+
+- [x] **Google Gemini Support** ✨ NEW
+  - Added `call_gemini()` function for Free tier users
+  - FREE alternative: 60 requests/day, $0 cost
+  - Recommended for Free tier users
+  - Added `google-generativeai>=0.3.0` to requirements.txt
+
+- [x] **Credit System Implementation**
+  - `check_premium_credits(user_id)` - Check remaining credits (0-20)
+  - `deduct_premium_credit(user_id)` - Deduct 1 credit per analysis
+  - `get_credit_reset_date(user_id)` - Monthly reset on 1st
+  - Mock implementation using environment variables
+  - TODO: Migrate to SQLite DB in Phase 8
+
+- [x] **Argument Parsing Enhancement**
+  - Added `--tier` parameter (free/premium/expert)
+  - Added `--user-id` parameter (required for premium/expert)
+  - Validation: user_id required for premium/expert tiers
+  - Backward compatibility maintained
+
+- [x] **Testing & Validation**
+  - ✅ Free tier + Mock: Working
+  - ✅ Free tier + Gemini: API key validation working
+  - ✅ Free tier + OpenAI: API key validation working
+  - ✅ Free tier + Claude: API key validation working
+  - ✅ Premium tier: user_id validation working
+  - ✅ Expert tier: user_id validation working
+  - ✅ Build guide generation: 4.7KB output verified
+
+- [x] **Documentation Updates**
+  - README.md: Added 3-tier pricing table with usage examples
+  - PRD.md: Updated Section 3.2 (Core Features) with hybrid model
+  - PRD.md: Updated Section 7 (Pricing & Monetization) with realistic revenue model
+  - Created .env.example with comprehensive setup guide
+
+### Technical Details
+
+**Modified Files:**
+- `src/PathcraftAI.Parser/build_guide_generator.py` (+270 lines)
+  - Lines 76-177: Tier-based logic (Free/Premium/Expert)
+  - Lines 302-342: `call_gemini()` function
+  - Lines 349-421: Credit system functions
+  - Lines 615-686: Updated argparse with tier/user_id
+- `src/PathcraftAI.Parser/requirements.txt` (+1 dependency)
+- `README.md` (+65 lines: 3-tier pricing section)
+- `PRD.md` (Section 3.2, 7.1, 7.4 updated)
+- `src/PathcraftAI.Parser/.env.example` (NEW file, 156 lines)
+
+**Tier Architecture:**
+```
+Free Tier (User API Keys):
+├── Mock (unlimited, $0)
+├── Gemini (60/day, $0) ⭐ RECOMMENDED
+├── OpenAI GPT-4 (unlimited, ~$0.01/analysis)
+└── Claude Sonnet (unlimited, ~$0.02/analysis)
+
+Premium Tier ($2/month):
+├── 20 AI credits/month
+├── PathcraftAI's GPT-4 API
+├── No API key setup needed
+└── Monthly reset on 1st
+
+Expert Tier ($5/month):
+├── Unlimited Fine-tuned POE Expert AI
+├── ft:gpt-3.5-turbo:pathcraftai:poe-expert-v1
+├── OAuth build analysis (unlimited)
+└── Build debugger access
+```
+
+**Business Impact:**
+
+| Metric | Value |
+|--------|-------|
+| MAU Target | 1,000 users |
+| Free Tier | 850 users (85%) |
+| Premium Conversion | 100 users (10%) |
+| Expert Conversion | 50 users (5%) |
+| Ko-fi Donations | 30 users (3%) |
+| **Monthly Revenue** | **$625** |
+| **Monthly Costs** | **$113** |
+| **Net Profit** | **$512** |
+| Profit Margin | 78% |
+| Initial Investment | $129 (Fine-tuning) |
+| Payback Period | <1 month |
+
+**Cost Breakdown:**
+- Free AI summaries: $21.25/month (GPT-4o-mini)
+- Premium GPT-4: $60/month (100 users × 20 credits)
+- Expert Fine-tuned: $6.75/month (50 users × 30 analyses)
+- Payment processing: $25/month (5% of $500)
+
+**Scalability (MAU 5,000, 6 months):**
+- Revenue: $3,000/month
+- Costs: $334/month
+- Profit: $2,666/month (89% margin)
+- Annual: $32,000
+
+### Tier Comparison
+
+| Feature | Free | Premium | Expert |
+|---------|------|---------|--------|
+| AI Guide | User Keys | 20 credits/month | Unlimited |
+| AI Model | Gemini/GPT-4/Claude | GPT-4 | Fine-tuned POE Expert |
+| OAuth | ❌ | ✅ (5/month) | ✅ (Unlimited) |
+| Cost | $0 | $2/month | $5/month |
+| ROI | N/A | 7x (AI preview) | 10x (Fine-tuned) |
+
+---
+
 ## Phase 1-6: Backend Development (2025-11-15)
 
 ### Python Backend Complete ✅

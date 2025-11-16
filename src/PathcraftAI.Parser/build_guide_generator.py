@@ -15,16 +15,20 @@ def generate_build_guide_with_llm(
     llm_provider: str = "openai",
     model: str = "gpt-4",
     api_key: Optional[str] = None,
+    tier: str = "free",
+    user_id: Optional[str] = None,
     output_file: Optional[str] = None
 ) -> str:
     """
-    LLM을 사용하여 빌드 가이드 생성
+    LLM을 사용하여 빌드 가이드 생성 (3-Tier 하이브리드 모델)
 
     Args:
         keyword: 빌드 키워드 (예: "Mageblood", "Death's Oath")
-        llm_provider: LLM 제공자 ("openai", "anthropic", "mock")
-        model: 사용할 모델 ("gpt-4", "claude-3-opus", etc.)
-        api_key: API 키 (None이면 환경변수에서 읽음)
+        llm_provider: LLM 제공자 ("openai", "anthropic", "gemini", "mock")
+        model: 사용할 모델 ("gpt-4", "claude-3-opus", "gemini-pro", etc.)
+        api_key: API 키 (Free tier: 사용자 키 필수, Premium/Expert: 무시됨)
+        tier: 사용자 Tier ("free", "premium", "expert")
+        user_id: 사용자 ID (Premium/Expert tier 필수)
         output_file: 출력 파일 경로
 
     Returns:
@@ -32,11 +36,14 @@ def generate_build_guide_with_llm(
     """
 
     print("=" * 80)
-    print("BUILD GUIDE GENERATOR WITH LLM")
+    print("BUILD GUIDE GENERATOR WITH LLM (3-Tier Hybrid Model)")
     print("=" * 80)
     print(f"Keyword: {keyword}")
+    print(f"Tier: {tier.upper()}")
     print(f"LLM Provider: {llm_provider}")
     print(f"Model: {model}")
+    if user_id:
+        print(f"User ID: {user_id}")
     print("=" * 80)
     print()
 
@@ -66,22 +73,108 @@ def generate_build_guide_with_llm(
     print(f"[OK] Prompt generated: {len(prompt)} characters")
     print()
 
-    # Step 2: LLM 호출
-    print(f"[Step 2/3] Calling {llm_provider} {model}...")
+    # Step 2: LLM 호출 (Tier별 분기)
+    print(f"[Step 2/3] Calling {llm_provider} {model}... (Tier: {tier})")
 
-    if llm_provider == "mock":
-        # 테스트용 Mock 응답
-        guide = generate_mock_guide(keyword, {})
-        print("[OK] Mock guide generated (for testing)")
+    # Tier별 로직
+    if tier == "free":
+        # Free tier: 사용자 API 키 필수
+        print("[Tier: FREE] Using user-provided API key")
 
-    elif llm_provider == "openai":
-        guide = call_openai(prompt, model, api_key)
+        if llm_provider == "mock":
+            guide = generate_mock_guide(keyword, {})
+            print("[OK] Mock guide generated (for testing)")
 
-    elif llm_provider == "anthropic":
-        guide = call_anthropic(prompt, model, api_key)
+        elif llm_provider == "openai":
+            if api_key is None:
+                raise ValueError(
+                    "Free tier requires user API key.\n"
+                    "Get OpenAI key: https://platform.openai.com/api-keys\n"
+                    "Cost: ~$0.01/analysis"
+                )
+            guide = call_openai(prompt, model, api_key)
+
+        elif llm_provider == "anthropic":
+            if api_key is None:
+                raise ValueError(
+                    "Free tier requires user API key.\n"
+                    "Get Claude key: https://console.anthropic.com/\n"
+                    "Cost: ~$0.02/analysis"
+                )
+            guide = call_anthropic(prompt, model, api_key)
+
+        elif llm_provider == "gemini":
+            if api_key is None:
+                raise ValueError(
+                    "Free tier requires user API key.\n"
+                    "Get Gemini key: https://makersuite.google.com/ (FREE!)\n"
+                    "Cost: FREE (60 requests/day)"
+                )
+            guide = call_gemini(prompt, model, api_key)
+
+        else:
+            raise ValueError(f"Unknown LLM provider: {llm_provider}")
+
+    elif tier == "premium":
+        # Premium tier: 월 20회 크레딧, 우리 API 키 사용
+        print("[Tier: PREMIUM] Using PathcraftAI API credits")
+
+        if user_id is None:
+            raise ValueError("Premium tier requires user_id")
+
+        # 크레딧 체크
+        credits_remaining = check_premium_credits(user_id)
+        if credits_remaining <= 0:
+            raise ValueError(
+                f"Premium credits exhausted (20/20 used this month).\n"
+                f"Credits reset on: {get_credit_reset_date(user_id)}\n"
+                f"Upgrade to Expert tier for unlimited AI!\n"
+                f"Or use Free tier with your own API key."
+            )
+
+        print(f"[INFO] Premium credits: {credits_remaining}/20 remaining")
+
+        # 우리 OpenAI API 키 사용
+        our_api_key = os.environ.get('PATHCRAFT_OPENAI_KEY')
+        if not our_api_key:
+            raise ValueError(
+                "Server configuration error: PATHCRAFT_OPENAI_KEY not set.\n"
+                "Please contact support."
+            )
+
+        # Premium은 항상 GPT-4 사용
+        guide = call_openai(prompt, "gpt-4", our_api_key)
+
+        # 크레딧 차감
+        deduct_premium_credit(user_id)
+        print(f"[OK] Premium credit used. Remaining: {credits_remaining - 1}/20")
+
+    elif tier == "expert":
+        # Expert tier: Fine-tuned 무제한, 우리 API 키 사용
+        print("[Tier: EXPERT] Using Fine-tuned POE Expert AI (unlimited)")
+
+        if user_id is None:
+            raise ValueError("Expert tier requires user_id")
+
+        # 우리 OpenAI API 키 사용
+        our_api_key = os.environ.get('PATHCRAFT_OPENAI_KEY')
+        if not our_api_key:
+            raise ValueError(
+                "Server configuration error: PATHCRAFT_OPENAI_KEY not set.\n"
+                "Please contact support."
+            )
+
+        # Fine-tuned 모델 사용
+        fine_tuned_model = "ft:gpt-3.5-turbo:pathcraftai:poe-expert-v1"
+        print(f"[INFO] Using Fine-tuned model: {fine_tuned_model}")
+
+        guide = call_openai(prompt, fine_tuned_model, our_api_key)
+
+        print(f"[OK] Expert tier: Fine-tuned POE Expert AI analysis complete")
+        print(f"     Unlimited usage (no credits deducted)")
 
     else:
-        raise ValueError(f"Unknown LLM provider: {llm_provider}")
+        raise ValueError(f"Invalid tier: {tier}. Must be 'free', 'premium', or 'expert'")
 
     print()
 
@@ -204,6 +297,128 @@ def call_anthropic(prompt: str, model: str, api_key: Optional[str]) -> str:
         print(f"[ERROR] Anthropic API call failed: {e}")
         print("[INFO] Falling back to mock guide")
         return generate_mock_guide("", {})
+
+
+def call_gemini(prompt: str, model: str, api_key: Optional[str]) -> str:
+    """Google Gemini API 호출 (Free tier 추천!)"""
+    try:
+        import google.generativeai as genai
+    except ImportError:
+        print("[ERROR] google-generativeai package not installed.")
+        print("       Run: pip install google-generativeai")
+        print("[INFO] Falling back to mock guide")
+        return generate_mock_guide("", {})
+
+    if api_key is None:
+        api_key = os.environ.get('GEMINI_API_KEY')
+        if not api_key:
+            print("[ERROR] GEMINI_API_KEY not found in environment")
+            print("[INFO] Get your FREE Gemini API key:")
+            print("       https://makersuite.google.com/")
+            print("       Daily limit: 60 requests (FREE!)")
+            print("[INFO] Falling back to mock guide")
+            return generate_mock_guide("", {})
+
+    try:
+        genai.configure(api_key=api_key)
+        model_instance = genai.GenerativeModel(model)
+
+        response = model_instance.generate_content(prompt)
+        guide = response.text
+
+        print(f"[OK] Gemini {model} response received")
+        print(f"     Cost: FREE (Daily limit: 60 requests)")
+        print(f"     Recommended for Free tier users!")
+
+        return guide
+
+    except Exception as e:
+        print(f"[ERROR] Gemini API call failed: {e}")
+        print("[INFO] Common issues:")
+        print("       - Daily limit exceeded (60 requests/day)")
+        print("       - Invalid API key")
+        print("       - Region restrictions")
+        print("[INFO] Falling back to mock guide")
+        return generate_mock_guide("", {})
+
+
+# ============================================================================
+# Credit System Functions (Premium/Expert Tier)
+# ============================================================================
+
+def check_premium_credits(user_id: str) -> int:
+    """
+    Premium 크레딧 확인
+
+    Args:
+        user_id: 사용자 ID
+
+    Returns:
+        남은 크레딧 (0~20)
+
+    Note:
+        현재는 Mock 구현. 실제로는 SQLite DB 연동 필요.
+        Phase 8 (C# WPF UI)에서 DB 구현 예정.
+    """
+    # TODO: 실제 DB 구현
+    # 지금은 환경변수로 테스트
+    mock_credits = os.environ.get(f'MOCK_CREDITS_{user_id}', '15')
+    try:
+        credits = int(mock_credits)
+        return max(0, min(20, credits))  # 0~20 범위
+    except ValueError:
+        return 15  # 기본값: 15/20
+
+
+def deduct_premium_credit(user_id: str):
+    """
+    Premium 크레딧 1개 차감
+
+    Args:
+        user_id: 사용자 ID
+
+    Note:
+        현재는 Mock 구현. 실제로는 SQLite DB 업데이트 필요.
+        Phase 8 (C# WPF UI)에서 DB 구현 예정.
+    """
+    # TODO: 실제 DB 구현
+    # 지금은 환경변수 업데이트 (테스트용)
+    current_credits = check_premium_credits(user_id)
+    new_credits = max(0, current_credits - 1)
+
+    # 실제 구현 예시:
+    # db = sqlite3.connect('pathcraft.db')
+    # db.execute(
+    #     "UPDATE users SET credits_remaining = ? WHERE user_id = ?",
+    #     (new_credits, user_id)
+    # )
+    # db.commit()
+
+    print(f"[DEBUG] Credits deducted for {user_id}: {current_credits} -> {new_credits}")
+
+
+def get_credit_reset_date(user_id: str) -> str:
+    """
+    크레딧 리셋 날짜 반환 (매달 1일)
+
+    Args:
+        user_id: 사용자 ID
+
+    Returns:
+        리셋 날짜 문자열 (YYYY-MM-DD)
+
+    Note:
+        현재는 Mock 구현. 실제로는 DB에서 가져오기.
+    """
+    # TODO: 실제 DB 구현
+    # 다음 달 1일 계산
+    now = datetime.now()
+    if now.month == 12:
+        next_month = datetime(now.year + 1, 1, 1)
+    else:
+        next_month = datetime(now.year, now.month + 1, 1)
+
+    return next_month.strftime('%Y-%m-%d')
 
 
 def generate_mock_guide(keyword: str, analysis_data: dict) -> str:
@@ -397,24 +612,75 @@ The Keepers of the Flame league introduces:
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description='Build Guide Generator with LLM')
-    parser.add_argument('--keyword', type=str, required=True, help='Build keyword')
+    parser = argparse.ArgumentParser(
+        description='Build Guide Generator with LLM (3-Tier Hybrid Model)',
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        epilog="""
+Examples:
+  # Free tier (Mock, no API key needed)
+  python build_guide_generator.py --keyword "Death's Oath" --llm mock
+
+  # Free tier (Gemini, FREE API key!)
+  python build_guide_generator.py --keyword "Death's Oath" \\
+      --llm gemini --model gemini-pro --api-key YOUR_GEMINI_KEY
+
+  # Free tier (OpenAI, user's API key)
+  python build_guide_generator.py --keyword "Death's Oath" \\
+      --llm openai --model gpt-4 --api-key YOUR_OPENAI_KEY
+
+  # Premium tier (our API, 20 credits/month)
+  python build_guide_generator.py --keyword "Death's Oath" \\
+      --tier premium --user-id user123
+
+  # Expert tier (Fine-tuned, unlimited)
+  python build_guide_generator.py --keyword "Death's Oath" \\
+      --tier expert --user-id user456
+
+Get FREE Gemini API key: https://makersuite.google.com/
+        """
+    )
+
+    parser.add_argument('--keyword', type=str, required=True,
+                       help='Build keyword (e.g., "Death\'s Oath", "Mageblood")')
+
     parser.add_argument('--llm', type=str, default='mock',
-                       choices=['openai', 'anthropic', 'mock'],
-                       help='LLM provider')
+                       choices=['openai', 'anthropic', 'gemini', 'mock'],
+                       help='LLM provider (free tier only)')
+
     parser.add_argument('--model', type=str, default='gpt-4',
-                       help='Model name (gpt-4, claude-3-opus, etc.)')
+                       help='Model name: gpt-4, claude-3-opus, gemini-pro, etc.')
+
     parser.add_argument('--api-key', type=str, default=None,
-                       help='API key (optional, reads from env if not provided)')
+                       help='API key (free tier: required, premium/expert: ignored)')
+
+    parser.add_argument('--tier', type=str, default='free',
+                       choices=['free', 'premium', 'expert'],
+                       help='User tier: free (user API key), premium ($2/month, 20 credits), expert ($5/month, unlimited)')
+
+    parser.add_argument('--user-id', type=str, default=None,
+                       help='User ID (required for premium/expert tiers)')
+
     parser.add_argument('--output', type=str, default=None,
-                       help='Output file path')
+                       help='Output file path (default: build_guides/{keyword}_guide.md)')
 
     args = parser.parse_args()
+
+    # Validation
+    if args.tier in ['premium', 'expert'] and args.user_id is None:
+        parser.error(f"--user-id is required for {args.tier} tier")
+
+    if args.tier == 'free' and args.llm not in ['mock'] and args.api_key is None:
+        print(f"[WARNING] Free tier with {args.llm} requires --api-key")
+        print(f"          Get your FREE Gemini key: https://makersuite.google.com/")
+        print(f"          Or use --llm mock for testing")
+        print()
 
     generate_build_guide_with_llm(
         keyword=args.keyword,
         llm_provider=args.llm,
         model=args.model,
         api_key=args.api_key,
+        tier=args.tier,
+        user_id=args.user_id,
         output_file=args.output
     )
