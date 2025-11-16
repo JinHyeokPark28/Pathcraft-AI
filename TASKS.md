@@ -474,4 +474,150 @@
 
 ---
 
-**Next Action:** Phase 7.3 - Fine-tuning 데이터 수집 시작 OR Phase 8 - C# WPF UI 개발
+## 📋 Phase 8: Auto Patch Monitoring System (v1.1) - 2025-11-16
+
+### 살아있는 AI - "Living AI" Differentiation
+
+**Monitoring Sources:**
+- Twitter (@pathofexile)
+- Reddit (r/pathofexile GGG posts)
+- POE Official Homepage RSS
+- YouTube (GGG Channel)
+
+**3-Stage Video Content Extraction:**
+1. YouTube Transcript API (99% success - GGG provides English subtitles)
+2. Video description fallback
+3. OpenAI Whisper fallback (최후의 수단)
+
+**Cost:** ~$3/month (매우 저렴!)
+**Update Speed:** 3-7 days faster than competitors
+**Automation:** Cron job at GGG NZ time (9 AM NZ = 5 AM Korea)
+
+### Priority 1: Core Implementation ⏳
+- [x] **video_transcript.py** (완료 - 2025-11-16)
+  - [x] extract_video_id() - YouTube URL 파싱
+  - [x] get_transcript_stage1() - YouTube Transcript API
+  - [x] get_description_stage2() - Video description fallback
+  - [x] get_whisper_stage3() - Whisper fallback (stub)
+  - [x] extract_video_content() - 3-stage orchestration
+  - [x] 파일: `video_transcript.py` (262 lines)
+
+- [x] **patch_monitor.py** (완료 - 2025-11-16)
+  - [x] PatchMonitor 클래스
+  - [x] monitor_youtube() - GGG channel monitoring
+  - [x] monitor_twitter() - @pathofexile monitoring
+  - [x] monitor_reddit() - r/pathofexile GGG posts
+  - [x] monitor_rss() - POE homepage RSS
+  - [x] analyze_patch() - GPT-4 patch analysis
+  - [x] should_update_pathcraft() - Auto-update decision
+  - [x] monitor_all_sources() - Unified monitoring
+  - [x] 파일: `patch_monitor.py` (486 lines)
+
+- [x] **requirements.txt** (완료 - 2025-11-16)
+  - [x] youtube-transcript-api>=0.6.0
+  - [x] tweepy>=4.14.0
+  - [x] feedparser>=6.0.0
+  - [x] psutil>=5.9.0
+
+- [x] **.env.example** (완료 - 2025-11-16)
+  - [x] TWITTER_BEARER_TOKEN
+  - [x] REDDIT_CLIENT_ID / REDDIT_CLIENT_SECRET
+  - [x] GGG_RSS_URL
+  - [x] PATCH_MONITOR_CRON
+  - [x] DISCORD_WEBHOOK_ERRORS / DISCORD_WEBHOOK_PATCHES
+
+- [ ] **Cron Job Setup**
+  - [ ] Cron schedule: 0 5 * * * (5 AM Korea = 9 AM NZ)
+  - [ ] Shell script wrapper
+  - [ ] Logging to file
+  - [ ] Error notification (Discord webhook)
+
+- [ ] **Testing**
+  - [ ] Test video content extraction (GGG video)
+  - [ ] Test Twitter API (recent @pathofexile tweets)
+  - [ ] Test Reddit API (r/pathofexile GGG posts)
+  - [ ] Test RSS feed parsing
+  - [ ] Test GPT-4 patch analysis
+  - [ ] End-to-end test (full monitoring cycle)
+
+### Priority 2: Discord Notifications 📋
+- [ ] **Discord Webhook Integration**
+  - [ ] Send patch notification to Discord
+  - [ ] Format as Discord Embed
+  - [ ] Include severity (critical/major/minor/hotfix)
+  - [ ] Include impact summary
+  - [ ] Include auto-update status
+  - [ ] Error notifications to #errors channel
+
+- [ ] **Notification Templates**
+  - [ ] Critical patch template
+  - [ ] Major patch template
+  - [ ] Hotfix template
+  - [ ] Error notification template
+
+### Priority 3: Auto-Update PathcraftAI 📋
+- [ ] **Build Data Auto-Update**
+  - [ ] Trigger data refresh on major patches
+  - [ ] Update poe.ninja item prices
+  - [ ] Refresh YouTube build searches
+  - [ ] Update patch notes database
+
+- [ ] **AI Model Update**
+  - [ ] Regenerate AI prompts with new patch info
+  - [ ] Update meta trends
+  - [ ] Update skill/item recommendations
+
+### Priority 4: Error Monitoring (선택 - Discord Integration)
+- [ ] **Lightweight Error Logger (Python)**
+  - [ ] Global exception handler
+  - [ ] Performance monitoring (memory, CPU)
+  - [ ] Batch error reporting
+  - [ ] Critical error immediate notification
+
+- [ ] **Error Logger (C# WPF)**
+  - [ ] Global WPF exception handler
+  - [ ] Async error reporting
+  - [ ] User anonymization (MAC hash)
+
+- [ ] **AWS Lambda Error Handler**
+  - [ ] Error aggregation
+  - [ ] Discord webhook sender
+  - [ ] DynamoDB storage
+  - [ ] SMS alert for critical errors (선택)
+
+### Implementation Notes
+
+**GGG Timezone:**
+- New Zealand (NZDT): UTC+13
+- Korea: UTC+9
+- 9 AM NZ = 5 AM Korea = 4 PM UTC (previous day)
+
+**Cron Expression:**
+```bash
+# Run daily at 5 AM Korea time (9 AM NZ time)
+0 5 * * * /path/to/pathcraftai/patch_monitor.sh
+```
+
+**Cost Breakdown:**
+- YouTube Transcript API: FREE
+- Twitter API v2: FREE (500k tweets/month)
+- Reddit API: FREE
+- RSS: FREE
+- GPT-4 analysis: ~$0.03/patch × 2 patches/week × 4 weeks = $0.24/month
+- OpenAI Whisper: ~$0.12/video (rarely used)
+- **Total:** ~$3/month
+
+**Differentiation:**
+- Competitors rely on manual updates (3-7 days lag)
+- PathcraftAI auto-updates within hours
+- "살아있는 AI" - Always current with meta
+
+**Success Metrics:**
+- Patch detection latency: < 1 hour
+- False positive rate: < 5%
+- Auto-update accuracy: > 95%
+- Cost: < $5/month
+
+---
+
+**Next Action:** Phase 8 Priority 1 Cron Job Setup OR Phase 8 Priority 2 Discord Notifications

@@ -39,7 +39,7 @@ PathcraftAI offers a flexible hybrid model combining free user API keys with pre
 | **poe.ninja Item Pricing** | ✅ Unlimited | ✅ Unlimited | ✅ Unlimited |
 | **AI Build Guide** | User API Keys* | 20 credits/month** | Unlimited*** |
 | **OAuth Character Analysis** | ❌ | ✅ 5 analyses/month | ✅ Unlimited |
-| **Ads** | Yes | No | No |
+| **Ads** | No | No | No |
 | **Priority Support** | ❌ | Email | Discord |
 | **Beta Features** | ❌ | ❌ | ✅ Early Access |
 
