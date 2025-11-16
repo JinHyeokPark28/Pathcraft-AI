@@ -14,6 +14,11 @@ env/
 *.key
 config/api_keys.json
 
+# OAuth Tokens (보안!)
+poe_token.json
+*.token
+src/PathcraftAI.Parser/poe_token.json
+
 # Build data (optional - can be regenerated)
 build_data/
 game_data/

@@ -127,6 +127,45 @@ python build_guide_generator.py --keyword "Death's Oath" --llm openai --model gp
 
 ## 🔧 설정
 
+### 🔐 OAuth Authentication (GGG 공식 승인!)
+
+PathcraftAI is **officially approved** by Grinding Gear Games for OAuth access.
+
+**Approval Date:** June 7, 2025
+**Client Type:** Public Client
+**Scopes:** account:profile, account:characters, account:stashes, account:league_accounts
+
+#### Setup
+
+1. Get your OAuth credentials:
+   - Visit https://www.pathofexile.com/my-account/applications
+   - Note your Client ID
+
+2. Set environment variables:
+   ```bash
+   # Windows
+   setx POE_OAUTH_CLIENT_ID "your_client_id"
+   setx POE_OAUTH_REDIRECT_URI "http://localhost:12345/oauth_callback"
+
+   # macOS/Linux
+   export POE_OAUTH_CLIENT_ID="your_client_id"
+   export POE_OAUTH_REDIRECT_URI="http://localhost:12345/oauth_callback"
+   ```
+
+3. Run OAuth authentication:
+   ```bash
+   cd src/PathcraftAI.Parser
+   python poe_oauth.py --client-id YOUR_CLIENT_ID --save
+   ```
+
+4. Token saved to `poe_token.json` (valid for 30 days)
+
+#### Disclaimer
+
+> This product isn't affiliated with or endorsed by Grinding Gear Games in any way.
+
+---
+
 ### YouTube API (선택사항)
 YouTube 검색을 실제로 사용하려면 API 키가 필요합니다.
 
