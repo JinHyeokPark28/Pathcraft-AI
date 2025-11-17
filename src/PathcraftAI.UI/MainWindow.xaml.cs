@@ -230,6 +230,9 @@ namespace PathcraftAI.UI
                         ResultsPanel.Children.Add(buildCard);
                     }
                 }
+
+                // Popular Builds 섹션 추가 (YouTube 빌드 가이드)
+                DisplayPopularBuilds();
             }
             catch (Exception ex)
             {
@@ -640,6 +643,97 @@ namespace PathcraftAI.UI
             }
 
             return string.Join(" | ", infoParts);
+        }
+
+        private void DisplayPopularBuilds()
+        {
+            try
+            {
+                // popular_builds JSON 파일 로드
+                var parserDir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..", "..", "..", "..", "PathcraftAI.Parser");
+                var buildDataPath = Path.Combine(parserDir, "build_data", $"popular_builds_{_currentLeague}.json");
+
+                // Standard 리그로 폴백
+                if (!File.Exists(buildDataPath))
+                {
+                    buildDataPath = Path.Combine(parserDir, "build_data", "popular_builds_Standard.json");
+                }
+
+                if (!File.Exists(buildDataPath))
+                {
+                    return; // 파일이 없으면 섹션 표시 안 함
+                }
+
+                var jsonContent = File.ReadAllText(buildDataPath, System.Text.Encoding.UTF8);
+                var popularData = JObject.Parse(jsonContent);
+
+                var youtubeBuilds = popularData["youtube_builds"] as JArray;
+
+                if (youtubeBuilds == null || youtubeBuilds.Count == 0)
+                {
+                    return; // 빌드가 없으면 섹션 표시 안 함
+                }
+
+                // 섹션 헤더
+                var sectionHeader = new TextBlock
+                {
+                    Text = "🎬 Popular Build Guides from YouTube",
+                    FontSize = 18,
+                    FontWeight = FontWeights.Bold,
+                    Foreground = new SolidColorBrush(Color.FromRgb(200, 120, 50)),
+                    Margin = new Thickness(0, 24, 0, 4)
+                };
+                ResultsPanel.Children.Add(sectionHeader);
+
+                var sectionSubtitle = new TextBlock
+                {
+                    Text = $"Based on POE.Ninja data and YouTube community guides (League: {popularData["league_version"]})",
+                    FontSize = 12,
+                    Foreground = new SolidColorBrush(Color.FromRgb(180, 180, 180)),
+                    Margin = new Thickness(0, 0, 0, 12)
+                };
+                ResultsPanel.Children.Add(sectionSubtitle);
+
+                // 빌드 키워드별로 그룹화
+                var buildGroups = youtubeBuilds
+                    .Cast<JObject>()
+                    .GroupBy(b => b["build_keyword"]?.ToString() ?? "Other")
+                    .Take(5); // 상위 5개 키워드만
+
+                foreach (var group in buildGroups)
+                {
+                    var keyword = group.Key;
+
+                    // 키워드 헤더
+                    var keywordHeader = new TextBlock
+                    {
+                        Text = $"🔸 {keyword} Builds",
+                        FontSize = 14,
+                        FontWeight = FontWeights.SemiBold,
+                        Foreground = new SolidColorBrush(Color.FromRgb(255, 200, 100)),
+                        Margin = new Thickness(0, 12, 0, 8)
+                    };
+                    ResultsPanel.Children.Add(keywordHeader);
+
+                    // 각 키워드의 빌드 카드 (최대 3개)
+                    foreach (var build in group.Take(3))
+                    {
+                        // channel_title 또는 channel 필드를 channel_title로 통일
+                        if (build["channel"] != null && build["channel_title"] == null)
+                        {
+                            build["channel_title"] = build["channel"];
+                        }
+
+                        var buildCard = CreateRecommendationCard(build, "youtube");
+                        ResultsPanel.Children.Add(buildCard);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // 에러가 발생해도 전체 UI를 망가뜨리지 않음
+                Debug.WriteLine($"Failed to load popular builds: {ex.Message}");
+            }
         }
 
         private void ShowNoRecommendations()
