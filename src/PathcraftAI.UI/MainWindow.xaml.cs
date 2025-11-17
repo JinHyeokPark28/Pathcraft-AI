@@ -470,6 +470,23 @@ namespace PathcraftAI.UI
                 "Donate", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
+        private void CopyWhisper_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is Button button && button.Tag is string whisperMessage)
+            {
+                try
+                {
+                    Clipboard.SetText(whisperMessage);
+                    ShowNotification("Whisper message copied to clipboard!");
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Failed to copy whisper message: {ex.Message}",
+                        "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+        }
+
         private async void ConnectPOE_Click(object sender, RoutedEventArgs e)
         {
             if (_isPOEConnected)
@@ -1257,6 +1274,8 @@ if token:
         public string Impact { get; set; } = "";
         public List<string> Recommendations { get; set; } = new List<string>();
         public List<TradeItem> TradeItems { get; set; } = new List<TradeItem>();
+
+        public bool HasTradeItems => TradeItems != null && TradeItems.Count > 0;
     }
 
     public class TradeItem
@@ -1266,6 +1285,16 @@ if token:
         public string PriceDisplay { get; set; } = "";
         public string Seller { get; set; } = "";
         public string Whisper { get; set; } = "";
+
+        public string WhisperPreview
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(Whisper))
+                    return "";
+                return Whisper.Length > 80 ? Whisper.Substring(0, 80) + "..." : Whisper;
+            }
+        }
     }
 
     public class PassiveRoadmapStage
@@ -1283,5 +1312,20 @@ if token:
         public string Type { get; set; } = "";
         public string TypeDisplay { get; set; } = "";
         public List<string> StatsDisplay { get; set; } = new List<string>();
+    }
+
+    public class BoolToVisibilityConverter : System.Windows.Data.IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        {
+            if (value is bool boolValue)
+                return boolValue ? Visibility.Visible : Visibility.Collapsed;
+            return Visibility.Collapsed;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

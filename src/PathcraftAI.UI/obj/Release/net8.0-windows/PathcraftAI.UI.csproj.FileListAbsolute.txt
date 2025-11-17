@@ -58,3 +58,5 @@ D:\Pathcraft-AI\src\PathcraftAI.UI\obj\Release\net8.0-windows\refint\PathcraftAI
 D:\Pathcraft-AI\src\PathcraftAI.UI\obj\Release\net8.0-windows\PathcraftAI.UI.pdb
 D:\Pathcraft-AI\src\PathcraftAI.UI\obj\Release\net8.0-windows\PathcraftAI.UI.genruntimeconfig.cache
 D:\Pathcraft-AI\src\PathcraftAI.UI\obj\Release\net8.0-windows\ref\PathcraftAI.UI.dll
+D:\Pathcraft-AI\src\PathcraftAI.UI\obj\Release\net8.0-windows\GeneratedInternalTypeHelper.g.cs
+D:\Pathcraft-AI\src\PathcraftAI.UI\obj\Release\net8.0-windows\PathcraftAI.UI_MarkupCompile.lref
