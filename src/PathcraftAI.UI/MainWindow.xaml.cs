@@ -37,7 +37,8 @@ namespace PathcraftAI.UI
             Closed += (s, e) => UnregisterHotkeys();
 
             // Python 경로 설정
-            var projectRoot = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..", "..", "..", "..", ".."));
+            var baseDir = AppDomain.CurrentDomain.BaseDirectory;
+            var projectRoot = Path.GetFullPath(Path.Combine(baseDir, "..", "..", "..", "..", ".."));
             var parserDir = Path.Combine(projectRoot, "src", "PathcraftAI.Parser");
             _pythonPath = Path.Combine(parserDir, ".venv", "Scripts", "python.exe");
             _recommendationScriptPath = Path.Combine(parserDir, "auto_recommendation_engine.py");
@@ -48,10 +49,16 @@ namespace PathcraftAI.UI
             _passiveTreeScriptPath = Path.Combine(parserDir, "passive_tree_analyzer.py");
             _tokenFilePath = Path.Combine(parserDir, "poe_token.json");
 
-            // 경로 확인
+            // 경로 확인 및 디버깅
+            Debug.WriteLine($"[PATH DEBUG] BaseDirectory: {baseDir}");
+            Debug.WriteLine($"[PATH DEBUG] ProjectRoot: {projectRoot}");
+            Debug.WriteLine($"[PATH DEBUG] ParserDir: {parserDir}");
+            Debug.WriteLine($"[PATH DEBUG] PythonPath: {_pythonPath}");
+            Debug.WriteLine($"[PATH DEBUG] Python exists: {File.Exists(_pythonPath)}");
+
             if (!File.Exists(_pythonPath))
             {
-                MessageBox.Show($"Python executable not found:\n{_pythonPath}\n\nPlease set up the virtual environment first.",
+                MessageBox.Show($"Python executable not found:\n{_pythonPath}\n\nBase Directory: {baseDir}\n\nPlease set up the virtual environment first.",
                     "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
@@ -118,10 +125,13 @@ namespace PathcraftAI.UI
 
         private string ExecuteRecommendationEngine()
         {
+            var parserDir = Path.GetDirectoryName(_recommendationScriptPath)!;
+
             var psi = new ProcessStartInfo
             {
                 FileName = _pythonPath,
                 Arguments = $"\"{_recommendationScriptPath}\" --json-output",
+                WorkingDirectory = parserDir,
                 UseShellExecute = false,
                 RedirectStandardOutput = true,
                 RedirectStandardError = true,
@@ -135,6 +145,10 @@ namespace PathcraftAI.UI
             // API 키 환경 변수로 전달
             psi.Environment["YOUTUBE_API_KEY"] = "AIzaSyBDC0li3oQsLwk6XPauI7wWL6QND9WUqGo";
 
+            Debug.WriteLine($"[EXEC] Running: {_pythonPath}");
+            Debug.WriteLine($"[EXEC] Args: {psi.Arguments}");
+            Debug.WriteLine($"[EXEC] WorkingDir: {parserDir}");
+
             using var process = Process.Start(psi);
             if (process == null)
                 throw new Exception("Failed to start Python process");
@@ -143,9 +157,16 @@ namespace PathcraftAI.UI
             var error = process.StandardError.ReadToEnd();
             process.WaitForExit();
 
+            Debug.WriteLine($"[EXEC] Exit code: {process.ExitCode}");
+            Debug.WriteLine($"[EXEC] Output length: {output.Length}");
+            if (!string.IsNullOrWhiteSpace(error))
+            {
+                Debug.WriteLine($"[EXEC] Stderr: {error}");
+            }
+
             if (process.ExitCode != 0)
             {
-                throw new Exception($"Recommendation engine error:\n{error}");
+                throw new Exception($"Recommendation engine error (exit code {process.ExitCode}):\n{error}");
             }
 
             return output;
