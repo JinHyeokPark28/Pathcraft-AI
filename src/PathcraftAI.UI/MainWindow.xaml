@@ -40,6 +40,7 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
@@ -137,8 +138,82 @@
                 </Grid>
             </Border>
 
+            <!-- Build Comparison Section -->
+            <Border x:Name="BuildComparisonSection" Grid.Row="2" Background="#1E322A"
+                    CornerRadius="8" Padding="16" Margin="0,0,0,16"
+                    Visibility="Collapsed">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Grid.Row="0" Text="Current vs Target Build Comparison"
+                               FontSize="16" FontWeight="SemiBold" Margin="0,0,0,12"
+                               Foreground="#8AF88A"/>
+
+                    <!-- Comparison DataGrid -->
+                    <DataGrid x:Name="ComparisonGrid" Grid.Row="1"
+                              AutoGenerateColumns="False"
+                              HeadersVisibility="Column"
+                              GridLinesVisibility="None"
+                              Background="Transparent"
+                              RowBackground="#252525"
+                              AlternatingRowBackground="#2A2A2A"
+                              BorderThickness="0"
+                              CanUserAddRows="False"
+                              IsReadOnly="True"
+                              Margin="0,0,0,16">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Stat" Binding="{Binding Stat}" Width="*" FontWeight="SemiBold"/>
+                            <DataGridTextColumn Header="Current" Binding="{Binding CurrentDisplay}" Width="*" FontSize="13"/>
+                            <DataGridTextColumn Header="Target" Binding="{Binding TargetDisplay}" Width="*" FontSize="13"/>
+                            <DataGridTextColumn Header="Gap" Binding="{Binding GapDisplay}" Width="*" FontSize="13">
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="TextBlock">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Status}" Value="warning">
+                                                <Setter Property="Foreground" Value="#FFB74D"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding Status}" Value="ok">
+                                                <Setter Property="Foreground" Value="#81C784"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+
+                    <!-- Priority Upgrades -->
+                    <StackPanel x:Name="PriorityUpgradesPanel" Grid.Row="2"
+                                Visibility="Collapsed">
+                        <TextBlock Text="Priority Upgrades:"
+                                   FontSize="13" FontWeight="SemiBold" Margin="0,0,0,8"
+                                   Foreground="#C47533"/>
+                        <ItemsControl x:Name="PriorityUpgradesList">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Margin="0,0,0,8">
+                                        <TextBlock FontSize="12" Foreground="White" FontWeight="SemiBold">
+                                            <Run Text="{Binding Priority}"/>
+                                            <Run Text=". "/>
+                                            <Run Text="{Binding Description}"/>
+                                        </TextBlock>
+                                        <TextBlock Text="{Binding Suggestion}"
+                                                   FontSize="11" Foreground="#B0B0B0"
+                                                   Margin="16,2,0,0"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </StackPanel>
+                </Grid>
+            </Border>
+
             <!-- Recommendations Section -->
-            <Grid Grid.Row="2">
+            <Grid Grid.Row="3">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="*"/>

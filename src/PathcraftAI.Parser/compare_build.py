@@ -65,17 +65,26 @@ def get_current_character_stats(access_token: str, character_name: str) -> Dict:
         return {}
 
 
-def get_pob_target_stats(pob_url: str) -> Dict:
+def get_pob_target_stats(pob_url: str, silent: bool = False) -> Dict:
     """
     POB 목표 빌드의 통계 가져오기
     """
-    print(f"[2/3] Fetching POB target build...")
+    if not silent:
+        print(f"[2/3] Fetching POB target build...", file=sys.stderr)
 
     analyzer = SmartBuildAnalyzer(pob_url, character_name=None)
-    analyzer.fetch_pob()
-    analyzer.extract_pob_stats()
 
-    print(f"  ✓ POB stats extracted")
+    # Silent 모드에서는 출력 억제
+    if silent:
+        import io
+        import contextlib
+        with contextlib.redirect_stdout(io.StringIO()):
+            analyzer.fetch_pob()
+            analyzer.extract_pob_stats()
+    else:
+        analyzer.fetch_pob()
+        analyzer.extract_pob_stats()
+        print(f"  ✓ POB stats extracted", file=sys.stderr)
 
     return analyzer.pob_stats
 
@@ -93,6 +102,109 @@ def calculate_gap(current: float, target: float) -> tuple:
         return (gap, "✓")
     else:
         return (gap, "⚠️")
+
+
+def generate_comparison_json(current_stats: Dict, target_stats: Dict) -> Dict:
+    """
+    비교 데이터를 JSON 형식으로 생성 (C# 연동용)
+    """
+    comparison_data = []
+    priority_upgrades = []
+
+    # DPS
+    current_dps = current_stats.get('dps', 0)
+    target_dps = target_stats.get('dps', 0)
+    comparison_data.append({
+        'stat': 'DPS',
+        'current': current_dps,
+        'target': target_dps,
+        'gap': current_dps - target_dps,
+        'status': 'ok' if current_dps >= target_dps else 'warning'
+    })
+
+    # Life
+    current_life = current_stats.get('life', 0)
+    target_life = target_stats.get('life', 0)
+    comparison_data.append({
+        'stat': 'Life',
+        'current': current_life,
+        'target': target_life,
+        'gap': current_life - target_life,
+        'status': 'ok' if current_life >= target_life else 'warning'
+    })
+
+    # Energy Shield
+    current_es = current_stats.get('energy_shield', 0)
+    target_es = target_stats.get('energy_shield', 0)
+    comparison_data.append({
+        'stat': 'Energy Shield',
+        'current': current_es,
+        'target': target_es,
+        'gap': current_es - target_es,
+        'status': 'ok' if current_es >= target_es else 'warning'
+    })
+
+    # Resistances
+    resistances = [
+        ('Fire Res', 'fire_res'),
+        ('Cold Res', 'cold_res'),
+        ('Lightning Res', 'lightning_res'),
+        ('Chaos Res', 'chaos_res'),
+    ]
+
+    for res_name, res_key in resistances:
+        current_res = current_stats.get(res_key, 0)
+        target_res = target_stats.get(res_key, 0)
+        comparison_data.append({
+            'stat': res_name,
+            'current': current_res,
+            'target': target_res,
+            'gap': current_res - target_res,
+            'status': 'ok' if current_res >= target_res else 'warning',
+            'unit': '%'
+        })
+
+    # Priority Upgrades
+    gap_dps = current_dps - target_dps
+    gap_life = current_life - target_life
+
+    if gap_dps < 0 and abs(gap_dps) > 10000:
+        priority_upgrades.append({
+            'priority': 1,
+            'category': 'DPS',
+            'description': f'Increase DPS ({abs(gap_dps):,.0f} needed)',
+            'suggestion': 'Get 6-link setup or better weapon'
+        })
+
+    if gap_life < 0 and abs(gap_life) > 500:
+        priority_upgrades.append({
+            'priority': 2,
+            'category': 'Life',
+            'description': f'Increase Life ({abs(gap_life):,} HP needed)',
+            'suggestion': 'Add Life nodes on passive tree or better gear'
+        })
+
+    uncapped_res = []
+    for res_name, res_key in resistances[:3]:
+        current_res = current_stats.get(res_key, 0)
+        target_res = target_stats.get(res_key, 75)
+        if current_res < target_res:
+            uncapped_res.append({'name': res_name, 'gap': target_res - current_res})
+
+    if uncapped_res:
+        priority_upgrades.append({
+            'priority': 3,
+            'category': 'Resistances',
+            'description': 'Cap Resistances',
+            'suggestion': ', '.join([f"{res['name']}: +{res['gap']}%" for res in uncapped_res])
+        })
+
+    return {
+        'comparison': comparison_data,
+        'priority_upgrades': priority_upgrades,
+        'current_stats': current_stats,
+        'target_stats': target_stats
+    }
 
 
 def compare_builds(current_stats: Dict, target_stats: Dict):
@@ -201,17 +313,21 @@ def main():
     parser.add_argument('--character', default='TestChar', help='캐릭터 이름')
     parser.add_argument('--token-file', default='poe_token.json', help='OAuth 토큰 파일')
     parser.add_argument('--mock', action='store_true', help='Mock 데이터 사용 (테스트용)')
+    parser.add_argument('--json', action='store_true', help='JSON 형식으로 출력 (C# 연동용)')
 
     args = parser.parse_args()
 
-    print("=" * 80)
-    print("BUILD COMPARISON DASHBOARD")
-    print("=" * 80)
-    print()
+    # JSON 모드가 아닐 때만 헤더 출력
+    if not args.json:
+        print("=" * 80)
+        print("BUILD COMPARISON DASHBOARD")
+        print("=" * 80)
+        print()
 
     # Mock 모드
     if args.mock:
-        print("🧪 Using MOCK data for testing...\n")
+        if not args.json:
+            print("🧪 Using MOCK data for testing...\n")
 
         # Mock 현재 캐릭터 통계 (낮은 수치)
         current_stats = {
@@ -243,13 +359,22 @@ def main():
         current_stats = get_current_character_stats(access_token, args.character)
 
     # 2. POB 목표 통계
-    target_stats = get_pob_target_stats(args.pob)
+    target_stats = get_pob_target_stats(args.pob, silent=args.json)
 
     # 3. 비교 대시보드
     if current_stats and target_stats:
-        compare_builds(current_stats, target_stats)
+        if args.json:
+            # JSON 출력 모드 (C# 연동용)
+            result = generate_comparison_json(current_stats, target_stats)
+            print(json.dumps(result, ensure_ascii=False, indent=2))
+        else:
+            # 일반 텍스트 출력 모드
+            compare_builds(current_stats, target_stats)
     else:
-        print("❌ Failed to fetch stats")
+        if args.json:
+            print(json.dumps({'error': 'Failed to fetch stats'}, ensure_ascii=False))
+        else:
+            print("❌ Failed to fetch stats")
 
 
 if __name__ == '__main__':
