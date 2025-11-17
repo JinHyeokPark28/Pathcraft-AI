@@ -329,46 +329,245 @@ namespace PathcraftAI.UI
 
             var card = new Border
             {
-                Background = new SolidColorBrush(Color.FromRgb(50, 50, 50)),
+                Background = new SolidColorBrush(Color.FromRgb(40, 40, 40)),
                 BorderBrush = new SolidColorBrush(Color.FromRgb(175, 96, 37)),
-                BorderThickness = new Thickness(1),
-                CornerRadius = new CornerRadius(4),
-                Padding = new Thickness(12),
-                Margin = new Thickness(0, 0, 0, 8)
+                BorderThickness = new Thickness(2),
+                CornerRadius = new CornerRadius(8),
+                Padding = new Thickness(0),
+                Margin = new Thickness(0, 0, 0, 12),
+                Cursor = Cursors.Hand
             };
 
-            var stackPanel = new StackPanel();
+            // Mouse hover effects
+            card.MouseEnter += (s, e) =>
+            {
+                card.Background = new SolidColorBrush(Color.FromRgb(50, 50, 50));
+                card.BorderBrush = new SolidColorBrush(Color.FromRgb(200, 120, 50));
+            };
 
-            // 빌드 이름 추출 (소스에 따라 다름)
+            card.MouseLeave += (s, e) =>
+            {
+                card.Background = new SolidColorBrush(Color.FromRgb(40, 40, 40));
+                card.BorderBrush = new SolidColorBrush(Color.FromRgb(175, 96, 37));
+            };
+
+            var mainGrid = new Grid();
+            mainGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(160) }); // Thumbnail
+            mainGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) }); // Content
+
+            // YouTube 썸네일 영역
+            var thumbnail = build["thumbnail"]?.ToString();
+            if (!string.IsNullOrEmpty(thumbnail) || build["url"] != null)
+            {
+                var thumbnailBorder = new Border
+                {
+                    Width = 160,
+                    Height = 90,
+                    Background = new SolidColorBrush(Color.FromRgb(30, 30, 30)),
+                    CornerRadius = new CornerRadius(8, 0, 0, 8)
+                };
+
+                var thumbnailText = new TextBlock
+                {
+                    Text = "🎬",
+                    FontSize = 32,
+                    Foreground = new SolidColorBrush(Color.FromRgb(175, 96, 37)),
+                    HorizontalAlignment = HorizontalAlignment.Center,
+                    VerticalAlignment = VerticalAlignment.Center
+                };
+
+                thumbnailBorder.Child = thumbnailText;
+                Grid.SetColumn(thumbnailBorder, 0);
+                mainGrid.Children.Add(thumbnailBorder);
+            }
+
+            // Content area
+            var contentStack = new StackPanel
+            {
+                Margin = new Thickness(12)
+            };
+
+            Grid.SetColumn(contentStack, thumbnail != null || build["url"] != null ? 1 : 0);
+            if (thumbnail == null && build["url"] == null)
+            {
+                Grid.SetColumnSpan(contentStack, 2);
+            }
+
+            // 빌드 이름
             string buildName = ExtractBuildName(build, category);
-
-            // Title
             var title = new TextBlock
             {
                 Text = buildName,
-                FontSize = 14,
-                FontWeight = FontWeights.SemiBold,
+                FontSize = 15,
+                FontWeight = FontWeights.Bold,
                 TextWrapping = TextWrapping.Wrap,
-                Margin = new Thickness(0, 0, 0, 4)
+                Margin = new Thickness(0, 0, 0, 6),
+                Foreground = Brushes.White
             };
-            stackPanel.Children.Add(title);
+            contentStack.Children.Add(title);
 
-            // Build Info (category별로 다른 정보 표시)
+            // Build keyword/category tag
+            var buildKeyword = build["build_keyword"]?.ToString();
+            if (!string.IsNullOrEmpty(buildKeyword))
+            {
+                var keywordBorder = new Border
+                {
+                    Background = new SolidColorBrush(Color.FromArgb(100, 175, 96, 37)),
+                    CornerRadius = new CornerRadius(4),
+                    Padding = new Thickness(6, 2, 6, 2),
+                    Margin = new Thickness(0, 0, 0, 6),
+                    HorizontalAlignment = HorizontalAlignment.Left
+                };
+
+                var keywordText = new TextBlock
+                {
+                    Text = buildKeyword,
+                    FontSize = 10,
+                    FontWeight = FontWeights.SemiBold,
+                    Foreground = new SolidColorBrush(Color.FromRgb(255, 200, 100))
+                };
+
+                keywordBorder.Child = keywordText;
+                contentStack.Children.Add(keywordBorder);
+            }
+
+            // Build metadata
+            var metadata = new StackPanel { Orientation = Orientation.Horizontal, Margin = new Thickness(0, 0, 0, 8) };
+
+            // Channel name
+            var channel = build["channel_title"]?.ToString() ?? build["channel"]?.ToString();
+            if (!string.IsNullOrEmpty(channel))
+            {
+                metadata.Children.Add(new TextBlock
+                {
+                    Text = $"📺 {channel}",
+                    FontSize = 11,
+                    Foreground = new SolidColorBrush(Color.FromRgb(150, 150, 150)),
+                    Margin = new Thickness(0, 0, 12, 0)
+                });
+            }
+
+            // View count
+            var views = build["view_count"]?.ToObject<int>() ?? build["views"]?.ToObject<int>() ?? 0;
+            if (views > 0)
+            {
+                metadata.Children.Add(new TextBlock
+                {
+                    Text = $"👁 {views:N0}",
+                    FontSize = 11,
+                    Foreground = new SolidColorBrush(Color.FromRgb(150, 150, 150)),
+                    Margin = new Thickness(0, 0, 12, 0)
+                });
+            }
+
+            // Build Info
             var infoText = BuildInfoText(build, category);
             if (!string.IsNullOrEmpty(infoText))
             {
-                var info = new TextBlock
+                metadata.Children.Add(new TextBlock
                 {
                     Text = infoText,
-                    FontSize = 12,
-                    Foreground = new SolidColorBrush(Color.FromRgb(180, 180, 180)),
-                    Margin = new Thickness(0, 0, 0, 8),
-                    TextWrapping = TextWrapping.Wrap
-                };
-                stackPanel.Children.Add(info);
+                    FontSize = 11,
+                    Foreground = new SolidColorBrush(Color.FromRgb(150, 150, 150))
+                });
             }
 
-            card.Child = stackPanel;
+            if (metadata.Children.Count > 0)
+            {
+                contentStack.Children.Add(metadata);
+            }
+
+            // Action buttons
+            var buttonStack = new StackPanel { Orientation = Orientation.Horizontal };
+
+            // POB links
+            var pobLinks = build["pob_links"] as JArray;
+            if (pobLinks != null && pobLinks.Count > 0)
+            {
+                var pobButton = new Button
+                {
+                    Content = "Open POB",
+                    FontSize = 11,
+                    Padding = new Thickness(10, 4, 10, 4),
+                    Margin = new Thickness(0, 0, 8, 0),
+                    Background = new SolidColorBrush(Color.FromRgb(100, 150, 100)),
+                    Foreground = Brushes.White,
+                    BorderThickness = new Thickness(0),
+                    Cursor = Cursors.Hand,
+                    Tag = pobLinks[0].ToString()
+                };
+
+                pobButton.Click += (s, e) =>
+                {
+                    var url = (s as Button)?.Tag?.ToString();
+                    if (!string.IsNullOrEmpty(url))
+                    {
+                        try
+                        {
+                            System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo
+                            {
+                                FileName = url,
+                                UseShellExecute = true
+                            });
+                        }
+                        catch (Exception ex)
+                        {
+                            ShowNotification($"Failed to open POB link: {ex.Message}", isError: true);
+                        }
+                    }
+                };
+
+                buttonStack.Children.Add(pobButton);
+            }
+
+            // YouTube video link
+            var videoUrl = build["url"]?.ToString();
+            if (!string.IsNullOrEmpty(videoUrl))
+            {
+                var videoButton = new Button
+                {
+                    Content = "Watch Video",
+                    FontSize = 11,
+                    Padding = new Thickness(10, 4, 10, 4),
+                    Margin = new Thickness(0, 0, 8, 0),
+                    Background = new SolidColorBrush(Color.FromRgb(200, 50, 50)),
+                    Foreground = Brushes.White,
+                    BorderThickness = new Thickness(0),
+                    Cursor = Cursors.Hand,
+                    Tag = videoUrl
+                };
+
+                videoButton.Click += (s, e) =>
+                {
+                    var url = (s as Button)?.Tag?.ToString();
+                    if (!string.IsNullOrEmpty(url))
+                    {
+                        try
+                        {
+                            System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo
+                            {
+                                FileName = url,
+                                UseShellExecute = true
+                            });
+                        }
+                        catch (Exception ex)
+                        {
+                            ShowNotification($"Failed to open video: {ex.Message}", isError: true);
+                        }
+                    }
+                };
+
+                buttonStack.Children.Add(videoButton);
+            }
+
+            if (buttonStack.Children.Count > 0)
+            {
+                contentStack.Children.Add(buttonStack);
+            }
+
+            mainGrid.Children.Add(contentStack);
+            card.Child = mainGrid;
+
             return card;
         }
 
