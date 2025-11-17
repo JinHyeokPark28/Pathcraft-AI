@@ -70,14 +70,14 @@ namespace PathcraftAI.UI
 
             if (!File.Exists(_pythonPath))
             {
+                PlaceholderPanel.Visibility = Visibility.Visible;
                 PlaceholderText.Text = $"⚠️ Python not found\n\n{_pythonPath}\n\nPlease check virtual environment setup.\n\nSee pathcraft_debug.log for details.";
-                PlaceholderText.Visibility = Visibility.Visible;
             }
 
             if (!File.Exists(_recommendationScriptPath))
             {
+                PlaceholderPanel.Visibility = Visibility.Visible;
                 PlaceholderText.Text = $"⚠️ Script not found\n\n{_recommendationScriptPath}\n\nSee pathcraft_debug.log for details.";
-                PlaceholderText.Visibility = Visibility.Visible;
             }
 
             // 저장된 토큰 확인
