@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("PathcraftAI.Core")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d1a532e8f707fecaa8f49cc0d6af9908608bb688")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7a8cc26975080efea8f662d59929e384bfcd3a32")]
 [assembly: System.Reflection.AssemblyProductAttribute("PathcraftAI.Core")]
 [assembly: System.Reflection.AssemblyTitleAttribute("PathcraftAI.Core")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
