@@ -348,9 +348,12 @@ def suggest_upgrades(unique_items: List[Dict], build_type: str) -> List[Dict]:
     return suggestions[:3]  # 상위 3개만
 
 
-def analyze_user_build_from_token() -> Optional[Dict]:
+def analyze_user_build_from_token(characters: Optional[List[Dict]] = None) -> Optional[Dict]:
     """
     저장된 OAuth 토큰에서 사용자 빌드 분석
+
+    Args:
+        characters: 캐릭터 목록 (이미 가져온 경우). None이면 새로 가져옴.
     """
 
     from poe_oauth import load_token, get_user_characters
@@ -363,13 +366,14 @@ def analyze_user_build_from_token() -> Optional[Dict]:
 
     access_token = token.get('access_token')
 
-    # 캐릭터 목록 가져오기
-    try:
-        characters_data = get_user_characters(access_token)
-        characters = characters_data.get('characters', [])
-    except Exception as e:
-        print(f"[ERROR] Failed to get characters: {e}")
-        return None
+    # 캐릭터 목록 가져오기 (이미 있으면 재사용, Rate Limit 방지)
+    if characters is None:
+        try:
+            characters_data = get_user_characters(access_token)
+            characters = characters_data.get('characters', [])
+        except Exception as e:
+            print(f"[ERROR] Failed to get characters: {e}")
+            return None
 
     if not characters:
         print("[ERROR] No characters found")

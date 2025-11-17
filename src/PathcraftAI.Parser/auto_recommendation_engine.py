@@ -242,7 +242,8 @@ def get_auto_recommendations(
         try:
             from analyze_user_build import analyze_user_build_from_token
             print(f"[INFO] Analyzing your current build...")
-            user_build_analysis = analyze_user_build_from_token()
+            # 이미 가져온 캐릭터 목록 전달 (Rate Limit 방지)
+            user_build_analysis = analyze_user_build_from_token(user_characters)
             if user_build_analysis:
                 print(f"[OK] Build analyzed: {user_build_analysis.get('build_type')}")
         except Exception as e:
