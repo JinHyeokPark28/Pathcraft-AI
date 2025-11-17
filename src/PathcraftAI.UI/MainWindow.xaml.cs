@@ -521,6 +521,33 @@ namespace PathcraftAI.UI
                 };
 
                 buttonStack.Children.Add(pobButton);
+
+                // AI Analyze button (only if POB link exists)
+                var aiAnalyzeButton = new Button
+                {
+                    Content = "🤖 Analyze",
+                    FontSize = 11,
+                    Padding = new Thickness(10, 4, 10, 4),
+                    Margin = new Thickness(0, 0, 8, 0),
+                    Background = new SolidColorBrush(Color.FromRgb(138, 43, 226)), // Purple
+                    Foreground = Brushes.White,
+                    BorderThickness = new Thickness(0),
+                    Cursor = Cursors.Hand,
+                    Tag = pobLinks[0].ToString()
+                };
+
+                aiAnalyzeButton.Click += (s, e) =>
+                {
+                    var pobUrl = (s as Button)?.Tag?.ToString();
+                    if (!string.IsNullOrEmpty(pobUrl))
+                    {
+                        // Set the POB URL and trigger AI analysis
+                        _currentPOBUrl = pobUrl;
+                        AIAnalysis_Click(s, e);
+                    }
+                };
+
+                buttonStack.Children.Add(aiAnalyzeButton);
             }
 
             // YouTube video link
