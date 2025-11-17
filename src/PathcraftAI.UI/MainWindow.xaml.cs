@@ -16,6 +16,7 @@ namespace PathcraftAI.UI
         private readonly string _oauthScriptPath;
         private readonly string _compareBuildScriptPath;
         private readonly string _upgradePathScriptPath;
+        private readonly string _passiveTreeScriptPath;
         private readonly string _tokenFilePath;
         private bool _isLoading = false;
         private string _currentLeague = "Keepers";
@@ -37,6 +38,7 @@ namespace PathcraftAI.UI
             _oauthScriptPath = Path.Combine(parserDir, "test_oauth.py");
             _compareBuildScriptPath = Path.Combine(parserDir, "compare_build.py");
             _upgradePathScriptPath = Path.Combine(parserDir, "upgrade_path.py");
+            _passiveTreeScriptPath = Path.Combine(parserDir, "passive_tree_analyzer.py");
             _tokenFilePath = Path.Combine(parserDir, "poe_token.json");
 
             // 경로 확인
@@ -868,6 +870,9 @@ if token:
                 // 업그레이드 경로 표시
                 DisplayUpgradePath(data);
                 UpgradePathSection.Visibility = Visibility.Visible;
+
+                // 업그레이드 경로 로드 후 패시브 트리 로드
+                _ = LoadPassiveTreeRoadmap(pobUrl, characterName);
             }
             catch (Exception ex)
             {
@@ -957,6 +962,163 @@ if token:
                 UpgradePathSection.Visibility = Visibility.Collapsed;
             }
         }
+
+        private async Task LoadPassiveTreeRoadmap(string pobUrl, string characterName)
+        {
+            try
+            {
+                // Python 스크립트로 패시브 트리 로드맵 가져오기
+                // 현재는 mock 데이터 사용 (POB 통합 전)
+                var result = await System.Threading.Tasks.Task.Run(() =>
+                    ExecutePassiveTreeAnalyzer());
+
+                if (string.IsNullOrWhiteSpace(result))
+                {
+                    PassiveTreeSection.Visibility = Visibility.Collapsed;
+                    return;
+                }
+
+                // JSON 파싱
+                var data = JObject.Parse(result);
+
+                // 에러 체크
+                if (data["error"] != null)
+                {
+                    PassiveTreeSection.Visibility = Visibility.Collapsed;
+                    return;
+                }
+
+                // 패시브 트리 로드맵 표시
+                DisplayPassiveTreeRoadmap(data);
+                PassiveTreeSection.Visibility = Visibility.Visible;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Passive tree roadmap failed: {ex.Message}");
+                PassiveTreeSection.Visibility = Visibility.Collapsed;
+            }
+        }
+
+        private string ExecutePassiveTreeAnalyzer()
+        {
+            var psi = new ProcessStartInfo
+            {
+                FileName = _pythonPath,
+                Arguments = $"\"{_passiveTreeScriptPath}\" --mock --json",
+                UseShellExecute = false,
+                RedirectStandardOutput = true,
+                RedirectStandardError = true,
+                CreateNoWindow = true,
+                StandardOutputEncoding = System.Text.Encoding.UTF8,
+                WorkingDirectory = Path.GetDirectoryName(_passiveTreeScriptPath)
+            };
+
+            // Enable UTF-8 mode for Python
+            psi.Environment["PYTHONUTF8"] = "1";
+
+            using var process = Process.Start(psi);
+            if (process == null)
+                throw new Exception("Failed to start passive tree analyzer process");
+
+            var output = process.StandardOutput.ReadToEnd();
+            var error = process.StandardError.ReadToEnd();
+            process.WaitForExit();
+
+            if (process.ExitCode != 0)
+            {
+                Debug.WriteLine($"Passive tree analyzer error: {error}");
+                return string.Empty;
+            }
+
+            return output;
+        }
+
+        private void DisplayPassiveTreeRoadmap(JObject data)
+        {
+            // 레벨 및 포인트 정보 표시
+            var currentLevel = data["current_level"]?.ToObject<int>() ?? 1;
+            var targetLevel = data["target_level"]?.ToObject<int>() ?? 100;
+            var pointsNeeded = data["points_needed"]?.ToObject<int>() ?? 0;
+
+            PassiveCurrentLevelText.Text = $"Lv{currentLevel}";
+            PassiveTargetLevelText.Text = $"Lv{targetLevel}";
+            PassivePointsNeededText.Text = $"{pointsNeeded} points needed";
+
+            // 로드맵 스테이지 표시
+            var roadmap = data["roadmap"] as JArray;
+            if (roadmap != null && roadmap.Count > 0)
+            {
+                var stagesList = new List<PassiveRoadmapStage>();
+
+                foreach (var stage in roadmap)
+                {
+                    var nodes = stage["nodes"] as JArray;
+                    var nodesList = new List<PassiveNode>();
+
+                    if (nodes != null)
+                    {
+                        foreach (var node in nodes)
+                        {
+                            var stats = node["stats"] as JArray;
+                            var statsList = new List<string>();
+
+                            if (stats != null)
+                            {
+                                foreach (var stat in stats)
+                                {
+                                    statsList.Add(stat.ToString());
+                                }
+                            }
+
+                            var nodeType = node["type"]?.ToString() ?? "";
+                            var typeDisplay = "";
+
+                            if (nodeType == "notable")
+                                typeDisplay = "[NOTABLE]";
+                            else if (nodeType == "keystone")
+                                typeDisplay = "[KEYSTONE]";
+                            else if (nodeType == "jewel")
+                                typeDisplay = "[JEWEL]";
+
+                            nodesList.Add(new PassiveNode
+                            {
+                                Name = node["name"]?.ToString() ?? "",
+                                Type = nodeType,
+                                TypeDisplay = typeDisplay,
+                                StatsDisplay = statsList
+                            });
+                        }
+                    }
+
+                    // Benefits를 문자열 리스트로 변환
+                    var benefits = stage["benefits"] as JObject;
+                    var benefitsList = new List<string>();
+
+                    if (benefits != null)
+                    {
+                        foreach (var benefit in benefits)
+                        {
+                            benefitsList.Add($"{benefit.Key}: {benefit.Value}");
+                        }
+                    }
+
+                    stagesList.Add(new PassiveRoadmapStage
+                    {
+                        LevelRange = stage["level_range"]?.ToString() ?? "",
+                        Points = stage["points"]?.ToObject<int>() ?? 0,
+                        PriorityFocus = stage["priority_focus"]?.ToString() ?? "",
+                        Nodes = nodesList,
+                        BenefitsDisplay = benefitsList
+                    });
+                }
+
+                PassiveRoadmapList.ItemsSource = stagesList;
+            }
+            else
+            {
+                PassiveTreeSection.Visibility = Visibility.Collapsed;
+            }
+        }
     }
 
     // 데이터 모델 클래스
@@ -986,5 +1148,22 @@ if token:
         public string Description { get; set; } = "";
         public string Impact { get; set; } = "";
         public List<string> Recommendations { get; set; } = new List<string>();
+    }
+
+    public class PassiveRoadmapStage
+    {
+        public string LevelRange { get; set; } = "";
+        public int Points { get; set; }
+        public string PriorityFocus { get; set; } = "";
+        public List<PassiveNode> Nodes { get; set; } = new List<PassiveNode>();
+        public List<string> BenefitsDisplay { get; set; } = new List<string>();
+    }
+
+    public class PassiveNode
+    {
+        public string Name { get; set; } = "";
+        public string Type { get; set; } = "";
+        public string TypeDisplay { get; set; } = "";
+        public List<string> StatsDisplay { get; set; } = new List<string>();
     }
 }
