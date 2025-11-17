@@ -50,6 +50,7 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
@@ -80,9 +81,15 @@
                                    FontSize="11" Foreground="#808080" Margin="0,2,0,0"/>
                     </StackPanel>
 
-                    <Button x:Name="RefreshButton" Grid.Column="2" Content="Refresh Recommendations"
-                            Height="36" Padding="16,0"
-                            Click="RefreshButton_Click" Background="#C47533" Foreground="White" BorderThickness="0"/>
+                    <StackPanel Grid.Column="2" Orientation="Horizontal">
+                        <Button x:Name="AIAnalysisButton" Content="🤖 AI Analysis"
+                                Height="36" Padding="16,0" Margin="0,0,8,0"
+                                Click="AIAnalysis_Click" Background="#8A2BE2" Foreground="White" BorderThickness="0"
+                                ToolTip="Get AI-powered build analysis (Claude/GPT)"/>
+                        <Button x:Name="RefreshButton" Content="Refresh Recommendations"
+                                Height="36" Padding="16,0"
+                                Click="RefreshButton_Click" Background="#C47533" Foreground="White" BorderThickness="0"/>
+                    </StackPanel>
                 </Grid>
             </Border>
 
@@ -221,8 +228,68 @@
                 </Grid>
             </Border>
 
+            <!-- AI Analysis Section -->
+            <Border x:Name="AIAnalysisSection" Grid.Row="2" Background="#2E1A47"
+                    CornerRadius="8" Padding="16" Margin="0,0,0,16"
+                    Visibility="Collapsed">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <!-- Header -->
+                    <Grid Grid.Row="0" Margin="0,0,0,12">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel Grid.Column="0">
+                            <TextBlock Text="🤖 AI Build Analysis" FontSize="16" FontWeight="SemiBold"
+                                       Foreground="#DA70D6"/>
+                            <TextBlock x:Name="AIProviderText" Text="Provider: Claude Sonnet 3.5"
+                                       FontSize="11" Foreground="#B0B0B0" Margin="0,4,0,0"/>
+                        </StackPanel>
+
+                        <StackPanel Grid.Column="1" Orientation="Horizontal">
+                            <TextBlock x:Name="AITokensText" Text="Tokens: 0 in / 0 out"
+                                       FontSize="10" Foreground="#808080" VerticalAlignment="Center" Margin="0,0,8,0"/>
+                            <TextBlock x:Name="AITimeText" Text="0.0s"
+                                       FontSize="10" Foreground="#808080" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Grid>
+
+                    <!-- AI Analysis Content -->
+                    <ScrollViewer Grid.Row="1" MaxHeight="400" VerticalScrollBarVisibility="Auto">
+                        <TextBlock x:Name="AIAnalysisText" TextWrapping="Wrap"
+                                   FontSize="13" Foreground="White" LineHeight="20"
+                                   Padding="12" Background="#1A0A2E"
+                                   Text="Click 'AI Analysis' button to get intelligent build insights..."/>
+                    </ScrollViewer>
+
+                    <!-- AI Options -->
+                    <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="0,12,0,0">
+                        <ComboBox x:Name="AIProviderCombo" Width="150" Height="28" Margin="0,0,8,0"
+                                  Background="#3A3A3A" Foreground="White" BorderBrush="#505050"
+                                  SelectedIndex="0">
+                            <ComboBoxItem Content="Claude (Sonnet 3.5)"/>
+                            <ComboBoxItem Content="GPT-4o (OpenAI)"/>
+                            <ComboBoxItem Content="Both (Compare)"/>
+                        </ComboBox>
+
+                        <Button Content="Analyze Again" Height="28" Padding="12,0" Margin="0,0,8,0"
+                                Click="AIAnalysis_Click" Background="#8A2BE2" Foreground="White" BorderThickness="0"/>
+
+                        <Button Content="Copy Analysis" Height="28" Padding="12,0"
+                                Click="CopyAIAnalysis_Click" Background="#505050" Foreground="White" BorderThickness="0"/>
+                    </StackPanel>
+                </Grid>
+            </Border>
+
             <!-- Upgrade Path Section -->
-            <Border x:Name="UpgradePathSection" Grid.Row="3" Background="#322A1E"
+            <Border x:Name="UpgradePathSection" Grid.Row="4" Background="#322A1E"
                     CornerRadius="8" Padding="16" Margin="0,0,0,16"
                     Visibility="Collapsed">
                 <Grid>
@@ -407,7 +474,7 @@
             </Border>
 
             <!-- Passive Tree Roadmap Section -->
-            <Border x:Name="PassiveTreeSection" Grid.Row="4" Background="#1E2A32"
+            <Border x:Name="PassiveTreeSection" Grid.Row="5" Background="#1E2A32"
                     CornerRadius="8" Padding="16" Margin="0,0,0,16"
                     Visibility="Collapsed">
                 <Grid>
@@ -540,7 +607,7 @@
             </Border>
 
             <!-- Recommendations Section -->
-            <Grid Grid.Row="5">
+            <Grid Grid.Row="6">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="*"/>

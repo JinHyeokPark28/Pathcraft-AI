@@ -852,6 +852,136 @@ namespace PathcraftAI.UI
                 "Donate", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
+        private async void AIAnalysis_Click(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrEmpty(_currentPOBUrl))
+            {
+                MessageBox.Show("POB 링크를 먼저 입력해주세요.\n\n'Refresh Recommendations'를 먼저 실행하거나, POB 링크가 있는 빌드를 선택해주세요.",
+                    "POB 링크 필요", MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+
+            try
+            {
+                AIAnalysisButton.IsEnabled = false;
+                AIAnalysisButton.Content = "Analyzing...";
+                AIAnalysisSection.Visibility = Visibility.Visible;
+                AIAnalysisText.Text = "🔄 AI가 빌드를 분석 중입니다. 잠시만 기다려주세요...";
+
+                // Get selected AI provider
+                int selectedProvider = AIProviderCombo.SelectedIndex;
+                string provider = selectedProvider == 0 ? "claude" : selectedProvider == 1 ? "openai" : "both";
+
+                // Run AI analysis via Python
+                var result = await System.Threading.Tasks.Task.Run(() => ExecuteAIAnalysis(_currentPOBUrl, provider));
+
+                // Parse and display result
+                var analysisData = JObject.Parse(result);
+
+                if (analysisData["error"] != null)
+                {
+                    AIAnalysisText.Text = $"❌ 오류: {analysisData["error"]}";
+                }
+                else
+                {
+                    DisplayAIAnalysis(analysisData);
+                }
+            }
+            catch (Exception ex)
+            {
+                ShowFriendlyError(ex, "AI 분석 중 오류가 발생했습니다.");
+                AIAnalysisText.Text = $"❌ 분석 실패: {ex.Message}";
+            }
+            finally
+            {
+                AIAnalysisButton.IsEnabled = true;
+                AIAnalysisButton.Content = "🤖 AI Analysis";
+            }
+        }
+
+        private string ExecuteAIAnalysis(string pobUrl, string provider)
+        {
+            var parserDir = Path.GetDirectoryName(_pythonPath);
+            var aiAnalyzerScript = Path.Combine(parserDir!, "..", "ai_build_analyzer.py");
+
+            var psi = new ProcessStartInfo
+            {
+                FileName = _pythonPath,
+                Arguments = $"\"{aiAnalyzerScript}\" --pob \"{pobUrl}\" --provider {provider} --json",
+                UseShellExecute = false,
+                RedirectStandardOutput = true,
+                RedirectStandardError = true,
+                CreateNoWindow = true,
+                WorkingDirectory = parserDir,
+                StandardOutputEncoding = System.Text.Encoding.UTF8
+            };
+
+            // API 키 환경 변수로 전달
+            var anthropicKey = Environment.GetEnvironmentVariable("ANTHROPIC_API_KEY");
+            var openaiKey = Environment.GetEnvironmentVariable("OPENAI_API_KEY");
+
+            if (!string.IsNullOrEmpty(anthropicKey))
+                psi.Environment["ANTHROPIC_API_KEY"] = anthropicKey;
+            if (!string.IsNullOrEmpty(openaiKey))
+                psi.Environment["OPENAI_API_KEY"] = openaiKey;
+
+            psi.Environment["PYTHONUTF8"] = "1";
+
+            using var process = Process.Start(psi);
+            if (process == null)
+                throw new Exception("Failed to start AI analysis process");
+
+            var output = process.StandardOutput.ReadToEnd();
+            var error = process.StandardError.ReadToEnd();
+            process.WaitForExit();
+
+            if (process.ExitCode != 0)
+            {
+                throw new Exception($"AI analysis failed:\n{error}");
+            }
+
+            return output;
+        }
+
+        private void DisplayAIAnalysis(JObject analysisData)
+        {
+            var provider = analysisData["provider"]?.ToString() ?? "unknown";
+            var model = analysisData["model"]?.ToString() ?? "unknown";
+            var analysis = analysisData["analysis"]?.ToString() ?? "";
+            var elapsed = analysisData["elapsed_seconds"]?.ToObject<double>() ?? 0;
+            var inputTokens = analysisData["input_tokens"]?.ToObject<int>() ?? 0;
+            var outputTokens = analysisData["output_tokens"]?.ToObject<int>() ?? 0;
+
+            // Update header
+            AIProviderText.Text = $"Provider: {model}";
+            AITimeText.Text = $"{elapsed:F1}s";
+            AITokensText.Text = $"Tokens: {inputTokens:N0} in / {outputTokens:N0} out";
+
+            // Update analysis text
+            AIAnalysisText.Text = analysis;
+        }
+
+        private void CopyAIAnalysis_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                var analysisText = AIAnalysisText.Text;
+                if (string.IsNullOrEmpty(analysisText) || analysisText.StartsWith("Click"))
+                {
+                    MessageBox.Show("분석 결과가 없습니다.\n먼저 'AI Analysis' 버튼을 클릭해주세요.",
+                        "알림", MessageBoxButton.OK, MessageBoxImage.Information);
+                    return;
+                }
+
+                Clipboard.SetText(analysisText);
+                ShowNotification("AI 분석 결과가 클립보드에 복사되었습니다!");
+            }
+            catch (Exception ex)
+            {
+                ShowFriendlyError(ex, "분석 결과 복사 중 오류가 발생했습니다.");
+            }
+        }
+
         private void CopyWhisper_Click(object sender, RoutedEventArgs e)
         {
             if (sender is Button button && button.Tag is string whisperMessage)
