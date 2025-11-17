@@ -256,17 +256,12 @@ class UpgradePathPlannerTrade:
         """JSON 출력용 데이터 생성"""
         total_cost = sum(step['cost_chaos'] for step in steps)
 
-        # trade_results 제거 (너무 크므로)
-        clean_steps = []
-        for step in steps:
-            clean_step = {k: v for k, v in step.items() if k != 'trade_results'}
-            clean_steps.append(clean_step)
-
+        # trade_results 포함 (UI에서 Whisper 복사 기능 필요)
         return {
             'budget_chaos': self.budget_chaos,
             'total_steps': len(steps),
             'total_cost': total_cost,
-            'upgrade_steps': clean_steps
+            'upgrade_steps': steps
         }
 
 

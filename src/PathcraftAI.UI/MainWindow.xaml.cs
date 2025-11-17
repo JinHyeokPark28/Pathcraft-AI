@@ -16,6 +16,7 @@ namespace PathcraftAI.UI
         private readonly string _oauthScriptPath;
         private readonly string _compareBuildScriptPath;
         private readonly string _upgradePathScriptPath;
+        private readonly string _upgradePathTradeScriptPath;
         private readonly string _passiveTreeScriptPath;
         private readonly string _tokenFilePath;
         private bool _isLoading = false;
@@ -43,6 +44,7 @@ namespace PathcraftAI.UI
             _oauthScriptPath = Path.Combine(parserDir, "test_oauth.py");
             _compareBuildScriptPath = Path.Combine(parserDir, "compare_build.py");
             _upgradePathScriptPath = Path.Combine(parserDir, "upgrade_path.py");
+            _upgradePathTradeScriptPath = Path.Combine(parserDir, "upgrade_path_trade.py");
             _passiveTreeScriptPath = Path.Combine(parserDir, "passive_tree_analyzer.py");
             _tokenFilePath = Path.Combine(parserDir, "poe_token.json");
 
@@ -888,16 +890,19 @@ if token:
 
         private string ExecuteUpgradePath(string pobUrl, string characterName, int budgetChaos)
         {
+            // Use Trade API version for real trade data
+            var scriptPath = _upgradePathTradeScriptPath;
+
             var psi = new ProcessStartInfo
             {
                 FileName = _pythonPath,
-                Arguments = $"\"{_upgradePathScriptPath}\" --pob \"{pobUrl}\" --character \"{characterName}\" --budget {budgetChaos} --json",
+                Arguments = $"\"{scriptPath}\" --pob \"{pobUrl}\" --character \"{characterName}\" --budget {budgetChaos} --league {_currentLeague} --mock --json",
                 UseShellExecute = false,
                 RedirectStandardOutput = true,
                 RedirectStandardError = true,
                 CreateNoWindow = true,
                 StandardOutputEncoding = System.Text.Encoding.UTF8,
-                WorkingDirectory = Path.GetDirectoryName(_upgradePathScriptPath)
+                WorkingDirectory = Path.GetDirectoryName(scriptPath)
             };
 
             // Enable UTF-8 mode for Python
@@ -948,6 +953,25 @@ if token:
                         }
                     }
 
+                    // Trade results 파싱
+                    var tradeResults = step["trade_results"] as JArray;
+                    var tradeItemsList = new List<TradeItem>();
+
+                    if (tradeResults != null)
+                    {
+                        foreach (var item in tradeResults)
+                        {
+                            tradeItemsList.Add(new TradeItem
+                            {
+                                Name = item["name"]?.ToString() ?? "",
+                                Type = item["type"]?.ToString() ?? "",
+                                PriceDisplay = item["price_display"]?.ToString() ?? "",
+                                Seller = item["seller"]?.ToString() ?? "",
+                                Whisper = item["whisper"]?.ToString() ?? ""
+                            });
+                        }
+                    }
+
                     stepsList.Add(new UpgradeStep
                     {
                         Step = step["step"]?.ToObject<int>() ?? 0,
@@ -956,7 +980,8 @@ if token:
                         CostChaos = step["cost_chaos"]?.ToObject<int>() ?? 0,
                         Description = step["description"]?.ToString() ?? "",
                         Impact = step["impact"]?.ToString() ?? "",
-                        Recommendations = recList
+                        Recommendations = recList,
+                        TradeItems = tradeItemsList
                     });
                 }
 
@@ -1231,6 +1256,16 @@ if token:
         public string Description { get; set; } = "";
         public string Impact { get; set; } = "";
         public List<string> Recommendations { get; set; } = new List<string>();
+        public List<TradeItem> TradeItems { get; set; } = new List<TradeItem>();
+    }
+
+    public class TradeItem
+    {
+        public string Name { get; set; } = "";
+        public string Type { get; set; } = "";
+        public string PriceDisplay { get; set; } = "";
+        public string Seller { get; set; } = "";
+        public string Whisper { get; set; } = "";
     }
 
     public class PassiveRoadmapStage
