@@ -2,6 +2,19 @@
   "version": 3,
   "targets": {
     "net8.0-windows7.0": {
+      "Newtonsoft.Json/13.0.4": {
+        "type": "package",
+        "compile": {
+          "lib/net6.0/Newtonsoft.Json.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net6.0/Newtonsoft.Json.dll": {
+            "related": ".xml"
+          }
+        }
+      },
       "PathcraftAI.Core/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v8.0",
@@ -57,6 +70,36 @@
     }
   },
   "libraries": {
+    "Newtonsoft.Json/13.0.4": {
+      "sha512": "pdgNNMai3zv51W5aq268sujXUyx7SNdE2bj1wZcWjAQrKMFZV260lbqYop1d2GM67JI1huLRwxo9ZqnfF/lC6A==",
+      "type": "package",
+      "path": "newtonsoft.json/13.0.4",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE.md",
+        "README.md",
+        "lib/net20/Newtonsoft.Json.dll",
+        "lib/net20/Newtonsoft.Json.xml",
+        "lib/net35/Newtonsoft.Json.dll",
+        "lib/net35/Newtonsoft.Json.xml",
+        "lib/net40/Newtonsoft.Json.dll",
+        "lib/net40/Newtonsoft.Json.xml",
+        "lib/net45/Newtonsoft.Json.dll",
+        "lib/net45/Newtonsoft.Json.xml",
+        "lib/net6.0/Newtonsoft.Json.dll",
+        "lib/net6.0/Newtonsoft.Json.xml",
+        "lib/netstandard1.0/Newtonsoft.Json.dll",
+        "lib/netstandard1.0/Newtonsoft.Json.xml",
+        "lib/netstandard1.3/Newtonsoft.Json.dll",
+        "lib/netstandard1.3/Newtonsoft.Json.xml",
+        "lib/netstandard2.0/Newtonsoft.Json.dll",
+        "lib/netstandard2.0/Newtonsoft.Json.xml",
+        "newtonsoft.json.13.0.4.nupkg.sha512",
+        "newtonsoft.json.nuspec",
+        "packageIcon.png"
+      ]
+    },
     "PathcraftAI.Core/1.0.0": {
       "type": "project",
       "path": "../PathcraftAI.Core/PathcraftAI.Core.csproj",
@@ -80,6 +123,7 @@
   },
   "projectFileDependencyGroups": {
     "net8.0-windows7.0": [
+      "Newtonsoft.Json >= 13.0.4",
       "PathcraftAI.Core >= 1.0.0",
       "PathcraftAI.LLM >= 1.0.0",
       "PathcraftAI.Overlay >= 1.0.0",
@@ -87,23 +131,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\vnddn\\.nuget\\packages\\": {},
+    "C:\\Users\\User\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\vnddn\\OneDrive\\Desktop\\프로그래밍자료\\Unity\\PathcraftAI\\src\\PathcraftAI.UI\\PathcraftAI.UI.csproj",
+      "projectUniqueName": "D:\\Pathcraft-AI\\src\\PathcraftAI.UI\\PathcraftAI.UI.csproj",
       "projectName": "PathcraftAI.UI",
-      "projectPath": "C:\\Users\\vnddn\\OneDrive\\Desktop\\프로그래밍자료\\Unity\\PathcraftAI\\src\\PathcraftAI.UI\\PathcraftAI.UI.csproj",
-      "packagesPath": "C:\\Users\\vnddn\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\vnddn\\OneDrive\\Desktop\\프로그래밍자료\\Unity\\PathcraftAI\\src\\PathcraftAI.UI\\obj\\",
+      "projectPath": "D:\\Pathcraft-AI\\src\\PathcraftAI.UI\\PathcraftAI.UI.csproj",
+      "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
+      "outputPath": "D:\\Pathcraft-AI\\src\\PathcraftAI.UI\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\vnddn\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -112,23 +156,24 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "net8.0-windows7.0": {
           "targetAlias": "net8.0-windows",
           "projectReferences": {
-            "C:\\Users\\vnddn\\OneDrive\\Desktop\\프로그래밍자료\\Unity\\PathcraftAI\\src\\PathcraftAI.Core\\PathcraftAI.Core.csproj": {
-              "projectPath": "C:\\Users\\vnddn\\OneDrive\\Desktop\\프로그래밍자료\\Unity\\PathcraftAI\\src\\PathcraftAI.Core\\PathcraftAI.Core.csproj"
+            "D:\\Pathcraft-AI\\src\\PathcraftAI.Core\\PathcraftAI.Core.csproj": {
+              "projectPath": "D:\\Pathcraft-AI\\src\\PathcraftAI.Core\\PathcraftAI.Core.csproj"
             },
-            "C:\\Users\\vnddn\\OneDrive\\Desktop\\프로그래밍자료\\Unity\\PathcraftAI\\src\\PathcraftAI.LLM\\PathcraftAI.LLM.csproj": {
-              "projectPath": "C:\\Users\\vnddn\\OneDrive\\Desktop\\프로그래밍자료\\Unity\\PathcraftAI\\src\\PathcraftAI.LLM\\PathcraftAI.LLM.csproj"
+            "D:\\Pathcraft-AI\\src\\PathcraftAI.LLM\\PathcraftAI.LLM.csproj": {
+              "projectPath": "D:\\Pathcraft-AI\\src\\PathcraftAI.LLM\\PathcraftAI.LLM.csproj"
             },
-            "C:\\Users\\vnddn\\OneDrive\\Desktop\\프로그래밍자료\\Unity\\PathcraftAI\\src\\PathcraftAI.Overlay\\PathcraftAI.Overlay.csproj": {
-              "projectPath": "C:\\Users\\vnddn\\OneDrive\\Desktop\\프로그래밍자료\\Unity\\PathcraftAI\\src\\PathcraftAI.Overlay\\PathcraftAI.Overlay.csproj"
+            "D:\\Pathcraft-AI\\src\\PathcraftAI.Overlay\\PathcraftAI.Overlay.csproj": {
+              "projectPath": "D:\\Pathcraft-AI\\src\\PathcraftAI.Overlay\\PathcraftAI.Overlay.csproj"
             },
-            "C:\\Users\\vnddn\\OneDrive\\Desktop\\프로그래밍자료\\Unity\\PathcraftAI\\src\\PathcraftAI.Parser\\PathcraftAI.Parser.csproj": {
-              "projectPath": "C:\\Users\\vnddn\\OneDrive\\Desktop\\프로그래밍자료\\Unity\\PathcraftAI\\src\\PathcraftAI.Parser\\PathcraftAI.Parser.csproj"
+            "D:\\Pathcraft-AI\\src\\PathcraftAI.Parser\\PathcraftAI.Parser.csproj": {
+              "projectPath": "D:\\Pathcraft-AI\\src\\PathcraftAI.Parser\\PathcraftAI.Parser.csproj"
             }
           }
         }
@@ -148,6 +193,12 @@
     "frameworks": {
       "net8.0-windows7.0": {
         "targetAlias": "net8.0-windows",
+        "dependencies": {
+          "Newtonsoft.Json": {
+            "target": "Package",
+            "version": "[13.0.4, )"
+          }
+        },
         "imports": [
           "net461",
           "net462",
@@ -167,7 +218,7 @@
             "privateAssets": "none"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.306/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.305/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

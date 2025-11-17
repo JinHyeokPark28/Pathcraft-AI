@@ -1,8 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "aVcwh4sqI9s=",
+  "dgSpecHash": "q2Iv83nHMNE=",
   "success": true,
-  "projectFilePath": "C:\\Users\\vnddn\\OneDrive\\Desktop\\프로그래밍자료\\Unity\\PathcraftAI\\src\\PathcraftAI.UI\\PathcraftAI.UI.csproj",
-  "expectedPackageFiles": [],
+  "projectFilePath": "D:\\Pathcraft-AI\\src\\PathcraftAI.UI\\PathcraftAI.UI.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\User\\.nuget\\packages\\newtonsoft.json\\13.0.4\\newtonsoft.json.13.0.4.nupkg.sha512"
+  ],
   "logs": []
 }

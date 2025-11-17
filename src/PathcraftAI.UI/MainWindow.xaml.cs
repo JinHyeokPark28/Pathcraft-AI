@@ -15,6 +15,7 @@ namespace PathcraftAI.UI
         private readonly string _recommendationScriptPath;
         private readonly string _oauthScriptPath;
         private readonly string _compareBuildScriptPath;
+        private readonly string _upgradePathScriptPath;
         private readonly string _tokenFilePath;
         private bool _isLoading = false;
         private string _currentLeague = "Keepers";
@@ -22,6 +23,7 @@ namespace PathcraftAI.UI
         private JObject? _poeAccountData = null;
         private bool _isPOEConnected = false;
         private string? _currentPOBUrl = null;
+        private int _currentBudget = 100; // Default budget in chaos orbs
 
         public MainWindow()
         {
@@ -34,6 +36,7 @@ namespace PathcraftAI.UI
             _recommendationScriptPath = Path.Combine(parserDir, "auto_recommendation_engine.py");
             _oauthScriptPath = Path.Combine(parserDir, "test_oauth.py");
             _compareBuildScriptPath = Path.Combine(parserDir, "compare_build.py");
+            _upgradePathScriptPath = Path.Combine(parserDir, "upgrade_path.py");
             _tokenFilePath = Path.Combine(parserDir, "poe_token.json");
 
             // 경로 확인
@@ -719,6 +722,9 @@ if token:
                 // 비교 데이터 표시
                 DisplayBuildComparison(data);
                 BuildComparisonSection.Visibility = Visibility.Visible;
+
+                // 빌드 비교 로드 후 업그레이드 경로 로드
+                _ = LoadUpgradePath(pobUrl, characterName, _currentBudget);
             }
             catch (Exception ex)
             {
@@ -834,6 +840,123 @@ if token:
 
             return $"{sign}{gap:N0}{unit}";
         }
+
+        private async Task LoadUpgradePath(string pobUrl, string characterName, int budgetChaos)
+        {
+            try
+            {
+                // Python 스크립트로 업그레이드 경로 가져오기
+                var result = await System.Threading.Tasks.Task.Run(() =>
+                    ExecuteUpgradePath(pobUrl, characterName, budgetChaos));
+
+                if (string.IsNullOrWhiteSpace(result))
+                {
+                    UpgradePathSection.Visibility = Visibility.Collapsed;
+                    return;
+                }
+
+                // JSON 파싱
+                var data = JObject.Parse(result);
+
+                // 에러 체크
+                if (data["error"] != null)
+                {
+                    UpgradePathSection.Visibility = Visibility.Collapsed;
+                    return;
+                }
+
+                // 업그레이드 경로 표시
+                DisplayUpgradePath(data);
+                UpgradePathSection.Visibility = Visibility.Visible;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Upgrade path failed: {ex.Message}");
+                UpgradePathSection.Visibility = Visibility.Collapsed;
+            }
+        }
+
+        private string ExecuteUpgradePath(string pobUrl, string characterName, int budgetChaos)
+        {
+            var psi = new ProcessStartInfo
+            {
+                FileName = _pythonPath,
+                Arguments = $"\"{_upgradePathScriptPath}\" --pob \"{pobUrl}\" --character \"{characterName}\" --budget {budgetChaos} --json",
+                UseShellExecute = false,
+                RedirectStandardOutput = true,
+                RedirectStandardError = true,
+                CreateNoWindow = true,
+                StandardOutputEncoding = System.Text.Encoding.UTF8,
+                WorkingDirectory = Path.GetDirectoryName(_upgradePathScriptPath)
+            };
+
+            // Enable UTF-8 mode for Python
+            psi.Environment["PYTHONUTF8"] = "1";
+
+            using var process = Process.Start(psi);
+            if (process == null)
+                throw new Exception("Failed to start upgrade path process");
+
+            var output = process.StandardOutput.ReadToEnd();
+            var error = process.StandardError.ReadToEnd();
+            process.WaitForExit();
+
+            if (process.ExitCode != 0)
+            {
+                Debug.WriteLine($"Upgrade path script error: {error}");
+                return string.Empty;
+            }
+
+            return output;
+        }
+
+        private void DisplayUpgradePath(JObject data)
+        {
+            // 예산 및 총 비용 표시
+            var budgetChaos = data["budget_chaos"]?.ToObject<int>() ?? 100;
+            var totalCost = data["total_cost"]?.ToObject<int>() ?? 0;
+
+            UpgradeBudgetText.Text = $"Budget: {budgetChaos}c";
+            UpgradeTotalCostText.Text = $"Total Cost: {totalCost}c";
+
+            // 업그레이드 스텝 표시
+            var upgradeSteps = data["upgrade_steps"] as JArray;
+            if (upgradeSteps != null && upgradeSteps.Count > 0)
+            {
+                var stepsList = new List<UpgradeStep>();
+
+                foreach (var step in upgradeSteps)
+                {
+                    var recommendations = step["recommendations"] as JArray;
+                    var recList = new List<string>();
+
+                    if (recommendations != null)
+                    {
+                        foreach (var rec in recommendations)
+                        {
+                            recList.Add(rec.ToString());
+                        }
+                    }
+
+                    stepsList.Add(new UpgradeStep
+                    {
+                        Step = step["step"]?.ToObject<int>() ?? 0,
+                        Priority = step["priority"]?.ToString() ?? "",
+                        Title = step["title"]?.ToString() ?? "",
+                        CostChaos = step["cost_chaos"]?.ToObject<int>() ?? 0,
+                        Description = step["description"]?.ToString() ?? "",
+                        Impact = step["impact"]?.ToString() ?? "",
+                        Recommendations = recList
+                    });
+                }
+
+                UpgradeStepsList.ItemsSource = stepsList;
+            }
+            else
+            {
+                UpgradePathSection.Visibility = Visibility.Collapsed;
+            }
+        }
     }
 
     // 데이터 모델 클래스
@@ -852,5 +975,16 @@ if token:
         public string Category { get; set; } = "";
         public string Description { get; set; } = "";
         public string Suggestion { get; set; } = "";
+    }
+
+    public class UpgradeStep
+    {
+        public int Step { get; set; }
+        public string Priority { get; set; } = "";
+        public string Title { get; set; } = "";
+        public int CostChaos { get; set; }
+        public string Description { get; set; } = "";
+        public string Impact { get; set; } = "";
+        public List<string> Recommendations { get; set; } = new List<string>();
     }
 }

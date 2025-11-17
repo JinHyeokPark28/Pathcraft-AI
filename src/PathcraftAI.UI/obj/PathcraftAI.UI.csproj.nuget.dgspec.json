@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\vnddn\\OneDrive\\Desktop\\프로그래밍자료\\Unity\\PathcraftAI\\src\\PathcraftAI.UI\\PathcraftAI.UI.csproj": {}
+    "D:\\Pathcraft-AI\\src\\PathcraftAI.UI\\PathcraftAI.UI.csproj": {}
   },
   "projects": {
-    "C:\\Users\\vnddn\\OneDrive\\Desktop\\프로그래밍자료\\Unity\\PathcraftAI\\src\\PathcraftAI.Core\\PathcraftAI.Core.csproj": {
+    "D:\\Pathcraft-AI\\src\\PathcraftAI.Core\\PathcraftAI.Core.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\vnddn\\OneDrive\\Desktop\\프로그래밍자료\\Unity\\PathcraftAI\\src\\PathcraftAI.Core\\PathcraftAI.Core.csproj",
+        "projectUniqueName": "D:\\Pathcraft-AI\\src\\PathcraftAI.Core\\PathcraftAI.Core.csproj",
         "projectName": "PathcraftAI.Core",
-        "projectPath": "C:\\Users\\vnddn\\OneDrive\\Desktop\\프로그래밍자료\\Unity\\PathcraftAI\\src\\PathcraftAI.Core\\PathcraftAI.Core.csproj",
-        "packagesPath": "C:\\Users\\vnddn\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\vnddn\\OneDrive\\Desktop\\프로그래밍자료\\Unity\\PathcraftAI\\src\\PathcraftAI.Core\\obj\\",
+        "projectPath": "D:\\Pathcraft-AI\\src\\PathcraftAI.Core\\PathcraftAI.Core.csproj",
+        "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
+        "outputPath": "D:\\Pathcraft-AI\\src\\PathcraftAI.Core\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\vnddn\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -26,6 +26,7 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -65,24 +66,24 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.306/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.305/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\vnddn\\OneDrive\\Desktop\\프로그래밍자료\\Unity\\PathcraftAI\\src\\PathcraftAI.LLM\\PathcraftAI.LLM.csproj": {
+    "D:\\Pathcraft-AI\\src\\PathcraftAI.LLM\\PathcraftAI.LLM.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\vnddn\\OneDrive\\Desktop\\프로그래밍자료\\Unity\\PathcraftAI\\src\\PathcraftAI.LLM\\PathcraftAI.LLM.csproj",
+        "projectUniqueName": "D:\\Pathcraft-AI\\src\\PathcraftAI.LLM\\PathcraftAI.LLM.csproj",
         "projectName": "PathcraftAI.LLM",
-        "projectPath": "C:\\Users\\vnddn\\OneDrive\\Desktop\\프로그래밍자료\\Unity\\PathcraftAI\\src\\PathcraftAI.LLM\\PathcraftAI.LLM.csproj",
-        "packagesPath": "C:\\Users\\vnddn\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\vnddn\\OneDrive\\Desktop\\프로그래밍자료\\Unity\\PathcraftAI\\src\\PathcraftAI.LLM\\obj\\",
+        "projectPath": "D:\\Pathcraft-AI\\src\\PathcraftAI.LLM\\PathcraftAI.LLM.csproj",
+        "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
+        "outputPath": "D:\\Pathcraft-AI\\src\\PathcraftAI.LLM\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\vnddn\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -91,14 +92,15 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\Users\\vnddn\\OneDrive\\Desktop\\프로그래밍자료\\Unity\\PathcraftAI\\src\\PathcraftAI.Core\\PathcraftAI.Core.csproj": {
-                "projectPath": "C:\\Users\\vnddn\\OneDrive\\Desktop\\프로그래밍자료\\Unity\\PathcraftAI\\src\\PathcraftAI.Core\\PathcraftAI.Core.csproj"
+              "D:\\Pathcraft-AI\\src\\PathcraftAI.Core\\PathcraftAI.Core.csproj": {
+                "projectPath": "D:\\Pathcraft-AI\\src\\PathcraftAI.Core\\PathcraftAI.Core.csproj"
               }
             }
           }
@@ -134,24 +136,24 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.306/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.305/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\vnddn\\OneDrive\\Desktop\\프로그래밍자료\\Unity\\PathcraftAI\\src\\PathcraftAI.Overlay\\PathcraftAI.Overlay.csproj": {
+    "D:\\Pathcraft-AI\\src\\PathcraftAI.Overlay\\PathcraftAI.Overlay.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\vnddn\\OneDrive\\Desktop\\프로그래밍자료\\Unity\\PathcraftAI\\src\\PathcraftAI.Overlay\\PathcraftAI.Overlay.csproj",
+        "projectUniqueName": "D:\\Pathcraft-AI\\src\\PathcraftAI.Overlay\\PathcraftAI.Overlay.csproj",
         "projectName": "PathcraftAI.Overlay",
-        "projectPath": "C:\\Users\\vnddn\\OneDrive\\Desktop\\프로그래밍자료\\Unity\\PathcraftAI\\src\\PathcraftAI.Overlay\\PathcraftAI.Overlay.csproj",
-        "packagesPath": "C:\\Users\\vnddn\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\vnddn\\OneDrive\\Desktop\\프로그래밍자료\\Unity\\PathcraftAI\\src\\PathcraftAI.Overlay\\obj\\",
+        "projectPath": "D:\\Pathcraft-AI\\src\\PathcraftAI.Overlay\\PathcraftAI.Overlay.csproj",
+        "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
+        "outputPath": "D:\\Pathcraft-AI\\src\\PathcraftAI.Overlay\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\vnddn\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -160,14 +162,15 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net8.0-windows7.0": {
             "targetAlias": "net8.0-windows",
             "projectReferences": {
-              "C:\\Users\\vnddn\\OneDrive\\Desktop\\프로그래밍자료\\Unity\\PathcraftAI\\src\\PathcraftAI.Core\\PathcraftAI.Core.csproj": {
-                "projectPath": "C:\\Users\\vnddn\\OneDrive\\Desktop\\프로그래밍자료\\Unity\\PathcraftAI\\src\\PathcraftAI.Core\\PathcraftAI.Core.csproj"
+              "D:\\Pathcraft-AI\\src\\PathcraftAI.Core\\PathcraftAI.Core.csproj": {
+                "projectPath": "D:\\Pathcraft-AI\\src\\PathcraftAI.Core\\PathcraftAI.Core.csproj"
               }
             }
           }
@@ -206,24 +209,24 @@
               "privateAssets": "none"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.306/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.305/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\vnddn\\OneDrive\\Desktop\\프로그래밍자료\\Unity\\PathcraftAI\\src\\PathcraftAI.Parser\\PathcraftAI.Parser.csproj": {
+    "D:\\Pathcraft-AI\\src\\PathcraftAI.Parser\\PathcraftAI.Parser.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\vnddn\\OneDrive\\Desktop\\프로그래밍자료\\Unity\\PathcraftAI\\src\\PathcraftAI.Parser\\PathcraftAI.Parser.csproj",
+        "projectUniqueName": "D:\\Pathcraft-AI\\src\\PathcraftAI.Parser\\PathcraftAI.Parser.csproj",
         "projectName": "PathcraftAI.Parser",
-        "projectPath": "C:\\Users\\vnddn\\OneDrive\\Desktop\\프로그래밍자료\\Unity\\PathcraftAI\\src\\PathcraftAI.Parser\\PathcraftAI.Parser.csproj",
-        "packagesPath": "C:\\Users\\vnddn\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\vnddn\\OneDrive\\Desktop\\프로그래밍자료\\Unity\\PathcraftAI\\src\\PathcraftAI.Parser\\obj\\",
+        "projectPath": "D:\\Pathcraft-AI\\src\\PathcraftAI.Parser\\PathcraftAI.Parser.csproj",
+        "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
+        "outputPath": "D:\\Pathcraft-AI\\src\\PathcraftAI.Parser\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\vnddn\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -232,14 +235,15 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net8.0-windows7.0": {
             "targetAlias": "net8.0-windows",
             "projectReferences": {
-              "C:\\Users\\vnddn\\OneDrive\\Desktop\\프로그래밍자료\\Unity\\PathcraftAI\\src\\PathcraftAI.Core\\PathcraftAI.Core.csproj": {
-                "projectPath": "C:\\Users\\vnddn\\OneDrive\\Desktop\\프로그래밍자료\\Unity\\PathcraftAI\\src\\PathcraftAI.Core\\PathcraftAI.Core.csproj"
+              "D:\\Pathcraft-AI\\src\\PathcraftAI.Core\\PathcraftAI.Core.csproj": {
+                "projectPath": "D:\\Pathcraft-AI\\src\\PathcraftAI.Core\\PathcraftAI.Core.csproj"
               }
             }
           }
@@ -275,24 +279,24 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.306/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.305/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\vnddn\\OneDrive\\Desktop\\프로그래밍자료\\Unity\\PathcraftAI\\src\\PathcraftAI.UI\\PathcraftAI.UI.csproj": {
+    "D:\\Pathcraft-AI\\src\\PathcraftAI.UI\\PathcraftAI.UI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\vnddn\\OneDrive\\Desktop\\프로그래밍자료\\Unity\\PathcraftAI\\src\\PathcraftAI.UI\\PathcraftAI.UI.csproj",
+        "projectUniqueName": "D:\\Pathcraft-AI\\src\\PathcraftAI.UI\\PathcraftAI.UI.csproj",
         "projectName": "PathcraftAI.UI",
-        "projectPath": "C:\\Users\\vnddn\\OneDrive\\Desktop\\프로그래밍자료\\Unity\\PathcraftAI\\src\\PathcraftAI.UI\\PathcraftAI.UI.csproj",
-        "packagesPath": "C:\\Users\\vnddn\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\vnddn\\OneDrive\\Desktop\\프로그래밍자료\\Unity\\PathcraftAI\\src\\PathcraftAI.UI\\obj\\",
+        "projectPath": "D:\\Pathcraft-AI\\src\\PathcraftAI.UI\\PathcraftAI.UI.csproj",
+        "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
+        "outputPath": "D:\\Pathcraft-AI\\src\\PathcraftAI.UI\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\vnddn\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -301,23 +305,24 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net8.0-windows7.0": {
             "targetAlias": "net8.0-windows",
             "projectReferences": {
-              "C:\\Users\\vnddn\\OneDrive\\Desktop\\프로그래밍자료\\Unity\\PathcraftAI\\src\\PathcraftAI.Core\\PathcraftAI.Core.csproj": {
-                "projectPath": "C:\\Users\\vnddn\\OneDrive\\Desktop\\프로그래밍자료\\Unity\\PathcraftAI\\src\\PathcraftAI.Core\\PathcraftAI.Core.csproj"
+              "D:\\Pathcraft-AI\\src\\PathcraftAI.Core\\PathcraftAI.Core.csproj": {
+                "projectPath": "D:\\Pathcraft-AI\\src\\PathcraftAI.Core\\PathcraftAI.Core.csproj"
               },
-              "C:\\Users\\vnddn\\OneDrive\\Desktop\\프로그래밍자료\\Unity\\PathcraftAI\\src\\PathcraftAI.LLM\\PathcraftAI.LLM.csproj": {
-                "projectPath": "C:\\Users\\vnddn\\OneDrive\\Desktop\\프로그래밍자료\\Unity\\PathcraftAI\\src\\PathcraftAI.LLM\\PathcraftAI.LLM.csproj"
+              "D:\\Pathcraft-AI\\src\\PathcraftAI.LLM\\PathcraftAI.LLM.csproj": {
+                "projectPath": "D:\\Pathcraft-AI\\src\\PathcraftAI.LLM\\PathcraftAI.LLM.csproj"
               },
-              "C:\\Users\\vnddn\\OneDrive\\Desktop\\프로그래밍자료\\Unity\\PathcraftAI\\src\\PathcraftAI.Overlay\\PathcraftAI.Overlay.csproj": {
-                "projectPath": "C:\\Users\\vnddn\\OneDrive\\Desktop\\프로그래밍자료\\Unity\\PathcraftAI\\src\\PathcraftAI.Overlay\\PathcraftAI.Overlay.csproj"
+              "D:\\Pathcraft-AI\\src\\PathcraftAI.Overlay\\PathcraftAI.Overlay.csproj": {
+                "projectPath": "D:\\Pathcraft-AI\\src\\PathcraftAI.Overlay\\PathcraftAI.Overlay.csproj"
               },
-              "C:\\Users\\vnddn\\OneDrive\\Desktop\\프로그래밍자료\\Unity\\PathcraftAI\\src\\PathcraftAI.Parser\\PathcraftAI.Parser.csproj": {
-                "projectPath": "C:\\Users\\vnddn\\OneDrive\\Desktop\\프로그래밍자료\\Unity\\PathcraftAI\\src\\PathcraftAI.Parser\\PathcraftAI.Parser.csproj"
+              "D:\\Pathcraft-AI\\src\\PathcraftAI.Parser\\PathcraftAI.Parser.csproj": {
+                "projectPath": "D:\\Pathcraft-AI\\src\\PathcraftAI.Parser\\PathcraftAI.Parser.csproj"
               }
             }
           }
@@ -337,6 +342,12 @@
       "frameworks": {
         "net8.0-windows7.0": {
           "targetAlias": "net8.0-windows",
+          "dependencies": {
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[13.0.4, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
@@ -356,7 +367,7 @@
               "privateAssets": "none"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.306/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.305/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
