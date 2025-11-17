@@ -620,11 +620,36 @@
                 <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
                     <StackPanel x:Name="ResultsPanel">
                         <!-- Placeholder -->
-                        <TextBlock x:Name="PlaceholderText"
-                                   Text="Loading build recommendations..."
-                                   Foreground="#B0B0B0"
-                                   TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center"
-                                   Margin="0,100,0,0" FontSize="14"/>
+                        <StackPanel x:Name="PlaceholderPanel" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,80,0,0">
+                            <TextBlock x:Name="PlaceholderText"
+                                       TextWrapping="Wrap" HorizontalAlignment="Center" TextAlignment="Center"
+                                       FontSize="14" Foreground="#B0B0B0" Margin="0,0,0,24">
+                                <Run Text="🎯 " FontSize="32"/>
+                                <LineBreak/>
+                                <LineBreak/>
+                                <Run Text="지금 하고 있는 빌드와 가장 가까운 빌드를 찾아드립니다!" FontSize="16" FontWeight="SemiBold" Foreground="White"/>
+                                <LineBreak/>
+                                <LineBreak/>
+                                <Run Text="참고하는 스트리머나 빌드 POB가 있으면 추가해주세요."/>
+                                <LineBreak/>
+                                <Run Text="AI가 분석해서 자세하게 알려드릴게요!" Foreground="#8AC4F8"/>
+                            </TextBlock>
+
+                            <!-- POB Input Section -->
+                            <Border Background="#1E2A32" CornerRadius="8" Padding="16" MaxWidth="500">
+                                <StackPanel>
+                                    <TextBlock Text="📋 POB 링크 입력 (선택사항)" FontSize="13" FontWeight="SemiBold" Margin="0,0,0,8" Foreground="#C47533"/>
+                                    <TextBox x:Name="POBInputBox"
+                                             Height="32" Padding="8" FontSize="12"
+                                             Background="#2A2A2A" Foreground="White" BorderBrush="#505050"
+                                             Text="https://pobb.in/..."
+                                             GotFocus="POBInputBox_GotFocus"/>
+                                    <Button Content="분석하기" Height="32" Margin="0,8,0,0"
+                                            Background="#8A2BE2" Foreground="White" BorderThickness="0"
+                                            Click="AnalyzePOB_Click" FontWeight="SemiBold"/>
+                                </StackPanel>
+                            </Border>
+                        </StackPanel>
                     </StackPanel>
                 </ScrollViewer>
             </Grid>

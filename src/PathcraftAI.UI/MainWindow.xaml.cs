@@ -50,6 +50,18 @@ namespace PathcraftAI.UI
             _tokenFilePath = Path.Combine(parserDir, "poe_token.json");
 
             // 경로 확인 및 디버깅
+            var logPath = Path.Combine(baseDir, "pathcraft_debug.log");
+            try
+            {
+                File.WriteAllText(logPath, $"[PATH DEBUG] BaseDirectory: {baseDir}\n" +
+                    $"[PATH DEBUG] ProjectRoot: {projectRoot}\n" +
+                    $"[PATH DEBUG] ParserDir: {parserDir}\n" +
+                    $"[PATH DEBUG] PythonPath: {_pythonPath}\n" +
+                    $"[PATH DEBUG] Python exists: {File.Exists(_pythonPath)}\n" +
+                    $"[PATH DEBUG] RecommendationScript exists: {File.Exists(_recommendationScriptPath)}\n");
+            }
+            catch { }
+
             Debug.WriteLine($"[PATH DEBUG] BaseDirectory: {baseDir}");
             Debug.WriteLine($"[PATH DEBUG] ProjectRoot: {projectRoot}");
             Debug.WriteLine($"[PATH DEBUG] ParserDir: {parserDir}");
@@ -58,14 +70,14 @@ namespace PathcraftAI.UI
 
             if (!File.Exists(_pythonPath))
             {
-                MessageBox.Show($"Python executable not found:\n{_pythonPath}\n\nBase Directory: {baseDir}\n\nPlease set up the virtual environment first.",
-                    "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                PlaceholderText.Text = $"⚠️ Python not found\n\n{_pythonPath}\n\nPlease check virtual environment setup.\n\nSee pathcraft_debug.log for details.";
+                PlaceholderText.Visibility = Visibility.Visible;
             }
 
             if (!File.Exists(_recommendationScriptPath))
             {
-                MessageBox.Show($"Recommendation script not found:\n{_recommendationScriptPath}",
-                    "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                PlaceholderText.Text = $"⚠️ Script not found\n\n{_recommendationScriptPath}\n\nSee pathcraft_debug.log for details.";
+                PlaceholderText.Visibility = Visibility.Visible;
             }
 
             // 저장된 토큰 확인
@@ -89,7 +101,7 @@ namespace PathcraftAI.UI
                 _isLoading = true;
                 RefreshButton.IsEnabled = false;
                 RefreshButton.Content = "Loading...";
-                PlaceholderText.Visibility = Visibility.Collapsed;
+                PlaceholderPanel.Visibility = Visibility.Collapsed;
                 ResultsPanel.Children.Clear();
 
                 // Loading indicator
@@ -113,7 +125,7 @@ namespace PathcraftAI.UI
             catch (Exception ex)
             {
                 ShowFriendlyError(ex, "추천 빌드를 불러오는 중 오류가 발생했습니다.");
-                PlaceholderText.Visibility = Visibility.Visible;
+                PlaceholderPanel.Visibility = Visibility.Visible;
             }
             finally
             {
@@ -1045,6 +1057,129 @@ namespace PathcraftAI.UI
                 {
                     ShowFriendlyError(ex, "Whisper 메시지 복사 중 오류가 발생했습니다.");
                 }
+            }
+        }
+
+        private void POBInputBox_GotFocus(object sender, RoutedEventArgs e)
+        {
+            if (sender is TextBox textBox && textBox.Text == "https://pobb.in/...")
+            {
+                textBox.Text = "";
+            }
+        }
+
+        private async void AnalyzePOB_Click(object sender, RoutedEventArgs e)
+        {
+            var pobUrl = POBInputBox.Text?.Trim();
+
+            if (string.IsNullOrWhiteSpace(pobUrl) || pobUrl == "https://pobb.in/...")
+            {
+                // POB 링크 없으면 Refresh Recommendations 실행
+                await LoadRecommendations();
+                return;
+            }
+
+            // POB 링크가 있으면 AI 분석 실행
+            _currentPOBUrl = pobUrl;
+            await AnalyzePOBBuild(pobUrl);
+        }
+
+        private async Task AnalyzePOBBuild(string pobUrl)
+        {
+            try
+            {
+                PlaceholderPanel.Visibility = Visibility.Collapsed;
+                ResultsPanel.Children.Clear();
+
+                var loadingText = new TextBlock
+                {
+                    Text = "🤖 AI 분석 중... 잠시만 기다려주세요",
+                    FontSize = 14,
+                    Foreground = new SolidColorBrush(Color.FromRgb(175, 96, 37)),
+                    HorizontalAlignment = HorizontalAlignment.Center,
+                    Margin = new Thickness(0, 100, 0, 0)
+                };
+                ResultsPanel.Children.Add(loadingText);
+
+                // Rule-Based 분석 먼저 실행 (빠름)
+                await System.Threading.Tasks.Task.Run(() => AnalyzePOBWithRules(pobUrl));
+
+                // 추천 빌드도 함께 로드
+                await LoadRecommendations();
+            }
+            catch (Exception ex)
+            {
+                ShowFriendlyError(ex, "POB 분석 중 오류가 발생했습니다.");
+                PlaceholderPanel.Visibility = Visibility.Visible;
+            }
+        }
+
+        private void AnalyzePOBWithRules(string pobUrl)
+        {
+            var parserDir = Path.GetDirectoryName(_recommendationScriptPath)!;
+            var ruleAnalyzerScript = Path.Combine(parserDir, "rule_based_analyzer.py");
+
+            var psi = new ProcessStartInfo
+            {
+                FileName = _pythonPath,
+                Arguments = $"\"{ruleAnalyzerScript}\" --pob \"{pobUrl}\" --json",
+                WorkingDirectory = parserDir,
+                UseShellExecute = false,
+                RedirectStandardOutput = true,
+                RedirectStandardError = true,
+                CreateNoWindow = true,
+                StandardOutputEncoding = System.Text.Encoding.UTF8
+            };
+
+            psi.Environment["PYTHONUTF8"] = "1";
+
+            using var process = Process.Start(psi);
+            if (process == null)
+                throw new Exception("Failed to start Python process");
+
+            var output = process.StandardOutput.ReadToEnd();
+            var error = process.StandardError.ReadToEnd();
+            process.WaitForExit();
+
+            if (process.ExitCode != 0)
+            {
+                throw new Exception($"Rule-based analyzer error (exit code {process.ExitCode}):\n{error}");
+            }
+
+            // JSON 파싱 및 AI Analysis 섹션 표시
+            Dispatcher.Invoke(() =>
+            {
+                DisplayRuleBasedAnalysis(output);
+            });
+        }
+
+        private void DisplayRuleBasedAnalysis(string jsonOutput)
+        {
+            try
+            {
+                var jsonStart = jsonOutput.IndexOf('{');
+                var jsonEnd = jsonOutput.LastIndexOf('}');
+
+                if (jsonStart == -1 || jsonEnd == -1)
+                    return;
+
+                var jsonString = jsonOutput.Substring(jsonStart, jsonEnd - jsonStart + 1);
+                var data = JObject.Parse(jsonString);
+
+                // AI Analysis 섹션 표시
+                AIAnalysisSection.Visibility = Visibility.Visible;
+                AIProviderText.Text = "Provider: Rule-Based (Free)";
+
+                var analysis = data["analysis"]?.ToString() ?? "분석 결과가 없습니다.";
+                AIAnalysisText.Text = analysis;
+
+                // 토큰 정보는 Rule-Based에서는 N/A
+                AITokensText.Text = "Tokens: N/A (Free)";
+                AITimeText.Text = $"{data["execution_time"]?.ToObject<double>() ?? 0.0:F1}s";
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"[ERROR] DisplayRuleBasedAnalysis: {ex.Message}");
             }
         }
 
