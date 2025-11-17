@@ -304,11 +304,51 @@ def main():
             'chaos_res': -60
         }
     elif args.pob and args.character:
-        # TODO: 실제 데이터 로드
-        print(json.dumps({"error": "POB integration not yet implemented. Use --mock for testing."}))
-        return
+        # 실제 데이터 로드
+        try:
+            from smart_build_analyzer import SmartBuildAnalyzer
+            from poe_oauth import load_token, get_user_characters
+
+            # POB에서 목표 스탯 가져오기
+            pob_analyzer = SmartBuildAnalyzer(args.pob)
+            pob_analyzer.fetch_pob()
+            target_stats = pob_analyzer.extract_stats()
+
+            # POE API에서 현재 캐릭터 스탯 가져오기
+            token_data = load_token()
+            if not token_data:
+                print(json.dumps({"error": "Not logged in to POE account. Please connect POE account first."}))
+                return
+
+            characters = get_user_characters(token_data['access_token'])
+            char_list = characters.get('characters', [])
+
+            current_char = None
+            for char in char_list:
+                if char.get('name') == args.character:
+                    current_char = char
+                    break
+
+            if not current_char:
+                print(json.dumps({"error": f"Character '{args.character}' not found."}))
+                return
+
+            # 현재 캐릭터 스탯 추출 (간단 버전)
+            current_stats = {
+                'dps': 0,  # POE API는 DPS를 제공하지 않음
+                'life': current_char.get('level', 1) * 12,  # 추정값
+                'energy_shield': 0,
+                'fire_res': 0,
+                'cold_res': 0,
+                'lightning_res': 0,
+                'chaos_res': -60
+            }
+
+        except Exception as e:
+            print(json.dumps({"error": f"Failed to load build data: {str(e)}"}))
+            return
     else:
-        print(json.dumps({"error": "No data source specified. Use --mock for testing."}))
+        print(json.dumps({"error": "No data source specified. Use --pob and --character, or --mock for testing."}))
         return
 
     # Gap 분석
