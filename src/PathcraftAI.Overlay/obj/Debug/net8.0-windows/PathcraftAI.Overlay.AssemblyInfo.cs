@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("PathcraftAI.Overlay")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+3686be099d92106aba663b2f561662570193a93f")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+1726177fa9ef8e4c723eb9a7e5050f83f4582498")]
 [assembly: System.Reflection.AssemblyProductAttribute("PathcraftAI.Overlay")]
 [assembly: System.Reflection.AssemblyTitleAttribute("PathcraftAI.Overlay")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

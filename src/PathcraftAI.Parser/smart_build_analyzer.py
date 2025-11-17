@@ -55,7 +55,14 @@ class SmartBuildAnalyzer:
         """POB 데이터 가져오기"""
         print("[INFO] Fetching POB data...")
         response = requests.get(f"{self.pob_url}/raw")
-        decoded = base64.urlsafe_b64decode(response.text)
+
+        # Base64 padding 수정
+        raw_data = response.text
+        missing_padding = len(raw_data) % 4
+        if missing_padding:
+            raw_data += '=' * (4 - missing_padding)
+
+        decoded = base64.urlsafe_b64decode(raw_data)
         xml_data = zlib.decompress(decoded)
         self.root = ET.fromstring(xml_data)
         print("[OK] POB loaded\n")

@@ -968,9 +968,8 @@ if token:
             try
             {
                 // Python 스크립트로 패시브 트리 로드맵 가져오기
-                // 현재는 mock 데이터 사용 (POB 통합 전)
                 var result = await System.Threading.Tasks.Task.Run(() =>
-                    ExecutePassiveTreeAnalyzer());
+                    ExecutePassiveTreeAnalyzer(pobUrl, characterName));
 
                 if (string.IsNullOrWhiteSpace(result))
                 {
@@ -999,12 +998,12 @@ if token:
             }
         }
 
-        private string ExecutePassiveTreeAnalyzer()
+        private string ExecutePassiveTreeAnalyzer(string pobUrl, string characterName)
         {
             var psi = new ProcessStartInfo
             {
                 FileName = _pythonPath,
-                Arguments = $"\"{_passiveTreeScriptPath}\" --mock --json",
+                Arguments = $"\"{_passiveTreeScriptPath}\" --pob \"{pobUrl}\" --character \"{characterName}\" --json",
                 UseShellExecute = false,
                 RedirectStandardOutput = true,
                 RedirectStandardError = true,

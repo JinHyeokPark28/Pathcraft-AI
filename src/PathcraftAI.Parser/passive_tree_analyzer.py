@@ -296,6 +296,99 @@ def create_mock_data() -> Tuple[int, int, List[str], Dict[str, Dict]]:
     return current_level, target_level, current_nodes, target_nodes
 
 
+def get_pob_passive_tree(pob_url: str) -> Tuple[int, List[str], Dict[str, Dict]]:
+    """POB에서 패시브 트리 데이터 추출"""
+    try:
+        from smart_build_analyzer import SmartBuildAnalyzer
+
+        analyzer = SmartBuildAnalyzer(pob_url)
+        analyzer.fetch_pob()
+
+        # Build 정보에서 레벨 가져오기
+        build = analyzer.root.find('.//Build')
+        target_level = 94  # 기본값
+
+        if build is not None:
+            level_str = build.get('level')
+            if level_str:
+                target_level = int(level_str)
+
+        # Tree 섹션 찾기
+        tree = analyzer.root.find('.//Tree')
+        if tree is None:
+            return target_level, [], {}
+
+        # Spec 찾기 (활성화된 패시브 트리)
+        spec = tree.find('.//Spec')
+        if spec is None:
+            return target_level, [], {}
+
+        # 할당된 노드 추출
+        nodes = spec.findall('.//Node')
+        allocated_node_ids = []
+        node_info = {}
+
+        for node in nodes:
+            node_id = node.get('nodeId') or node.get('id')
+            if node_id:
+                allocated_node_ids.append(node_id)
+
+                # 노드 이름과 타입 추출 (가능한 경우)
+                node_name = node.get('name', f'Node {node_id}')
+                node_type = node.get('type', 'normal')
+
+                # 간단한 카테고리 추정 (이름 기반)
+                priority = 3  # 기본값
+                stats = []
+
+                # 노드 이름으로 카테고리 추정
+                name_lower = node_name.lower()
+                if any(k in name_lower for k in ['life', 'vitality', 'constitution', 'heart', 'energy shield', 'shield']):
+                    priority = 1
+                    stats.append('Life/ES node')
+                elif any(k in name_lower for k in ['damage', 'power', 'crit', 'elemental', 'spell', 'attack']):
+                    priority = 2
+                    stats.append('Damage node')
+                else:
+                    stats.append('Utility node')
+
+                node_info[node_id] = {
+                    'name': node_name,
+                    'stats': stats,
+                    'type': node_type,
+                    'priority': priority
+                }
+
+        return target_level, allocated_node_ids, node_info
+
+    except Exception as e:
+        print(f"[ERROR] Failed to parse POB tree: {e}", file=sys.stderr)
+        return 94, [], {}
+
+
+def get_character_level(character_name: str) -> int:
+    """캐릭터 레벨 가져오기"""
+    try:
+        from poe_oauth import load_token, get_user_characters
+
+        token_data = load_token()
+        if not token_data:
+            return 1
+
+        characters = get_user_characters(token_data['access_token'])
+        char_list = characters.get('characters', [])
+
+        for char in char_list:
+            if char.get('name') == character_name:
+                return char.get('level', 1)
+
+        return 1
+
+    except Exception as e:
+        print(f"[ERROR] Failed to get character level: {e}", file=sys.stderr)
+        return 1
+
+
 def main():
     parser = argparse.ArgumentParser(description='패시브 트리 분석 및 추천')
     parser.add_argument('--current-level', type=int, help='현재 레벨')
@@ -311,19 +404,45 @@ def main():
     if args.mock:
         current_level, target_level, current_nodes, target_nodes_data = create_mock_data()
     elif args.pob and args.character:
-        # TODO: POB와 캐릭터에서 실제 데이터 로드
-        if args.json:
-            print(json.dumps({"error": "POB integration not yet implemented. Use --mock for testing."}))
-        else:
-            print("[ERROR] POB integration not yet implemented")
-            print("[INFO] Use --mock for testing")
-        return
+        # POB와 캐릭터에서 실제 데이터 로드
+        try:
+            if not args.json:
+                print("Loading POB passive tree...")
+
+            # POB에서 목표 레벨과 노드 가져오기
+            target_level, target_node_ids, target_nodes_data = get_pob_passive_tree(args.pob)
+
+            # 캐릭터에서 현재 레벨 가져오기
+            current_level = get_character_level(args.character)
+
+            # 현재는 캐릭터의 패시브 트리를 가져올 수 없으므로 빈 리스트 사용
+            # (POE API는 패시브 트리를 제공하지 않음)
+            current_nodes = []
+
+            if not target_nodes_data:
+                if args.json:
+                    print(json.dumps({"error": "Failed to parse POB passive tree"}))
+                else:
+                    print("[ERROR] Failed to parse POB passive tree")
+                return
+
+            if not args.json:
+                print(f"  ✓ Target level: {target_level}")
+                print(f"  ✓ Current level: {current_level}")
+                print(f"  ✓ Total nodes in POB: {len(target_nodes_data)}")
+
+        except Exception as e:
+            if args.json:
+                print(json.dumps({"error": str(e)}))
+            else:
+                print(f"[ERROR] Failed to load data: {e}")
+            return
     else:
         if args.json:
-            print(json.dumps({"error": "No data source specified. Use --mock for testing."}))
+            print(json.dumps({"error": "No data source specified. Use --pob and --character, or --mock"}))
         else:
             print("[ERROR] No data source specified")
-            print("[INFO] Use --mock for testing")
+            print("[INFO] Use --pob <url> --character <name>, or --mock for testing")
         return
 
     # Override with command-line args if provided
