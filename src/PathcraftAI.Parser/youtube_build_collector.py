@@ -130,21 +130,17 @@ def search_youtube_builds(
         api_key = os.environ.get('YOUTUBE_API_KEY')
 
     if not api_key:
-        print("[WARN] YOUTUBE_API_KEY not found")
-        print("[INFO] Using mock data for demonstration")
-        mock_results = generate_mock_youtube_results(keyword, league_version, max_results)
-        # Mock 데이터도 캐시에 저장 (일관성)
-        if use_cache:
-            save_to_cache(keyword, league_version, mock_results)
-        return mock_results
+        print("[ERROR] YOUTUBE_API_KEY not found")
+        print("[INFO] Please set YOUTUBE_API_KEY environment variable")
+        print("[INFO] Get your API key from: https://console.cloud.google.com/apis/credentials")
+        return []
 
     try:
         from googleapiclient.discovery import build
     except ImportError:
         print("[ERROR] google-api-python-client not installed")
         print("[INFO] Run: pip install google-api-python-client")
-        print("[INFO] Using mock data for demonstration")
-        return generate_mock_youtube_results(keyword, league_version, max_results)
+        return []
 
     try:
         # YouTube API 클라이언트 생성
@@ -188,12 +184,21 @@ def search_youtube_builds(
             pob_links = extract_pob_links(description)
 
             if pob_links:
+                # 썸네일 URL 추출 (medium: 320x180)
+                thumbnails = video_data['snippet'].get('thumbnails', {})
+                thumbnail_url = (
+                    thumbnails.get('medium', {}).get('url') or
+                    thumbnails.get('default', {}).get('url') or
+                    f"https://img.youtube.com/vi/{video_id}/mqdefault.jpg"
+                )
+
                 build = {
                     'video_id': video_id,
                     'title': snippet['title'],
                     'channel': snippet['channelTitle'],
                     'published_at': snippet['publishedAt'],
                     'url': f"https://www.youtube.com/watch?v={video_id}",
+                    'thumbnail': thumbnail_url,
                     'views': int(statistics.get('viewCount', 0)),
                     'likes': int(statistics.get('likeCount', 0)),
                     'pob_links': pob_links,
@@ -217,12 +222,7 @@ def search_youtube_builds(
 
     except Exception as e:
         print(f"[ERROR] YouTube API call failed: {e}")
-        print("[INFO] Using mock data for demonstration")
-        mock_results = generate_mock_youtube_results(keyword, league_version, max_results)
-        # Mock 데이터도 캐시에 저장 (에러 발생 시에도 재사용)
-        if use_cache:
-            save_to_cache(keyword, league_version, mock_results)
-        return mock_results
+        return []
 
 
 def extract_pob_links(text: str) -> List[str]:
@@ -252,73 +252,6 @@ def extract_pob_links(text: str) -> List[str]:
     return list(set(links))
 
 
-def generate_mock_youtube_results(keyword: str, league_version: str, max_results: int) -> List[Dict]:
-    """
-    테스트용 Mock YouTube 결과 생성
-    """
-
-    print("[INFO] Generating mock YouTube results...")
-    print()
-
-    # 실제 Death's Oath 빌드 예시
-    mock_builds = [
-        {
-            'video_id': 'mock_video_1',
-            'title': f"[POE {league_version}] {keyword} Occultist - Budget League Starter Build Guide",
-            'channel': 'GhazzyTV',
-            'published_at': '2025-11-10T10:00:00Z',
-            'url': 'https://www.youtube.com/watch?v=mock_video_1',
-            'views': 45230,
-            'likes': 1823,
-            'pob_links': [
-                'https://pobb.in/DeathsOathBudget',
-                'https://pobb.in/DeathsOathEndgame'
-            ],
-            'description_snippet': f"Complete {keyword} build guide for POE {league_version}. Budget version POB: https://pobb.in/DeathsOathBudget ...",
-            'source': 'youtube'
-        },
-        {
-            'video_id': 'mock_video_2',
-            'title': f"{keyword} is INSANE in {league_version} - Full Build Showcase",
-            'channel': 'Zizaran',
-            'published_at': '2025-11-12T15:30:00Z',
-            'url': 'https://www.youtube.com/watch?v=mock_video_2',
-            'views': 32100,
-            'likes': 1456,
-            'pob_links': [
-                'https://pobb.in/ZizDeathsOath27'
-            ],
-            'description_snippet': f"Testing {keyword} in {league_version}. POB in description: https://pobb.in/ZizDeathsOath27 ...",
-            'source': 'youtube'
-        },
-        {
-            'video_id': 'mock_video_3',
-            'title': f"How to Play {keyword} Occultist - Complete Guide",
-            'channel': 'Palsteron',
-            'published_at': '2025-11-08T12:00:00Z',
-            'url': 'https://www.youtube.com/watch?v=mock_video_3',
-            'views': 18900,
-            'likes': 892,
-            'pob_links': [
-                'https://pastebin.com/DeathOath327'
-            ],
-            'description_snippet': f"{keyword} build for {league_version}. Pastebin: https://pastebin.com/DeathOath327 ...",
-            'source': 'youtube'
-        }
-    ]
-
-    results = mock_builds[:max_results]
-
-    for build in results:
-        print(f"[MOCK] {build['title'][:60]}...")
-        print(f"       Channel: {build['channel']}")
-        print(f"       Views: {build['views']:,}")
-        print(f"       POB Links: {len(build['pob_links'])}")
-        print()
-
-    print(f"[OK] Generated {len(results)} mock YouTube results")
-
-    return results
 
 
 def save_youtube_builds(builds: List[Dict], keyword: str, output_dir: str = "build_data/youtube_builds"):
