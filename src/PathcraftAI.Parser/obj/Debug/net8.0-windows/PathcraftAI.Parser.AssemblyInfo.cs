@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("PathcraftAI.Parser")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+1726177fa9ef8e4c723eb9a7e5050f83f4582498")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+0583bdc9fcaa9eb75995b29136d324687bcf3166")]
 [assembly: System.Reflection.AssemblyProductAttribute("PathcraftAI.Parser")]
 [assembly: System.Reflection.AssemblyTitleAttribute("PathcraftAI.Parser")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

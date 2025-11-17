@@ -141,11 +141,11 @@
                                 <DataTemplate>
                                     <TextBlock Margin="0,0,0,4" FontSize="12" Foreground="#B0B0B0">
                                         <Run Text="• "/>
-                                        <Run Text="{Binding ItemName}" FontWeight="SemiBold" Foreground="White"/>
+                                        <Run Text="{Binding ItemName, Mode=OneWay}" FontWeight="SemiBold" Foreground="White"/>
                                         <Run Text=" (~"/>
-                                        <Run Text="{Binding ChaosValue}"/>
+                                        <Run Text="{Binding ChaosValue, Mode=OneWay}"/>
                                         <Run Text="c): "/>
-                                        <Run Text="{Binding Reason}"/>
+                                        <Run Text="{Binding Reason, Mode=OneWay}"/>
                                     </TextBlock>
                                 </DataTemplate>
                             </ItemsControl.ItemTemplate>

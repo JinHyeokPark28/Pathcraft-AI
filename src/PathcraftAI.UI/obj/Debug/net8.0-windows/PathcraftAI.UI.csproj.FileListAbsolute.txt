@@ -58,3 +58,5 @@ D:\Pathcraft-AI\src\PathcraftAI.UI\bin\Debug\net8.0-windows\PathcraftAI.Overlay.
 D:\Pathcraft-AI\src\PathcraftAI.UI\obj\Debug\net8.0-windows\Pathcraf.0DF1E2CD.Up2Date
 D:\Pathcraft-AI\src\PathcraftAI.UI\obj\Debug\net8.0-windows\PathcraftAI.UI.genruntimeconfig.cache
 D:\Pathcraft-AI\src\PathcraftAI.UI\obj\Debug\net8.0-windows\ref\PathcraftAI.UI.dll
+d:\Pathcraft-AI\src\PathcraftAI.UI\obj\Debug\net8.0-windows\GeneratedInternalTypeHelper.g.cs
+d:\Pathcraft-AI\src\PathcraftAI.UI\obj\Debug\net8.0-windows\PathcraftAI.UI_MarkupCompile.lref
