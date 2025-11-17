@@ -14,12 +14,14 @@ namespace PathcraftAI.UI
         private readonly string _pythonPath;
         private readonly string _recommendationScriptPath;
         private readonly string _oauthScriptPath;
+        private readonly string _compareBuildScriptPath;
         private readonly string _tokenFilePath;
         private bool _isLoading = false;
         private string _currentLeague = "Keepers";
         private string _currentPhase = "Mid-Season";
         private JObject? _poeAccountData = null;
         private bool _isPOEConnected = false;
+        private string? _currentPOBUrl = null;
 
         public MainWindow()
         {
@@ -31,6 +33,7 @@ namespace PathcraftAI.UI
             _pythonPath = Path.Combine(parserDir, ".venv", "Scripts", "python.exe");
             _recommendationScriptPath = Path.Combine(parserDir, "auto_recommendation_engine.py");
             _oauthScriptPath = Path.Combine(parserDir, "test_oauth.py");
+            _compareBuildScriptPath = Path.Combine(parserDir, "compare_build.py");
             _tokenFilePath = Path.Combine(parserDir, "poe_token.json");
 
             // 경로 확인
@@ -229,6 +232,7 @@ namespace PathcraftAI.UI
             {
                 // 빌드 데이터가 없으면 섹션 숨김
                 YourBuildSection.Visibility = Visibility.Collapsed;
+                BuildComparisonSection.Visibility = Visibility.Collapsed;
                 return;
             }
 
@@ -280,6 +284,17 @@ namespace PathcraftAI.UI
             else
             {
                 UpgradeSuggestionsPanel.Visibility = Visibility.Collapsed;
+            }
+
+            // POB 링크가 있으면 빌드 비교 로드
+            var pobUrl = userBuild["pob_url"]?.ToString();
+            if (!string.IsNullOrEmpty(pobUrl) && characterName != "-" && _isPOEConnected)
+            {
+                _ = LoadBuildComparison(pobUrl, characterName);
+            }
+            else
+            {
+                BuildComparisonSection.Visibility = Visibility.Collapsed;
             }
         }
 
@@ -674,5 +689,168 @@ if token:
                 throw new Exception($"OAuth authentication failed:\n{error}");
             }
         }
+
+        private async Task LoadBuildComparison(string pobUrl, string characterName)
+        {
+            try
+            {
+                _currentPOBUrl = pobUrl;
+
+                // Python 스크립트로 비교 데이터 가져오기
+                var result = await System.Threading.Tasks.Task.Run(() =>
+                    ExecuteBuildComparison(pobUrl, characterName));
+
+                if (string.IsNullOrWhiteSpace(result))
+                {
+                    BuildComparisonSection.Visibility = Visibility.Collapsed;
+                    return;
+                }
+
+                // JSON 파싱
+                var data = JObject.Parse(result);
+
+                // 에러 체크
+                if (data["error"] != null)
+                {
+                    BuildComparisonSection.Visibility = Visibility.Collapsed;
+                    return;
+                }
+
+                // 비교 데이터 표시
+                DisplayBuildComparison(data);
+                BuildComparisonSection.Visibility = Visibility.Visible;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Build comparison failed: {ex.Message}");
+                BuildComparisonSection.Visibility = Visibility.Collapsed;
+            }
+        }
+
+        private string ExecuteBuildComparison(string pobUrl, string characterName)
+        {
+            var psi = new ProcessStartInfo
+            {
+                FileName = _pythonPath,
+                Arguments = $"\"{_compareBuildScriptPath}\" --pob \"{pobUrl}\" --character \"{characterName}\" --json",
+                UseShellExecute = false,
+                RedirectStandardOutput = true,
+                RedirectStandardError = true,
+                CreateNoWindow = true,
+                StandardOutputEncoding = System.Text.Encoding.UTF8,
+                WorkingDirectory = Path.GetDirectoryName(_compareBuildScriptPath)
+            };
+
+            // Enable UTF-8 mode for Python
+            psi.Environment["PYTHONUTF8"] = "1";
+
+            using var process = Process.Start(psi);
+            if (process == null)
+                throw new Exception("Failed to start comparison process");
+
+            var output = process.StandardOutput.ReadToEnd();
+            var error = process.StandardError.ReadToEnd();
+            process.WaitForExit();
+
+            if (process.ExitCode != 0)
+            {
+                Debug.WriteLine($"Comparison script error: {error}");
+                return string.Empty;
+            }
+
+            return output;
+        }
+
+        private void DisplayBuildComparison(JObject data)
+        {
+            // 비교 데이터 바인딩
+            var comparison = data["comparison"] as JArray;
+            if (comparison != null && comparison.Count > 0)
+            {
+                var comparisonList = new List<ComparisonRow>();
+
+                foreach (var item in comparison)
+                {
+                    var stat = item["stat"]?.ToString() ?? "";
+                    var current = item["current"]?.ToObject<double>() ?? 0;
+                    var target = item["target"]?.ToObject<double>() ?? 0;
+                    var gap = item["gap"]?.ToObject<double>() ?? 0;
+                    var status = item["status"]?.ToString() ?? "";
+                    var unit = item["unit"]?.ToString() ?? "";
+
+                    comparisonList.Add(new ComparisonRow
+                    {
+                        Stat = stat,
+                        CurrentDisplay = FormatStatValue(current, unit),
+                        TargetDisplay = FormatStatValue(target, unit),
+                        GapDisplay = FormatGapValue(gap, unit),
+                        Status = status
+                    });
+                }
+
+                ComparisonGrid.ItemsSource = comparisonList;
+            }
+
+            // Priority Upgrades 표시
+            var priorityUpgrades = data["priority_upgrades"] as JArray;
+            if (priorityUpgrades != null && priorityUpgrades.Count > 0)
+            {
+                var upgradeList = new List<PriorityUpgrade>();
+
+                foreach (var upgrade in priorityUpgrades)
+                {
+                    upgradeList.Add(new PriorityUpgrade
+                    {
+                        Priority = upgrade["priority"]?.ToObject<int>() ?? 0,
+                        Category = upgrade["category"]?.ToString() ?? "",
+                        Description = upgrade["description"]?.ToString() ?? "",
+                        Suggestion = upgrade["suggestion"]?.ToString() ?? ""
+                    });
+                }
+
+                PriorityUpgradesList.ItemsSource = upgradeList;
+                PriorityUpgradesPanel.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                PriorityUpgradesPanel.Visibility = Visibility.Collapsed;
+            }
+        }
+
+        private string FormatStatValue(double value, string unit)
+        {
+            if (string.IsNullOrEmpty(unit))
+                return value.ToString("N0");
+
+            return $"{value:N0}{unit}";
+        }
+
+        private string FormatGapValue(double gap, string unit)
+        {
+            var sign = gap >= 0 ? "+" : "";
+
+            if (string.IsNullOrEmpty(unit))
+                return $"{sign}{gap:N0}";
+
+            return $"{sign}{gap:N0}{unit}";
+        }
+    }
+
+    // 데이터 모델 클래스
+    public class ComparisonRow
+    {
+        public string Stat { get; set; } = "";
+        public string CurrentDisplay { get; set; } = "";
+        public string TargetDisplay { get; set; } = "";
+        public string GapDisplay { get; set; } = "";
+        public string Status { get; set; } = "";
+    }
+
+    public class PriorityUpgrade
+    {
+        public int Priority { get; set; }
+        public string Category { get; set; } = "";
+        public string Description { get; set; } = "";
+        public string Suggestion { get; set; } = "";
     }
 }
