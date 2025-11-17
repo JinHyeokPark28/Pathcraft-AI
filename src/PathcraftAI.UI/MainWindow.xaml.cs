@@ -25,10 +25,15 @@ namespace PathcraftAI.UI
         private bool _isPOEConnected = false;
         private string? _currentPOBUrl = null;
         private int _currentBudget = 100; // Default budget in chaos orbs
+        private GlobalHotkey? _hideoutHotkey;
 
         public MainWindow()
         {
             InitializeComponent();
+
+            // F5 단축키 등록 (하이드아웃 이동)
+            Loaded += (s, e) => RegisterHotkeys();
+            Closed += (s, e) => UnregisterHotkeys();
 
             // Python 경로 설정
             var projectRoot = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..", "..", "..", "..", ".."));
@@ -1117,6 +1122,85 @@ if token:
             {
                 PassiveTreeSection.Visibility = Visibility.Collapsed;
             }
+        }
+
+        private void RegisterHotkeys()
+        {
+            try
+            {
+                var windowHandle = new System.Windows.Interop.WindowInteropHelper(this).Handle;
+
+                // F5: 하이드아웃 이동
+                _hideoutHotkey = new GlobalHotkey(Key.F5, KeyModifier.None, windowHandle);
+                _hideoutHotkey.HotkeyPressed += (s, e) => ExecuteHideoutCommand();
+
+                Debug.WriteLine("Hotkeys registered: F5 = /hideout");
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Failed to register hotkeys: {ex.Message}");
+            }
+        }
+
+        private void UnregisterHotkeys()
+        {
+            _hideoutHotkey?.Dispose();
+            _hideoutHotkey = null;
+        }
+
+        private void ExecuteHideoutCommand()
+        {
+            try
+            {
+                // 클립보드에 /hideout 명령어 복사
+                Clipboard.SetText("/hideout");
+                Debug.WriteLine("[F5] Copied '/hideout' to clipboard");
+
+                // 토스트 알림 (옵션)
+                ShowNotification("Hideout command copied!");
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Failed to execute hideout command: {ex.Message}");
+            }
+        }
+
+        private void ShowNotification(string message)
+        {
+            // 간단한 토스트 알림 (향후 개선 가능)
+            Dispatcher.Invoke(() =>
+            {
+                var notification = new System.Windows.Controls.TextBlock
+                {
+                    Text = message,
+                    Foreground = Brushes.White,
+                    Background = new SolidColorBrush(Color.FromArgb(200, 0, 0, 0)),
+                    Padding = new Thickness(10),
+                    FontSize = 14,
+                    HorizontalAlignment = HorizontalAlignment.Center,
+                    VerticalAlignment = VerticalAlignment.Top,
+                    Margin = new Thickness(0, 20, 0, 0)
+                };
+
+                // MainWindow의 Grid에 추가 (첫 번째 Grid 찾기)
+                var grid = Content as System.Windows.Controls.Grid;
+                if (grid != null)
+                {
+                    grid.Children.Add(notification);
+
+                    // 2초 후 제거
+                    var timer = new System.Windows.Threading.DispatcherTimer
+                    {
+                        Interval = TimeSpan.FromSeconds(2)
+                    };
+                    timer.Tick += (s, e) =>
+                    {
+                        grid.Children.Remove(notification);
+                        timer.Stop();
+                    };
+                    timer.Start();
+                }
+            });
         }
     }
 
