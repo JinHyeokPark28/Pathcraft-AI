@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 """
 스마트 빌드 분석기
 - POB에서 키스톤, DPS, 방어 수치 추출
@@ -11,7 +12,15 @@ import base64
 import zlib
 import xml.etree.ElementTree as ET
 import json
+import sys
 from pathlib import Path
+
+# UTF-8 설정
+if sys.platform == 'win32':
+    if sys.stdout.encoding != 'utf-8':
+        sys.stdout.reconfigure(encoding='utf-8')
+    if sys.stderr.encoding != 'utf-8':
+        sys.stderr.reconfigure(encoding='utf-8')
 
 # POB Keystone Node IDs (from POE passive tree data)
 KEYSTONE_IDS = {
@@ -40,6 +49,7 @@ class SmartBuildAnalyzer:
         self.defense_type = None
         self.damage_type = None
         self.market_prices = {}
+        self.pob_stats = {}  # POB 통계 (DPS, Life, ES 등)
 
     def fetch_pob(self):
         """POB 데이터 가져오기"""
@@ -72,6 +82,57 @@ class SmartBuildAnalyzer:
 
         if not self.keystones:
             print("  No keystones allocated")
+        print()
+
+    def extract_pob_stats(self):
+        """POB XML에서 통계 추출 (DPS, Life, ES, 저항 등)"""
+        print("📊 Extracting POB Stats...")
+
+        build = self.root.find('.//Build')
+        if build is None:
+            print("⚠ No build data\n")
+            return
+
+        # PlayerStat 섹션에서 stat들을 추출
+        stats = {}
+        for player_stat in build.findall('.//PlayerStat'):
+            stat_name = player_stat.get('stat')
+            stat_value = player_stat.get('value')
+
+            if stat_name and stat_value:
+                try:
+                    # 숫자로 변환 시도
+                    float_value = float(stat_value)
+
+                    # infinity 체크
+                    if float_value == float('inf') or float_value == float('-inf'):
+                        stats[stat_name] = float_value
+                    elif '.' in stat_value or 'e' in stat_value.lower():
+                        stats[stat_name] = float_value
+                    else:
+                        stats[stat_name] = int(float_value)
+                except (ValueError, TypeError, OverflowError):
+                    stats[stat_name] = stat_value
+
+        # 주요 통계만 self.pob_stats에 저장
+        self.pob_stats = {
+            'dps': stats.get('TotalDPS', 0),
+            'combined_dps': stats.get('CombinedDPS', 0),
+            'life': stats.get('Life', 0),
+            'energy_shield': stats.get('EnergyShield', 0),
+            'mana': stats.get('Mana', 0),
+            'total_ehp': stats.get('TotalEHP', 0),
+            'armour': stats.get('Armour', 0),
+            'evasion': stats.get('Evasion', 0),
+            'block': stats.get('EffectiveBlockChance', 0),
+            'spell_block': stats.get('EffectiveSpellBlockChance', 0),
+            'fire_res': stats.get('FireResist', 0),
+            'cold_res': stats.get('ColdResist', 0),
+            'lightning_res': stats.get('LightningResist', 0),
+            'chaos_res': stats.get('ChaosResist', 0),
+        }
+
+        print("  ✓ Stats extracted")
         print()
 
     def analyze_defense(self):
@@ -110,6 +171,75 @@ class SmartBuildAnalyzer:
         # Default: Life-based
         self.defense_type = 'Life-based'
         print(f"  Defense: {self.defense_type}")
+        print()
+
+    def display_pob_stats(self):
+        """POB 통계를 보기 좋게 출력"""
+        if not self.pob_stats:
+            return
+
+        print("=" * 80)
+        print("📊 POB BUILD STATS")
+        print("=" * 80)
+        print()
+
+        # DPS
+        print("⚔️ OFFENSE:")
+        dps = self.pob_stats.get('dps', 0)
+        combined_dps = self.pob_stats.get('combined_dps', 0)
+
+        if combined_dps > dps:
+            print(f"  Total DPS:     {dps:,.0f}")
+            print(f"  Combined DPS:  {combined_dps:,.0f} (includes minions/totems)")
+        else:
+            print(f"  Total DPS:     {dps:,.0f}")
+        print()
+
+        # Defense
+        print("🛡️ DEFENSE:")
+        life = self.pob_stats.get('life', 0)
+        es = self.pob_stats.get('energy_shield', 0)
+        ehp = self.pob_stats.get('total_ehp', 0)
+
+        print(f"  Life:          {life:,}")
+        print(f"  Energy Shield: {es:,}")
+        if ehp > 0:
+            print(f"  Total EHP:     {ehp:,.0f}")
+
+        armour = self.pob_stats.get('armour', 0)
+        evasion = self.pob_stats.get('evasion', 0)
+        block = self.pob_stats.get('block', 0)
+        spell_block = self.pob_stats.get('spell_block', 0)
+
+        if armour > 0:
+            print(f"  Armour:        {armour:,}")
+        if evasion > 0:
+            print(f"  Evasion:       {evasion:,}")
+        if block > 0:
+            print(f"  Block:         {block}%")
+        if spell_block > 0:
+            print(f"  Spell Block:   {spell_block}%")
+        print()
+
+        # Resistances
+        print("🔥 RESISTANCES:")
+        fire = self.pob_stats.get('fire_res', 0)
+        cold = self.pob_stats.get('cold_res', 0)
+        lightning = self.pob_stats.get('lightning_res', 0)
+        chaos = self.pob_stats.get('chaos_res', 0)
+
+        def res_status(value):
+            if value >= 75:
+                return "✓"
+            elif value >= 0:
+                return "⚠"
+            else:
+                return "✗"
+
+        print(f"  Fire:          {fire}% {res_status(fire)}")
+        print(f"  Cold:          {cold}% {res_status(cold)}")
+        print(f"  Lightning:     {lightning}% {res_status(lightning)}")
+        print(f"  Chaos:         {chaos}% {res_status(chaos)}")
         print()
 
     def load_market_prices(self):
@@ -234,6 +364,8 @@ class SmartBuildAnalyzer:
         """전체 분석 실행"""
         self.fetch_pob()
         self.analyze_keystones()
+        self.extract_pob_stats()  # 새로 추가: POB 통계 추출
+        self.display_pob_stats()  # 새로 추가: 통계 출력
         self.analyze_defense()
         self.load_market_prices()
         self.recommend_pantheon()
