@@ -105,7 +105,7 @@ namespace PathcraftAI.UI
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Failed to load recommendations:\n{ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                ShowFriendlyError(ex, "추천 빌드를 불러오는 중 오류가 발생했습니다.");
                 PlaceholderText.Visibility = Visibility.Visible;
             }
             finally
@@ -236,7 +236,7 @@ namespace PathcraftAI.UI
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Failed to parse recommendations:\n{ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                ShowFriendlyError(ex, "추천 데이터를 파싱하는 중 오류가 발생했습니다.");
                 ShowNoRecommendations();
             }
         }
@@ -757,6 +757,95 @@ namespace PathcraftAI.UI
                 "Settings", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
+        private void ShowFriendlyError(Exception ex, string context = "")
+        {
+            string title = "알림";
+            string message = ex.Message;
+            MessageBoxImage icon = MessageBoxImage.Warning;
+
+            // Rate Limit 에러 (HTTP 429)
+            if (ex is System.Net.Http.HttpRequestException && (message.Contains("429") || message.Contains("Too Many Requests")))
+            {
+                title = "요청 제한 도달";
+                message = "POE API 요청 제한에 도달했습니다.\n\n30초 후 다시 시도해주세요.";
+                icon = MessageBoxImage.Information;
+            }
+            // Privacy 설정 에러
+            else if (message.Contains("privacy", StringComparison.OrdinalIgnoreCase) ||
+                     message.Contains("private", StringComparison.OrdinalIgnoreCase) ||
+                     message.Contains("character tab", StringComparison.OrdinalIgnoreCase))
+            {
+                title = "캐릭터 비공개 설정";
+                message = "캐릭터 아이템이 비공개 상태입니다.\n\n" +
+                          "POE 웹사이트에서 설정 변경:\n" +
+                          "1. My Account → Privacy Settings\n" +
+                          "2. 'Hide characters' 옵션 체크 해제\n" +
+                          "3. 저장 후 다시 시도해주세요";
+                icon = MessageBoxImage.Information;
+            }
+            // 네트워크 에러
+            else if (ex is System.Net.Http.HttpRequestException ||
+                     ex is System.Net.WebException ||
+                     message.Contains("network", StringComparison.OrdinalIgnoreCase) ||
+                     message.Contains("connection", StringComparison.OrdinalIgnoreCase))
+            {
+                title = "네트워크 오류";
+                message = "인터넷 연결을 확인해주세요.\n\n" +
+                          "다음을 확인하세요:\n" +
+                          "1. 인터넷 연결 상태\n" +
+                          "2. 방화벽 설정\n" +
+                          "3. POE 서버 상태 (pathofexile.com)";
+                icon = MessageBoxImage.Error;
+            }
+            // YouTube API 키 에러
+            else if (message.Contains("API key", StringComparison.OrdinalIgnoreCase) ||
+                     message.Contains("YOUTUBE_API_KEY", StringComparison.OrdinalIgnoreCase))
+            {
+                title = "YouTube API 키 없음";
+                message = "YouTube API 키가 설정되지 않았습니다.\n\n" +
+                          "설정 방법:\n" +
+                          "1. Google Cloud Console에서 API 키 발급\n" +
+                          "2. YouTube Data API v3 활성화\n" +
+                          "3. 환경 변수에 API 키 추가\n\n" +
+                          "현재는 Mock 데이터로 표시됩니다.";
+                icon = MessageBoxImage.Information;
+            }
+            // Python 프로세스 에러
+            else if (message.Contains("Python", StringComparison.OrdinalIgnoreCase) ||
+                     message.Contains("process", StringComparison.OrdinalIgnoreCase))
+            {
+                title = "Python 실행 오류";
+                message = "Python 스크립트 실행에 실패했습니다.\n\n" +
+                          "해결 방법:\n" +
+                          "1. Virtual environment 활성화 확인\n" +
+                          "2. 필요한 패키지 설치 확인\n" +
+                          "3. Python 경로 확인\n\n" +
+                          $"오류 내용: {ex.Message}";
+                icon = MessageBoxImage.Error;
+            }
+            // POB 파싱 에러
+            else if (message.Contains("POB", StringComparison.OrdinalIgnoreCase) ||
+                     message.Contains("pastebin", StringComparison.OrdinalIgnoreCase))
+            {
+                title = "POB 링크 오류";
+                message = "POB 링크를 불러올 수 없습니다.\n\n" +
+                          "확인사항:\n" +
+                          "1. 올바른 POB 링크인지 확인\n" +
+                          "2. Pastebin이 접근 가능한지 확인\n" +
+                          "3. POB 데이터가 유효한지 확인";
+                icon = MessageBoxImage.Warning;
+            }
+            // 일반 에러 (컨텍스트 추가)
+            else if (!string.IsNullOrEmpty(context))
+            {
+                title = "오류 발생";
+                message = $"{context}\n\n오류 내용:\n{ex.Message}";
+                icon = MessageBoxImage.Error;
+            }
+
+            MessageBox.Show(message, title, MessageBoxButton.OK, icon);
+        }
+
         private void Donate_Click(object sender, RoutedEventArgs e)
         {
             MessageBox.Show("Support PathcraftAI!\n\nPremium: $2.50/month (removes ads)\n\nThank you for your support!",
@@ -774,8 +863,7 @@ namespace PathcraftAI.UI
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show($"Failed to copy whisper message: {ex.Message}",
-                        "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    ShowFriendlyError(ex, "Whisper 메시지 복사 중 오류가 발생했습니다.");
                 }
             }
         }
@@ -820,8 +908,7 @@ namespace PathcraftAI.UI
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Failed to connect POE account:\n{ex.Message}",
-                    "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                ShowFriendlyError(ex, "POE 계정 연결 중 오류가 발생했습니다.");
             }
             finally
             {
@@ -981,7 +1068,7 @@ if token:
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Failed to disconnect:\n{ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                ShowFriendlyError(ex, "POE 계정 연결 해제 중 오류가 발생했습니다.");
             }
         }
 
