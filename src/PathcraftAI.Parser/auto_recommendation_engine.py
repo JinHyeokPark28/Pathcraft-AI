@@ -356,8 +356,16 @@ def analyze_user_context(characters: Optional[List[Dict]]) -> Dict:
             "main_class": None
         }
 
-    # 가장 높은 레벨의 캐릭터의 클래스
-    main_char = max(characters, key=lambda c: c.get('level', 0))
+    # 메인 캐릭터 선택 로직:
+    # 1. 현재 리그 캐릭터 우선 (Standard 제외)
+    # 2. 그 중 가장 높은 레벨
+    # 3. 리그 캐릭터가 없으면 Standard에서 가장 높은 레벨
+    league_chars = [c for c in characters if c.get('league') != 'Standard']
+
+    if league_chars:
+        main_char = max(league_chars, key=lambda c: c.get('level', 0))
+    else:
+        main_char = max(characters, key=lambda c: c.get('level', 0))
 
     return {
         "has_characters": True,
