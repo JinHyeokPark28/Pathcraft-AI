@@ -375,11 +375,22 @@ def analyze_user_build_from_token() -> Optional[Dict]:
         print("[ERROR] No characters found")
         return None
 
-    # 메인 캐릭터 (가장 높은 레벨)
-    main_char = max(characters, key=lambda c: c.get('level', 0))
-    character_name = main_char.get('name')
+    # 메인 캐릭터 선택 로직:
+    # 1. 현재 리그 캐릭터 우선 (Standard 제외)
+    # 2. 그 중 가장 높은 레벨
+    # 3. 리그 캐릭터가 없으면 Standard에서 가장 높은 레벨
 
-    print(f"[INFO] Analyzing main character: {character_name} Lv{main_char.get('level')} {main_char.get('class')}")
+    league_chars = [c for c in characters if c.get('league') != 'Standard']
+
+    if league_chars:
+        main_char = max(league_chars, key=lambda c: c.get('level', 0))
+        print(f"[INFO] Selected current league character (highest level in {main_char.get('league')})")
+    else:
+        main_char = max(characters, key=lambda c: c.get('level', 0))
+        print(f"[INFO] No league characters found, using Standard (highest level)")
+
+    character_name = main_char.get('name')
+    print(f"[INFO] Analyzing main character: {character_name} Lv{main_char.get('level')} {main_char.get('class')} ({main_char.get('league')})")
     print()
 
     # 빌드 분석
