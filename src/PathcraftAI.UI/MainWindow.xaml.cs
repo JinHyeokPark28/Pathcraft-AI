@@ -871,27 +871,58 @@ if token:
         {
             try
             {
-                // Python 스크립트로 업그레이드 경로 가져오기
-                var result = await System.Threading.Tasks.Task.Run(() =>
+                // Show loading indicator
+                UpgradePathDescription.Text = "Loading upgrade path recommendations...";
+                UpgradePathSection.Visibility = Visibility.Visible;
+
+                // Python 스크립트로 업그레이드 경로 가져오기 (with timeout)
+                var timeoutTask = System.Threading.Tasks.Task.Delay(30000); // 30초 타임아웃
+                var upgradeTask = System.Threading.Tasks.Task.Run(() =>
                     ExecuteUpgradePath(pobUrl, characterName, budgetChaos));
+
+                var completedTask = await System.Threading.Tasks.Task.WhenAny(upgradeTask, timeoutTask);
+
+                if (completedTask == timeoutTask)
+                {
+                    ShowNotification("Upgrade path request timed out. Please try again.", isError: true);
+                    UpgradePathSection.Visibility = Visibility.Collapsed;
+                    return;
+                }
+
+                var result = await upgradeTask;
 
                 if (string.IsNullOrWhiteSpace(result))
                 {
+                    ShowNotification("Failed to load upgrade path. Please check your POB URL.", isError: true);
                     UpgradePathSection.Visibility = Visibility.Collapsed;
                     return;
                 }
 
                 // JSON 파싱
-                var data = JObject.Parse(result);
+                JObject? data;
+                try
+                {
+                    data = JObject.Parse(result);
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine($"JSON parse error: {ex.Message}");
+                    ShowNotification("Failed to parse upgrade path data.", isError: true);
+                    UpgradePathSection.Visibility = Visibility.Collapsed;
+                    return;
+                }
 
                 // 에러 체크
                 if (data["error"] != null)
                 {
+                    var errorMsg = data["error"]?.ToString() ?? "Unknown error";
+                    ShowNotification($"Upgrade path error: {errorMsg}", isError: true);
                     UpgradePathSection.Visibility = Visibility.Collapsed;
                     return;
                 }
 
                 // 업그레이드 경로 표시
+                UpgradePathDescription.Text = "Based on your current build and target POB, here's the recommended upgrade path:";
                 DisplayUpgradePath(data);
                 UpgradePathSection.Visibility = Visibility.Visible;
 
@@ -901,6 +932,7 @@ if token:
             catch (Exception ex)
             {
                 Debug.WriteLine($"Upgrade path failed: {ex.Message}");
+                ShowNotification($"Error loading upgrade path: {ex.Message}", isError: true);
                 UpgradePathSection.Visibility = Visibility.Collapsed;
             }
         }
@@ -1207,16 +1239,20 @@ if token:
             }
         }
 
-        private void ShowNotification(string message)
+        private void ShowNotification(string message, bool isError = false)
         {
             // 간단한 토스트 알림 (향후 개선 가능)
             Dispatcher.Invoke(() =>
             {
+                var bgColor = isError
+                    ? Color.FromArgb(200, 180, 0, 0)  // Red for errors
+                    : Color.FromArgb(200, 0, 0, 0);   // Black for normal
+
                 var notification = new System.Windows.Controls.TextBlock
                 {
                     Text = message,
                     Foreground = Brushes.White,
-                    Background = new SolidColorBrush(Color.FromArgb(200, 0, 0, 0)),
+                    Background = new SolidColorBrush(bgColor),
                     Padding = new Thickness(10),
                     FontSize = 14,
                     HorizontalAlignment = HorizontalAlignment.Center,
@@ -1230,10 +1266,11 @@ if token:
                 {
                     grid.Children.Add(notification);
 
-                    // 2초 후 제거
+                    // 에러는 4초, 일반은 2초 후 제거
+                    var duration = isError ? 4 : 2;
                     var timer = new System.Windows.Threading.DispatcherTimer
                     {
-                        Interval = TimeSpan.FromSeconds(2)
+                        Interval = TimeSpan.FromSeconds(duration)
                     };
                     timer.Tick += (s, e) =>
                     {
