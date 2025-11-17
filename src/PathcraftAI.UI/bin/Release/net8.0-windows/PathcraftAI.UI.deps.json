@@ -8,6 +8,7 @@
     ".NETCoreApp,Version=v8.0": {
       "PathcraftAI.UI/1.0.0": {
         "dependencies": {
+          "Newtonsoft.Json": "13.0.4",
           "PathcraftAI.Core": "1.0.0",
           "PathcraftAI.LLM": "1.0.0",
           "PathcraftAI.Overlay": "1.0.0",
@@ -15,6 +16,14 @@
         },
         "runtime": {
           "PathcraftAI.UI.dll": {}
+        }
+      },
+      "Newtonsoft.Json/13.0.4": {
+        "runtime": {
+          "lib/net6.0/Newtonsoft.Json.dll": {
+            "assemblyVersion": "13.0.0.0",
+            "fileVersion": "13.0.4.30916"
+          }
         }
       },
       "PathcraftAI.Core/1.0.0": {
@@ -65,6 +74,13 @@
       "type": "project",
       "serviceable": false,
       "sha512": ""
+    },
+    "Newtonsoft.Json/13.0.4": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-pdgNNMai3zv51W5aq268sujXUyx7SNdE2bj1wZcWjAQrKMFZV260lbqYop1d2GM67JI1huLRwxo9ZqnfF/lC6A==",
+      "path": "newtonsoft.json/13.0.4",
+      "hashPath": "newtonsoft.json.13.0.4.nupkg.sha512"
     },
     "PathcraftAI.Core/1.0.0": {
       "type": "project",

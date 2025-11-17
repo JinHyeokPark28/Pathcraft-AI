@@ -4,7 +4,7 @@
 library
 C#
 .cs
-C:\Users\vnddn\OneDrive\Desktop\프로그래밍자료\Unity\PathcraftAI\src\PathcraftAI.Overlay\obj\Release\net8.0-windows\
+D:\Pathcraft-AI\src\PathcraftAI.Overlay\obj\Release\net8.0-windows\
 PathcraftAI.Overlay
 none
 false
@@ -13,7 +13,7 @@ TRACE;RELEASE;NET;NET8_0;NETCOREAPP;WINDOWS;WINDOWS7_0;NET5_0_OR_GREATER;NET6_0_
 11067674342
 
 3-757443045
-199-422207606
+199-1435735515
 OverlayWindow.xaml;
 
 False
