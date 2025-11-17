@@ -93,28 +93,53 @@ def detect_league_phase(league: str) -> str:
 
 def load_user_characters_from_oauth() -> Optional[List[Dict]]:
     """
-    OAuth 토큰에서 사용자 캐릭터 로드
+    OAuth 토큰에서 사용자 캐릭터 로드 (자동 갱신 포함)
 
     Returns:
         캐릭터 목록 또는 None
     """
     try:
-        # poe_token.json 파일 로드
-        token_file = os.path.join(os.path.dirname(__file__), "poe_token.json")
+        from poe_oauth import load_token, save_token, get_user_characters, refresh_access_token
 
-        if not os.path.exists(token_file):
+        # 토큰 로드
+        token_data = load_token()
+        if not token_data:
+            print("[WARNING] No OAuth token found. Please authenticate first.")
             return None
 
-        with open(token_file, 'r', encoding='utf-8') as f:
-            token_data = json.load(f)
+        # 토큰 만료 확인 및 자동 갱신
+        if 'expires_at' in token_data:
+            expires_at = datetime.fromisoformat(token_data['expires_at'])
+            now = datetime.now()
+
+            # 토큰이 만료되었거나 1시간 이내에 만료될 경우 갱신
+            if now >= expires_at or (expires_at - now).total_seconds() < 3600:
+                print(f"[INFO] Access token expired or expiring soon, refreshing...")
+
+                try:
+                    # CLIENT_ID는 환경변수 또는 기본값 사용
+                    client_id = os.environ.get('POE_CLIENT_ID', 'pathcraftai')
+                    refresh_token = token_data.get('refresh_token')
+
+                    if not refresh_token:
+                        print("[WARNING] No refresh token found. Please re-authenticate.")
+                        return None
+
+                    # 토큰 갱신
+                    new_token_data = refresh_access_token(client_id, refresh_token)
+                    save_token(new_token_data)
+                    token_data = new_token_data
+
+                except Exception as refresh_error:
+                    print(f"[WARNING] Failed to refresh token: {refresh_error}")
+                    print("[INFO] Please re-authenticate using 'Connect POE Account' button")
+                    return None
 
         access_token = token_data.get('access_token')
         if not access_token:
             return None
 
-        # poe_oauth 모듈에서 캐릭터 가져오기
-        from poe_oauth import get_user_characters
-
+        # 캐릭터 가져오기
         characters_data = get_user_characters(access_token)
         characters = characters_data.get('characters', [])
 

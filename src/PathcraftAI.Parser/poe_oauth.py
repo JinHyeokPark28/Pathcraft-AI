@@ -384,10 +384,65 @@ def authenticate_user(client_id: str, client_secret: str, scopes: list[str]) -> 
     return token_data
 
 
+def refresh_access_token(client_id: str, refresh_token: str, client_secret: str = None) -> Dict:
+    """
+    Refresh Token으로 새로운 Access Token 발급
+
+    Args:
+        client_id: POE OAuth 클라이언트 ID
+        refresh_token: Refresh Token
+        client_secret: OAuth 클라이언트 시크릿 (public client의 경우 None)
+
+    Returns:
+        새로운 토큰 데이터 (expires_at 포함)
+    """
+    from datetime import datetime, timedelta
+
+    data = {
+        'client_id': client_id,
+        'grant_type': 'refresh_token',
+        'refresh_token': refresh_token
+    }
+
+    if client_secret and client_secret.lower() != 'none':
+        data['client_secret'] = client_secret
+
+    headers = {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
+        'Accept': 'application/json',
+        'Content-Type': 'application/x-www-form-urlencoded'
+    }
+
+    print(f"[INFO] Refreshing access token...")
+
+    response = requests.post(f"{POE_OAUTH_BASE}/token", data=data, headers=headers)
+
+    if response.status_code != 200:
+        print(f"[ERROR] Token refresh failed: {response.status_code}")
+        print(f"[ERROR] Response: {response.text}")
+        response.raise_for_status()
+
+    token_data = response.json()
+
+    # expires_at 타임스탬프 추가
+    expires_in = token_data.get('expires_in', 36000)
+    token_data['expires_at'] = (datetime.now() + timedelta(seconds=expires_in)).isoformat()
+
+    print(f"[OK] Access token refreshed (expires in {expires_in/3600:.1f} hours)")
+
+    return token_data
+
+
 def save_token(token_data: Dict, filename: str = "poe_token.json"):
     """토큰을 파일에 저장"""
+    from datetime import datetime, timedelta
 
     filepath = os.path.join(os.path.dirname(__file__), filename)
+
+    # expires_at이 없으면 추가
+    if 'expires_at' not in token_data and 'expires_in' in token_data:
+        expires_in = token_data['expires_in']
+        token_data['expires_at'] = (datetime.now() + timedelta(seconds=expires_in)).isoformat()
 
     with open(filepath, 'w', encoding='utf-8') as f:
         json.dump(token_data, f, indent=2)
