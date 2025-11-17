@@ -897,7 +897,9 @@ namespace PathcraftAI.UI
 
                 // Get selected AI provider
                 int selectedProvider = AIProviderCombo.SelectedIndex;
-                string provider = selectedProvider == 0 ? "claude" : selectedProvider == 1 ? "openai" : "both";
+                string provider = selectedProvider == 0 ? "rule-based" :
+                                  selectedProvider == 1 ? "claude" :
+                                  selectedProvider == 2 ? "openai" : "both";
 
                 // Run AI analysis via Python
                 var result = await System.Threading.Tasks.Task.Run(() => ExecuteAIAnalysis(_currentPOBUrl, provider));

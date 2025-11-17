@@ -18,11 +18,83 @@ try:
 except ImportError:
     pass  # python-dotenv가 없어도 환경변수는 사용 가능
 
+def load_from_cache(keyword: str, league_version: str) -> Optional[List[Dict]]:
+    """
+    캐시에서 YouTube 빌드 로드 (24시간 유효)
+
+    Args:
+        keyword: 빌드 키워드
+        league_version: 리그 버전
+
+    Returns:
+        캐시된 빌드 리스트 (없거나 만료되면 None)
+    """
+    cache_dir = os.path.join(os.path.dirname(__file__), "build_data", "youtube_cache")
+    os.makedirs(cache_dir, exist_ok=True)
+
+    # 파일명에서 특수문자 제거
+    safe_keyword = re.sub(r'[^\w\s-]', '', keyword).strip().replace(' ', '_')
+    cache_file = os.path.join(cache_dir, f"{safe_keyword}_{league_version}.json")
+
+    if not os.path.exists(cache_file):
+        return None
+
+    try:
+        with open(cache_file, 'r', encoding='utf-8') as f:
+            data = json.load(f)
+
+        # 캐시 시간 확인 (24시간)
+        cached_at = datetime.fromisoformat(data['cached_at'])
+        age_hours = (datetime.now() - cached_at).total_seconds() / 3600
+
+        if age_hours > 24:
+            print(f"[CACHE] Expired ({age_hours:.1f}h old)")
+            return None
+
+        print(f"[CACHE] Found ({age_hours:.1f}h old)")
+        return data['builds']
+
+    except Exception as e:
+        print(f"[CACHE] Error loading cache: {e}")
+        return None
+
+def save_to_cache(keyword: str, league_version: str, builds: List[Dict]):
+    """
+    YouTube 빌드를 캐시에 저장
+
+    Args:
+        keyword: 빌드 키워드
+        league_version: 리그 버전
+        builds: 빌드 리스트
+    """
+    cache_dir = os.path.join(os.path.dirname(__file__), "build_data", "youtube_cache")
+    os.makedirs(cache_dir, exist_ok=True)
+
+    safe_keyword = re.sub(r'[^\w\s-]', '', keyword).strip().replace(' ', '_')
+    cache_file = os.path.join(cache_dir, f"{safe_keyword}_{league_version}.json")
+
+    try:
+        data = {
+            'keyword': keyword,
+            'league_version': league_version,
+            'cached_at': datetime.now().isoformat(),
+            'builds': builds
+        }
+
+        with open(cache_file, 'w', encoding='utf-8') as f:
+            json.dump(data, f, indent=2, ensure_ascii=False)
+
+        print(f"[CACHE] Saved {len(builds)} builds for {keyword}")
+
+    except Exception as e:
+        print(f"[CACHE] Error saving cache: {e}")
+
 def search_youtube_builds(
     keyword: str,
     league_version: str = "3.27",
     max_results: int = 10,
-    api_key: Optional[str] = None
+    api_key: Optional[str] = None,
+    use_cache: bool = True
 ) -> List[Dict]:
     """
     YouTube에서 빌드 검색
@@ -32,6 +104,7 @@ def search_youtube_builds(
         league_version: 리그 버전 (예: "3.27")
         max_results: 최대 결과 수
         api_key: YouTube API 키 (None이면 환경변수에서 읽음)
+        use_cache: 캐시 사용 여부 (24시간 캐시)
 
     Returns:
         빌드 정보 리스트
@@ -45,6 +118,13 @@ def search_youtube_builds(
     print("=" * 80)
     print()
 
+    # 캐시 확인 (API 할당량 절약)
+    if use_cache:
+        cached = load_from_cache(keyword, league_version)
+        if cached:
+            print(f"[CACHE] Using cached results for {keyword}")
+            return cached[:max_results]
+
     # API 키 확인 (인자 > 환경변수 > .env)
     if api_key is None:
         api_key = os.environ.get('YOUTUBE_API_KEY')
@@ -52,7 +132,11 @@ def search_youtube_builds(
     if not api_key:
         print("[WARN] YOUTUBE_API_KEY not found")
         print("[INFO] Using mock data for demonstration")
-        return generate_mock_youtube_results(keyword, league_version, max_results)
+        mock_results = generate_mock_youtube_results(keyword, league_version, max_results)
+        # Mock 데이터도 캐시에 저장 (일관성)
+        if use_cache:
+            save_to_cache(keyword, league_version, mock_results)
+        return mock_results
 
     try:
         from googleapiclient.discovery import build
@@ -125,12 +209,20 @@ def search_youtube_builds(
 
         print(f"[OK] Found {len(builds)} videos with POB links")
 
+        # API 호출 성공 시 캐시에 저장
+        if use_cache and builds:
+            save_to_cache(keyword, league_version, builds)
+
         return builds
 
     except Exception as e:
         print(f"[ERROR] YouTube API call failed: {e}")
         print("[INFO] Using mock data for demonstration")
-        return generate_mock_youtube_results(keyword, league_version, max_results)
+        mock_results = generate_mock_youtube_results(keyword, league_version, max_results)
+        # Mock 데이터도 캐시에 저장 (에러 발생 시에도 재사용)
+        if use_cache:
+            save_to_cache(keyword, league_version, mock_results)
+        return mock_results
 
 
 def extract_pob_links(text: str) -> List[str]:

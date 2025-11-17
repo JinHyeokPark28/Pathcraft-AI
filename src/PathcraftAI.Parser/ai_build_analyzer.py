@@ -311,7 +311,7 @@ if __name__ == "__main__":
 
     parser = argparse.ArgumentParser(description='AI Build Analyzer')
     parser.add_argument('--pob', '--pob-url', dest='pob_url', type=str, required=True, help='POB URL to analyze')
-    parser.add_argument('--provider', type=str, choices=['claude', 'openai', 'both'], default='both', help='AI provider')
+    parser.add_argument('--provider', type=str, choices=['claude', 'openai', 'both', 'rule-based'], default='both', help='AI provider')
     parser.add_argument('--json', action='store_true', help='Output as JSON')
 
     args = parser.parse_args()
@@ -350,34 +350,61 @@ if __name__ == "__main__":
             print()
 
         # AI 분석
-        if args.provider in ['claude', 'both']:
-            claude_result = analyze_build_with_claude(build_data)
-        else:
-            claude_result = {"error": "Not requested"}
+        if args.provider == 'rule-based':
+            # Rule-based 분석 (API 키 불필요)
+            from rule_based_analyzer import RuleBasedAnalyzer
+            analyzer = RuleBasedAnalyzer()
 
-        if args.provider in ['openai', 'both']:
-            openai_result = analyze_build_with_openai(build_data)
-        else:
-            openai_result = {"error": "Not requested"}
+            # POB 데이터를 rule-based analyzer 형식으로 변환
+            stats_data = {
+                'dps': build_data.get('stats', {}).get('total_dps', 0),
+                'life': build_data.get('stats', {}).get('life', 0),
+                'energy_shield': build_data.get('stats', {}).get('es', 0),
+                'fire_res': build_data.get('stats', {}).get('fire_res', 0),
+                'cold_res': build_data.get('stats', {}).get('cold_res', 0),
+                'lightning_res': build_data.get('stats', {}).get('lightning_res', 0),
+                'chaos_res': build_data.get('stats', {}).get('chaos_res', -60),
+                'main_skill': build_data.get('meta', {}).get('main_skill', 'Unknown'),
+                'class': build_data.get('meta', {}).get('poe_class', 'Unknown'),
+                'keystones': build_data.get('passive_tree', {}).get('keystones', [])
+            }
 
-        # 결과 출력
-        if args.json:
-            # JSON 모드: 단일 provider 결과만 출력
-            if args.provider == 'claude':
-                print(json.dumps(claude_result, ensure_ascii=False, indent=2))
-            elif args.provider == 'openai':
-                print(json.dumps(openai_result, ensure_ascii=False, indent=2))
+            result = analyzer.analyze_build(stats_data)
+
+            if args.json:
+                print(json.dumps(result, ensure_ascii=False, indent=2))
             else:
-                # both인 경우 claude 우선
-                print(json.dumps(claude_result if "error" not in claude_result else openai_result, ensure_ascii=False, indent=2))
+                print("\n" + result.get('analysis', str(result)))
         else:
-            # 텍스트 모드: 기존 출력
-            if args.provider == 'both':
-                compare_analyses(claude_result, openai_result)
-            elif args.provider == 'claude':
-                print("\n" + claude_result.get('analysis', str(claude_result)))
-            elif args.provider == 'openai':
-                print("\n" + openai_result.get('analysis', str(openai_result)))
+            # AI 분석 (Claude/OpenAI)
+            if args.provider in ['claude', 'both']:
+                claude_result = analyze_build_with_claude(build_data)
+            else:
+                claude_result = {"error": "Not requested"}
+
+            if args.provider in ['openai', 'both']:
+                openai_result = analyze_build_with_openai(build_data)
+            else:
+                openai_result = {"error": "Not requested"}
+
+            # 결과 출력
+            if args.json:
+                # JSON 모드: 단일 provider 결과만 출력
+                if args.provider == 'claude':
+                    print(json.dumps(claude_result, ensure_ascii=False, indent=2))
+                elif args.provider == 'openai':
+                    print(json.dumps(openai_result, ensure_ascii=False, indent=2))
+                else:
+                    # both인 경우 claude 우선
+                    print(json.dumps(claude_result if "error" not in claude_result else openai_result, ensure_ascii=False, indent=2))
+            else:
+                # 텍스트 모드: 기존 출력
+                if args.provider == 'both':
+                    compare_analyses(claude_result, openai_result)
+                elif args.provider == 'claude':
+                    print("\n" + claude_result.get('analysis', str(claude_result)))
+                elif args.provider == 'openai':
+                    print("\n" + openai_result.get('analysis', str(openai_result)))
 
     except Exception as e:
         if args.json:
