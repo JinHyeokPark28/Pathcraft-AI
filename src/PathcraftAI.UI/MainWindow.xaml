@@ -610,13 +610,54 @@
             <Grid Grid.Row="6">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
 
                 <TextBlock x:Name="ResultsHeader" Grid.Row="0" Text="Recommended Builds"
                            FontSize="16" FontWeight="SemiBold" Margin="0,0,0,8"/>
 
-                <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+                <!-- Personalized Input Section (Always Visible) -->
+                <Border Grid.Row="1" Background="#262638" CornerRadius="8" Padding="16" Margin="0,0,0,16" MaxWidth="800" HorizontalAlignment="Left">
+                    <StackPanel>
+                        <TextBlock Text="🎯 맞춤 추천 받기" FontSize="14" FontWeight="SemiBold" Margin="0,0,0,12" Foreground="#CBA6F7"/>
+
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="16"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="16"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+
+                            <StackPanel Grid.Column="0">
+                                <TextBlock Text="📋 참고 POB (링크 또는 코드)" FontSize="11" Margin="0,0,0,4" Foreground="#89B4FA"/>
+                                <TextBox x:Name="POBInputBox"
+                                         Height="32" Padding="8" FontSize="12"
+                                         Background="#313244" Foreground="#CDD6F4" BorderBrush="#45475A"
+                                         Text="URL 또는 POB 코드 붙여넣기"
+                                         GotFocus="POBInputBox_GotFocus"
+                                         ToolTip="pobb.in 다운 시 POB에서 Export > Share as Text 후 코드 직접 붙여넣기"/>
+                            </StackPanel>
+
+                            <StackPanel Grid.Column="2">
+                                <TextBlock Text="⭐ 스트리머/유튜버" FontSize="11" Margin="0,0,0,4" Foreground="#F38BA8"/>
+                                <TextBox x:Name="StreamerInputBox"
+                                         Height="32" Padding="8" FontSize="12"
+                                         Background="#313244" Foreground="#CDD6F4" BorderBrush="#45475A"
+                                         Text="예: Zizaran, Steelmage..."
+                                         GotFocus="StreamerInputBox_GotFocus"/>
+                            </StackPanel>
+
+                            <Button Grid.Column="4" Content="🔍 검색" Height="32" Width="100" VerticalAlignment="Bottom"
+                                    Background="#CBA6F7" Foreground="#1E1E2E" BorderThickness="0"
+                                    Click="GetPersonalizedRecommendations_Click" FontWeight="SemiBold" FontSize="12"/>
+                        </Grid>
+                    </StackPanel>
+                </Border>
+
+                <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto">
                     <WrapPanel x:Name="ResultsPanel" Orientation="Horizontal" ItemWidth="340" ItemHeight="Auto">
                         <!-- Placeholder -->
                         <StackPanel x:Name="PlaceholderPanel" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,80,0,0">
@@ -626,36 +667,11 @@
                                 <Run Text="🎯 " FontSize="32"/>
                                 <LineBreak/>
                                 <LineBreak/>
-                                <Run Text="지금 하고 있는 빌드와 가장 가까운 빌드를 찾아드립니다!" FontSize="16" FontWeight="SemiBold" Foreground="#CDD6F4"/>
+                                <Run Text="위에서 참고 POB나 스트리머를 입력하고 검색해보세요!" FontSize="16" FontWeight="SemiBold" Foreground="#CDD6F4"/>
                                 <LineBreak/>
                                 <LineBreak/>
-                                <Run Text="참고하는 스트리머나 빌드 POB가 있으면 추가해주세요." Foreground="#BAC2DE"/>
-                                <LineBreak/>
-                                <Run Text="AI가 분석해서 자세하게 알려드릴게요!" Foreground="#89B4FA"/>
+                                <Run Text="또는 'Refresh Recommendations' 버튼으로 자동 추천을 받으세요." Foreground="#BAC2DE"/>
                             </TextBlock>
-
-                            <!-- POB Input Section -->
-                            <Border Background="#262638" CornerRadius="8" Padding="16" MaxWidth="500">
-                                <StackPanel>
-                                    <TextBlock Text="📋 참고하는 POB 링크 (선택사항)" FontSize="13" FontWeight="SemiBold" Margin="0,0,0,8" Foreground="#89B4FA"/>
-                                    <TextBox x:Name="POBInputBox"
-                                             Height="32" Padding="8" FontSize="12"
-                                             Background="#313244" Foreground="#CDD6F4" BorderBrush="#45475A"
-                                             Text="https://pobb.in/..."
-                                             GotFocus="POBInputBox_GotFocus"/>
-
-                                    <TextBlock Text="⭐ 참고하는 스트리머/유튜버 (선택사항)" FontSize="13" FontWeight="SemiBold" Margin="0,16,0,8" Foreground="#F38BA8"/>
-                                    <TextBox x:Name="StreamerInputBox"
-                                             Height="32" Padding="8" FontSize="12"
-                                             Background="#313244" Foreground="#CDD6F4" BorderBrush="#45475A"
-                                             Text="예: Zizaran, Steelmage, Palsteron..."
-                                             GotFocus="StreamerInputBox_GotFocus"/>
-
-                                    <Button Content="🔍 맞춤 추천 받기" Height="36" Margin="0,16,0,0"
-                                            Background="#CBA6F7" Foreground="#1E1E2E" BorderThickness="0"
-                                            Click="GetPersonalizedRecommendations_Click" FontWeight="SemiBold" FontSize="13"/>
-                                </StackPanel>
-                            </Border>
                         </StackPanel>
                     </WrapPanel>
                 </ScrollViewer>

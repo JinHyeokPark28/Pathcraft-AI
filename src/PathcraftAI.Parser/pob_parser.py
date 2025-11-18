@@ -29,16 +29,27 @@ TEST_POB_URL = "https://pobb.in/wXVStDuZrqHX"
 HEADERS = {'User-Agent': 'Mozilla/5.0'}
 
 def get_pob_code_from_url(pob_url):
-    print(f"1. POB URL에서 데이터 추출 중: {pob_url}")
+    print(f"1. POB URL에서 데이터 추출 중: {pob_url}", file=sys.stderr)
     try:
+        # pastebin.com/raw/ URL 처리
+        if 'pastebin.com' in pob_url and '/raw/' not in pob_url:
+            # pastebin.com/xxxxxxxx -> pastebin.com/raw/xxxxxxxx
+            pob_url = pob_url.replace('pastebin.com/', 'pastebin.com/raw/')
+            print(f"   > Pastebin URL detected, using raw: {pob_url}", file=sys.stderr)
+
         response = requests.get(pob_url, headers=HEADERS, timeout=10)
         response.raise_for_status()
-        # 최적화: lxml 대신 html.parser 사용 (외부 의존성 감소)
+
+        # pastebin.com/raw는 직접 텍스트 반환
+        if 'pastebin.com/raw/' in pob_url:
+            return response.text.strip()
+
+        # pobb.in은 HTML 파싱 필요
         soup = BeautifulSoup(response.content, 'html.parser')
         code_element = soup.find('textarea')
         return code_element.text.strip() if code_element else None
     except Exception as e:
-        print(f"   > 오류: POB URL을 가져오는 중 문제가 발생했습니다 - {e}")
+        print(f"   > 오류: POB URL을 가져오는 중 문제가 발생했습니다 - {e}", file=sys.stderr)
         return None
 
 def decode_pob_code(encoded_code):

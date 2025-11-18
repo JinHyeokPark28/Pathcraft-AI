@@ -310,18 +310,33 @@ if __name__ == "__main__":
     from pob_parser import get_pob_code_from_url, decode_pob_code, parse_pob_xml
 
     parser = argparse.ArgumentParser(description='AI Build Analyzer')
-    parser.add_argument('--pob', '--pob-url', dest='pob_url', type=str, required=True, help='POB URL to analyze')
+    parser.add_argument('--pob', '--pob-url', dest='pob_url', type=str, help='POB URL to analyze')
+    parser.add_argument('--pob-code', dest='pob_code', type=str, help='POB code directly (base64 encoded)')
     parser.add_argument('--provider', type=str, choices=['claude', 'openai', 'both', 'rule-based'], default='both', help='AI provider')
     parser.add_argument('--json', action='store_true', help='Output as JSON')
 
     args = parser.parse_args()
 
     # POB 데이터 가져오기
-    if not args.json:
-        print(f"[INFO] Fetching POB data from: {args.pob_url}")
+    if not args.pob_url and not args.pob_code:
+        if args.json:
+            print(json.dumps({"error": "Either --pob or --pob-code is required"}))
+        else:
+            print("[ERROR] Either --pob or --pob-code is required")
+        exit(1)
 
     try:
-        pob_code = get_pob_code_from_url(args.pob_url)
+        # POB 코드 직접 제공 시
+        if args.pob_code:
+            if not args.json:
+                print("[INFO] Using provided POB code")
+            pob_code = args.pob_code
+        # POB URL에서 가져오기
+        else:
+            if not args.json:
+                print(f"[INFO] Fetching POB data from: {args.pob_url}")
+            pob_code = get_pob_code_from_url(args.pob_url)
+
         if not pob_code:
             if args.json:
                 print(json.dumps({"error": "Could not fetch POB code"}))
@@ -337,7 +352,8 @@ if __name__ == "__main__":
                 print("[ERROR] Could not decode POB data")
             exit(1)
 
-        build_data = parse_pob_xml(xml_data, args.pob_url)
+        pob_url = args.pob_url if args.pob_url else "direct_input"
+        build_data = parse_pob_xml(xml_data, pob_url)
         if not build_data:
             if args.json:
                 print(json.dumps({"error": "Could not parse POB XML"}))

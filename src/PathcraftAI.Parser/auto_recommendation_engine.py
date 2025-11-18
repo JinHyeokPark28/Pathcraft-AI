@@ -473,20 +473,33 @@ def find_similar_builds_to_pob(pob_url: str, league: str, limit: int = 10) -> Li
 
     try:
         # POB 분석
-        from pob_xml_parser import fetch_pob_code, decode_pob, parse_pob_xml
+        import requests
+        from pob_parser import decode_pob_code, parse_pob_xml
 
         print(f"[INFO] Analyzing reference POB...", file=sys.stderr)
-        pob_code = fetch_pob_code(pob_url)
-        if not pob_code:
-            print(f"[ERROR] Could not fetch POB code", file=sys.stderr)
+
+        # POB 코드 가져오기
+        response = requests.get(pob_url)
+        if response.status_code != 200:
+            print(f"[ERROR] Could not fetch POB URL: {response.status_code}", file=sys.stderr)
             return []
 
-        pob_xml = decode_pob(pob_code)
+        # POB 코드 추출 (pastebin raw URL로 변환)
+        if 'pobb.in' in pob_url or 'pastebin.com' in pob_url:
+            # Get the code parameter from URL or fetch from page
+            pob_code = response.text
+        else:
+            print(f"[ERROR] Unsupported POB URL format", file=sys.stderr)
+            return []
+
+        # XML 디코딩
+        pob_xml = decode_pob_code(pob_code)
         if not pob_xml:
             print(f"[ERROR] Could not decode POB", file=sys.stderr)
             return []
 
-        build_data = parse_pob_xml(pob_xml)
+        # POB 파싱
+        build_data = parse_pob_xml(pob_xml, pob_url)
         if not build_data:
             print(f"[ERROR] Could not parse POB XML", file=sys.stderr)
             return []

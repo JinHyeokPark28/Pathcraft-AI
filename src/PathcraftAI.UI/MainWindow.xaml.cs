@@ -237,8 +237,13 @@ namespace PathcraftAI.UI
                 LeagueNameText.Text = $"Current League: {_currentLeague}";
                 LeaguePhaseText.Text = $"League Phase: {_currentPhase}";
 
-                // 사용자 빌드 정보 표시
-                DisplayUserBuild(data["user_build"] as JObject);
+                // 사용자 빌드 정보 표시 (personalized 모드가 아닐 때만)
+                var leaguePhase = data["league_phase"]?.ToString();
+                if (leaguePhase != "personalized")
+                {
+                    DisplayUserBuild(data["user_build"] as JObject);
+                }
+                // personalized 모드일 때는 기존 사용자 빌드 정보 유지
 
                 var recommendations = data["recommendations"] as JArray;
 
@@ -1009,15 +1014,29 @@ namespace PathcraftAI.UI
             }
         }
 
-        private string ExecuteAIAnalysis(string pobUrl, string provider)
+        private string ExecuteAIAnalysis(string pobInput, string provider)
         {
-            var parserDir = Path.GetDirectoryName(_pythonPath);
-            var aiAnalyzerScript = Path.Combine(parserDir!, "..", "ai_build_analyzer.py");
+            var parserDir = Path.GetDirectoryName(_recommendationScriptPath)!;
+            var aiAnalyzerScript = Path.Combine(parserDir, "ai_build_analyzer.py");
+
+            // POB URL인지 POB 코드인지 판단
+            bool isUrl = pobInput.StartsWith("http://") || pobInput.StartsWith("https://");
+            string arguments;
+
+            if (isUrl)
+            {
+                arguments = $"\"{aiAnalyzerScript}\" --pob \"{pobInput}\" --provider {provider} --json";
+            }
+            else
+            {
+                // POB 코드 직접 사용 (base64 인코딩됨)
+                arguments = $"\"{aiAnalyzerScript}\" --pob-code \"{pobInput}\" --provider {provider} --json";
+            }
 
             var psi = new ProcessStartInfo
             {
                 FileName = _pythonPath,
-                Arguments = $"\"{aiAnalyzerScript}\" --pob \"{pobUrl}\" --provider {provider} --json",
+                Arguments = arguments,
                 UseShellExecute = false,
                 RedirectStandardOutput = true,
                 RedirectStandardError = true,
@@ -1047,6 +1066,17 @@ namespace PathcraftAI.UI
 
             if (process.ExitCode != 0)
             {
+                // POB URL 에러인 경우 더 자세한 메시지
+                if (error.Contains("Could not fetch POB") || error.Contains("500 Server Error"))
+                {
+                    throw new Exception($"POB URL을 가져올 수 없습니다.\n\n가능한 원인:\n" +
+                        $"1. pobb.in 서버가 일시적으로 다운됨 (Cloudflare 장애)\n" +
+                        $"2. POB URL이 만료되었거나 삭제됨\n\n" +
+                        $"해결 방법:\n" +
+                        $"- pastebin.com POB URL 사용 (예: pastebin.com/xxxxxxxx)\n" +
+                        $"- 나중에 다시 시도\n\n" +
+                        $"상세 에러:\n{error}");
+                }
                 throw new Exception($"AI analysis failed:\n{error}");
             }
 
@@ -1171,6 +1201,18 @@ namespace PathcraftAI.UI
                 // 결과 표시
                 ResultsPanel.Children.Clear();
                 DisplayRecommendations(result);
+
+                // POB URL이 있으면 자동으로 AI 분석 실행
+                if (!string.IsNullOrEmpty(pobUrl))
+                {
+                    _currentPOBUrl = pobUrl;
+                    // AI 분석 자동 실행 (비동기)
+                    _ = Task.Run(async () =>
+                    {
+                        await Task.Delay(500); // 추천 결과 표시 후 약간의 딜레이
+                        Dispatcher.Invoke(() => AIAnalysis_Click(this, new RoutedEventArgs()));
+                    });
+                }
             }
             catch (Exception ex)
             {
