@@ -114,7 +114,7 @@ def load_user_characters_from_oauth() -> Optional[List[Dict]]:
 
             # 토큰이 만료되었거나 1시간 이내에 만료될 경우 갱신
             if now >= expires_at or (expires_at - now).total_seconds() < 3600:
-                print(f"[INFO] Access token expired or expiring soon, refreshing...")
+                print(f"[INFO]", file=sys.stderr)", file=sys.stderr) Access token expired or expiring soon, refreshing...")
 
                 try:
                     # CLIENT_ID는 환경변수 또는 기본값 사용
@@ -132,7 +132,7 @@ def load_user_characters_from_oauth() -> Optional[List[Dict]]:
 
                 except Exception as refresh_error:
                     print(f"[WARNING] Failed to refresh token: {refresh_error}")
-                    print("[INFO] Please re-authenticate using 'Connect POE Account' button")
+                    print("[INFO]", file=sys.stderr) Please re-authenticate using 'Connect POE Account' button")
                     return None
 
         access_token = token_data.get('access_token')
@@ -220,28 +220,28 @@ def get_auto_recommendations(
     if user_characters is None:
         user_characters = load_user_characters_from_oauth()
         if user_characters:
-            print(f"[INFO] Loaded {len(user_characters)} characters from OAuth token")
+            print(f"[INFO]", file=sys.stderr)", file=sys.stderr) Loaded {len(user_characters)} characters from OAuth token")
 
     # 1. 리그 감지
     if not league:
         league = get_current_league()
 
-    print(f"[INFO] Current League: {league}")
+    print(f"[INFO]", file=sys.stderr) Current League: {league}")
 
     # 2. 리그 단계 감지
     league_phase = detect_league_phase(league)
-    print(f"[INFO] League Phase: {league_phase}")
+    print(f"[INFO]", file=sys.stderr) League Phase: {league_phase}")
 
     # 3. 사용자 컨텍스트 분석
     user_context = analyze_user_context(user_characters)
-    print(f"[INFO] User Characters: {user_context['character_count']}")
+    print(f"[INFO]", file=sys.stderr) User Characters: {user_context['character_count']}")
 
     # 3.5. 사용자 빌드 분석 (새로 추가)
     user_build_analysis = None
     if include_user_build_analysis and user_characters:
         try:
             from analyze_user_build import analyze_user_build_from_token
-            print(f"[INFO] Analyzing your current build...")
+            print(f"[INFO]", file=sys.stderr)", file=sys.stderr) Analyzing your current build...")
             # 이미 가져온 캐릭터 목록 전달 (Rate Limit 방지)
             user_build_analysis = analyze_user_build_from_token(user_characters)
             if user_build_analysis:

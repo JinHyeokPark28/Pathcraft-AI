@@ -5,8 +5,8 @@
         Title="PathcraftAI - POE Build Search"
         Height="700" Width="1000"
         MinHeight="600" MinWidth="800"
-        Background="#2A2A2A"
-        Foreground="White">
+        Background="#1E1E2E"
+        Foreground="#CDD6F4">
 
     <Window.Resources>
         <local:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
@@ -16,11 +16,10 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
         <!-- Top Menu Bar -->
-        <Border Grid.Row="0" Background="#1A1A1A" Padding="12,8">
+        <Border Grid.Row="0" Background="#181825" Padding="12,8">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
@@ -28,16 +27,16 @@
                 </Grid.ColumnDefinitions>
 
                 <TextBlock Text="PathcraftAI" FontSize="18" FontWeight="SemiBold"
-                           Foreground="#C47533" VerticalAlignment="Center"/>
+                           Foreground="#89B4FA" VerticalAlignment="Center"/>
 
                 <StackPanel Grid.Column="1" Orientation="Horizontal">
                     <Button x:Name="ConnectPOEButton" Content="Connect POE Account"
                             Margin="0,0,8,0" Click="ConnectPOE_Click"
-                            Background="#C47533" Foreground="White" Padding="12,6" BorderThickness="0"/>
+                            Background="#89B4FA" Foreground="#1E1E2E" Padding="12,6" BorderThickness="0"/>
                     <Button Content="Settings" Margin="0,0,8,0" Click="Settings_Click"
-                            Background="#505050" Foreground="White" Padding="12,6" BorderThickness="0"/>
+                            Background="#313244" Foreground="#CDD6F4" Padding="12,6" BorderThickness="0"/>
                     <Button Content="Donate" Margin="0,0,8,0" Click="Donate_Click"
-                            Background="#505050" Foreground="White" Padding="12,6" BorderThickness="0"/>
+                            Background="#313244" Foreground="#CDD6F4" Padding="12,6" BorderThickness="0"/>
                 </StackPanel>
             </Grid>
         </Border>
@@ -55,7 +54,7 @@
             </Grid.RowDefinitions>
 
             <!-- League Info Section -->
-            <Border Grid.Row="0" Background="#252525"
+            <Border Grid.Row="0" Background="#262638"
                     CornerRadius="8" Padding="16" Margin="0,0,0,16">
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -66,35 +65,35 @@
 
                     <StackPanel Grid.Column="0">
                         <TextBlock x:Name="LeagueNameText" Text="Current League: Keepers"
-                                   FontSize="16" FontWeight="SemiBold"/>
+                                   FontSize="16" FontWeight="SemiBold" Foreground="#CDD6F4"/>
                         <TextBlock x:Name="LeaguePhaseText" Text="League Phase: Mid-Season"
-                                   FontSize="12" Foreground="#B0B0B0" Margin="0,4,0,0"/>
+                                   FontSize="12" Foreground="#BAC2DE" Margin="0,4,0,0"/>
                         <TextBlock x:Name="POEAccountText" Text="Not connected"
-                                   FontSize="12" Foreground="#808080" Margin="0,4,0,0"/>
+                                   FontSize="12" Foreground="#7F849C" Margin="0,4,0,0"/>
                     </StackPanel>
 
                     <StackPanel Grid.Column="1" Orientation="Vertical" Margin="0,0,16,0"
                                 x:Name="CharacterInfoPanel" Visibility="Collapsed">
                         <TextBlock x:Name="MainCharacterText" Text="Main Character: -"
-                                   FontSize="12" Foreground="#B0B0B0"/>
+                                   FontSize="12" Foreground="#BAC2DE"/>
                         <TextBlock x:Name="CharacterCountText" Text="Total Characters: 0"
-                                   FontSize="11" Foreground="#808080" Margin="0,2,0,0"/>
+                                   FontSize="11" Foreground="#7F849C" Margin="0,2,0,0"/>
                     </StackPanel>
 
                     <StackPanel Grid.Column="2" Orientation="Horizontal">
                         <Button x:Name="AIAnalysisButton" Content="🤖 AI Analysis"
                                 Height="36" Padding="16,0" Margin="0,0,8,0"
-                                Click="AIAnalysis_Click" Background="#8A2BE2" Foreground="White" BorderThickness="0"
+                                Click="AIAnalysis_Click" Background="#CBA6F7" Foreground="#1E1E2E" BorderThickness="0"
                                 ToolTip="Get AI-powered build analysis (Claude/GPT)"/>
                         <Button x:Name="RefreshButton" Content="Refresh Recommendations"
                                 Height="36" Padding="16,0"
-                                Click="RefreshButton_Click" Background="#C47533" Foreground="White" BorderThickness="0"/>
+                                Click="RefreshButton_Click" Background="#89B4FA" Foreground="#1E1E2E" BorderThickness="0"/>
                     </StackPanel>
                 </Grid>
             </Border>
 
             <!-- Your Current Build Section -->
-            <Border x:Name="YourBuildSection" Grid.Row="1" Background="#1E2A32"
+            <Border x:Name="YourBuildSection" Grid.Row="1" Background="#262638"
                     CornerRadius="8" Padding="16" Margin="0,0,0,16"
                     Visibility="Collapsed">
                 <Grid>
@@ -106,7 +105,7 @@
 
                     <TextBlock Grid.Row="0" Text="Your Current Build"
                                FontSize="16" FontWeight="SemiBold" Margin="0,0,0,12"
-                               Foreground="#8AB4F8"/>
+                               Foreground="#89B4FA"/>
 
                     <Grid Grid.Row="1">
                         <Grid.ColumnDefinitions>
@@ -116,18 +115,18 @@
 
                         <StackPanel Grid.Column="0">
                             <TextBlock x:Name="BuildCharacterName" Text="Character: -"
-                                       FontSize="14" Margin="0,0,0,4"/>
+                                       FontSize="14" Foreground="#CDD6F4" Margin="0,0,0,4"/>
                             <TextBlock x:Name="BuildType" Text="Build Type: -"
-                                       FontSize="13" Foreground="#B0B0B0" Margin="0,0,0,4"/>
+                                       FontSize="13" Foreground="#BAC2DE" Margin="0,0,0,4"/>
                             <TextBlock x:Name="BuildMainSkill" Text="Main Skill: -"
-                                       FontSize="13" Foreground="#B0B0B0" Margin="0,0,0,4"/>
+                                       FontSize="13" Foreground="#BAC2DE" Margin="0,0,0,4"/>
                         </StackPanel>
 
                         <StackPanel Grid.Column="1">
                             <TextBlock x:Name="BuildUniqueCount" Text="Unique Items: 0"
-                                       FontSize="13" Foreground="#B0B0B0" Margin="0,0,0,4"/>
+                                       FontSize="13" Foreground="#BAC2DE" Margin="0,0,0,4"/>
                             <TextBlock x:Name="BuildTotalValue" Text="Estimated Value: ~0c"
-                                       FontSize="13" Foreground="#FFD700" Margin="0,0,0,4"/>
+                                       FontSize="13" Foreground="#F9E2AF" Margin="0,0,0,4"/>
                         </StackPanel>
                     </Grid>
 
@@ -135,13 +134,13 @@
                                 Visibility="Collapsed">
                         <TextBlock Text="Recommended Upgrades:"
                                    FontSize="13" FontWeight="SemiBold" Margin="0,0,0,8"
-                                   Foreground="#C47533"/>
+                                   Foreground="#89B4FA"/>
                         <ItemsControl x:Name="UpgradesList">
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
-                                    <TextBlock Margin="0,0,0,4" FontSize="12" Foreground="#B0B0B0">
+                                    <TextBlock Margin="0,0,0,4" FontSize="12" Foreground="#BAC2DE">
                                         <Run Text="• "/>
-                                        <Run Text="{Binding ItemName, Mode=OneWay}" FontWeight="SemiBold" Foreground="White"/>
+                                        <Run Text="{Binding ItemName, Mode=OneWay}" FontWeight="SemiBold" Foreground="#CDD6F4"/>
                                         <Run Text=" (~"/>
                                         <Run Text="{Binding ChaosValue, Mode=OneWay}"/>
                                         <Run Text="c): "/>
@@ -155,7 +154,7 @@
             </Border>
 
             <!-- Build Comparison Section -->
-            <Border x:Name="BuildComparisonSection" Grid.Row="2" Background="#1E322A"
+            <Border x:Name="BuildComparisonSection" Grid.Row="2" Background="#262638"
                     CornerRadius="8" Padding="16" Margin="0,0,0,16"
                     Visibility="Collapsed">
                 <Grid>
@@ -167,7 +166,7 @@
 
                     <TextBlock Grid.Row="0" Text="Current vs Target Build Comparison"
                                FontSize="16" FontWeight="SemiBold" Margin="0,0,0,12"
-                               Foreground="#8AF88A"/>
+                               Foreground="#A6E3A1"/>
 
                     <!-- Comparison DataGrid -->
                     <DataGrid x:Name="ComparisonGrid" Grid.Row="1"
@@ -175,8 +174,8 @@
                               HeadersVisibility="Column"
                               GridLinesVisibility="None"
                               Background="Transparent"
-                              RowBackground="#252525"
-                              AlternatingRowBackground="#2A2A2A"
+                              RowBackground="#313244"
+                              AlternatingRowBackground="#262638"
                               BorderThickness="0"
                               CanUserAddRows="False"
                               IsReadOnly="True"
@@ -190,10 +189,10 @@
                                     <Style TargetType="TextBlock">
                                         <Style.Triggers>
                                             <DataTrigger Binding="{Binding Status}" Value="warning">
-                                                <Setter Property="Foreground" Value="#FFB74D"/>
+                                                <Setter Property="Foreground" Value="#F9E2AF"/>
                                             </DataTrigger>
                                             <DataTrigger Binding="{Binding Status}" Value="ok">
-                                                <Setter Property="Foreground" Value="#81C784"/>
+                                                <Setter Property="Foreground" Value="#A6E3A1"/>
                                             </DataTrigger>
                                         </Style.Triggers>
                                     </Style>
@@ -207,18 +206,18 @@
                                 Visibility="Collapsed">
                         <TextBlock Text="Priority Upgrades:"
                                    FontSize="13" FontWeight="SemiBold" Margin="0,0,0,8"
-                                   Foreground="#C47533"/>
+                                   Foreground="#89B4FA"/>
                         <ItemsControl x:Name="PriorityUpgradesList">
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
                                     <StackPanel Margin="0,0,0,8">
-                                        <TextBlock FontSize="12" Foreground="White" FontWeight="SemiBold">
+                                        <TextBlock FontSize="12" Foreground="#CDD6F4" FontWeight="SemiBold">
                                             <Run Text="{Binding Priority}"/>
                                             <Run Text=". "/>
                                             <Run Text="{Binding Description}"/>
                                         </TextBlock>
                                         <TextBlock Text="{Binding Suggestion}"
-                                                   FontSize="11" Foreground="#B0B0B0"
+                                                   FontSize="11" Foreground="#BAC2DE"
                                                    Margin="16,2,0,0"/>
                                     </StackPanel>
                                 </DataTemplate>
@@ -229,7 +228,7 @@
             </Border>
 
             <!-- AI Analysis Section -->
-            <Border x:Name="AIAnalysisSection" Grid.Row="2" Background="#2E1A47"
+            <Border x:Name="AIAnalysisSection" Grid.Row="2" Background="#262638"
                     CornerRadius="8" Padding="16" Margin="0,0,0,16"
                     Visibility="Collapsed">
                 <Grid>
@@ -248,31 +247,31 @@
 
                         <StackPanel Grid.Column="0">
                             <TextBlock Text="🤖 AI Build Analysis" FontSize="16" FontWeight="SemiBold"
-                                       Foreground="#DA70D6"/>
+                                       Foreground="#CBA6F7"/>
                             <TextBlock x:Name="AIProviderText" Text="Provider: Claude Sonnet 3.5"
-                                       FontSize="11" Foreground="#B0B0B0" Margin="0,4,0,0"/>
+                                       FontSize="11" Foreground="#BAC2DE" Margin="0,4,0,0"/>
                         </StackPanel>
 
                         <StackPanel Grid.Column="1" Orientation="Horizontal">
                             <TextBlock x:Name="AITokensText" Text="Tokens: 0 in / 0 out"
-                                       FontSize="10" Foreground="#808080" VerticalAlignment="Center" Margin="0,0,8,0"/>
+                                       FontSize="10" Foreground="#7F849C" VerticalAlignment="Center" Margin="0,0,8,0"/>
                             <TextBlock x:Name="AITimeText" Text="0.0s"
-                                       FontSize="10" Foreground="#808080" VerticalAlignment="Center"/>
+                                       FontSize="10" Foreground="#7F849C" VerticalAlignment="Center"/>
                         </StackPanel>
                     </Grid>
 
                     <!-- AI Analysis Content -->
                     <ScrollViewer Grid.Row="1" MaxHeight="400" VerticalScrollBarVisibility="Auto">
                         <TextBlock x:Name="AIAnalysisText" TextWrapping="Wrap"
-                                   FontSize="13" Foreground="White" LineHeight="20"
-                                   Padding="12" Background="#1A0A2E"
+                                   FontSize="13" Foreground="#CDD6F4" LineHeight="20"
+                                   Padding="12" Background="#181825"
                                    Text="Click 'AI Analysis' button to get intelligent build insights..."/>
                     </ScrollViewer>
 
                     <!-- AI Options -->
                     <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="0,12,0,0">
                         <ComboBox x:Name="AIProviderCombo" Width="180" Height="28" Margin="0,0,8,0"
-                                  Background="#3A3A3A" Foreground="White" BorderBrush="#505050"
+                                  Background="#313244" Foreground="#CDD6F4" BorderBrush="#45475A"
                                   SelectedIndex="0">
                             <ComboBoxItem Content="Rule-Based (Free)"/>
                             <ComboBoxItem Content="Claude (Sonnet 3.5)"/>
@@ -281,16 +280,16 @@
                         </ComboBox>
 
                         <Button Content="Analyze Again" Height="28" Padding="12,0" Margin="0,0,8,0"
-                                Click="AIAnalysis_Click" Background="#8A2BE2" Foreground="White" BorderThickness="0"/>
+                                Click="AIAnalysis_Click" Background="#CBA6F7" Foreground="#1E1E2E" BorderThickness="0"/>
 
                         <Button Content="Copy Analysis" Height="28" Padding="12,0"
-                                Click="CopyAIAnalysis_Click" Background="#505050" Foreground="White" BorderThickness="0"/>
+                                Click="CopyAIAnalysis_Click" Background="#313244" Foreground="#CDD6F4" BorderThickness="0"/>
                     </StackPanel>
                 </Grid>
             </Border>
 
             <!-- Upgrade Path Section -->
-            <Border x:Name="UpgradePathSection" Grid.Row="4" Background="#322A1E"
+            <Border x:Name="UpgradePathSection" Grid.Row="4" Background="#262638"
                     CornerRadius="8" Padding="16" Margin="0,0,0,16"
                     Visibility="Collapsed">
                 <Grid>
@@ -308,21 +307,21 @@
 
                         <TextBlock Grid.Column="0" Text="Upgrade Path Recommendations"
                                    FontSize="16" FontWeight="SemiBold"
-                                   Foreground="#F8C48A"/>
+                                   Foreground="#89B4FA"/>
 
                         <StackPanel Grid.Column="1" Orientation="Horizontal">
                             <TextBlock x:Name="UpgradeBudgetText" Text="Budget: 100c"
-                                       FontSize="13" Foreground="#FFD700"
+                                       FontSize="13" Foreground="#F9E2AF"
                                        VerticalAlignment="Center" Margin="0,0,8,0"/>
                             <TextBlock x:Name="UpgradeTotalCostText" Text="Total Cost: 0c"
-                                       FontSize="13" Foreground="#B0B0B0"
+                                       FontSize="13" Foreground="#BAC2DE"
                                        VerticalAlignment="Center"/>
                         </StackPanel>
                     </Grid>
 
                     <TextBlock Grid.Row="1" x:Name="UpgradePathDescription"
                                Text="Based on your current build and target POB, here's the recommended upgrade path:"
-                               FontSize="12" Foreground="#B0B0B0"
+                               FontSize="12" Foreground="#BAC2DE"
                                Margin="0,0,0,16" TextWrapping="Wrap"/>
 
                     <!-- Upgrade Steps List -->
@@ -330,7 +329,7 @@
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel>
-                                    <Border Background="#252525" CornerRadius="6"
+                                    <Border Background="#313244" CornerRadius="6"
                                             Padding="12" Margin="0,0,0,12">
                                         <Grid>
                                             <Grid.RowDefinitions>
@@ -348,26 +347,26 @@
                                                 <ColumnDefinition Width="Auto"/>
                                             </Grid.ColumnDefinitions>
 
-                                            <Border Grid.Column="0" Background="#C47533"
+                                            <Border Grid.Column="0" Background="#89B4FA"
                                                     CornerRadius="4" Padding="6,2"
                                                     Margin="0,0,8,0">
-                                                <TextBlock FontSize="11" FontWeight="Bold" Foreground="White">
+                                                <TextBlock FontSize="11" FontWeight="Bold" Foreground="#1E1E2E">
                                                     <Run Text="Step "/>
                                                     <Run Text="{Binding Step}"/>
                                                 </TextBlock>
                                             </Border>
 
                                             <TextBlock Grid.Column="1" Text="{Binding Title}"
-                                                       FontSize="14" FontWeight="SemiBold"
+                                                       FontSize="14" FontWeight="SemiBold" Foreground="#CDD6F4"
                                                        VerticalAlignment="Center"/>
 
                                             <StackPanel Grid.Column="2" Orientation="Horizontal">
-                                                <Border Background="#505050" CornerRadius="4"
+                                                <Border Background="#45475A" CornerRadius="4"
                                                         Padding="6,2" Margin="0,0,8,0">
                                                     <TextBlock Text="{Binding Priority}"
-                                                               FontSize="11" Foreground="White"/>
+                                                               FontSize="11" Foreground="#CDD6F4"/>
                                                 </Border>
-                                                <TextBlock FontSize="13" Foreground="#FFD700"
+                                                <TextBlock FontSize="13" Foreground="#F9E2AF"
                                                            VerticalAlignment="Center">
                                                     <Run Text="{Binding CostChaos}"/>
                                                     <Run Text="c"/>
@@ -377,11 +376,11 @@
 
                                         <!-- Description -->
                                         <TextBlock Grid.Row="1" Text="{Binding Description}"
-                                                   FontSize="12" Foreground="#B0B0B0"
+                                                   FontSize="12" Foreground="#BAC2DE"
                                                    Margin="0,0,0,8"/>
 
                                         <!-- Impact -->
-                                        <TextBlock Grid.Row="2" FontSize="11" Foreground="#808080"
+                                        <TextBlock Grid.Row="2" FontSize="11" Foreground="#7F849C"
                                                    Margin="0,0,0,8">
                                             <Run Text="Impact: "/>
                                             <Run Text="{Binding Impact}" FontStyle="Italic"/>
@@ -391,7 +390,7 @@
                                         <ItemsControl Grid.Row="3" ItemsSource="{Binding Recommendations}">
                                             <ItemsControl.ItemTemplate>
                                                 <DataTemplate>
-                                                    <TextBlock FontSize="11" Foreground="#A0A0A0"
+                                                    <TextBlock FontSize="11" Foreground="#7F849C"
                                                                Margin="0,0,0,2" TextWrapping="Wrap">
                                                         <Run Text="  • "/>
                                                         <Run Text="{Binding}"/>
@@ -403,7 +402,7 @@
                                 </Border>
 
                                     <!-- Trade Items Section (if available) -->
-                                    <Border Background="#1A1A1A" CornerRadius="6"
+                                    <Border Background="#181825" CornerRadius="6"
                                             Padding="12" Margin="0,0,0,12"
                                             Visibility="{Binding HasTradeItems, Converter={StaticResource BoolToVisibilityConverter}}">
                                         <Grid>
@@ -414,12 +413,12 @@
 
                                             <TextBlock Grid.Row="0" Text="Available Items on Trade:"
                                                        FontSize="12" FontWeight="SemiBold"
-                                                       Foreground="#8AF88A" Margin="0,0,0,8"/>
+                                                       Foreground="#A6E3A1" Margin="0,0,0,8"/>
 
                                             <ItemsControl Grid.Row="1" ItemsSource="{Binding TradeItems}">
                                                 <ItemsControl.ItemTemplate>
                                                     <DataTemplate>
-                                                        <Border Background="#252525" CornerRadius="4"
+                                                        <Border Background="#313244" CornerRadius="4"
                                                                 Padding="8" Margin="0,0,0,6">
                                                             <Grid>
                                                                 <Grid.RowDefinitions>
@@ -436,17 +435,17 @@
                                                                     </Grid.ColumnDefinitions>
 
                                                                     <TextBlock Grid.Column="0" FontSize="11">
-                                                                        <Run Text="{Binding Type}" FontWeight="SemiBold" Foreground="White"/>
-                                                                        <Run Text=" - " Foreground="#808080"/>
-                                                                        <Run Text="{Binding PriceDisplay}" Foreground="#FFD700"/>
+                                                                        <Run Text="{Binding Type}" FontWeight="SemiBold" Foreground="#CDD6F4"/>
+                                                                        <Run Text=" - " Foreground="#7F849C"/>
+                                                                        <Run Text="{Binding PriceDisplay}" Foreground="#F9E2AF"/>
                                                                     </TextBlock>
 
                                                                     <TextBlock Grid.Column="1" Text="{Binding Seller}"
-                                                                               FontSize="10" Foreground="#B0B0B0"/>
+                                                                               FontSize="10" Foreground="#BAC2DE"/>
                                                                 </Grid>
 
                                                                 <!-- Whisper Message (truncated) -->
-                                                                <TextBlock Grid.Row="1" FontSize="10" Foreground="#808080"
+                                                                <TextBlock Grid.Row="1" FontSize="10" Foreground="#7F849C"
                                                                            TextTrimming="CharacterEllipsis" Margin="0,0,0,4">
                                                                     <Run Text="Whisper: "/>
                                                                     <Run Text="{Binding WhisperPreview}"/>
@@ -455,7 +454,7 @@
                                                                 <!-- Copy Button -->
                                                                 <Button Grid.Row="2" Content="Copy Whisper"
                                                                         FontSize="10" Padding="8,4"
-                                                                        Background="#C47533" Foreground="White"
+                                                                        Background="#89B4FA" Foreground="#1E1E2E"
                                                                         BorderThickness="0" Cursor="Hand"
                                                                         Click="CopyWhisper_Click"
                                                                         Tag="{Binding Whisper}"
@@ -618,7 +617,7 @@
                            FontSize="16" FontWeight="SemiBold" Margin="0,0,0,8"/>
 
                 <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
-                    <StackPanel x:Name="ResultsPanel">
+                    <WrapPanel x:Name="ResultsPanel" Orientation="Horizontal" ItemWidth="340" ItemHeight="Auto">
                         <!-- Placeholder -->
                         <StackPanel x:Name="PlaceholderPanel" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,80,0,0">
                             <TextBlock x:Name="PlaceholderText"
@@ -627,41 +626,32 @@
                                 <Run Text="🎯 " FontSize="32"/>
                                 <LineBreak/>
                                 <LineBreak/>
-                                <Run Text="지금 하고 있는 빌드와 가장 가까운 빌드를 찾아드립니다!" FontSize="16" FontWeight="SemiBold" Foreground="White"/>
+                                <Run Text="지금 하고 있는 빌드와 가장 가까운 빌드를 찾아드립니다!" FontSize="16" FontWeight="SemiBold" Foreground="#CDD6F4"/>
                                 <LineBreak/>
                                 <LineBreak/>
-                                <Run Text="참고하는 스트리머나 빌드 POB가 있으면 추가해주세요."/>
+                                <Run Text="참고하는 스트리머나 빌드 POB가 있으면 추가해주세요." Foreground="#BAC2DE"/>
                                 <LineBreak/>
-                                <Run Text="AI가 분석해서 자세하게 알려드릴게요!" Foreground="#8AC4F8"/>
+                                <Run Text="AI가 분석해서 자세하게 알려드릴게요!" Foreground="#89B4FA"/>
                             </TextBlock>
 
                             <!-- POB Input Section -->
-                            <Border Background="#1E2A32" CornerRadius="8" Padding="16" MaxWidth="500">
+                            <Border Background="#262638" CornerRadius="8" Padding="16" MaxWidth="500">
                                 <StackPanel>
-                                    <TextBlock Text="📋 POB 링크 입력 (선택사항)" FontSize="13" FontWeight="SemiBold" Margin="0,0,0,8" Foreground="#C47533"/>
+                                    <TextBlock Text="📋 POB 링크 입력 (선택사항)" FontSize="13" FontWeight="SemiBold" Margin="0,0,0,8" Foreground="#89B4FA"/>
                                     <TextBox x:Name="POBInputBox"
                                              Height="32" Padding="8" FontSize="12"
-                                             Background="#2A2A2A" Foreground="White" BorderBrush="#505050"
+                                             Background="#313244" Foreground="#CDD6F4" BorderBrush="#45475A"
                                              Text="https://pobb.in/..."
                                              GotFocus="POBInputBox_GotFocus"/>
                                     <Button Content="분석하기" Height="32" Margin="0,8,0,0"
-                                            Background="#8A2BE2" Foreground="White" BorderThickness="0"
+                                            Background="#CBA6F7" Foreground="#1E1E2E" BorderThickness="0"
                                             Click="AnalyzePOB_Click" FontWeight="SemiBold"/>
                                 </StackPanel>
                             </Border>
                         </StackPanel>
-                    </StackPanel>
+                    </WrapPanel>
                 </ScrollViewer>
             </Grid>
         </Grid>
-
-        <!-- Bottom Ad Banner Placeholder -->
-        <Border Grid.Row="2" Background="#1A1A1A"
-                Height="90" BorderThickness="0,1,0,0" BorderBrush="#505050">
-            <TextBlock Text="[ Advertisement Space - Premium removes ads ]"
-                       HorizontalAlignment="Center" VerticalAlignment="Center"
-                       Foreground="#A0A0A0"
-                       FontStyle="Italic"/>
-        </Border>
     </Grid>
 </Window>

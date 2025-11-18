@@ -316,10 +316,10 @@ namespace PathcraftAI.UI
             {
                 UpgradeSuggestionsPanel.Visibility = Visibility.Visible;
 
-                var upgradeList = new List<object>();
+                var upgradeList = new List<UpgradeSuggestion>();
                 foreach (var suggestion in upgradeSuggestions)
                 {
-                    upgradeList.Add(new
+                    upgradeList.Add(new UpgradeSuggestion
                     {
                         ItemName = suggestion["item_name"]?.ToString() ?? "",
                         ChaosValue = suggestion["chaos_value"]?.ToObject<double>() ?? 0.0,
@@ -365,26 +365,28 @@ namespace PathcraftAI.UI
 
             var card = new Border
             {
-                Background = new SolidColorBrush(Color.FromRgb(40, 40, 40)),
-                BorderBrush = new SolidColorBrush(Color.FromRgb(175, 96, 37)),
+                Width = 320,
+                Background = new SolidColorBrush(Color.FromRgb(38, 38, 56)),  // #262638
+                BorderBrush = new SolidColorBrush(Color.FromRgb(69, 71, 90)),  // #45475A
                 BorderThickness = new Thickness(2),
                 CornerRadius = new CornerRadius(8),
                 Padding = new Thickness(0),
-                Margin = new Thickness(0, 0, 0, 12),
-                Cursor = Cursors.Hand
+                Margin = new Thickness(0, 0, 8, 12),
+                Cursor = Cursors.Hand,
+                VerticalAlignment = VerticalAlignment.Top
             };
 
             // Mouse hover effects
             card.MouseEnter += (s, e) =>
             {
-                card.Background = new SolidColorBrush(Color.FromRgb(50, 50, 50));
-                card.BorderBrush = new SolidColorBrush(Color.FromRgb(200, 120, 50));
+                card.Background = new SolidColorBrush(Color.FromRgb(49, 50, 68));  // #313244
+                card.BorderBrush = new SolidColorBrush(Color.FromRgb(137, 180, 250));  // #89B4FA
             };
 
             card.MouseLeave += (s, e) =>
             {
-                card.Background = new SolidColorBrush(Color.FromRgb(40, 40, 40));
-                card.BorderBrush = new SolidColorBrush(Color.FromRgb(175, 96, 37));
+                card.Background = new SolidColorBrush(Color.FromRgb(38, 38, 56));  // #262638
+                card.BorderBrush = new SolidColorBrush(Color.FromRgb(69, 71, 90));  // #45475A
             };
 
             var mainGrid = new Grid();
@@ -399,7 +401,7 @@ namespace PathcraftAI.UI
                 {
                     Width = 160,
                     Height = 90,
-                    Background = new SolidColorBrush(Color.FromRgb(30, 30, 30)),
+                    Background = new SolidColorBrush(Color.FromRgb(24, 24, 37)),  // #181825
                     CornerRadius = new CornerRadius(8, 0, 0, 8)
                 };
 
@@ -407,7 +409,7 @@ namespace PathcraftAI.UI
                 {
                     Text = "🎬",
                     FontSize = 32,
-                    Foreground = new SolidColorBrush(Color.FromRgb(175, 96, 37)),
+                    Foreground = new SolidColorBrush(Color.FromRgb(137, 180, 250)),  // #89B4FA
                     HorizontalAlignment = HorizontalAlignment.Center,
                     VerticalAlignment = VerticalAlignment.Center
                 };
@@ -460,7 +462,7 @@ namespace PathcraftAI.UI
                     Text = buildKeyword,
                     FontSize = 10,
                     FontWeight = FontWeights.SemiBold,
-                    Foreground = new SolidColorBrush(Color.FromRgb(255, 200, 100))
+                    Foreground = new SolidColorBrush(Color.FromRgb(249, 226, 175))  // #F9E2AF
                 };
 
                 keywordBorder.Child = keywordText;
@@ -478,7 +480,7 @@ namespace PathcraftAI.UI
                 {
                     Text = $"📺 {channel}",
                     FontSize = 11,
-                    Foreground = new SolidColorBrush(Color.FromRgb(150, 150, 150)),
+                    Foreground = new SolidColorBrush(Color.FromRgb(186, 194, 222)),  // #BAC2DE
                     Margin = new Thickness(0, 0, 12, 0)
                 });
             }
@@ -491,7 +493,7 @@ namespace PathcraftAI.UI
                 {
                     Text = $"👁 {views:N0}",
                     FontSize = 11,
-                    Foreground = new SolidColorBrush(Color.FromRgb(150, 150, 150)),
+                    Foreground = new SolidColorBrush(Color.FromRgb(186, 194, 222)),  // #BAC2DE
                     Margin = new Thickness(0, 0, 12, 0)
                 });
             }
@@ -504,7 +506,7 @@ namespace PathcraftAI.UI
                 {
                     Text = infoText,
                     FontSize = 11,
-                    Foreground = new SolidColorBrush(Color.FromRgb(150, 150, 150))
+                    Foreground = new SolidColorBrush(Color.FromRgb(186, 194, 222))  // #BAC2DE
                 });
             }
 
@@ -526,8 +528,8 @@ namespace PathcraftAI.UI
                     FontSize = 11,
                     Padding = new Thickness(10, 4, 10, 4),
                     Margin = new Thickness(0, 0, 8, 0),
-                    Background = new SolidColorBrush(Color.FromRgb(100, 150, 100)),
-                    Foreground = Brushes.White,
+                    Background = new SolidColorBrush(Color.FromRgb(166, 227, 161)),  // #A6E3A1
+                    Foreground = new SolidColorBrush(Color.FromRgb(30, 30, 46)),  // Dark text
                     BorderThickness = new Thickness(0),
                     Cursor = Cursors.Hand,
                     Tag = pobLinks[0].ToString()
@@ -562,8 +564,8 @@ namespace PathcraftAI.UI
                     FontSize = 11,
                     Padding = new Thickness(10, 4, 10, 4),
                     Margin = new Thickness(0, 0, 8, 0),
-                    Background = new SolidColorBrush(Color.FromRgb(138, 43, 226)), // Purple
-                    Foreground = Brushes.White,
+                    Background = new SolidColorBrush(Color.FromRgb(203, 166, 247)),  // #CBA6F7
+                    Foreground = new SolidColorBrush(Color.FromRgb(30, 30, 46)),  // Dark text
                     BorderThickness = new Thickness(0),
                     Cursor = Cursors.Hand,
                     Tag = pobLinks[0].ToString()
@@ -593,8 +595,8 @@ namespace PathcraftAI.UI
                     FontSize = 11,
                     Padding = new Thickness(10, 4, 10, 4),
                     Margin = new Thickness(0, 0, 8, 0),
-                    Background = new SolidColorBrush(Color.FromRgb(200, 50, 50)),
-                    Foreground = Brushes.White,
+                    Background = new SolidColorBrush(Color.FromRgb(243, 139, 168)),  // #F38BA8
+                    Foreground = new SolidColorBrush(Color.FromRgb(30, 30, 46)),  // Dark text
                     BorderThickness = new Thickness(0),
                     Cursor = Cursors.Hand,
                     Tag = videoUrl
@@ -813,7 +815,7 @@ namespace PathcraftAI.UI
 
         private void Settings_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Settings window coming soon!\n\nFeatures:\n- API key management (GPT/Gemini/Claude)\n- Theme selection\n- Premium subscription",
+            MessageBox.Show("Settings window coming soon!\n\nFeatures:\n- API key management (GPT/Gemini/Claude)\n- Theme selection",
                 "Settings", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
@@ -908,7 +910,7 @@ namespace PathcraftAI.UI
 
         private void Donate_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Support PathcraftAI!\n\nPremium: $2.50/month (removes ads)\n\nThank you for your support!",
+            MessageBox.Show("Support PathcraftAI!\n\nThank you for your support!",
                 "Donate", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
@@ -1246,7 +1248,7 @@ namespace PathcraftAI.UI
                     {
                         _isPOEConnected = true;
                         POEAccountText.Text = $"Connected: {username}";
-                        POEAccountText.Foreground = new SolidColorBrush(Color.FromRgb(100, 200, 100));
+                        POEAccountText.Foreground = new SolidColorBrush(Color.FromRgb(166, 227, 161));  // #A6E3A1
 
                         // 캐릭터 정보 로드
                         LoadCharacterInfo();
@@ -1256,7 +1258,7 @@ namespace PathcraftAI.UI
                 {
                     _isPOEConnected = false;
                     POEAccountText.Text = "Not connected";
-                    POEAccountText.Foreground = new SolidColorBrush(Color.FromRgb(128, 128, 128));
+                    POEAccountText.Foreground = new SolidColorBrush(Color.FromRgb(127, 132, 156));  // #7F849C
                 }
 
                 UpdatePOEButtonState();
@@ -2059,5 +2061,13 @@ if token:
         {
             throw new NotImplementedException();
         }
+    }
+
+    // Helper class for upgrade suggestions
+    public class UpgradeSuggestion
+    {
+        public string ItemName { get; set; } = "";
+        public double ChaosValue { get; set; }
+        public string Reason { get; set; } = "";
     }
 }
