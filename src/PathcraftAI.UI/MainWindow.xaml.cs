@@ -5,6 +5,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using Newtonsoft.Json.Linq;
 
 namespace PathcraftAI.UI
@@ -142,7 +143,7 @@ namespace PathcraftAI.UI
             var psi = new ProcessStartInfo
             {
                 FileName = _pythonPath,
-                Arguments = $"\"{_recommendationScriptPath}\" --json-output",
+                Arguments = $"\"{_recommendationScriptPath}\" --json-output --include-user-build-analysis",
                 WorkingDirectory = parserDir,
                 UseShellExecute = false,
                 RedirectStandardOutput = true,
@@ -218,14 +219,13 @@ namespace PathcraftAI.UI
                     Debug.WriteLine($"JSON Parse Error: {ex.Message}");
                     Debug.WriteLine($"Python Output (first 500 chars):\n{jsonOutput.Substring(0, Math.Min(500, jsonOutput.Length))}");
 
-                    ShowFriendlyError(
-                        "추천 데이터 파싱 오류",
-                        $"JSON 파싱에 실패했습니다.\n\n" +
-                        $"원인: Python 스크립트가 로그를 stdout으로 출력했을 가능성이 있습니다.\n\n" +
-                        $"해결: PYTHON_LOGGING_RULES.md 참고\n\n" +
-                        $"에러: {ex.Message}\n\n" +
-                        $"Python 출력 (처음 200자):\n{jsonOutput.Substring(0, Math.Min(200, jsonOutput.Length))}"
-                    );
+                    var errorMsg = $"JSON 파싱에 실패했습니다.\n\n" +
+                                  $"원인: Python 스크립트가 로그를 stdout으로 출력했을 가능성이 있습니다.\n\n" +
+                                  $"해결: PYTHON_LOGGING_RULES.md 참고\n\n" +
+                                  $"에러: {ex.Message}\n\n" +
+                                  $"Python 출력 (처음 200자):\n{jsonOutput.Substring(0, Math.Min(200, jsonOutput.Length))}";
+
+                    MessageBox.Show(errorMsg, "추천 데이터 파싱 오류", MessageBoxButton.OK, MessageBoxImage.Error);
                     ShowNoRecommendations();
                     return;
                 }
@@ -424,19 +424,43 @@ namespace PathcraftAI.UI
                     Width = 160,
                     Height = 90,
                     Background = new SolidColorBrush(Color.FromRgb(24, 24, 37)),  // #181825
-                    CornerRadius = new CornerRadius(8, 0, 0, 8)
+                    CornerRadius = new CornerRadius(8, 0, 0, 8),
+                    ClipToBounds = true
                 };
 
-                var thumbnailText = new TextBlock
+                if (!string.IsNullOrEmpty(thumbnail))
                 {
-                    Text = "🎬",
-                    FontSize = 32,
-                    Foreground = new SolidColorBrush(Color.FromRgb(137, 180, 250)),  // #89B4FA
-                    HorizontalAlignment = HorizontalAlignment.Center,
-                    VerticalAlignment = VerticalAlignment.Center
-                };
+                    // 실제 YouTube 썸네일 이미지 표시
+                    var image = new System.Windows.Controls.Image
+                    {
+                        Stretch = Stretch.UniformToFill,
+                        HorizontalAlignment = HorizontalAlignment.Center,
+                        VerticalAlignment = VerticalAlignment.Center
+                    };
 
-                thumbnailBorder.Child = thumbnailText;
+                    var bitmap = new BitmapImage();
+                    bitmap.BeginInit();
+                    bitmap.UriSource = new Uri(thumbnail, UriKind.Absolute);
+                    bitmap.CacheOption = BitmapCacheOption.OnLoad;
+                    bitmap.EndInit();
+                    image.Source = bitmap;
+
+                    thumbnailBorder.Child = image;
+                }
+                else
+                {
+                    // 썸네일 URL이 없으면 이모지 표시
+                    var thumbnailText = new TextBlock
+                    {
+                        Text = "🎬",
+                        FontSize = 32,
+                        Foreground = new SolidColorBrush(Color.FromRgb(137, 180, 250)),  // #89B4FA
+                        HorizontalAlignment = HorizontalAlignment.Center,
+                        VerticalAlignment = VerticalAlignment.Center
+                    };
+                    thumbnailBorder.Child = thumbnailText;
+                }
+
                 Grid.SetColumn(thumbnailBorder, 0);
                 mainGrid.Children.Add(thumbnailBorder);
             }

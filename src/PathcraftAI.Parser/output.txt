@@ -1,0 +1,1244 @@
+================================================================================
+AUTO RECOMMENDATION ENGINE
+================================================================================
+
+[INFO] Loaded 15 characters from OAuth token
+[INFO] Current League: Keepers
+[INFO] League Phase: mid
+[INFO] User Characters: 15
+[INFO] Analyzing your current build...
+[INFO] Selected current league character (highest level in Keepers)
+[INFO] Analyzing main character: Shovel_FuckingWand Lv93 Elementalist (Keepers)
+
+================================================================================
+USER BUILD ANALYZER
+================================================================================
+Character: Shovel_FuckingWand
+
+[1/4] Fetching character items...
+[OK] Shovel_FuckingWand Lv93 Elementalist
+[OK] Found 16 items
+
+[2/4] Analyzing unique items...
+[OK] Found 8 unique items
+  - Honourhome (Helm)
+  - Bottled Faith (Flask)
+  - Headhunter (Belt)
+  - Yoke of Suffering (Amulet)
+  - Cinderswallow Urn (Flask)
+
+[3/4] Identifying main skill...
+[OK] Main Skill: Kinetic Blast
+[OK] Support Gems: Returning Projectiles Support, Fork Support, Trinity Support
+
+[4/4] Determining build type...
+[OK] Build Type: Headhunter Elementalist
+
+================================================================================
+BUILD ANALYSIS COMPLETE
+================================================================================
+Build Type: Headhunter Elementalist
+Main Skill: Kinetic Blast
+Unique Items: 8
+Total Value: ~6187.0 chaos
+================================================================================
+
+[OK] Build analyzed: Headhunter Elementalist
+
+================================================================================
+
+[PHASE 1/4] Loading popular builds from poe.ninja...
+[OK] Found 3 popular builds
+
+[PHASE 2/4] Loading streamer builds...
+
+[PHASE 3/4] Loading meta builds...
+[OK] Found 2 meta builds
+
+[PHASE 3.5/4] Loading personalized builds based on your main character...
+[OK] Found 2 personalized builds
+
+
+================================================================================
+{
+  "league": "Keepers",
+  "league_phase": "mid",
+  "user_build": {
+    "character_name": "Shovel_FuckingWand",
+    "class": "Elementalist",
+    "level": 93,
+    "league": "Keepers",
+    "build_type": "Headhunter Elementalist",
+    "main_skill": "Kinetic Blast",
+    "support_skills": [
+      "Returning Projectiles Support",
+      "Fork Support",
+      "Trinity Support",
+      "Increased Critical Damage Support",
+      "Summon Sacred Wisps"
+    ],
+    "unique_items": [
+      {
+        "name": "Honourhome",
+        "base_type": "Soldier Helmet",
+        "slot": "Helm",
+        "sockets": [
+          {
+            "group": 0,
+            "attr": "D",
+            "sColour": "G"
+          },
+          {
+            "group": 0,
+            "attr": "S",
+            "sColour": "R"
+          },
+          {
+            "group": 0,
+            "attr": "I",
+            "sColour": "B"
+          },
+          {
+            "group": 0,
+            "attr": "I",
+            "sColour": "B"
+          }
+        ],
+        "socketed_items": [
+          {
+            "verified": false,
+            "w": 1,
+            "h": 1,
+            "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9IZXJhbGRvZkljZSIsInciOjEsImgiOjEsInNjYWxlIjoxfV0/01e419f67c/HeraldofIce.png",
+            "support": false,
+            "league": "Keepers",
+            "id": "2c127a49ecb8b8d618d56c7d1112c3790d16c8e91a43f1c2f8dc269a797a40a6",
+            "name": "",
+            "typeLine": "Herald of Ice",
+            "baseType": "Herald of Ice",
+            "ilvl": 0,
+            "identified": true,
+            "properties": [
+              {
+                "name": "Spell, AoE, Cold, Herald",
+                "values": [],
+                "displayMode": 0
+              },
+              {
+                "name": "Level",
+                "values": [
+                  [
+                    "20 (Max)",
+                    0
+                  ]
+                ],
+                "displayMode": 0,
+                "type": 5
+              },
+              {
+                "name": "Reservation",
+                "values": [
+                  [
+                    "25% Mana",
+                    0
+                  ]
+                ],
+                "displayMode": 0
+              },
+              {
+                "name": "Cooldown Time",
+                "values": [
+                  [
+                    "1.00 sec",
+                    0
+                  ]
+                ],
+                "displayMode": 0
+              },
+              {
+                "name": "Cast Time",
+                "values": [
+                  [
+                    "Instant",
+                    0
+                  ]
+                ],
+                "displayMode": 0
+              },
+              {
+                "name": "Effectiveness of Added Damage",
+                "values": [
+                  [
+                    "80%",
+                    0
+                  ]
+                ],
+                "displayMode": 0
+              }
+            ],
+            "requirements": [
+              {
+                "name": "Level",
+                "values": [
+                  [
+                    "70",
+                    0
+                  ]
+                ],
+                "displayMode": 0,
+                "type": 62
+              },
+              {
+                "name": "Dex",
+                "values": [
+                  [
+                    "98",
+                    0
+                  ]
+                ],
+                "displayMode": 1,
+                "type": 64
+              },
+              {
+                "name": "Int",
+                "values": [
+                  [
+                    "68",
+                    0
+                  ]
+                ],
+                "displayMode": 1,
+                "type": 65
+              }
+            ],
+            "secDescrText": "Grants a buff adding cold damage to spells and attacks. If you shatter an enemy, this skill will cause them to explode and deal AoE cold damage to enemies near them. This damage is not affected by modifiers to spell damage.",
+            "explicitMods": [
+              "Deals 308 to 462 Cold Damage",
+              "Damage cannot be Reflected",
+              "Base radius is 1.2 metres",
+              "Buff grants 38 to 56 Added Attack Cold Damage",
+              "Buff grants 38 to 56 Added Spell Cold Damage"
+            ],
+            "descrText": "Place into an item socket of the right colour to gain this skill. Right click to remove from a socket.",
+            "frameType": 4,
+            "socket": 0,
+            "colour": "D"
+          },
+          {
+            "verified": false,
+            "w": 1,
+            "h": 1,
+            "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9TdXBwb3J0L0VtcG93ZXIiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/c2b1b38b15/Empower.png",
+            "support": true,
+            "league": "Keepers",
+            "id": "8ef040ccce73255d0a797dc357718d918f33e9b737b46de60f57e93a2191e771",
+            "name": "",
+            "typeLine": "Empower Support",
+            "baseType": "Empower Support",
+            "ilvl": 0,
+            "identified": true,
+            "properties": [
+              {
+                "name": "Exceptional, Support",
+                "values": [],
+                "displayMode": 0
+              },
+              {
+                "name": "Level",
+                "values": [
+                  [
+                    "2",
+                    0
+                  ]
+                ],
+                "displayMode": 0,
+                "type": 5
+              },
+              {
+                "name": "Cost & Reservation Multiplier",
+                "values": [
+                  [
+                    "130%",
+                    0
+                  ]
+                ],
+                "displayMode": 0
+              }
+            ],
+            "requirements": [
+              {
+                "name": "Level",
+                "values": [
+                  [
+                    "10",
+                    0
+                  ]
+                ],
+                "displayMode": 0,
+                "type": 62
+              },
+              {
+                "name": "Str",
+                "values": [
+                  [
+                    "21",
+                    0
+                  ]
+                ],
+                "displayMode": 1,
+                "type": 63
+              }
+            ],
+            "additionalProperties": [
+              {
+                "name": "Experience",
+                "values": [
+                  [
+                    "455877326/1439190228",
+                    0
+                  ]
+                ],
+                "displayMode": 2,
+                "progress": 0.32,
+                "type": 20
+              }
+            ],
+            "secDescrText": "Supports any skill gem. Once this gem reaches level 2 or above, will raise the level of supported gems. Cannot support skills that don't come from gems.",
+            "explicitMods": [
+              "+1 to Level of Supported Skill Gems"
+            ],
+            "descrText": "This is a Support Gem. It does not grant a bonus to your character, but to skills in sockets connected to it. Place into an item socket connected to a socket containing the Skill Gem you wish to augment. Right click to remove from a socket.",
+            "frameType": 4,
+            "socket": 1,
+            "colour": "S"
+          },
+          {
+            "verified": false,
+            "w": 1,
+            "h": 1,
+            "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9IZXJhbGRvZlRodW5kZXIiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/fcc8e7de1e/HeraldofThunder.png",
+            "support": false,
+            "league": "Keepers",
+            "id": "8a24bf4a06f16523e1d5c0c86b8190817eb84b0775875e12d6b7c03d076ebf8f",
+            "name": "",
+            "typeLine": "Herald of Thunder",
+            "baseType": "Herald of Thunder",
+            "ilvl": 0,
+            "identified": true,
+            "properties": [
+              {
+                "name": "Spell, AoE, Duration, Lightning, Herald",
+                "values": [],
+                "displayMode": 0
+              },
+              {
+                "name": "Level",
+                "values": [
+                  [
+                    "20 (Max)",
+                    0
+                  ]
+                ],
+                "displayMode": 0,
+                "type": 5
+              },
+              {
+                "name": "Reservation",
+                "values": [
+                  [
+                    "25% Mana",
+                    0
+                  ]
+                ],
+                "displayMode": 0
+              },
+              {
+                "name": "Cooldown Time",
+                "values": [
+                  [
+                    "1.00 sec",
+                    0
+                  ]
+                ],
+                "displayMode": 0
+              },
+              {
+                "name": "Cast Time",
+                "values": [
+                  [
+                    "Instant",
+                    0
+                  ]
+                ],
+                "displayMode": 0
+              }
+            ],
+            "requirements": [
+              {
+                "name": "Level",
+                "values": [
+                  [
+                    "70",
+                    0
+                  ]
+                ],
+                "displayMode": 0,
+                "type": 62
+              },
+              {
+                "name": "Int",
+                "values": [
+                  [
+                    "155",
+                    0
+                  ]
+                ],
+                "displayMode": 1,
+                "type": 65
+              }
+            ],
+            "secDescrText": "Grants a buff which adds lightning damage to spells and attacks. If you kill a shocked enemy, this skill will create a storm, causing lightning bolts to strike enemies around you for a duration. The damage inflicted by this skill is not affected by modifiers to spell damage.",
+            "explicitMods": [
+              "Deals 23 to 1108 Lightning Damage",
+              "Cannot inflict Shock",
+              "Base duration is 6.00 seconds",
+              "Storm Hits an Enemy every 0.25 Seconds",
+              "Creates a storm when you Kill a Shocked Enemy",
+              "Buff grants 19 to 76 Added Attack Lightning Damage",
+              "Buff grants 19 to 76 Added Spell Lightning Damage"
+            ],
+            "descrText": "Place into an item socket of the right colour to gain this skill. Right click to remove from a socket.",
+            "frameType": 4,
+            "socket": 2,
+            "colour": "I"
+          },
+          {
+            "verified": false,
+            "w": 1,
+            "h": 1,
+            "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9TdXBwb3J0L0ltbW9sYXRlIiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/af3f7bc354/Immolate.png",
+            "support": true,
+            "league": "Keepers",
+            "id": "8ab00a565730af967ec964c26fca995d3c4504e55f531075f545a75c6384c1ae",
+            "name": "",
+            "typeLine": "Immolate Support",
+            "baseType": "Immolate Support",
+            "ilvl": 0,
+            "identified": true,
+            "properties": [
+              {
+                "name": "Fire, Support",
+                "values": [],
+                "displayMode": 0
+              },
+              {
+                "name": "Level",
+                "values": [
+                  [
+                    "20 (Max)",
+                    0
+                  ]
+                ],
+                "displayMode": 0,
+                "type": 5
+              },
+              {
+                "name": "Cost & Reservation Multiplier",
+                "values": [
+                  [
+                    "120%",
+                    0
+                  ]
+                ],
+                "displayMode": 0
+              }
+            ],
+            "requirements": [
+              {
+                "name": "Level",
+                "values": [
+                  [
+                    "70",
+                    0
+                  ]
+                ],
+                "displayMode": 0,
+                "type": 62
+              },
+              {
+                "name": "Str",
+                "values": [
+                  [
+                    "48",
+                    0
+                  ]
+                ],
+                "displayMode": 1,
+                "type": 63
+              },
+              {
+                "name": "Int",
+                "values": [
+                  [
+                    "70",
+                    0
+                  ]
+                ],
+                "displayMode": 1,
+                "type": 65
+              }
+            ],
+            "secDescrText": "Supports any skill that hits enemies.",
+            "explicitMods": [
+              "Supported Skills deal 205 to 308 added Fire Damage against Burning Enemies"
+            ],
+            "descrText": "This is a Support Gem. It does not grant a bonus to your character, but to skills in sockets connected to it. Place into an item socket connected to a socket containing the Skill Gem you wish to augment. Right click to remove from a socket.",
+            "frameType": 4,
+            "socket": 3,
+            "colour": "I"
+          }
+        ]
+      },
+      {
+        "name": "Bottled Faith",
+        "base_type": "Sulphur Flask",
+        "slot": "Flask",
+        "sockets": [],
+        "socketed_items": []
+      },
+      {
+        "name": "Headhunter",
+        "base_type": "Leather Belt",
+        "slot": "Belt",
+        "sockets": [],
+        "socketed_items": []
+      },
+      {
+        "name": "Yoke of Suffering",
+        "base_type": "Onyx Amulet",
+        "slot": "Amulet",
+        "sockets": [],
+        "socketed_items": []
+      },
+      {
+        "name": "Cinderswallow Urn",
+        "base_type": "Silver Flask",
+        "slot": "Flask",
+        "sockets": [],
+        "socketed_items": []
+      },
+      {
+        "name": "Doedre's Tenure",
+        "base_type": "Velvet Gloves",
+        "slot": "Gloves",
+        "sockets": [
+          {
+            "group": 0,
+            "attr": "D",
+            "sColour": "G"
+          },
+          {
+            "group": 0,
+            "attr": "S",
+            "sColour": "R"
+          },
+          {
+            "group": 1,
+            "attr": "S",
+            "sColour": "R"
+          },
+          {
+            "group": 2,
+            "attr": "I",
+            "sColour": "B"
+          }
+        ],
+        "socketed_items": [
+          {
+            "verified": false,
+            "w": 1,
+            "h": 1,
+            "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9TdXBwb3J0L0Zhc3RlckF0dGFja3MiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/c3e1544a95/FasterAttacks.png",
+            "support": true,
+            "league": "Keepers",
+            "id": "6c6230b8b0232078217d51788faba1ae532f2f582aff125e7b4af40156a781d2",
+            "name": "",
+            "typeLine": "Faster Attacks Support",
+            "baseType": "Faster Attacks Support",
+            "ilvl": 0,
+            "identified": true,
+            "properties": [
+              {
+                "name": "Attack, Support",
+                "values": [],
+                "displayMode": 0
+              },
+              {
+                "name": "Level",
+                "values": [
+                  [
+                    "20 (Max)",
+                    0
+                  ]
+                ],
+                "displayMode": 0,
+                "type": 5
+              },
+              {
+                "name": "Cost & Reservation Multiplier",
+                "values": [
+                  [
+                    "110%",
+                    0
+                  ]
+                ],
+                "displayMode": 0
+              }
+            ],
+            "requirements": [
+              {
+                "name": "Level",
+                "values": [
+                  [
+                    "70",
+                    0
+                  ]
+                ],
+                "displayMode": 0,
+                "type": 62
+              },
+              {
+                "name": "Dex",
+                "values": [
+                  [
+                    "111",
+                    0
+                  ]
+                ],
+                "displayMode": 1,
+                "type": 64
+              }
+            ],
+            "secDescrText": "Supports attack skills.",
+            "explicitMods": [
+              "Supported Skills have 44% increased Attack Speed"
+            ],
+            "descrText": "This is a Support Gem. It does not grant a bonus to your character, but to skills in sockets connected to it. Place into an item socket connected to a socket containing the Skill Gem you wish to augment. Right click to remove from a socket.",
+            "frameType": 4,
+            "socket": 0,
+            "colour": "D"
+          },
+          {
+            "verified": false,
+            "w": 1,
+            "h": 1,
+            "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9TaGllbGRDaGFyZ2UiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/6d2723f822/ShieldCharge.png",
+            "support": false,
+            "league": "Keepers",
+            "id": "f1a0c79a0f6407164eb0f715a6b1d327dbdbed68b101fbca87e7c6967f758059",
+            "name": "",
+            "typeLine": "Shield Charge",
+            "baseType": "Shield Charge",
+            "ilvl": 0,
+            "identified": true,
+            "properties": [
+              {
+                "name": "Attack, AoE, Movement, Travel, Physical, Melee",
+                "values": [],
+                "displayMode": 0
+              },
+              {
+                "name": "Level",
+                "values": [
+                  [
+                    "1",
+                    0
+                  ]
+                ],
+                "displayMode": 0,
+                "type": 5
+              },
+              {
+                "name": "Cost",
+                "values": [
+                  [
+                    "6 Mana",
+                    0
+                  ]
+                ],
+                "displayMode": 0
+              },
+              {
+                "name": "Attack Time",
+                "values": [
+                  [
+                    "0.50 sec",
+                    0
+                  ]
+                ],
+                "displayMode": 0
+              },
+              {
+                "name": "Critical Strike Chance",
+                "values": [
+                  [
+                    "5.00%",
+                    0
+                  ]
+                ],
+                "displayMode": 0
+              },
+              {
+                "name": "Attack Damage",
+                "values": [
+                  [
+                    "100% of base",
+                    0
+                  ]
+                ],
+                "displayMode": 0
+              }
+            ],
+            "requirements": [
+              {
+                "name": "Level",
+                "values": [
+                  [
+                    "4",
+                    0
+                  ]
+                ],
+                "displayMode": 0,
+                "type": 62
+              },
+              {
+                "name": "Str",
+                "values": [
+                  [
+                    "16",
+                    0
+                  ]
+                ],
+                "displayMode": 1,
+                "type": 63
+              }
+            ],
+            "additionalProperties": [
+              {
+                "name": "Experience",
+                "values": [
+                  [
+                    "841/841",
+                    0
+                  ]
+                ],
+                "displayMode": 2,
+                "progress": 1,
+                "type": 20
+              }
+            ],
+            "nextLevelRequirements": [
+              {
+                "name": "Level",
+                "values": [
+                  [
+                    "6",
+                    0
+                  ]
+                ],
+                "displayMode": 0
+              },
+              {
+                "name": "Str",
+                "values": [
+                  [
+                    "20",
+                    0
+                  ]
+                ],
+                "displayMode": 1
+              }
+            ],
+            "secDescrText": "Charges at a targeted location or enemy, pushing away enemies in your path and repeatedly dealing off-hand damage in a small area in front of you. You deal damage in a larger area when you reach the target. The further you travel, the more damage you deal, and the greater your chance of stunning enemies.",
+            "explicitMods": [
+              "9 to 13 Base Off Hand Physical Damage",
+              "3 to 5 Added Physical Damage per 15 Armour or Evasion Rating on Shield",
+              "75% increased Stun Threshold reduction on enemies at Maximum charge distance",
+              "100% more Damage with Hits at Maximum Charge Distance",
+              "90% increased Movement Speed"
+            ],
+            "descrText": "Place into an item socket of the right colour to gain this skill. Right click to remove from a socket.",
+            "frameType": 4,
+            "socket": 1,
+            "colour": "S"
+          },
+          {
+            "verified": false,
+            "w": 1,
+            "h": 1,
+            "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9GaXJlRWxlbWVudGFsU3VtbW9uIiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/5d4c6fc5b4/FireElementalSummon.png",
+            "support": false,
+            "league": "Keepers",
+            "id": "891020589e4d1b6bd838c8f60d5426ba3f7a80c200ca5aa19921e5ce97a78460",
+            "name": "",
+            "typeLine": "Summon Flame Golem",
+            "baseType": "Summon Flame Golem",
+            "ilvl": 0,
+            "identified": true,
+            "properties": [
+              {
+                "name": "Fire, Minion, Spell, Golem",
+                "values": [],
+                "displayMode": 0
+              },
+              {
+                "name": "Level",
+                "values": [
+                  [
+                    "20 (Max)",
+                    0
+                  ]
+                ],
+                "displayMode": 0,
+                "type": 5
+              },
+              {
+                "name": "Cost",
+                "values": [
+                  [
+                    "54 Mana",
+                    0
+                  ]
+                ],
+                "displayMode": 0
+              },
+              {
+                "name": "Cooldown Time",
+                "values": [
+                  [
+                    "6.00 sec",
+                    0
+                  ]
+                ],
+                "displayMode": 0
+              },
+              {
+                "name": "Cast Time",
+                "values": [
+                  [
+                    "1.00 sec",
+                    0
+                  ]
+                ],
+                "displayMode": 0
+              }
+            ],
+            "requirements": [
+              {
+                "name": "Level",
+                "values": [
+                  [
+                    "70",
+                    0
+                  ]
+                ],
+                "displayMode": 0,
+                "type": 62
+              },
+              {
+                "name": "Str",
+                "values": [
+                  [
+                    "98",
+                    0
+                  ]
+                ],
+                "displayMode": 1,
+                "type": 63
+              },
+              {
+                "name": "Int",
+                "values": [
+                  [
+                    "68",
+                    0
+                  ]
+                ],
+                "displayMode": 1,
+                "type": 65
+              }
+            ],
+            "secDescrText": "Summons a Flame Golem that grants you increased Damage and Area of Effect. The Flame Golem can cast a fire spray, a wave of fire damage, and an explosive arcing projectile.",
+            "explicitMods": [
+              "Maximum 1 Summoned Golem",
+              "Golems grant 29% increased Damage",
+              "Golems grant 20% increased Area of Effect"
+            ],
+            "descrText": "Place into an item socket of the right colour to gain this skill. Right click to remove from a socket.",
+            "frameType": 4,
+            "socket": 2,
+            "colour": "S"
+          },
+          {
+            "verified": false,
+            "w": 1,
+            "h": 1,
+            "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9Gcm9zdGJsaW5rU2tpbGxHZW0iLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/03a84470ab/FrostblinkSkillGem.png",
+            "support": false,
+            "league": "Keepers",
+            "id": "c9d3d48e9f33da5892f4eb78054b83d75d1b314914d2536f51fbf39b7e85fb97",
+            "name": "",
+            "typeLine": "Frostblink",
+            "baseType": "Frostblink",
+            "ilvl": 0,
+            "identified": true,
+            "properties": [
+              {
+                "name": "Spell, Movement, Duration, Cold, Travel, Blink, AoE",
+                "values": [],
+                "displayMode": 0
+              },
+              {
+                "name": "Level",
+                "values": [
+                  [
+                    "20 (Max)",
+                    0
+                  ]
+                ],
+                "displayMode": 0,
+                "type": 5
+              },
+              {
+                "name": "Cost",
+                "values": [
+                  [
+                    "22 Mana",
+                    0
+                  ]
+                ],
+                "displayMode": 0
+              },
+              {
+                "name": "Cooldown Time",
+                "values": [
+                  [
+                    "2.60 sec",
+                    0
+                  ]
+                ],
+                "displayMode": 0
+              },
+              {
+                "name": "Cast Time",
+                "values": [
+                  [
+                    "Instant",
+                    0
+                  ]
+                ],
+                "displayMode": 0
+              },
+              {
+                "name": "Critical Strike Chance",
+                "values": [
+                  [
+                    "5.00%",
+                    0
+                  ]
+                ],
+                "displayMode": 0
+              },
+              {
+                "name": "Effectiveness of Added Damage",
+                "values": [
+                  [
+                    "250%",
+                    0
+                  ]
+                ],
+                "displayMode": 0
+              }
+            ],
+            "requirements": [
+              {
+                "name": "Level",
+                "values": [
+                  [
+                    "70",
+                    0
+                  ]
+                ],
+                "displayMode": 0,
+                "type": 62
+              },
+              {
+                "name": "Int",
+                "values": [
+                  [
+                    "155",
+                    0
+                  ]
+                ],
+                "displayMode": 1,
+                "type": 65
+              }
+            ],
+            "secDescrText": "Teleport to a location, damaging enemies and leaving Chilled ground in an area at both ends of the teleport. Shares a cooldown with other Blink skills.",
+            "explicitMods": [
+              "Deals 1144 to 1716 Cold Damage",
+              "Base duration is 3.00 seconds",
+              "+0.3 metres to radius",
+              "19% increased Cooldown Recovery Rate for each Normal or Magic Enemy in Area\n99% increased Cooldown Recovery Rate for each Rare or Unique Enemy in Area",
+              "38% increased maximum travel distance"
+            ],
+            "descrText": "Place into an item socket of the right colour to gain this skill. Right click to remove from a socket.",
+            "frameType": 4,
+            "socket": 3,
+            "colour": "I"
+          }
+        ]
+      },
+      {
+        "name": "The Taming",
+        "base_type": "Prismatic Ring",
+        "slot": "Ring",
+        "sockets": [],
+        "socketed_items": []
+      },
+      {
+        "name": "Essence Worm",
+        "base_type": "Unset Ring",
+        "slot": "Ring2",
+        "sockets": [
+          {
+            "group": 0,
+            "attr": "I",
+            "sColour": "B"
+          }
+        ],
+        "socketed_items": [
+          {
+            "verified": false,
+            "w": 1,
+            "h": 1,
+            "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9QdXJpdHkiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/0b82235250/Purity.png",
+            "support": false,
+            "league": "Keepers",
+            "id": "c9178ad04e8fb2ecb78f0230ed5e8005a1bc01d8c1ae24cce246a7c44a56c4dc",
+            "name": "",
+            "typeLine": "Purity of Elements",
+            "baseType": "Purity of Elements",
+            "ilvl": 0,
+            "identified": true,
+            "properties": [
+              {
+                "name": "Aura, Spell, AoE",
+                "values": [],
+                "displayMode": 0
+              },
+              {
+                "name": "Level",
+                "values": [
+                  [
+                    "20 (Max)",
+                    0
+                  ]
+                ],
+                "displayMode": 0,
+                "type": 5
+              },
+              {
+                "name": "Reservation",
+                "values": [
+                  [
+                    "50% Mana",
+                    0
+                  ]
+                ],
+                "displayMode": 0
+              },
+              {
+                "name": "Cooldown Time",
+                "values": [
+                  [
+                    "1.20 sec",
+                    0
+                  ]
+                ],
+                "displayMode": 0
+              },
+              {
+                "name": "Cast Time",
+                "values": [
+                  [
+                    "Instant",
+                    0
+                  ]
+                ],
+                "displayMode": 0
+              }
+            ],
+            "requirements": [
+              {
+                "name": "Level",
+                "values": [
+                  [
+                    "70",
+                    0
+                  ]
+                ],
+                "displayMode": 0,
+                "type": 62
+              },
+              {
+                "name": "Str",
+                "values": [
+                  [
+                    "68",
+                    0
+                  ]
+                ],
+                "displayMode": 1,
+                "type": 63
+              },
+              {
+                "name": "Int",
+                "values": [
+                  [
+                    "98",
+                    0
+                  ]
+                ],
+                "displayMode": 1,
+                "type": 65
+              }
+            ],
+            "secDescrText": "Casts an aura that grants elemental resistances and elemental ailment immunity to you and your allies.",
+            "explicitMods": [
+              "+1.9 metres to radius",
+              "You and nearby allies gain +34% to all Elemental Resistances",
+              "You and nearby allies are Immune to all Elemental Ailments"
+            ],
+            "descrText": "Place into an item socket of the right colour to gain this skill. Right click to remove from a socket.",
+            "frameType": 4,
+            "socket": 0,
+            "colour": "I"
+          }
+        ]
+      }
+    ],
+    "total_unique_value": 6187.0,
+    "upgrade_suggestions": [
+      {
+        "item_name": "Mageblood",
+        "reason": "Recommended upgrade for Headhunter Elementalist",
+        "chaos_value": 24552
+      }
+    ]
+  },
+  "recommendations": [
+    {
+      "category": "personalized",
+      "title": "🎯 Recommended for Your Occultist",
+      "subtitle": "Based on your Lv99 Occultist",
+      "builds": [
+        {
+          "character_name": "Occultist_Build_1",
+          "class": "Witch",
+          "ascendancy_class": "Occultist",
+          "rank": 15,
+          "level": 96,
+          "personalized": true
+        },
+        {
+          "character_name": "Occultist_Build_2",
+          "class": "Witch",
+          "ascendancy_class": "Occultist",
+          "rank": 28,
+          "level": 95,
+          "personalized": true
+        }
+      ],
+      "count": 2
+    },
+    {
+      "category": "popular",
+      "title": "🔥 Most Popular Builds This Week",
+      "subtitle": "Based on Keepers ladder data",
+      "builds": [
+        {
+          "title": "Updated LA Deadeye League Start Guide for Keepers - Path of Exile 3.27",
+          "channel": "Fubgun",
+          "url": "https://www.youtube.com/watch?v=Sy5N5DgjySE",
+          "views": 70414,
+          "likes": 846,
+          "pob_links": [
+            "https://pobb.in/-1RJJFsGRMAn",
+            "https://pobb.in/VaAapO2iuSAV"
+          ],
+          "build_keyword": "Lightning Arrow",
+          "published_at": "2025-10-26T16:41:23Z",
+          "source": "youtube"
+        },
+        {
+          "title": "Best WITCH LEVELLING &amp; First Ascendancy | PoE 3.27",
+          "channel": "Altek2k",
+          "url": "https://www.youtube.com/watch?v=dTfV9Ud5Jg4",
+          "views": 17073,
+          "likes": 206,
+          "pob_links": [
+            "https://pobb.in/Be520xT9XTnA"
+          ],
+          "build_keyword": "Covenant",
+          "published_at": "2025-10-28T14:30:36Z",
+          "source": "youtube"
+        },
+        {
+          "title": "[POE 3.27] New Woespike Ring has Billion DPS Potential | Ideas to Abuse it",
+          "channel": "Poe Noob",
+          "url": "https://www.youtube.com/watch?v=zJ3221nkHlQ",
+          "views": 16456,
+          "likes": 254,
+          "pob_links": [
+            "https://pobb.in/VXEtVf8cDTPS"
+          ],
+          "build_keyword": "Covenant",
+          "published_at": "2025-11-10T22:15:18Z",
+          "source": "youtube"
+        }
+      ],
+      "count": 3
+    },
+    {
+      "category": "meta",
+      "title": "💎 Current Meta Builds",
+      "subtitle": "Strongest builds for mid league",
+      "builds": [
+        {
+          "character_name": "ChaosKiller",
+          "class": "Witch",
+          "ascendancy_class": "Occultist",
+          "rank": 5,
+          "level": 98
+        },
+        {
+          "character_name": "FastClearSpeed",
+          "class": "Ranger",
+          "ascendancy_class": "Deadeye",
+          "rank": 12,
+          "level": 97
+        }
+      ],
+      "count": 2
+    }
+  ],
+  "user_context": {
+    "has_characters": true,
+    "character_count": 15,
+    "main_class": "Occultist",
+    "main_level": 99
+  },
+  "total_builds": 7,
+  "generated_at": "2025-11-18T02:39:09.613586"
+}

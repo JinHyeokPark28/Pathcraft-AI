@@ -1,0 +1,72 @@
+{
+  "league": "Keepers",
+  "league_phase": "mid",
+  "user_build": null,
+  "recommendations": [
+    {
+      "category": "popular",
+      "title": "🔥 Most Popular Builds This Week",
+      "subtitle": "Based on Keepers ladder data",
+      "builds": [
+        {
+          "title": "PoE 3.27 | Exsanguinate Reap Miner League Start Build Guide",
+          "channel": "FearlessDumb0",
+          "url": "https://www.youtube.com/watch?v=uHkhSNf91gM",
+          "views": 137099,
+          "likes": 2970,
+          "pob_links": [
+            "https://pobb.in/RyFYcSsP08Xh",
+            "https://pobb.in/8cJ6kaa0XPZG"
+          ],
+          "build_keyword": "Shako",
+          "published_at": "2025-10-28T22:14:19Z",
+          "source": "youtube"
+        },
+        {
+          "title": "Updated LA Deadeye League Start Guide for Keepers - Path of Exile 3.27",
+          "channel": "Fubgun",
+          "url": "https://www.youtube.com/watch?v=Sy5N5DgjySE",
+          "views": 70833,
+          "likes": 848,
+          "pob_links": [
+            "https://pobb.in/VaAapO2iuSAV",
+            "https://pobb.in/-1RJJFsGRMAn"
+          ],
+          "build_keyword": "Lightning Arrow",
+          "published_at": "2025-10-26T16:41:23Z",
+          "source": "youtube"
+        }
+      ],
+      "count": 2
+    },
+    {
+      "category": "meta",
+      "title": "💎 Current Meta Builds",
+      "subtitle": "Strongest builds for mid league",
+      "builds": [
+        {
+          "character_name": "ChaosKiller",
+          "class": "Witch",
+          "ascendancy_class": "Occultist",
+          "rank": 5,
+          "level": 98
+        },
+        {
+          "character_name": "FastClearSpeed",
+          "class": "Ranger",
+          "ascendancy_class": "Deadeye",
+          "rank": 12,
+          "level": 97
+        }
+      ],
+      "count": 2
+    }
+  ],
+  "user_context": {
+    "has_characters": false,
+    "character_count": 0,
+    "main_class": null
+  },
+  "total_builds": 4,
+  "generated_at": "2025-11-18T16:07:28.082517"
+}
