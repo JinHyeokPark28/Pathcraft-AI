@@ -104,7 +104,7 @@ def load_user_characters_from_oauth() -> Optional[List[Dict]]:
         # 토큰 로드
         token_data = load_token()
         if not token_data:
-            print("[WARNING] No OAuth token found. Please authenticate first.")
+            print("[WARNING] No OAuth token found. Please authenticate first.", file=sys.stderr)
             return None
 
         # 토큰 만료 확인 및 자동 갱신
@@ -122,7 +122,7 @@ def load_user_characters_from_oauth() -> Optional[List[Dict]]:
                     refresh_token = token_data.get('refresh_token')
 
                     if not refresh_token:
-                        print("[WARNING] No refresh token found. Please re-authenticate.")
+                        print("[WARNING] No refresh token found. Please re-authenticate.", file=sys.stderr)
                         return None
 
                     # 토큰 갱신
@@ -131,7 +131,7 @@ def load_user_characters_from_oauth() -> Optional[List[Dict]]:
                     token_data = new_token_data
 
                 except Exception as refresh_error:
-                    print(f"[WARNING] Failed to refresh token: {refresh_error}")
+                    print(f"[WARNING] Failed to refresh token: {refresh_error}", file=sys.stderr)
                     print("[INFO] Please re-authenticate using 'Connect POE Account' button", file=sys.stderr)
                     return None
 
@@ -149,7 +149,7 @@ def load_user_characters_from_oauth() -> Optional[List[Dict]]:
         return characters
 
     except Exception as e:
-        print(f"[WARNING] Failed to load user characters from OAuth: {e}")
+        print(f"[WARNING] Failed to load user characters from OAuth: {e}", file=sys.stderr)
         return None
 
 
@@ -211,10 +211,10 @@ def get_auto_recommendations(
         }
     """
 
-    print("=" * 80)
-    print("AUTO RECOMMENDATION ENGINE")
-    print("=" * 80)
-    print()
+    print("=" * 80, file=sys.stderr)
+    print("AUTO RECOMMENDATION ENGINE", file=sys.stderr)
+    print("=" * 80, file=sys.stderr)
+    print(file=sys.stderr)
 
     # 0. OAuth 토큰으로 사용자 캐릭터 자동 로드 (user_characters가 None인 경우)
     if user_characters is None:
@@ -245,19 +245,19 @@ def get_auto_recommendations(
             # 이미 가져온 캐릭터 목록 전달 (Rate Limit 방지)
             user_build_analysis = analyze_user_build_from_token(user_characters)
             if user_build_analysis:
-                print(f"[OK] Build analyzed: {user_build_analysis.get('build_type')}")
+                print(f"[OK] Build analyzed: {user_build_analysis.get('build_type')}", file=sys.stderr)
         except Exception as e:
-            print(f"[WARN] Failed to analyze user build: {e}")
+            print(f"[WARN] Failed to analyze user build: {e}", file=sys.stderr)
 
-    print()
-    print("=" * 80)
-    print()
+    print(file=sys.stderr)
+    print("=" * 80, file=sys.stderr)
+    print(file=sys.stderr)
 
     # 4. 추천 빌드 수집
     recommendations = []
 
     # 4-1. 인기 빌드 (poe.ninja 기반)
-    print("[PHASE 1/4] Loading popular builds from poe.ninja...")
+    print("[PHASE 1/4] Loading popular builds from poe.ninja...", file=sys.stderr)
     popular_builds = get_popular_builds(league, limit=5)
     if popular_builds:
         recommendations.append({
@@ -267,12 +267,12 @@ def get_auto_recommendations(
             "builds": popular_builds,
             "count": len(popular_builds)
         })
-        print(f"[OK] Found {len(popular_builds)} popular builds")
-    print()
+        print(f"[OK] Found {len(popular_builds)} popular builds", file=sys.stderr)
+    print(file=sys.stderr)
 
     # 4-2. 스트리머 빌드
     if include_streamers:
-        print("[PHASE 2/4] Loading streamer builds...")
+        print("[PHASE 2/4] Loading streamer builds...", file=sys.stderr)
         streamer_builds = get_streamer_builds_cached(league, limit=5)
         if streamer_builds:
             recommendations.append({
@@ -282,11 +282,11 @@ def get_auto_recommendations(
                 "builds": streamer_builds,
                 "count": len(streamer_builds)
             })
-            print(f"[OK] Found {len(streamer_builds)} streamer builds")
-        print()
+            print(f"[OK] Found {len(streamer_builds)} streamer builds", file=sys.stderr)
+        print(file=sys.stderr)
 
     # 4-3. 메타 빌드 (현재 시즌 강력한 빌드들)
-    print("[PHASE 3/4] Loading meta builds...")
+    print("[PHASE 3/4] Loading meta builds...", file=sys.stderr)
     meta_builds = get_meta_builds(league, league_phase, limit=5)
     if meta_builds:
         recommendations.append({
@@ -296,12 +296,12 @@ def get_auto_recommendations(
             "builds": meta_builds,
             "count": len(meta_builds)
         })
-        print(f"[OK] Found {len(meta_builds)} meta builds")
-    print()
+        print(f"[OK] Found {len(meta_builds)} meta builds", file=sys.stderr)
+    print(file=sys.stderr)
 
     # 4-3.5. 사용자 캐릭터 기반 추천 (OAuth 연동 시)
     if user_context.get('has_characters') and user_context.get('main_class'):
-        print("[PHASE 3.5/4] Loading personalized builds based on your main character...")
+        print("[PHASE 3.5/4] Loading personalized builds based on your main character...", file=sys.stderr)
         personalized_builds = get_similar_class_builds(
             league,
             user_context['main_class'],
@@ -315,12 +315,12 @@ def get_auto_recommendations(
                 "builds": personalized_builds,
                 "count": len(personalized_builds)
             })
-            print(f"[OK] Found {len(personalized_builds)} personalized builds")
-        print()
+            print(f"[OK] Found {len(personalized_builds)} personalized builds", file=sys.stderr)
+        print(file=sys.stderr)
 
     # 4-4. 리그 시작 전이라면 pre-season 빌드
     if league_phase == "pre_season":
-        print("[PHASE 4/4] Loading pre-season practice builds...")
+        print("[PHASE 4/4] Loading pre-season practice builds...", file=sys.stderr)
         preseason_builds = get_preseason_practice_builds(league, limit=5)
         if preseason_builds:
             recommendations.insert(0, {
@@ -330,10 +330,10 @@ def get_auto_recommendations(
                 "builds": preseason_builds,
                 "count": len(preseason_builds)
             })
-            print(f"[OK] Found {len(preseason_builds)} pre-season builds")
+            print(f"[OK] Found {len(preseason_builds)} pre-season builds", file=sys.stderr)
 
-    print()
-    print("=" * 80)
+    print(file=sys.stderr)
+    print("=" * 80, file=sys.stderr)
 
     return {
         "league": league,
@@ -677,16 +677,16 @@ if __name__ == "__main__":
         print(json.dumps(result, ensure_ascii=False, indent=2))
     else:
         # 일반 출력
-        print()
-        print("=" * 80)
-        print("RECOMMENDATIONS")
-        print("=" * 80)
-        print()
+        print(file=sys.stderr)
+        print("=" * 80, file=sys.stderr)
+        print("RECOMMENDATIONS", file=sys.stderr)
+        print("=" * 80, file=sys.stderr)
+        print(file=sys.stderr)
 
         for rec in result['recommendations']:
-            print(f"{rec['title']}")
-            print(f"  {rec['subtitle']}")
-            print()
+            print(f"{rec['title']}", file=sys.stderr)
+            print(f"  {rec['subtitle']}", file=sys.stderr)
+            print(file=sys.stderr)
 
             for i, build in enumerate(rec['builds'], 1):
                 # 빌드 이름 추출 (소스에 따라 다름)
@@ -697,20 +697,20 @@ if __name__ == "__main__":
                     f"{build.get('class')} {build.get('ascendancy_class', '')}"
                 )
 
-                print(f"  {i}. {name}")
+                print(f"  {i}. {name}", file=sys.stderr)
 
                 # 추가 정보
                 if 'streamer_name' in build:
-                    print(f"     Streamer: {build['streamer_name']}")
+                    print(f"     Streamer: {build['streamer_name']}", file=sys.stderr)
                 if 'rank' in build:
-                    print(f"     Ladder Rank: #{build['rank']}")
+                    print(f"     Ladder Rank: #{build['rank']}", file=sys.stderr)
                 if 'count' in build:
-                    print(f"     Popularity: {build['count']} players")
+                    print(f"     Popularity: {build['count']} players", file=sys.stderr)
                 if 'level' in build:
-                    print(f"     Level: {build['level']}")
+                    print(f"     Level: {build['level']}", file=sys.stderr)
 
-            print()
+            print(file=sys.stderr)
 
-        print("=" * 80)
-        print(f"Total Recommendations: {result['total_builds']}")
-        print("=" * 80)
+        print("=" * 80, file=sys.stderr)
+        print(f"Total Recommendations: {result['total_builds']}", file=sys.stderr)
+        print("=" * 80, file=sys.stderr)

@@ -206,7 +206,29 @@ namespace PathcraftAI.UI
                 }
 
                 var jsonString = jsonOutput.Substring(jsonStart, jsonEnd - jsonStart + 1);
-                var data = JObject.Parse(jsonString);
+
+                JObject data;
+                try
+                {
+                    data = JObject.Parse(jsonString);
+                }
+                catch (Newtonsoft.Json.JsonReaderException ex)
+                {
+                    // JSON 파싱 실패 - Python 로그가 섞였을 가능성
+                    Debug.WriteLine($"JSON Parse Error: {ex.Message}");
+                    Debug.WriteLine($"Python Output (first 500 chars):\n{jsonOutput.Substring(0, Math.Min(500, jsonOutput.Length))}");
+
+                    ShowFriendlyError(
+                        "추천 데이터 파싱 오류",
+                        $"JSON 파싱에 실패했습니다.\n\n" +
+                        $"원인: Python 스크립트가 로그를 stdout으로 출력했을 가능성이 있습니다.\n\n" +
+                        $"해결: PYTHON_LOGGING_RULES.md 참고\n\n" +
+                        $"에러: {ex.Message}\n\n" +
+                        $"Python 출력 (처음 200자):\n{jsonOutput.Substring(0, Math.Min(200, jsonOutput.Length))}"
+                    );
+                    ShowNoRecommendations();
+                    return;
+                }
 
                 // 리그 정보 업데이트
                 _currentLeague = data["league"]?.ToString() ?? "Keepers";

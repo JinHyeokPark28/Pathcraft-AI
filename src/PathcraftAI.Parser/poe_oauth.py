@@ -189,20 +189,20 @@ def exchange_code_for_token(client_id: str, client_secret: str, auth_code: str, 
         'Connection': 'keep-alive'
     }
 
-    print(f"[DEBUG] Token exchange request:")
-    print(f"  URL: {POE_OAUTH_BASE}/token")
-    print(f"  Data: {data}")
-    print(f"  Headers: User-Agent={headers['User-Agent'][:50]}...")
+    print(f"[DEBUG] Token exchange request:", file=sys.stderr)
+    print(f"  URL: {POE_OAUTH_BASE}/token", file=sys.stderr)
+    print(f"  Data: {data}", file=sys.stderr)
+    print(f"  Headers: User-Agent={headers['User-Agent'][:50]}...", file=sys.stderr)
 
     response = requests.post(f"{POE_OAUTH_BASE}/token", data=data, headers=headers)
 
-    print(f"[DEBUG] Response status: {response.status_code}")
-    print(f"[DEBUG] Response headers: {dict(response.headers)}")
+    print(f"[DEBUG] Response status: {response.status_code}", file=sys.stderr)
+    print(f"[DEBUG] Response headers: {dict(response.headers)}", file=sys.stderr)
 
     if response.status_code != 200:
-        print(f"[DEBUG] Response text (first 500 chars): {response.text[:500]}")
+        print(f"[DEBUG] Response text (first 500 chars): {response.text[:500]}", file=sys.stderr)
     else:
-        print(f"[DEBUG] Response text: {response.text}")
+        print(f"[DEBUG] Response text: {response.text}", file=sys.stderr)
 
     response.raise_for_status()
 
@@ -337,49 +337,49 @@ def authenticate_user(client_id: str, client_secret: str, scopes: list[str]) -> 
         토큰 정보 딕셔너리
     """
 
-    print("=" * 80)
-    print("POE OAUTH AUTHENTICATION (with PKCE)")
-    print("=" * 80)
-    print()
+    print("=" * 80, file=sys.stderr)
+    print("POE OAUTH AUTHENTICATION (with PKCE)", file=sys.stderr)
+    print("=" * 80, file=sys.stderr)
+    print(file=sys.stderr)
 
     # 0. PKCE 생성
-    print("[0/5] Generating PKCE challenge...")
+    print("[0/5] Generating PKCE challenge...", file=sys.stderr)
     code_verifier, code_challenge = generate_pkce_pair()
-    print(f"[OK] PKCE challenge created")
-    print()
+    print(f"[OK] PKCE challenge created", file=sys.stderr)
+    print(file=sys.stderr)
 
     # 1. 로컬 서버 시작
-    print("[1/5] Starting local callback server...")
+    print("[1/5] Starting local callback server...", file=sys.stderr)
     server_thread = start_oauth_server()
-    print(f"[OK] Listening on {REDIRECT_URI}")
-    print()
+    print(f"[OK] Listening on {REDIRECT_URI}", file=sys.stderr)
+    print(file=sys.stderr)
 
     # 2. 브라우저에서 인증 URL 열기
-    print("[2/5] Opening browser for authentication...")
+    print("[2/5] Opening browser for authentication...", file=sys.stderr)
     auth_url = get_authorization_url(client_id, scopes, code_challenge)
-    print(f"[INFO] Auth URL: {auth_url}")
+    print(f"[INFO] Auth URL: {auth_url}", file=sys.stderr)
     webbrowser.open(auth_url)
-    print("[OK] Browser opened. Please log in and authorize PathcraftAI.")
-    print()
+    print("[OK] Browser opened. Please log in and authorize PathcraftAI.", file=sys.stderr)
+    print(file=sys.stderr)
 
     # 3. 콜백 대기
-    print("[3/5] Waiting for authorization callback...")
+    print("[3/5] Waiting for authorization callback...", file=sys.stderr)
     while OAuthCallbackHandler.auth_code is None:
         import time
         time.sleep(0.5)
 
     auth_code = OAuthCallbackHandler.auth_code
-    print(f"[OK] Received authorization code: {auth_code[:20]}...")
-    print()
+    print(f"[OK] Received authorization code: {auth_code[:20]}...", file=sys.stderr)
+    print(file=sys.stderr)
 
     # 4. Token 교환
-    print("[4/5] Exchanging code for access token...")
+    print("[4/5] Exchanging code for access token...", file=sys.stderr)
     token_data = exchange_code_for_token(client_id, client_secret, auth_code, code_verifier)
-    print(f"[OK] Access token obtained!")
-    print(f"     Username: {token_data.get('username')}")
-    print(f"     Scopes: {token_data.get('scope')}")
-    print(f"     Expires in: {token_data.get('expires_in')} seconds ({token_data.get('expires_in') // 86400} days)")
-    print()
+    print(f"[OK] Access token obtained!", file=sys.stderr)
+    print(f"     Username: {token_data.get('username')}", file=sys.stderr)
+    print(f"     Scopes: {token_data.get('scope')}", file=sys.stderr)
+    print(f"     Expires in: {token_data.get('expires_in')} seconds ({token_data.get('expires_in') // 86400} days)", file=sys.stderr)
+    print(file=sys.stderr)
 
     return token_data
 
@@ -413,13 +413,13 @@ def refresh_access_token(client_id: str, refresh_token: str, client_secret: str 
         'Content-Type': 'application/x-www-form-urlencoded'
     }
 
-    print(f"[INFO] Refreshing access token...")
+    print(f"[INFO] Refreshing access token...", file=sys.stderr)
 
     response = requests.post(f"{POE_OAUTH_BASE}/token", data=data, headers=headers)
 
     if response.status_code != 200:
-        print(f"[ERROR] Token refresh failed: {response.status_code}")
-        print(f"[ERROR] Response: {response.text}")
+        print(f"[ERROR] Token refresh failed: {response.status_code}", file=sys.stderr)
+        print(f"[ERROR] Response: {response.text}", file=sys.stderr)
         response.raise_for_status()
 
     token_data = response.json()
@@ -428,7 +428,7 @@ def refresh_access_token(client_id: str, refresh_token: str, client_secret: str 
     expires_in = token_data.get('expires_in', 36000)
     token_data['expires_at'] = (datetime.now() + timedelta(seconds=expires_in)).isoformat()
 
-    print(f"[OK] Access token refreshed (expires in {expires_in/3600:.1f} hours)")
+    print(f"[OK] Access token refreshed (expires in {expires_in/3600:.1f} hours)", file=sys.stderr)
 
     return token_data
 
@@ -447,7 +447,7 @@ def save_token(token_data: Dict, filename: str = "poe_token.json"):
     with open(filepath, 'w', encoding='utf-8') as f:
         json.dump(token_data, f, indent=2)
 
-    print(f"[OK] Token saved to: {filepath}")
+    print(f"[OK] Token saved to: {filepath}", file=sys.stderr)
 
 
 def load_token(filename: str = "poe_token.json") -> Optional[Dict]:
@@ -484,35 +484,35 @@ if __name__ == "__main__":
         if args.save:
             save_token(token_data)
 
-        print()
-        print("=" * 80)
-        print("AUTHENTICATION SUCCESSFUL")
-        print("=" * 80)
-        print()
+        print(file=sys.stderr)
+        print("=" * 80, file=sys.stderr)
+        print("AUTHENTICATION SUCCESSFUL", file=sys.stderr)
+        print("=" * 80, file=sys.stderr)
+        print(file=sys.stderr)
 
         # 프로필 정보 가져오기
         if 'account:profile' in scopes:
-            print("Fetching profile information...")
+            print("Fetching profile information...", file=sys.stderr)
             profile = get_user_profile(token_data['access_token'])
-            print(f"  Profile UUID: {profile.get('uuid')}")
-            print(f"  Username: {profile.get('name')}")
-            print(f"  Realm: {profile.get('realm')}")
-            print()
+            print(f"  Profile UUID: {profile.get('uuid')}", file=sys.stderr)
+            print(f"  Username: {profile.get('name')}", file=sys.stderr)
+            print(f"  Realm: {profile.get('realm')}", file=sys.stderr)
+            print(file=sys.stderr)
 
         # 캐릭터 정보 가져오기
         if 'account:characters' in scopes:
-            print("Fetching character list...")
+            print("Fetching character list...", file=sys.stderr)
             characters = get_user_characters(token_data['access_token'])
-            print(f"  Total characters: {len(characters)}")
+            print(f"  Total characters: {len(characters)}", file=sys.stderr)
 
             if characters:
-                print()
-                print("  Top 5 characters:")
+                print(file=sys.stderr)
+                print("  Top 5 characters:", file=sys.stderr)
                 for i, char in enumerate(characters[:5], 1):
-                    print(f"    {i}. {char.get('name')} - Lv{char.get('level')} {char.get('class')} ({char.get('league')})")
+                    print(f"    {i}. {char.get('name')} - Lv{char.get('level')} {char.get('class')} ({char.get('league')})", file=sys.stderr)
 
-            print()
+            print(file=sys.stderr)
 
     except Exception as e:
-        print(f"[ERROR] Authentication failed: {e}")
+        print(f"[ERROR] Authentication failed: {e}", file=sys.stderr)
         sys.exit(1)
