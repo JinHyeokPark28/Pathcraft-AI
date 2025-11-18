@@ -637,15 +637,23 @@
                             <!-- POB Input Section -->
                             <Border Background="#262638" CornerRadius="8" Padding="16" MaxWidth="500">
                                 <StackPanel>
-                                    <TextBlock Text="📋 POB 링크 입력 (선택사항)" FontSize="13" FontWeight="SemiBold" Margin="0,0,0,8" Foreground="#89B4FA"/>
+                                    <TextBlock Text="📋 참고하는 POB 링크 (선택사항)" FontSize="13" FontWeight="SemiBold" Margin="0,0,0,8" Foreground="#89B4FA"/>
                                     <TextBox x:Name="POBInputBox"
                                              Height="32" Padding="8" FontSize="12"
                                              Background="#313244" Foreground="#CDD6F4" BorderBrush="#45475A"
                                              Text="https://pobb.in/..."
                                              GotFocus="POBInputBox_GotFocus"/>
-                                    <Button Content="분석하기" Height="32" Margin="0,8,0,0"
+
+                                    <TextBlock Text="⭐ 참고하는 스트리머/유튜버 (선택사항)" FontSize="13" FontWeight="SemiBold" Margin="0,16,0,8" Foreground="#F38BA8"/>
+                                    <TextBox x:Name="StreamerInputBox"
+                                             Height="32" Padding="8" FontSize="12"
+                                             Background="#313244" Foreground="#CDD6F4" BorderBrush="#45475A"
+                                             Text="예: Zizaran, Steelmage, Palsteron..."
+                                             GotFocus="StreamerInputBox_GotFocus"/>
+
+                                    <Button Content="🔍 맞춤 추천 받기" Height="36" Margin="0,16,0,0"
                                             Background="#CBA6F7" Foreground="#1E1E2E" BorderThickness="0"
-                                            Click="AnalyzePOB_Click" FontWeight="SemiBold"/>
+                                            Click="GetPersonalizedRecommendations_Click" FontWeight="SemiBold" FontSize="13"/>
                                 </StackPanel>
                             </Border>
                         </StackPanel>

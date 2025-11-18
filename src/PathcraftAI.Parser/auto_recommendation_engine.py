@@ -346,6 +346,196 @@ def get_auto_recommendations(
     }
 
 
+def get_personalized_recommendations(
+    league: Optional[str] = None,
+    reference_pob: Optional[str] = None,
+    streamer_name: Optional[str] = None,
+    max_builds: int = 10
+) -> Dict:
+    """
+    맞춤 추천 빌드 가져오기
+
+    Args:
+        league: 리그 이름 (None이면 자동 감지)
+        reference_pob: 참고하는 POB URL
+        streamer_name: 참고하는 스트리머/유튜버 이름
+        max_builds: 최대 빌드 수
+
+    Returns:
+        추천 결과 딕셔너리
+    """
+
+    print("=" * 80, file=sys.stderr)
+    print("PERSONALIZED RECOMMENDATION ENGINE", file=sys.stderr)
+    print("=" * 80, file=sys.stderr)
+    print(file=sys.stderr)
+
+    # 1. 리그 감지
+    if not league:
+        league = get_current_league()
+
+    print(f"[INFO] Current League: {league}", file=sys.stderr)
+
+    if reference_pob:
+        print(f"[INFO] Reference POB: {reference_pob}", file=sys.stderr)
+    if streamer_name:
+        print(f"[INFO] Streamer Filter: {streamer_name}", file=sys.stderr)
+
+    print(file=sys.stderr)
+
+    # 2. 추천 빌드 수집
+    recommendations = []
+
+    # 2-1. 스트리머 필터링
+    if streamer_name:
+        print(f"[PHASE 1/2] Finding builds from {streamer_name}...", file=sys.stderr)
+        streamer_builds = filter_builds_by_streamer(streamer_name, league, max_builds)
+        if streamer_builds:
+            recommendations.append({
+                "category": "streamer_filtered",
+                "title": f"⭐ {streamer_name}'s Builds",
+                "subtitle": f"Latest builds from {streamer_name}",
+                "builds": streamer_builds,
+                "count": len(streamer_builds)
+            })
+            print(f"[OK] Found {len(streamer_builds)} builds from {streamer_name}", file=sys.stderr)
+        else:
+            print(f"[WARN] No builds found from {streamer_name}", file=sys.stderr)
+        print(file=sys.stderr)
+
+    # 2-2. POB 유사 빌드 검색
+    if reference_pob:
+        print(f"[PHASE 2/2] Finding similar builds to POB...", file=sys.stderr)
+        similar_builds = find_similar_builds_to_pob(reference_pob, league, max_builds)
+        if similar_builds:
+            recommendations.append({
+                "category": "similar",
+                "title": "🎯 Similar Builds",
+                "subtitle": "Builds similar to your reference POB",
+                "builds": similar_builds,
+                "count": len(similar_builds)
+            })
+            print(f"[OK] Found {len(similar_builds)} similar builds", file=sys.stderr)
+        else:
+            print(f"[WARN] No similar builds found", file=sys.stderr)
+        print(file=sys.stderr)
+
+    # 추천이 없으면 일반 인기 빌드 추가
+    if not recommendations:
+        print("[INFO] No personalized builds found, showing popular builds instead", file=sys.stderr)
+        popular_builds = get_popular_builds(league, limit=max_builds)
+        if popular_builds:
+            recommendations.append({
+                "category": "popular",
+                "title": "🔥 Most Popular Builds",
+                "subtitle": f"Top builds in {league}",
+                "builds": popular_builds,
+                "count": len(popular_builds)
+            })
+
+    print("=" * 80, file=sys.stderr)
+
+    return {
+        "league": league,
+        "league_phase": "personalized",
+        "reference_pob": reference_pob,
+        "streamer_filter": streamer_name,
+        "recommendations": recommendations,
+        "total_builds": sum(r['count'] for r in recommendations),
+        "generated_at": datetime.now().isoformat()
+    }
+
+
+def filter_builds_by_streamer(streamer_name: str, league: str, limit: int = 10) -> List[Dict]:
+    """스트리머 이름으로 빌드 필터링"""
+
+    # 스트리머 빌드 캐시에서 검색
+    streamer_builds = get_streamer_builds_cached(league, limit=50)  # 더 많이 가져와서 필터링
+
+    # 이름으로 필터링 (대소문자 무시, 부분 일치)
+    filtered = []
+    search_name = streamer_name.lower()
+
+    for build in streamer_builds:
+        streamer = build.get('streamer_name', '').lower()
+        channel = build.get('channel', '').lower()
+
+        if search_name in streamer or search_name in channel:
+            filtered.append(build)
+            if len(filtered) >= limit:
+                break
+
+    return filtered
+
+
+def find_similar_builds_to_pob(pob_url: str, league: str, limit: int = 10) -> List[Dict]:
+    """POB와 유사한 빌드 찾기"""
+
+    try:
+        # POB 분석
+        from pob_xml_parser import fetch_pob_code, decode_pob, parse_pob_xml
+
+        print(f"[INFO] Analyzing reference POB...", file=sys.stderr)
+        pob_code = fetch_pob_code(pob_url)
+        if not pob_code:
+            print(f"[ERROR] Could not fetch POB code", file=sys.stderr)
+            return []
+
+        pob_xml = decode_pob(pob_code)
+        if not pob_xml:
+            print(f"[ERROR] Could not decode POB", file=sys.stderr)
+            return []
+
+        build_data = parse_pob_xml(pob_xml)
+        if not build_data:
+            print(f"[ERROR] Could not parse POB XML", file=sys.stderr)
+            return []
+
+        # 빌드 특징 추출
+        ref_class = build_data.get('meta', {}).get('class', '')
+        ref_ascendancy = build_data.get('meta', {}).get('ascendancy', '')
+        ref_main_skill = build_data.get('meta', {}).get('main_skill', '')
+
+        print(f"[INFO] Reference: {ref_class} / {ref_ascendancy} / {ref_main_skill}", file=sys.stderr)
+
+        # 유사 빌드 검색 (인기 빌드 + 스트리머 빌드에서 검색)
+        all_builds = []
+        all_builds.extend(get_popular_builds(league, limit=50))
+        all_builds.extend(get_streamer_builds_cached(league, limit=50))
+
+        # 유사도 점수 계산
+        similar_builds = []
+        for build in all_builds:
+            score = 0
+
+            # 클래스 일치 (+3점)
+            if build.get('class', '').lower() == ref_class.lower():
+                score += 3
+
+            # Ascendancy 일치 (+5점)
+            if build.get('ascendancy_class', '').lower() == ref_ascendancy.lower():
+                score += 5
+
+            # 메인 스킬 일치 또는 유사 (+10점)
+            build_skill = build.get('main_skill', '')
+            if build_skill and ref_main_skill:
+                if build_skill.lower() in ref_main_skill.lower() or ref_main_skill.lower() in build_skill.lower():
+                    score += 10
+
+            if score > 0:
+                build['similarity_score'] = score
+                similar_builds.append(build)
+
+        # 점수 순 정렬
+        similar_builds.sort(key=lambda b: b.get('similarity_score', 0), reverse=True)
+
+        return similar_builds[:limit]
+
+    except Exception as e:
+        print(f"[ERROR] Failed to find similar builds: {e}", file=sys.stderr)
+        return []
+
+
 def analyze_user_context(characters: Optional[List[Dict]]) -> Dict:
     """사용자 캐릭터 정보 분석"""
 
@@ -662,16 +852,28 @@ if __name__ == "__main__":
     parser.add_argument('--no-streamers', action='store_true', help='Disable streamer builds')
     parser.add_argument('--max', type=int, default=10, help='Max builds per category')
     parser.add_argument('--include-user-build-analysis', action='store_true', help='Include user build analysis in output')
+    parser.add_argument('--reference-pob', type=str, default=None, help='Reference POB URL to find similar builds')
+    parser.add_argument('--streamer', type=str, default=None, help='Streamer/YouTuber name to filter builds')
 
     args = parser.parse_args()
 
-    # 자동 추천 실행
-    result = get_auto_recommendations(
-        league=args.league,
-        user_characters=None,  # OAuth 연동 시 여기에 캐릭터 데이터 전달
-        max_builds=args.max,
-        include_streamers=not args.no_streamers
-    )
+    # 맞춤 추천 모드 확인
+    if args.reference_pob or args.streamer:
+        # 맞춤 추천 모드
+        result = get_personalized_recommendations(
+            league=args.league,
+            reference_pob=args.reference_pob,
+            streamer_name=args.streamer,
+            max_builds=args.max
+        )
+    else:
+        # 일반 자동 추천
+        result = get_auto_recommendations(
+            league=args.league,
+            user_characters=None,  # OAuth 연동 시 여기에 캐릭터 데이터 전달
+            max_builds=args.max,
+            include_streamers=not args.no_streamers
+        )
 
     if args.json_output:
         # JSON 출력 (C# 통합용)

@@ -1116,6 +1116,127 @@ namespace PathcraftAI.UI
             }
         }
 
+        private void StreamerInputBox_GotFocus(object sender, RoutedEventArgs e)
+        {
+            if (sender is TextBox textBox && (textBox.Text.StartsWith("예:") || string.IsNullOrWhiteSpace(textBox.Text)))
+            {
+                textBox.Text = "";
+            }
+        }
+
+        private async void GetPersonalizedRecommendations_Click(object sender, RoutedEventArgs e)
+        {
+            var pobUrl = POBInputBox.Text?.Trim();
+            var streamerName = StreamerInputBox.Text?.Trim();
+
+            // 플레이스홀더 텍스트 제거
+            if (pobUrl == "https://pobb.in/...") pobUrl = null;
+            if (streamerName?.StartsWith("예:") == true) streamerName = null;
+
+            if (string.IsNullOrWhiteSpace(pobUrl) && string.IsNullOrWhiteSpace(streamerName))
+            {
+                // 둘 다 비어있으면 일반 추천
+                await LoadRecommendations();
+                return;
+            }
+
+            // 맞춤 추천 실행
+            await LoadPersonalizedRecommendations(pobUrl, streamerName);
+        }
+
+        private async Task LoadPersonalizedRecommendations(string? pobUrl, string? streamerName)
+        {
+            if (_isLoading) return;
+
+            try
+            {
+                _isLoading = true;
+                PlaceholderPanel.Visibility = Visibility.Collapsed;
+                ResultsPanel.Children.Clear();
+
+                // Loading indicator
+                var loadingText = new TextBlock
+                {
+                    Text = "🔍 맞춤 추천을 찾고 있습니다...",
+                    FontSize = 14,
+                    Foreground = new SolidColorBrush(Color.FromRgb(203, 166, 247)),
+                    HorizontalAlignment = HorizontalAlignment.Center,
+                    Margin = new Thickness(0, 100, 0, 0)
+                };
+                ResultsPanel.Children.Add(loadingText);
+
+                // Python 스크립트 실행 (POB URL과 스트리머 이름 전달)
+                var result = await System.Threading.Tasks.Task.Run(() => ExecutePersonalizedRecommendation(pobUrl, streamerName));
+
+                // 결과 표시
+                ResultsPanel.Children.Clear();
+                DisplayRecommendations(result);
+            }
+            catch (Exception ex)
+            {
+                ShowFriendlyError(ex, "맞춤 추천을 불러오는 중 오류가 발생했습니다.");
+                PlaceholderPanel.Visibility = Visibility.Visible;
+            }
+            finally
+            {
+                _isLoading = false;
+            }
+        }
+
+        private string ExecutePersonalizedRecommendation(string? pobUrl, string? streamerName)
+        {
+            var parserDir = Path.GetDirectoryName(_recommendationScriptPath)!;
+
+            // Arguments 구성
+            var args = $"\"{_recommendationScriptPath}\" --json-output";
+            if (!string.IsNullOrEmpty(pobUrl))
+                args += $" --reference-pob \"{pobUrl}\"";
+            if (!string.IsNullOrEmpty(streamerName))
+                args += $" --streamer \"{streamerName}\"";
+
+            var psi = new ProcessStartInfo
+            {
+                FileName = _pythonPath,
+                Arguments = args,
+                WorkingDirectory = parserDir,
+                UseShellExecute = false,
+                RedirectStandardOutput = true,
+                RedirectStandardError = true,
+                CreateNoWindow = true,
+                StandardOutputEncoding = System.Text.Encoding.UTF8
+            };
+
+            // Enable UTF-8 mode for Python
+            psi.Environment["PYTHONUTF8"] = "1";
+
+            // API 키 환경 변수로 전달
+            psi.Environment["YOUTUBE_API_KEY"] = "AIzaSyBDC0li3oQsLwk6XPauI7wWL6QND9WUqGo";
+
+            Debug.WriteLine($"[EXEC] Running personalized recommendation: {_pythonPath}");
+            Debug.WriteLine($"[EXEC] Args: {psi.Arguments}");
+
+            using var process = Process.Start(psi);
+            if (process == null)
+                throw new Exception("Failed to start Python process");
+
+            var output = process.StandardOutput.ReadToEnd();
+            var error = process.StandardError.ReadToEnd();
+            process.WaitForExit();
+
+            Debug.WriteLine($"[EXEC] Exit code: {process.ExitCode}");
+            if (!string.IsNullOrWhiteSpace(error))
+            {
+                Debug.WriteLine($"[EXEC] Stderr: {error}");
+            }
+
+            if (process.ExitCode != 0)
+            {
+                throw new Exception($"Personalized recommendation error (exit code {process.ExitCode}):\n{error}");
+            }
+
+            return output;
+        }
+
         private async void AnalyzePOB_Click(object sender, RoutedEventArgs e)
         {
             var pobUrl = POBInputBox.Text?.Trim();
