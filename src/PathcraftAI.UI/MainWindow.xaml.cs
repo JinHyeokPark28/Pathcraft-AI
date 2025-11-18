@@ -1264,9 +1264,6 @@ namespace PathcraftAI.UI
                 {
                     MessageBox.Show($"Successfully connected to POE!\n\nUsername: {_poeAccountData?["username"]}",
                         "Success", MessageBoxButton.OK, MessageBoxImage.Information);
-
-                    // 추천 새로고침 (사용자 캐릭터 기반)
-                    await LoadRecommendations();
                 }
             }
             catch (Exception ex)
@@ -1277,6 +1274,12 @@ namespace PathcraftAI.UI
             {
                 ConnectPOEButton.IsEnabled = true;
                 UpdatePOEButtonState();
+
+                // 추천 새로고침 (사용자 캐릭터 기반) - UI 블로킹 방지를 위해 비동기로 실행
+                if (_isPOEConnected)
+                {
+                    _ = LoadRecommendations();
+                }
             }
         }
 

@@ -285,38 +285,38 @@ def get_auto_recommendations(
             print(f"[OK] Found {len(streamer_builds)} streamer builds", file=sys.stderr)
         print(file=sys.stderr)
 
-    # 4-3. 메타 빌드 (현재 시즌 강력한 빌드들)
-    print("[PHASE 3/4] Loading meta builds...", file=sys.stderr)
-    meta_builds = get_meta_builds(league, league_phase, limit=5)
-    if meta_builds:
-        recommendations.append({
-            "category": "meta",
-            "title": "💎 Current Meta Builds",
-            "subtitle": f"Strongest builds for {league_phase} league",
-            "builds": meta_builds,
-            "count": len(meta_builds)
-        })
-        print(f"[OK] Found {len(meta_builds)} meta builds", file=sys.stderr)
+    # 4-3. 메타 빌드 (현재 시즌 강력한 빌드들) - DISABLED (래더 데이터 로딩 너무 느림)
+    # print("[PHASE 3/4] Loading meta builds...", file=sys.stderr)
+    # meta_builds = get_meta_builds(league, league_phase, limit=5)
+    # if meta_builds:
+    #     recommendations.append({
+    #         "category": "meta",
+    #         "title": "💎 Current Meta Builds",
+    #         "subtitle": f"Strongest builds for {league_phase} league",
+    #         "builds": meta_builds,
+    #         "count": len(meta_builds)
+    #     })
+    #     print(f"[OK] Found {len(meta_builds)} meta builds", file=sys.stderr)
     print(file=sys.stderr)
 
-    # 4-3.5. 사용자 캐릭터 기반 추천 (OAuth 연동 시)
-    if user_context.get('has_characters') and user_context.get('main_class'):
-        print("[PHASE 3.5/4] Loading personalized builds based on your main character...", file=sys.stderr)
-        personalized_builds = get_similar_class_builds(
-            league,
-            user_context['main_class'],
-            limit=5
-        )
-        if personalized_builds:
-            recommendations.insert(0, {
-                "category": "personalized",
-                "title": f"🎯 Recommended for Your {user_context['main_class']}",
-                "subtitle": f"Based on your Lv{user_context.get('main_level', '?')} {user_context['main_class']}",
-                "builds": personalized_builds,
-                "count": len(personalized_builds)
-            })
-            print(f"[OK] Found {len(personalized_builds)} personalized builds", file=sys.stderr)
-        print(file=sys.stderr)
+    # 4-3.5. 사용자 캐릭터 기반 추천 (OAuth 연동 시) - DISABLED (래더 데이터 사용)
+    # if user_context.get('has_characters') and user_context.get('main_class'):
+    #     print("[PHASE 3.5/4] Loading personalized builds based on your main character...", file=sys.stderr)
+    #     personalized_builds = get_similar_class_builds(
+    #         league,
+    #         user_context['main_class'],
+    #         limit=5
+    #     )
+    #     if personalized_builds:
+    #         recommendations.insert(0, {
+    #             "category": "personalized",
+    #             "title": f"🎯 Recommended for Your {user_context['main_class']}",
+    #             "subtitle": f"Based on your Lv{user_context.get('main_level', '?')} {user_context['main_class']}",
+    #             "builds": personalized_builds,
+    #             "count": len(personalized_builds)
+    #         })
+    #         print(f"[OK] Found {len(personalized_builds)} personalized builds", file=sys.stderr)
+    #     print(file=sys.stderr)
 
     # 4-4. 리그 시작 전이라면 pre-season 빌드
     if league_phase == "pre_season":
@@ -661,6 +661,7 @@ if __name__ == "__main__":
     parser.add_argument('--json-output', action='store_true', help='Output JSON to stdout')
     parser.add_argument('--no-streamers', action='store_true', help='Disable streamer builds')
     parser.add_argument('--max', type=int, default=10, help='Max builds per category')
+    parser.add_argument('--include-user-build-analysis', action='store_true', help='Include user build analysis in output')
 
     args = parser.parse_args()
 
