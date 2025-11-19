@@ -13,9 +13,10 @@ import time
 # Windows 콘솔 UTF-8 인코딩 설정
 if sys.platform == 'win32':
     try:
-        import codecs
-        sys.stdout = codecs.getwriter('utf-8')(sys.stdout.buffer, 'strict')
-        sys.stderr = codecs.getwriter('utf-8')(sys.stderr.buffer, 'strict')
+        if sys.stdout.encoding != 'utf-8':
+            sys.stdout.reconfigure(encoding='utf-8')
+        if sys.stderr.encoding != 'utf-8':
+            sys.stderr.reconfigure(encoding='utf-8')
     except Exception:
         pass  # 실패해도 계속 진행
 
