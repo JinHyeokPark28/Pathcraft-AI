@@ -31,6 +31,24 @@ HEADERS = {'User-Agent': 'Mozilla/5.0'}
 def get_pob_code_from_url(pob_url):
     print(f"1. POB URL에서 데이터 추출 중: {pob_url}", file=sys.stderr)
     try:
+        # file:// 프로토콜 처리 (로컬 POB XML 파일)
+        if pob_url.startswith('file://'):
+            file_path = pob_url[7:]  # file:// 제거
+            # Windows 경로 처리 (file:///D:/path 또는 file://D:/path)
+            if file_path.startswith('/') and len(file_path) > 2 and file_path[2] == ':':
+                file_path = file_path[1:]  # 앞의 / 제거
+            print(f"   > Local file detected: {file_path}", file=sys.stderr)
+
+            with open(file_path, 'r', encoding='utf-8') as f:
+                content = f.read()
+
+            # XML 파일인 경우 직접 반환 (decode_pob_code 건너뛰기 위해 특수 마커 사용)
+            if '<PathOfBuilding' in content or '<Build' in content:
+                return f"__XML_DIRECT__{content}"
+            else:
+                # POB 코드일 수 있음
+                return content.strip()
+
         # pastebin.com/raw/ URL 처리
         if 'pastebin.com' in pob_url and '/raw/' not in pob_url:
             # pastebin.com/xxxxxxxx -> pastebin.com/raw/xxxxxxxx
@@ -134,15 +152,95 @@ def parse_pob_xml(xml_string, pob_url):
                 for slot in item_set.findall('Slot'):
                     slot_name = slot.get('name')
                     item_id = slot.get('itemId')
-                    
+
                     item_raw_text = item_map.get(item_id)
                     if slot_name and item_raw_text:
                         lines = item_raw_text.split('\n')
                         if len(lines) > 1:
                             item_name = lines[1].strip()
-                            if "Rarity: Rare" in lines[0] or "Rarity: Magic" in lines[0]:
+                            rarity = "Unknown"
+                            base_type = ""
+                            mods = []
+                            sockets = ""
+
+                            # Rarity 추출
+                            if "Rarity: UNIQUE" in lines[0]:
+                                rarity = "Unique"
+                            elif "Rarity: RARE" in lines[0] or "Rarity: Rare" in lines[0]:
+                                rarity = "Rare"
+                                if len(lines) > 2:
+                                    base_type = lines[2].strip()
+                                    item_name = f"{lines[1].strip()} ({base_type})"
+                            elif "Rarity: MAGIC" in lines[0] or "Rarity: Magic" in lines[0]:
+                                rarity = "Magic"
                                 if len(lines) > 2: item_name = f"{lines[1].strip()} ({lines[2].strip()})"
-                            gear[slot_name] = {"name": item_name, "reasoning": None}
+                            elif "Rarity: NORMAL" in lines[0]:
+                                rarity = "Normal"
+
+                            # 모드 및 소켓 추출
+                            for line in lines[2:]:
+                                line = line.strip()
+                                if not line:
+                                    continue
+                                # 소켓 정보
+                                if line.startswith("Sockets:"):
+                                    sockets = line.replace("Sockets:", "").strip()
+                                # Unique ID 등 메타 정보 스킵
+                                elif line.startswith("Unique ID:") or line.startswith("Item Level:") or line.startswith("LevelReq:") or line.startswith("Quality:"):
+                                    continue
+                                # 암묵 모드 카운터 스킵
+                                elif line.startswith("Implicits:"):
+                                    continue
+                                # 기타 메타 정보 스킵
+                                elif line in ["Corrupted", "Mirrored", "Split"]:
+                                    continue
+                                # BasePercentile 등 내부 데이터 스킵
+                                elif "BasePercentile" in line:
+                                    continue
+                                else:
+                                    # {mutated}, {crafted}, {fractured} 등의 태그 제거
+                                    mod_line = line
+                                    if line.startswith("{"):
+                                        # {tag}content 형식에서 content만 추출
+                                        close_brace = line.find("}")
+                                        if close_brace != -1:
+                                            mod_line = line[close_brace + 1:]
+
+                                    # 주요 모드 키워드
+                                    important_keywords = [
+                                        "resistance", "life", "energy shield", "armour", "evasion",
+                                        "damage", "attack", "spell", "critical", "increased", "added",
+                                        "grants", "has", "socketed", "level", "gems",
+                                        "elemental", "chaos", "physical", "fire", "cold", "lightning",
+                                        "leech", "regen", "block", "dodge", "suppress",
+                                        "cannot", "only", "corrupted"
+                                    ]
+
+                                    # 키스톤 이름들 (Skin of the Lords 등에서 사용)
+                                    keystones = [
+                                        "iron will", "iron grip", "resolute technique", "ancestral bond",
+                                        "avatar of fire", "blood magic", "conduit", "eldritch battery",
+                                        "elemental equilibrium", "elemental overload", "ghost reaver",
+                                        "mind over matter", "mortal conviction", "necromantic aegis",
+                                        "pain attunement", "phase acrobatics", "point blank",
+                                        "unwavering stance", "vaal pact", "zealot's oath",
+                                        "chaos inoculation", "arrow dancing", "acrobatics"
+                                    ]
+
+                                    # 모드 또는 키스톤인지 확인
+                                    mod_lower = mod_line.lower()
+                                    if len(mod_line) > 2:
+                                        if any(kw in mod_lower for kw in important_keywords) or mod_lower in keystones:
+                                            mods.append(mod_line)
+
+                            gear[slot_name] = {
+                                "name": item_name,
+                                "rarity": rarity,
+                                "base_type": base_type,
+                                "sockets": sockets,
+                                "mods": mods[:10],  # 최대 10개 모드만 저장
+                                "reasoning": None
+                            }
                             
         # 패시브 트리 URL 추출 (변경 없음)
         passive_tree_url = ""
