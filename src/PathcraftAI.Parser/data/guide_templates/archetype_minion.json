@@ -1,0 +1,198 @@
+{
+  "template_version": "1.0",
+  "template_type": "archetype",
+  "archetype": "minion",
+  "description": "소환수 빌드 아키타입 템플릿",
+  "created_date": "2025-11-22",
+  "extends": "common_template",
+  "sources": ["PoE Vault - BalorMage SRS Guide", "Maxroll Poison SRS"],
+
+  "stat_priority": {
+    "primary": "intelligence",
+    "secondary": ["strength"],
+    "note": "대부분의 미니언 젬은 인텔리전스 요구"
+  },
+
+  "defense_preference": {
+    "primary": "life",
+    "secondary": ["energy_shield", "block"],
+    "note": "미니언이 어그로 끌어서 비교적 안전"
+  },
+
+  "socket_colors": {
+    "primary": "blue",
+    "secondary": ["red", "green"],
+    "typical_setup": "BBBB, BBBR, BBGR"
+  },
+
+  "mana_management": {
+    "early_game": {
+      "method": "clarity_aura",
+      "note": "Clarity로 마나 리젠 확보"
+    },
+    "mid_game": {
+      "method": "mana_regen",
+      "note": "패시브 + 장비 마나 리젠"
+    },
+    "late_game": {
+      "method": "eldritch_battery",
+      "note": "ES를 마나로 사용하거나, -mana cost"
+    }
+  },
+
+  "damage_scaling": {
+    "sources": [
+      "미니언 젬 레벨 (+1, +2 젬 레벨)",
+      "미니언 데미지 증가",
+      "미니언 공격/시전 속도",
+      "미니언 크리티컬 (일부 빌드)"
+    ],
+    "gem_level_importance": "매우 높음 - 미니언 스탯은 젬 레벨에 크게 의존"
+  },
+
+  "support_gem_priority": {
+    "damage": [
+      "Minion Damage (미니언 데미지)",
+      "Melee Physical Damage (근접 물리)",
+      "Melee Splash (근접 범위)",
+      "Multistrike (연속 타격)",
+      "Predator (포식자)"
+    ],
+    "utility": [
+      "Feeding Frenzy (광란 급여)",
+      "Infernal Legion (지옥 군단)",
+      "Empower (강화)"
+    ]
+  },
+
+  "leveling_skill_progression": {
+    "description": "미니언 빌드 레벨링 스킬 추천",
+    "generic_path": [
+      {
+        "level": 1,
+        "skills": ["Freezing Pulse", "Stormblast Mine"],
+        "note": "SRS 전까지 사용"
+      },
+      {
+        "level": 4,
+        "skills": ["Raise Zombie"],
+        "note": "육체 벽, 첫 미니언"
+      },
+      {
+        "level": 8,
+        "skills": ["Summon Raging Spirit"],
+        "note": "SRS + Melee Splash 조합"
+      },
+      {
+        "level": 10,
+        "skills": ["Summon Skeletons", "Flame Dash"],
+        "note": "추가 미니언 옵션"
+      },
+      {
+        "level": 28,
+        "skills": ["Raise Spectre", "목표 스킬"],
+        "note": "스펙터 또는 최종 미니언 스킬"
+      }
+    ]
+  },
+
+  "aura_progression": {
+    "early": ["Clarity (클래리티)"],
+    "mid": ["Summon Skitterbots", "Anger", "Vitality"],
+    "late": ["Determination", "Grace", "Tempest Shield", "최종 오라 세팅"]
+  },
+
+  "offering_skills": {
+    "description": "오퍼링 스킬 - 미니언 빌드 필수",
+    "options": [
+      {
+        "name": "Flesh Offering",
+        "effect": "미니언 공격/이동 속도 증가",
+        "use_case": "클리어 속도"
+      },
+      {
+        "name": "Bone Offering",
+        "effect": "미니언 블록 + 라이프 온 블록",
+        "use_case": "미스트레스 오브 새크리파이스로 자신에게 적용"
+      },
+      {
+        "name": "Spirit Offering",
+        "effect": "미니언 ES + 카오스 데미지",
+        "use_case": "ES 빌드"
+      }
+    ],
+    "automation": "Arcanist Brand 또는 CWDT에 연결하여 자동화"
+  },
+
+  "ascendancy_synergy": {
+    "recommended": [
+      {
+        "class": "Necromancer",
+        "reason": "모든 미니언 빌드의 기본, 오퍼링 효과"
+      },
+      {
+        "class": "Guardian",
+        "reason": "오라 공유, 미니언 + 자신 방어"
+      },
+      {
+        "class": "Elementalist",
+        "reason": "골렘 특화, 버프 공유"
+      }
+    ]
+  },
+
+  "unique_items_leveling": {
+    "weapons": [
+      {
+        "name": "Lifesprig",
+        "level": 1,
+        "note": "+1 젬 레벨 완드"
+      },
+      {
+        "name": "Matua Tupuna",
+        "level": 25,
+        "note": "+2 미니언 젬 레벨 방패"
+      },
+      {
+        "name": "Earendel's Embrace",
+        "level": 40,
+        "note": "좀비/스켈레톤에 좋음"
+      }
+    ],
+    "armor": [
+      {
+        "name": "Tabula Rasa",
+        "level": 1,
+        "note": "6링크 무색"
+      },
+      {
+        "name": "Sidhebreath",
+        "level": 1,
+        "note": "미니언 스탯 아뮬렛"
+      },
+      {
+        "name": "Bones of Ullr",
+        "level": 22,
+        "note": "+1 좀비/스펙터"
+      }
+    ]
+  },
+
+  "minion_specific_tips": [
+    "미니언 지속시간 노드 초반에 확보 (SRS, 스켈레톤)",
+    "Convocation으로 미니언 소환 및 힐",
+    "Desecrate로 시체 생성 (오퍼링, 스펙터용)",
+    "Feeding Frenzy는 미니언 공격성 + 버프",
+    "Predator로 단일 대상 집중 가능",
+    "미니언 장비 (+젬 레벨)가 가장 중요한 업그레이드",
+    "Animate Guardian은 비싼 아이템 주의 (죽으면 사라짐)"
+  ],
+
+  "srs_specific": {
+    "description": "SRS 특화 팁",
+    "duration": "SRS는 시간 제한 미니언 - 지속시간 노드 필수",
+    "melee_splash": "Melee Splash로 광역 클리어, 보스전에는 제거",
+    "cast_speed": "시전 속도가 소환 속도에 영향",
+    "minion_speed": "미니언 이동 속도로 적 추적 향상"
+  }
+}

@@ -1,0 +1,146 @@
+{
+  "template_version": "1.0",
+  "template_type": "archetype",
+  "archetype": "spell",
+  "description": "스펠 캐스터 아키타입 공통 템플릿",
+  "created_date": "2025-11-22",
+  "extends": "common_template",
+
+  "stat_priority": {
+    "primary": "intelligence",
+    "secondary": ["strength", "dexterity"],
+    "note": "대부분의 스펠은 인텔리전스 기반"
+  },
+
+  "defense_preference": {
+    "primary": "energy_shield",
+    "secondary": "life",
+    "note": "ES 기반 또는 하이브리드 가능"
+  },
+
+  "socket_colors": {
+    "primary": "blue",
+    "secondary": ["red", "green"],
+    "typical_setup": "BBBB, BBBR, BBBG"
+  },
+
+  "mana_management": {
+    "early_game": {
+      "method": "mana_flask",
+      "note": "마나 플라스크 + 클래리티"
+    },
+    "mid_game": {
+      "method": "mana_leech_or_regen",
+      "note": "마나 리젠/리치 확보, 플라스크 제거"
+    },
+    "late_game": {
+      "method": "mana_reservation",
+      "note": "마나 예약 오라 최적화"
+    }
+  },
+
+  "damage_scaling": {
+    "sources": [
+      "스펠 데미지 증가",
+      "속성 데미지 증가 (화염/냉기/번개/카오스)",
+      "젬 레벨",
+      "크리티컬 확률/배율",
+      "캐스트 속도"
+    ],
+    "gem_level_importance": "매우 높음 - 스펠은 젬 레벨에 크게 의존"
+  },
+
+  "support_gem_priority": {
+    "damage": [
+      "Controlled Destruction (제어된 파괴)",
+      "Elemental Focus (원소 집중)",
+      "Concentrated Effect (집중 효과)",
+      "Increased Critical Damage (치명타 피해 증가)"
+    ],
+    "utility": [
+      "Faster Casting (빠른 시전)",
+      "Spell Echo (스펠 에코)",
+      "Arcane Surge (비전 쇄도)"
+    ]
+  },
+
+  "leveling_skill_progression": {
+    "description": "스펠 캐스터 레벨링 스킬 추천",
+    "generic_path": [
+      {
+        "level": 1,
+        "skills": ["Freezing Pulse", "Spark", "Arc"],
+        "note": "초반 범용 스킬"
+      },
+      {
+        "level": 12,
+        "skills": ["Storm Brand", "Armageddon Brand", "Arc"],
+        "note": "브랜드 사용 가능"
+      },
+      {
+        "level": 28,
+        "skills": ["목표 스킬로 전환"],
+        "note": "대부분의 핵심 스킬 사용 가능"
+      }
+    ]
+  },
+
+  "aura_progression": {
+    "early": ["Clarity (클래리티)", "Herald of Thunder/Ice/Ash"],
+    "mid": ["Wrath/Anger/Hatred", "Zealotry"],
+    "late": ["최종 오라 세팅 (POB 참조)"]
+  },
+
+  "ascendancy_synergy": {
+    "recommended": [
+      {
+        "class": "Inquisitor",
+        "reason": "원소 저항 무시, 크리티컬"
+      },
+      {
+        "class": "Elementalist",
+        "reason": "원소 데미지, 골렘"
+      },
+      {
+        "class": "Occultist",
+        "reason": "ES, 카오스 데미지, 저주"
+      },
+      {
+        "class": "Trickster",
+        "reason": "ES 리젠, 속도"
+      }
+    ]
+  },
+
+  "unique_items_leveling": {
+    "weapons": [
+      {
+        "name": "Lifesprig",
+        "level": 1,
+        "note": "초반 스펠 완드, +1 젬 레벨"
+      },
+      {
+        "name": "Axiom Perpetuum",
+        "level": 10,
+        "note": "원소 스펠 완드"
+      },
+      {
+        "name": "Amplification Rod",
+        "level": 36,
+        "note": "+2 젬 레벨, 셉터"
+      }
+    ],
+    "armor": [
+      {
+        "name": "Tabula Rasa",
+        "level": 1,
+        "note": "6링크 무색"
+      },
+      {
+        "name": "Goldrim",
+        "level": 1,
+        "note": "전체 저항"
+      }
+    ]
+  }
+}

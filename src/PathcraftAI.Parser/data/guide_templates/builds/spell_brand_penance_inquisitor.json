@@ -1,0 +1,283 @@
+{
+  "template_version": "1.0",
+  "template_type": "build_specific",
+  "extends": ["common_template", "archetype_spell"],
+  "created_date": "2025-11-22",
+  "source": "ZeeBoub Brand Guide 2.0",
+
+  "build_info": {
+    "name": "Penance Brand of Dissipation Inquisitor",
+    "main_skill": "Penance Brand of Dissipation",
+    "ascendancy": "Inquisitor",
+    "damage_type": "physical_converted_to_lightning",
+    "playstyle": "brand_caster",
+    "difficulty": "medium",
+    "league_starter": true,
+    "budget": "low_to_medium"
+  },
+
+  "skill_progression": {
+    "act_1": {
+      "level_range": [1, 12],
+      "main_skill": {
+        "name": "Rolling Magma",
+        "links": ["Arcane Surge", "Added Fire Damage"],
+        "note": "스톰 브랜드까지 버티기"
+      },
+      "secondary_skills": [
+        {
+          "name": "Frost Bomb",
+          "purpose": "콜드 노출, 리젠 감소"
+        },
+        {
+          "name": "Flame Wall",
+          "purpose": "추가 데미지"
+        }
+      ],
+      "auras": ["Clarity"],
+      "movement": "Flame Dash"
+    },
+    "act_2": {
+      "level_range": [12, 24],
+      "main_skill": {
+        "name": "Storm Brand",
+        "links": ["Added Lightning Damage", "Controlled Destruction", "Onslaught"],
+        "note": "브랜드 플레이 적응"
+      },
+      "brand_management": {
+        "skill": "Brand Recall",
+        "note": "무조건 획득, 브랜드 리콜 필수"
+      },
+      "auras": ["Herald of Thunder", "Clarity"],
+      "new_support": "Swiftbrand Support (Lv 31)"
+    },
+    "act_3_4": {
+      "level_range": [24, 40],
+      "main_skill": {
+        "name": "Penance Brand",
+        "links": ["Swiftbrand", "Controlled Destruction", "Physical to Lightning"],
+        "note": "Penance Brand 사용 가능 (Lv 28)"
+      },
+      "alternative": {
+        "name": "Storm Brand",
+        "note": "Penance Brand 불편하면 계속 사용"
+      },
+      "ascendancy_first": {
+        "points": ["Righteous Providence", "Inevitable Judgement"],
+        "note": "크리 확률 + 원소 저항 무시"
+      },
+      "auras": ["Wrath", "Herald of Thunder"]
+    },
+    "act_5_6": {
+      "level_range": [40, 55],
+      "main_skill": {
+        "name": "Penance Brand of Dissipation",
+        "links": ["Swiftbrand", "Controlled Destruction", "Physical to Lightning", "Increased Critical Damage"],
+        "note": "트랜스피규어드 버전 전환 (가능 시)"
+      },
+      "resistance_warning": "악몽의 법령 후 저항 -30% 적용됨",
+      "ascendancy_second": {
+        "points": ["Sanctuary", "Pious Path"],
+        "note": "컨시크레이트 그라운드 + ES 리젠"
+      },
+      "cast_when_damage_taken": {
+        "skill": "Immortal Call",
+        "level": "낮게 유지 (Lv 1-3)"
+      }
+    },
+    "act_7_10": {
+      "level_range": [55, 70],
+      "main_skill": {
+        "name": "Penance Brand of Dissipation",
+        "links": ["Swiftbrand", "Controlled Destruction", "Physical to Lightning", "Increased Critical Damage", "Energy Leech/Inspiration"],
+        "note": "5-6링크 목표"
+      },
+      "secondary_setup": {
+        "name": "Arcanist Brand",
+        "links": ["Wave of Conviction", "Conductivity"],
+        "note": "노출 + 저주 자동화"
+      },
+      "auras_final": ["Wrath", "Zealotry", "Precision"],
+      "ascendancy_final": {
+        "points": ["Augury of Penitence"],
+        "note": "주변 적 원소 데미지 증가"
+      }
+    }
+  },
+
+  "passive_tree_priorities": {
+    "early": [
+      "스펠 크리티컬 노드",
+      "라이프/ES 하이브리드",
+      "브랜드 노드 (Runebinder 등)"
+    ],
+    "mid": [
+      "Power Charge 노드",
+      "크리티컬 배율",
+      "저항/속성"
+    ],
+    "late": [
+      "클러스터 주얼 소켓",
+      "추가 Endurance Charge",
+      "최종 라이프/ES 노드"
+    ],
+    "keystone": [
+      {
+        "name": "Runebinder",
+        "note": "브랜드 +1 부착 (브랜드 빌드 필수)"
+      },
+      {
+        "name": "Elemental Overload",
+        "note": "크리 투자 전까지 사용, 이후 제거"
+      }
+    ]
+  },
+
+  "gear_progression": {
+    "weapons": {
+      "early": {
+        "type": "wand/sceptre",
+        "stats": ["+1 스펠 젬 레벨", "스펠 데미지", "캐스트 속도"],
+        "unique": "Lifesprig (Lv 1)"
+      },
+      "mid": {
+        "type": "sceptre",
+        "stats": ["스펠 크리티컬", "+젬 레벨", "원소 데미지"],
+        "unique": "Amplification Rod (Lv 36)"
+      },
+      "late": {
+        "type": "sceptre + shield",
+        "stats": ["브랜드 부착 범위", "+2 젬 레벨", "크리 배율"],
+        "craft": "스펠 크리티컬 확률 크래프트"
+      }
+    },
+    "body_armour": {
+      "early": "4링크 ES/Life 하이브리드",
+      "mid": "5링크 Pure ES 또는 Tabula Rasa",
+      "late": "6링크 Vaal Regalia (높은 ES)"
+    },
+    "helmet": {
+      "stats": ["라이프/ES", "저항", "+젬 레벨 (인챈트)"],
+      "enchant_priority": "Penance Brand 데미지/부착 시간"
+    },
+    "gloves": {
+      "stats": ["라이프/ES", "저항", "캐스트 속도"],
+      "unique_option": "Hands of the High Templar (럭셔리)"
+    },
+    "boots": {
+      "stats": ["이동 속도 25%+", "라이프/ES", "저항"],
+      "enchant": "크리티컬 시 속도 증가"
+    },
+    "belt": {
+      "early": "저항 + 라이프",
+      "late": "Stygian Vise (어비스 주얼 소켓)"
+    },
+    "rings": {
+      "stats": ["저항 (합계 목표)", "라이프/ES", "크래프트 마나"],
+      "unique_option": "Call of the Brotherhood (냉기 변환)"
+    },
+    "amulet": {
+      "stats": ["+1 라이트닝 젬", "크리티컬 배율", "스펠 데미지"],
+      "anoint": "브랜드 관련 노터블"
+    }
+  },
+
+  "gem_links_final": {
+    "main_6L": {
+      "skill": "Penance Brand of Dissipation",
+      "supports": [
+        "Swiftbrand",
+        "Controlled Destruction",
+        "Physical to Lightning",
+        "Increased Critical Damage",
+        "Energy Leech"
+      ]
+    },
+    "secondary_4L": {
+      "skill": "Arcanist Brand",
+      "supports": [
+        "Wave of Conviction",
+        "Conductivity"
+      ],
+      "note": "노출 + 저주"
+    },
+    "aura_setup": {
+      "skills": ["Wrath", "Zealotry", "Precision"],
+      "support": "Enlighten (가능 시)"
+    },
+    "utility": {
+      "movement": "Flame Dash",
+      "guard": "Immortal Call (CWDT)",
+      "brand_recall": "Brand Recall"
+    }
+  },
+
+  "flask_setup": {
+    "leveling": [
+      "생명 플라스크 (출혈 제거)",
+      "마나 플라스크 (초반)",
+      "퀵실버 플라스크 (이동 속도)",
+      "그라나이트/제이드 플라스크"
+    ],
+    "endgame": [
+      "Divine Life Flask (출혈 면역)",
+      "Diamond Flask (크리 확률)",
+      "Silver Flask (온슬로트)",
+      "Quicksilver Flask",
+      "Basalt/Granite Flask (물리 방어)"
+    ]
+  },
+
+  "playstyle_tips": {
+    "brand_mechanics": [
+      "브랜드는 적에게 붙어서 시간이 지나면 폭발",
+      "Penance Brand는 에너지 스택이 쌓임 -> 분리 시 폭발",
+      "Brand Recall로 브랜드 회수 후 재부착",
+      "Runebinder로 단일 대상에 2개 부착 가능"
+    ],
+    "damage_rotation": [
+      "1. Arcanist Brand로 노출/저주 적용",
+      "2. Penance Brand 시전",
+      "3. Brand Recall로 위치 조정",
+      "4. 보스전에서 계속 리콜하며 스택 관리"
+    ],
+    "survival": [
+      "컨시크레이트 그라운드에 서있기 (Pious Path)",
+      "이동기 자주 사용",
+      "위험할 때 거리 유지 (브랜드가 데미지 유지)"
+    ]
+  },
+
+  "budget_tiers": {
+    "league_start": {
+      "budget": "< 10c",
+      "priority": ["4링크", "저항 캡", "라이프 2500+"]
+    },
+    "early_mapping": {
+      "budget": "20-50c",
+      "priority": ["5링크", "+1 젬 레벨 무기", "라이프 3500+"]
+    },
+    "comfortable": {
+      "budget": "1-5 Divine",
+      "priority": ["6링크", "클러스터 주얼", "라이프 4500+"]
+    },
+    "optimized": {
+      "budget": "10+ Divine",
+      "priority": ["완벽한 젬", "더블 영향 장비", "어웨이큰드 젬"]
+    }
+  },
+
+  "common_mistakes": [
+    "Brand Recall 미획득",
+    "Runebinder 키스톤 누락",
+    "저항 미확보 상태로 Act 6 진입",
+    "마나 관리 실패 (초반에 마나 플라스크 필요)",
+    "브랜드 스킬을 일반 스펠처럼 스팸"
+  ],
+
+  "recommended_content": {
+    "videos": ["ZeeBoub YouTube - Brand Guide 2.0"],
+    "pob_code": "추후 추가",
+    "forum_thread": "추후 추가"
+  }
+}

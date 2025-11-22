@@ -1,0 +1,153 @@
+{
+  "template_version": "1.0",
+  "template_type": "common",
+  "description": "모든 빌드에 공통으로 적용되는 레벨링 가이드 기본 템플릿",
+  "created_date": "2025-11-22",
+
+  "progression_stages": {
+    "description": "레벨링 진행 단계 정의",
+    "stages": [
+      {
+        "id": "early_game",
+        "name": "초반",
+        "level_range": [1, 38],
+        "act_range": [1, 3],
+        "focus": ["기본 스킬 확보", "링크 세팅", "저항 확보 시작"]
+      },
+      {
+        "id": "mid_game",
+        "name": "중반",
+        "level_range": [38, 60],
+        "act_range": [4, 7],
+        "focus": ["핵심 스킬 전환", "4링크 확보", "저항 75% 달성"]
+      },
+      {
+        "id": "late_game",
+        "name": "후반",
+        "level_range": [60, 75],
+        "act_range": [8, 10],
+        "focus": ["최종 스킬 세팅", "5-6링크 준비", "카오스 저항 확보"]
+      }
+    ]
+  },
+
+  "defense_framework": {
+    "description": "방어 체계 기본 가이드라인",
+    "resistance_targets": {
+      "act_1_3": {
+        "fire": 30,
+        "cold": 30,
+        "lightning": 30,
+        "note": "최소 목표, 하나라도 높으면 좋음"
+      },
+      "act_4_5": {
+        "fire": 50,
+        "cold": 50,
+        "lightning": 50,
+        "note": "악몽의 법령 이후 저항 -30%"
+      },
+      "act_6_10": {
+        "fire": 75,
+        "cold": 75,
+        "lightning": 75,
+        "note": "악몽의 법령 이후 저항 -60% 총합"
+      },
+      "endgame": {
+        "fire": 75,
+        "cold": 75,
+        "lightning": 75,
+        "chaos": 0,
+        "note": "카오스 저항 양수 목표"
+      }
+    },
+    "life_targets": {
+      "act_3_end": 800,
+      "act_5_end": 1500,
+      "act_10_end": 3000,
+      "note": "ES 빌드는 별도 기준 적용"
+    },
+    "armor_evasion_note": "방어력/회피는 빌드 아키타입에 따라 다름"
+  },
+
+  "flask_progression": {
+    "description": "플라스크 진행 가이드",
+    "by_stage": {
+      "early": {
+        "slots": ["생명 플라스크 x2", "마나 플라스크 x1", "퀵실버 플라스크"],
+        "note": "마나 문제 해결될 때까지 마나 플라스크 유지"
+      },
+      "mid": {
+        "slots": ["생명 플라스크 x1", "유틸리티 x2", "퀵실버 플라스크"],
+        "note": "그라나이트/제이드/바살트 등 방어 플라스크 추가"
+      },
+      "late": {
+        "slots": ["생명 플라스크 x1", "유틸리티 x4"],
+        "note": "상황에 맞는 유틸리티 플라스크 구성"
+      }
+    },
+    "suffix_priority": ["출혈 면역", "동결 면역", "저주 면역"]
+  },
+
+  "currency_usage": {
+    "description": "레벨링 중 재화 사용 가이드",
+    "transmutation": "좋은 베이스에 마법 등급으로",
+    "alteration": "플라스크 접미어 굴리기",
+    "augmentation": "마법 아이템에 속성 추가",
+    "chromatic": "소켓 색상 변경",
+    "jeweller": "4소켓 만들기 (아이템 레벨 25+)",
+    "fusing": "4링크 시도 (아이템 레벨 25+)",
+    "alchemy": "좋은 베이스에만 사용, 아끼기",
+    "chaos": "트레이드용으로 저축"
+  },
+
+  "farming_spots": {
+    "description": "레벨링 중 파밍 스팟",
+    "locations": [
+      {
+        "name": "혈액 수로 (Blood Aqueduct)",
+        "act": 9,
+        "level": "61",
+        "note": "휴미리티 카드 드랍, 안전한 파밍",
+        "recommended_level": "62-68"
+      },
+      {
+        "name": "항구 다리 (The Harbour Bridge)",
+        "act": 8,
+        "level": "60",
+        "note": "밀집도 높음, 빠른 클리어",
+        "recommended_level": "58-62"
+      },
+      {
+        "name": "오시리안 지하실 (Ossuary)",
+        "act": 10,
+        "level": "63",
+        "note": "안정적인 레이아웃",
+        "recommended_level": "65-68"
+      }
+    ]
+  },
+
+  "quest_priority": {
+    "description": "퀘스트 우선순위",
+    "must_complete": [
+      "스킬 포인트 퀘스트 (모두)",
+      "아센던시 트라이얼 (모두)",
+      "패시브 리펀드 퀘스트"
+    ],
+    "skip_until_later": [
+      "보너스 목표 없는 사이드 퀘스트",
+      "아이템 보상만 있는 퀘스트"
+    ]
+  },
+
+  "socket_color_guide": {
+    "description": "소켓 색상 확률 가이드",
+    "by_attribute": {
+      "str_base": {"red": "높음", "green": "낮음", "blue": "낮음"},
+      "dex_base": {"red": "낮음", "green": "높음", "blue": "낮음"},
+      "int_base": {"red": "낮음", "green": "낮음", "blue": "높음"},
+      "hybrid": "두 가지 색상 균등"
+    },
+    "crafting_bench_note": "크래프팅 벤치로 확정 색상 가능 (크로매틱 소모)"
+  }
+}

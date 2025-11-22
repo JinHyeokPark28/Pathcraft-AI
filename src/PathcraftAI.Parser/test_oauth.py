@@ -106,7 +106,14 @@ try:
 
     # Get characters
     print("[TEST 2] Fetching characters...")
-    characters = get_user_characters(access_token)
+    characters_data = get_user_characters(access_token)
+
+    # API 응답이 딕셔너리인 경우 처리
+    if isinstance(characters_data, dict):
+        characters = characters_data.get('characters', [])
+    else:
+        characters = characters_data
+
     print(f"[OK] Total characters: {len(characters)}")
 
     if characters:

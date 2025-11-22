@@ -19,7 +19,9 @@ namespace PathcraftAI.UI
         private readonly string _upgradePathScriptPath;
         private readonly string _upgradePathTradeScriptPath;
         private readonly string _passiveTreeScriptPath;
+        private readonly string _filterGeneratorScriptPath;
         private readonly string _tokenFilePath;
+        private string? _currentPOBXmlPath = null;  // 필터 생성용 POB XML 경로
         private bool _isLoading = false;
         private string _currentLeague = "Keepers";
         private string _currentPhase = "Mid-Season";
@@ -28,6 +30,11 @@ namespace PathcraftAI.UI
         private string? _currentPOBUrl = null;
         private int _currentBudget = 100; // Default budget in chaos orbs
         private GlobalHotkey? _hideoutHotkey;
+        private string? _currentCharacterName = null;
+        private bool _isHardcoreMode = false;
+        private string _currentClassFilter = "All";
+        private string _currentSortOrder = "views";
+        private int? _currentBudgetFilter = 100;
 
         public MainWindow()
         {
@@ -37,17 +44,22 @@ namespace PathcraftAI.UI
             Loaded += (s, e) => RegisterHotkeys();
             Closed += (s, e) => UnregisterHotkeys();
 
-            // Python 경로 설정
+            // Python 경로 설정 (AppSettings에서 자동 감지)
             var baseDir = AppDomain.CurrentDomain.BaseDirectory;
             var projectRoot = Path.GetFullPath(Path.Combine(baseDir, "..", "..", "..", "..", ".."));
             var parserDir = Path.Combine(projectRoot, "src", "PathcraftAI.Parser");
-            _pythonPath = Path.Combine(parserDir, ".venv", "Scripts", "python.exe");
+
+            // AppSettings에서 Python 경로 가져오기 (자동 감지 포함)
+            var settings = AppSettings.Load();
+            _pythonPath = settings.GetResolvedPythonPath(parserDir);
+
             _recommendationScriptPath = Path.Combine(parserDir, "auto_recommendation_engine.py");
             _oauthScriptPath = Path.Combine(parserDir, "test_oauth.py");
             _compareBuildScriptPath = Path.Combine(parserDir, "compare_build.py");
             _upgradePathScriptPath = Path.Combine(parserDir, "upgrade_path.py");
             _upgradePathTradeScriptPath = Path.Combine(parserDir, "upgrade_path_trade.py");
             _passiveTreeScriptPath = Path.Combine(parserDir, "passive_tree_analyzer.py");
+            _filterGeneratorScriptPath = Path.Combine(parserDir, "filter_generator.py");
             _tokenFilePath = Path.Combine(parserDir, "poe_token.json");
 
             // 경로 확인 및 디버깅
@@ -140,10 +152,39 @@ namespace PathcraftAI.UI
         {
             var parserDir = Path.GetDirectoryName(_recommendationScriptPath)!;
 
+            // 필터 파라미터 구성
+            var filterArgs = new List<string>
+            {
+                $"\"{_recommendationScriptPath}\"",
+                "--json-output",
+                "--include-user-build-analysis"
+            };
+
+            // 클래스 필터
+            if (_currentClassFilter != "All")
+            {
+                filterArgs.Add($"--class \"{_currentClassFilter}\"");
+            }
+
+            // 정렬 필터
+            filterArgs.Add($"--sort {_currentSortOrder}");
+
+            // 예산 필터
+            if (_currentBudgetFilter.HasValue)
+            {
+                filterArgs.Add($"--budget {_currentBudgetFilter.Value}");
+            }
+
+            // 하드코어 모드
+            if (_isHardcoreMode)
+            {
+                filterArgs.Add("--hardcore");
+            }
+
             var psi = new ProcessStartInfo
             {
                 FileName = _pythonPath,
-                Arguments = $"\"{_recommendationScriptPath}\" --json-output --include-user-build-analysis",
+                Arguments = string.Join(" ", filterArgs),
                 WorkingDirectory = parserDir,
                 UseShellExecute = false,
                 RedirectStandardOutput = true,
@@ -155,8 +196,13 @@ namespace PathcraftAI.UI
             // Enable UTF-8 mode for Python
             psi.Environment["PYTHONUTF8"] = "1";
 
-            // API 키 환경 변수로 전달
-            psi.Environment["YOUTUBE_API_KEY"] = "AIzaSyBDC0li3oQsLwk6XPauI7wWL6QND9WUqGo";
+            // API 키 환경 변수로 전달 (설정에서 가져오기)
+            var settings = AppSettings.Load();
+            var youtubeApiKey = settings.GetApiKey("youtube") ?? "";
+            if (!string.IsNullOrEmpty(youtubeApiKey))
+            {
+                psi.Environment["YOUTUBE_API_KEY"] = youtubeApiKey;
+            }
 
             Debug.WriteLine($"[EXEC] Running: {_pythonPath}");
             Debug.WriteLine($"[EXEC] Args: {psi.Arguments}");
@@ -234,8 +280,12 @@ namespace PathcraftAI.UI
                 _currentLeague = data["league"]?.ToString() ?? "Keepers";
                 _currentPhase = FormatLeaguePhase(data["league_phase"]?.ToString() ?? "mid");
 
-                LeagueNameText.Text = $"Current League: {_currentLeague}";
-                LeaguePhaseText.Text = $"League Phase: {_currentPhase}";
+                LeagueNameText.Text = $"Current League: {_currentLeague} ({_currentPhase})";
+
+                // Divine 환율 및 예산 필터 동적 업데이트
+                var currencyData = data["currency"] as JObject;
+                UpdateDivineRateDisplay(currencyData);
+                UpdateBudgetFilterOptions(currencyData);
 
                 // 사용자 빌드 정보 표시 (personalized 모드가 아닐 때만)
                 var leaguePhase = data["league_phase"]?.ToString();
@@ -350,7 +400,8 @@ namespace PathcraftAI.UI
                     {
                         ItemName = suggestion["item_name"]?.ToString() ?? "",
                         ChaosValue = suggestion["chaos_value"]?.ToObject<double>() ?? 0.0,
-                        Reason = suggestion["reason"]?.ToString() ?? ""
+                        Reason = suggestion["reason"]?.ToString() ?? "",
+                        TradeUrl = suggestion["trade_url"]?.ToString() ?? ""
                     });
                 }
 
@@ -864,10 +915,108 @@ namespace PathcraftAI.UI
             ResultsPanel.Children.Add(noResults);
         }
 
+        private void OpenTrade_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                var tradeWindow = new TradeWindow(_currentLeague);
+                tradeWindow.Show();
+            }
+            catch (Exception ex)
+            {
+                ShowFriendlyError(ex, "POE Trade 창을 여는 중 오류가 발생했습니다.");
+            }
+        }
+
+        private void Bookmarks_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                var bookmarksWindow = new BookmarksWindow();
+                bookmarksWindow.Owner = this;
+
+                if (bookmarksWindow.ShowDialog() == true && bookmarksWindow.SelectedBookmark != null)
+                {
+                    var bookmark = bookmarksWindow.SelectedBookmark;
+
+                    // Load POB from bookmark
+                    if (!string.IsNullOrEmpty(bookmark.PobUrl))
+                    {
+                        POBInputBox.Text = bookmark.PobUrl;
+                    }
+                    else if (!string.IsNullOrEmpty(bookmark.PobCode))
+                    {
+                        POBInputBox.Text = bookmark.PobCode;
+                    }
+
+                    POBInputBox.Foreground = new SolidColorBrush(Color.FromRgb(205, 214, 244));
+                    ShowNotification($"Loaded bookmark: {bookmark.BuildName}");
+                }
+            }
+            catch (Exception ex)
+            {
+                ShowFriendlyError(ex, "북마크 창을 여는 중 오류가 발생했습니다.");
+            }
+        }
+
+        private void SaveBookmark_Click(object sender, RoutedEventArgs e)
+        {
+            // This will be called from build cards to save a build
+            if (sender is Button button && button.Tag is string pobUrl)
+            {
+                try
+                {
+                    // Simple bookmark creation - in real app would show dialog for notes/tags
+                    var bookmark = new BuildBookmark
+                    {
+                        BuildName = "Saved Build",
+                        PobUrl = pobUrl,
+                        CreatedAt = DateTime.Now
+                    };
+
+                    var service = new BookmarkService();
+                    service.AddBookmark(bookmark);
+                    ShowNotification("Build bookmarked!");
+                }
+                catch (Exception ex)
+                {
+                    ShowFriendlyError(ex, "북마크 저장 중 오류가 발생했습니다.");
+                }
+            }
+        }
+
         private void Settings_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Settings window coming soon!\n\nFeatures:\n- API key management (GPT/Gemini/Claude)\n- Theme selection",
-                "Settings", MessageBoxButton.OK, MessageBoxImage.Information);
+            try
+            {
+                var settingsWindow = new SettingsWindow();
+                settingsWindow.Owner = this;
+                if (settingsWindow.ShowDialog() == true)
+                {
+                    // Settings saved - reload any necessary settings
+                    var settings = AppSettings.Load();
+                    // Update UI with new settings if needed
+                    LeagueNameText.Text = $"Current League: {settings.DefaultLeague}";
+                    ShowNotification("Settings saved successfully!");
+                }
+            }
+            catch (Exception ex)
+            {
+                ShowFriendlyError(ex, "Settings 창을 여는 중 오류가 발생했습니다.");
+            }
+        }
+
+        private void LeagueMode_Changed(object sender, RoutedEventArgs e)
+        {
+            // 초기화 중에는 무시
+            if (HCModeButton == null) return;
+
+            _isHardcoreMode = HCModeButton.IsChecked == true;
+            var modeText = _isHardcoreMode ? "Hardcore" : "Softcore";
+            ShowNotification($"Mode changed to {modeText}");
+
+            // 추천 빌드 새로고침 (HC/SC에 따라 다른 빌드 추천)
+            // TODO: LoadRecommendations()에 HC 모드 전달
         }
 
         private void ShowFriendlyError(Exception ex, string context = "")
@@ -983,9 +1132,16 @@ namespace PathcraftAI.UI
 
                 // Get selected AI provider
                 int selectedProvider = AIProviderCombo.SelectedIndex;
-                string provider = selectedProvider == 0 ? "rule-based" :
-                                  selectedProvider == 1 ? "claude" :
-                                  selectedProvider == 2 ? "openai" : "both";
+                string provider = selectedProvider switch
+                {
+                    0 => "rule-based",
+                    1 => "guide",
+                    2 => "claude",
+                    3 => "openai",
+                    4 => "gemini",
+                    5 => "both",
+                    _ => "rule-based"
+                };
 
                 // Run AI analysis via Python
                 var result = await System.Threading.Tasks.Task.Run(() => ExecuteAIAnalysis(_currentPOBUrl, provider));
@@ -1023,14 +1179,24 @@ namespace PathcraftAI.UI
             bool isUrl = pobInput.StartsWith("http://") || pobInput.StartsWith("https://");
             string arguments;
 
+            // guide 모드일 때 예산 추가 (config에서 읽기)
+            string budgetArg = "";
+            if (provider == "guide")
+            {
+                var settings = AppSettings.Load();
+                var budget = settings.DefaultBudget > 0 ? settings.DefaultBudget : 1000;
+                var league = !string.IsNullOrEmpty(settings.DefaultLeague) ? settings.DefaultLeague : "Keepers";
+                budgetArg = $" --budget {budget} --league {league}";
+            }
+
             if (isUrl)
             {
-                arguments = $"\"{aiAnalyzerScript}\" --pob \"{pobInput}\" --provider {provider} --json";
+                arguments = $"\"{aiAnalyzerScript}\" --pob \"{pobInput}\" --provider {provider}{budgetArg} --json";
             }
             else
             {
                 // POB 코드 직접 사용 (base64 인코딩됨)
-                arguments = $"\"{aiAnalyzerScript}\" --pob-code \"{pobInput}\" --provider {provider} --json";
+                arguments = $"\"{aiAnalyzerScript}\" --pob-code \"{pobInput}\" --provider {provider}{budgetArg} --json";
             }
 
             var psi = new ProcessStartInfo
@@ -1085,6 +1251,13 @@ namespace PathcraftAI.UI
 
         private void DisplayAIAnalysis(JObject analysisData)
         {
+            // Guide 모드인지 확인 (tiers 배열이 있으면 guide)
+            if (analysisData["tiers"] != null)
+            {
+                DisplayGuideAnalysis(analysisData);
+                return;
+            }
+
             var provider = analysisData["provider"]?.ToString() ?? "unknown";
             var model = analysisData["model"]?.ToString() ?? "unknown";
             var analysis = analysisData["analysis"]?.ToString() ?? "";
@@ -1099,6 +1272,115 @@ namespace PathcraftAI.UI
 
             // Update analysis text
             AIAnalysisText.Text = analysis;
+        }
+
+        private void DisplayGuideAnalysis(JObject guideData)
+        {
+            var buildName = guideData["build_name"]?.ToString() ?? "Unknown";
+            var divineRate = guideData["divine_rate"]?.ToObject<double>() ?? 150;
+            var tiers = guideData["tiers"] as JArray;
+            var currentGear = guideData["current_gear"] as JObject;
+
+            // Update header for guide mode
+            AIProviderText.Text = "Upgrade Guide";
+            AITimeText.Text = $"Divine: {divineRate:F0}c";
+            AITokensText.Text = $"Tiers: {tiers?.Count ?? 0}";
+
+            // Build guide text
+            var sb = new System.Text.StringBuilder();
+            sb.AppendLine($"🎯 {buildName} - 업그레이드 로드맵\n");
+
+            // 현재 장비 요약 표시
+            if (currentGear != null)
+            {
+                var uniqueCount = currentGear["unique_count"]?.ToObject<int>() ?? 0;
+                var rareCount = currentGear["rare_count"]?.ToObject<int>() ?? 0;
+                var estimatedValue = currentGear["estimated_value"]?.ToObject<int>() ?? 0;
+                var keyItems = currentGear["key_items"] as JArray;
+
+                sb.AppendLine("📦 현재 장비 분석");
+                sb.AppendLine($"   유니크: {uniqueCount}개 | 레어: {rareCount}개");
+                sb.AppendLine($"   추정 가치: {FormatChaosValue(estimatedValue, divineRate)}");
+
+                if (keyItems != null && keyItems.Count > 0)
+                {
+                    sb.AppendLine("   핵심 아이템:");
+                    foreach (var item in keyItems)
+                    {
+                        var itemName = item["name"]?.ToString();
+                        var itemPrice = item["estimated_price"]?.ToObject<int>() ?? 0;
+                        sb.AppendLine($"     • {itemName} ({FormatChaosValue(itemPrice, divineRate)})");
+                    }
+                }
+                sb.AppendLine();
+            }
+
+            if (tiers != null)
+            {
+                foreach (var tier in tiers)
+                {
+                    var tierName = tier["tier_name"]?.ToString();
+                    var budgetRange = tier["budget_range"]?.ToString();
+                    var totalCost = tier["total_cost_formatted"]?.ToString();
+                    var upgrades = tier["upgrades"] as JArray;
+
+                    sb.AppendLine($"━━━ [{tierName}] {budgetRange} ━━━");
+                    sb.AppendLine($"총 비용: {totalCost}\n");
+
+                    if (upgrades != null)
+                    {
+                        int idx = 1;
+                        foreach (var upgrade in upgrades)
+                        {
+                            var slot = upgrade["slot"]?.ToString();
+                            var priority = upgrade["priority"]?.ToString();
+                            var current = upgrade["current_item"]?.ToString();
+                            var target = upgrade["target_item"]?.ToString();
+                            var price = upgrade["price_formatted"]?.ToString();
+                            var reason = upgrade["reason"]?.ToString();
+                            var dpsGain = upgrade["dps_gain_percent"]?.ToObject<double>() ?? 0;
+                            var ehpGain = upgrade["ehp_gain"]?.ToObject<double>() ?? 0;
+
+                            string priorityIcon = priority switch
+                            {
+                                "CRITICAL" => "🔴",
+                                "HIGH" => "🟠",
+                                "MEDIUM" => "🟡",
+                                _ => "🟢"
+                            };
+
+                            sb.AppendLine($"{idx}. {priorityIcon} [{priority}] {slot}");
+                            sb.AppendLine($"   현재: {current}");
+                            sb.AppendLine($"   목표: {target}");
+                            sb.AppendLine($"   가격: {price}");
+                            sb.AppendLine($"   이유: {reason}");
+
+                            if (dpsGain > 0)
+                                sb.AppendLine($"   📈 예상 DPS 증가: +{dpsGain}%");
+                            if (ehpGain > 0)
+                                sb.AppendLine($"   🛡️ 예상 EHP 증가: +{ehpGain}");
+
+                            sb.AppendLine();
+                            idx++;
+                        }
+                    }
+                }
+            }
+
+            AIAnalysisText.Text = sb.ToString();
+        }
+
+        /// <summary>
+        /// Format chaos value as "Xc" or "Yd" based on divine rate
+        /// </summary>
+        private string FormatChaosValue(int chaosValue, double divineRate)
+        {
+            if (divineRate > 0 && chaosValue >= divineRate)
+            {
+                double divine = chaosValue / divineRate;
+                return divine >= 10 ? $"{(int)divine}d" : $"{divine:F1}d";
+            }
+            return $"{chaosValue}c";
         }
 
         private void CopyAIAnalysis_Click(object sender, RoutedEventArgs e)
@@ -1138,9 +1420,103 @@ namespace PathcraftAI.UI
             }
         }
 
+        private void OpenTradeForItem_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is Button button && button.Tag is string itemName)
+            {
+                try
+                {
+                    var tradeWindow = new TradeWindow(_currentLeague);
+                    tradeWindow.NavigateToSearch(itemName);
+                    tradeWindow.Show();
+                }
+                catch (Exception ex)
+                {
+                    ShowFriendlyError(ex, "POE Trade 창을 여는 중 오류가 발생했습니다.");
+                }
+            }
+        }
+
+        private void OpenTradeUrl_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is Button button && button.Tag is string tradeUrl)
+            {
+                try
+                {
+                    if (!string.IsNullOrEmpty(tradeUrl) && tradeUrl.StartsWith("http"))
+                    {
+                        // WebView2 TradeWindow에서 Trade URL 열기
+                        var tradeWindow = new TradeWindow(_currentLeague);
+                        tradeWindow.NavigateToUrl(tradeUrl);
+                        tradeWindow.Show();
+                        ShowNotification("Opening Trade URL...");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    ShowFriendlyError(ex, "Trade URL을 여는 중 오류가 발생했습니다.");
+                }
+            }
+        }
+
+        private void BrowsePOBFile_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                var dialog = new Microsoft.Win32.OpenFileDialog
+                {
+                    Title = "Select POB XML File",
+                    Filter = "POB XML Files|*.xml|All Files|*.*",
+                    InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)
+                };
+
+                if (dialog.ShowDialog() == true)
+                {
+                    var filePath = dialog.FileName;
+
+                    // 파일 크기 체크 (10MB 제한)
+                    var fileInfo = new System.IO.FileInfo(filePath);
+                    if (fileInfo.Length > 10 * 1024 * 1024)
+                    {
+                        MessageBox.Show("파일 크기가 너무 큽니다. (최대 10MB)",
+                            "파일 크기 초과", MessageBoxButton.OK, MessageBoxImage.Warning);
+                        return;
+                    }
+
+                    // XML 파일 유효성 검사
+                    try
+                    {
+                        var content = System.IO.File.ReadAllText(filePath);
+                        if (!content.Contains("<PathOfBuilding") && !content.Contains("<Build"))
+                        {
+                            MessageBox.Show("유효한 POB XML 파일이 아닙니다.\nPath of Building에서 내보낸 파일인지 확인해주세요.",
+                                "잘못된 파일", MessageBoxButton.OK, MessageBoxImage.Warning);
+                            return;
+                        }
+                    }
+                    catch (Exception)
+                    {
+                        MessageBox.Show("파일을 읽을 수 없습니다.",
+                            "파일 읽기 오류", MessageBoxButton.OK, MessageBoxImage.Error);
+                        return;
+                    }
+
+                    // 파일 경로를 POBInputBox에 설정 (file:// 프로토콜 사용)
+                    POBInputBox.Text = $"file://{filePath}";
+                    POBInputBox.Foreground = new SolidColorBrush(Color.FromRgb(205, 214, 244));
+
+                    ShowNotification($"POB 파일 로드됨: {System.IO.Path.GetFileName(filePath)}");
+                }
+            }
+            catch (Exception ex)
+            {
+                ShowFriendlyError(ex, "POB 파일을 여는 중 오류가 발생했습니다.");
+            }
+        }
+
         private void POBInputBox_GotFocus(object sender, RoutedEventArgs e)
         {
-            if (sender is TextBox textBox && textBox.Text == "https://pobb.in/...")
+            if (sender is TextBox textBox && (textBox.Text == "https://pobb.in/..." || textBox.Text == "URL 또는 POB 코드 붙여넣기"))
             {
                 textBox.Text = "";
             }
@@ -1154,13 +1530,370 @@ namespace PathcraftAI.UI
             }
         }
 
+        private void ClassFilter_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (sender is ComboBox combo && combo.SelectedItem is ComboBoxItem item)
+            {
+                var content = item.Content?.ToString() ?? "All Classes";
+                _currentClassFilter = content == "All Classes" ? "All" : content;
+                Debug.WriteLine($"[FILTER] Class filter changed to: {_currentClassFilter}");
+            }
+        }
+
+        private void SortFilter_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (sender is ComboBox combo && combo.SelectedItem is ComboBoxItem item)
+            {
+                var content = item.Content?.ToString() ?? "";
+                _currentSortOrder = content switch
+                {
+                    "조회수 높은순" => "views",
+                    "최신순" => "date",
+                    "좋아요순" => "likes",
+                    "가격 낮은순" => "price",
+                    _ => "views"
+                };
+                Debug.WriteLine($"[FILTER] Sort order changed to: {_currentSortOrder}");
+            }
+        }
+
+        private void BudgetFilter_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (sender is ComboBox combo && combo.SelectedItem is ComboBoxItem item)
+            {
+                // Tag에 저장된 chaos 값 사용 (동적으로 설정됨)
+                if (item.Tag is int chaosValue)
+                {
+                    _currentBudgetFilter = chaosValue == 0 ? null : chaosValue;
+                }
+                else
+                {
+                    // 폴백: 레이블에서 파싱
+                    var content = item.Content?.ToString() ?? "";
+                    _currentBudgetFilter = content switch
+                    {
+                        "전체" => null,
+                        "~50c" => 50,
+                        "~100c" => 100,
+                        "~500c" => 500,
+                        "~1000c" => 1000,
+                        "1000c+" => 10000,
+                        _ => 100
+                    };
+                }
+                Debug.WriteLine($"[FILTER] Budget filter changed to: {_currentBudgetFilter}");
+            }
+        }
+
+        private double _currentDivineRate = 150.0;
+
+        private void UpdateDivineRateDisplay(JObject? currencyData)
+        {
+            if (currencyData == null) return;
+
+            _currentDivineRate = currencyData["divine_chaos_rate"]?.Value<double>() ?? 150.0;
+            DivineRateText.Text = $"1 div = {(int)_currentDivineRate}c";
+
+            // 소수점 단위 환산표 생성
+            var conversionText = $"0.1 div = {(int)(_currentDivineRate * 0.1)}c\n" +
+                                $"0.3 div = {(int)(_currentDivineRate * 0.3)}c\n" +
+                                $"0.5 div = {(int)(_currentDivineRate * 0.5)}c\n" +
+                                $"1 div = {(int)_currentDivineRate}c\n" +
+                                $"3 div = {(int)(_currentDivineRate * 3)}c\n" +
+                                $"5 div = {(int)(_currentDivineRate * 5)}c\n" +
+                                $"10 div = {(int)(_currentDivineRate * 10)}c";
+
+            DivineConversionText.Text = conversionText;
+        }
+
+        private void DivineRateText_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
+        {
+            // 툴팁은 XAML에서 자동으로 표시됨
+            // 추가 동작이 필요하면 여기에 구현
+        }
+
+        private void UpdateBudgetFilterOptions(JObject? currencyData)
+        {
+            if (currencyData == null) return;
+
+            var budgetTiers = currencyData["budget_tiers"] as JArray;
+            if (budgetTiers == null || budgetTiers.Count == 0) return;
+
+            var divineRate = currencyData["divine_chaos_rate"]?.Value<double>() ?? 150.0;
+            Debug.WriteLine($"[INFO] Divine rate: {divineRate}c, updating budget filter options");
+
+            // 현재 선택된 값 저장
+            var currentSelection = _currentBudgetFilter;
+
+            // ComboBox 아이템 업데이트
+            BudgetFilterCombo.Items.Clear();
+
+            int closestIndex = 0;
+            int closestDiff = int.MaxValue;
+
+            for (int i = 0; i < budgetTiers.Count; i++)
+            {
+                var tier = budgetTiers[i];
+                var label = tier["label"]?.ToString() ?? "";
+                var tooltip = tier["tooltip"]?.ToString() ?? "";
+                var chaosToken = tier["chaos_value"];
+                var chaosValue = chaosToken != null && chaosToken.Type != JTokenType.Null
+                    ? chaosToken.Value<int>()
+                    : 0;
+
+                var comboItem = new ComboBoxItem
+                {
+                    Content = label,
+                    Tag = chaosValue
+                };
+
+                // Divine 환산표 툴팁 (호버 시 표시)
+                if (!string.IsNullOrEmpty(tooltip))
+                {
+                    comboItem.ToolTip = tooltip;
+                }
+
+                BudgetFilterCombo.Items.Add(comboItem);
+
+                // 현재 선택에 가장 가까운 값 찾기
+                if (currentSelection.HasValue)
+                {
+                    int diff = Math.Abs(chaosValue - currentSelection.Value);
+                    if (diff < closestDiff)
+                    {
+                        closestDiff = diff;
+                        closestIndex = i;
+                    }
+                }
+                else if (chaosValue == 0)
+                {
+                    closestIndex = i;
+                }
+            }
+
+            // 가장 가까운 값 선택
+            if (BudgetFilterCombo.Items.Count > 0)
+            {
+                BudgetFilterCombo.SelectedIndex = closestIndex;
+            }
+        }
+
+        private async void SearchBuilds_Click(object sender, RoutedEventArgs e)
+        {
+            var streamerName = StreamerInputBox.Text?.Trim();
+
+            // 플레이스홀더 텍스트 제거
+            if (streamerName?.StartsWith("예:") == true) streamerName = null;
+
+            if (string.IsNullOrWhiteSpace(streamerName))
+            {
+                // 스트리머 없으면 일반 추천
+                await LoadRecommendations();
+                return;
+            }
+
+            // 스트리머 기반 검색
+            await LoadPersonalizedRecommendations(null, streamerName);
+        }
+
+        private async void AnalyzeMyBuild_Click(object sender, RoutedEventArgs e)
+        {
+            var pobUrl = POBInputBox.Text?.Trim();
+
+            // 플레이스홀더 텍스트 제거
+            if (pobUrl == "https://pobb.in/..." || pobUrl == "URL 또는 POB 코드 붙여넣기") pobUrl = null;
+
+            if (string.IsNullOrWhiteSpace(pobUrl))
+            {
+                MessageBox.Show("POB URL 또는 코드를 입력해주세요.", "입력 필요", MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+
+            // 빌드 분석 실행
+            _currentPOBUrl = pobUrl;
+
+            try
+            {
+                // 빌드 비교 로드
+                try
+                {
+                    if (!string.IsNullOrEmpty(_currentCharacterName))
+                    {
+                        await LoadBuildComparison(pobUrl, _currentCharacterName);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine($"[ERROR] LoadBuildComparison failed: {ex.Message}");
+                }
+
+                // 업그레이드 경로 로드
+                try
+                {
+                    await LoadUpgradePath(pobUrl, _currentCharacterName ?? "Unknown", _currentBudget);
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine($"[ERROR] LoadUpgradePath failed: {ex.Message}");
+                }
+
+                // 필터 생성 섹션 표시
+                FilterGenerationSection.Visibility = Visibility.Visible;
+
+                // 레벨링 가이드 생성
+                try
+                {
+                    await LoadLevelingGuide(pobUrl);
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine($"[ERROR] LoadLevelingGuide failed: {ex.Message}");
+                }
+
+                // 파밍 전략 생성
+                try
+                {
+                    await LoadFarmingStrategy(pobUrl);
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine($"[ERROR] LoadFarmingStrategy failed: {ex.Message}");
+                }
+
+                // POE 계정이 연결되어 있으면 계정 이름 자동 설정
+                if (_poeAccountData != null && string.IsNullOrEmpty(FilterAccountNameBox.Text))
+                {
+                    var accountName = _poeAccountData["name"]?.ToString();
+                    if (!string.IsNullOrEmpty(accountName))
+                    {
+                        FilterAccountNameBox.Text = accountName;
+                    }
+                }
+
+                ShowNotification("빌드 분석 완료!");
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"[CRITICAL ERROR] AnalyzeMyBuild_Click: {ex.Message}\n{ex.StackTrace}");
+                ShowFriendlyError(ex, "빌드 분석 중 오류가 발생했습니다.");
+            }
+        }
+
+        private async void GenerateFilter_Click(object sender, RoutedEventArgs e)
+        {
+            var accountName = FilterAccountNameBox.Text?.Trim();
+            if (string.IsNullOrWhiteSpace(accountName))
+            {
+                MessageBox.Show("계정 이름을 입력해주세요.", "입력 필요", MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+
+            var pobUrl = POBInputBox.Text?.Trim();
+            if (pobUrl == "https://pobb.in/..." || pobUrl == "URL 또는 POB 코드 붙여넣기") pobUrl = null;
+
+            if (string.IsNullOrWhiteSpace(pobUrl) && string.IsNullOrEmpty(_currentPOBXmlPath))
+            {
+                MessageBox.Show("먼저 POB를 분석해주세요.", "POB 필요", MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+
+            try
+            {
+                // 선택된 단계
+                var phaseItem = FilterPhaseComboBox.SelectedItem as ComboBoxItem;
+                var phase = phaseItem?.Content?.ToString() ?? "all";
+
+                // 리그 타입
+                var leagueType = _isHardcoreMode ? "HC" : "SC";
+
+                // POE 필터 폴더 경로
+                var filterFolder = Path.Combine(
+                    Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
+                    "My Games", "Path of Exile");
+
+                if (!Directory.Exists(filterFolder))
+                {
+                    Directory.CreateDirectory(filterFolder);
+                }
+
+                // Python 스크립트 실행
+                var parserDir = Path.GetDirectoryName(_filterGeneratorScriptPath)!;
+
+                // POB XML 파일 생성 (URL인 경우 임시 파일)
+                string pobXmlPath;
+                if (!string.IsNullOrEmpty(_currentPOBXmlPath) && File.Exists(_currentPOBXmlPath))
+                {
+                    pobXmlPath = _currentPOBXmlPath;
+                }
+                else
+                {
+                    // pob_parser.py를 사용하여 URL에서 XML 추출 필요
+                    // 임시로 temp_pob.xml 사용
+                    pobXmlPath = Path.Combine(parserDir, "temp_pob.xml");
+                    if (!File.Exists(pobXmlPath))
+                    {
+                        MessageBox.Show("POB XML 파일을 찾을 수 없습니다.\n먼저 빌드를 분석해주세요.", "파일 없음", MessageBoxButton.OK, MessageBoxImage.Warning);
+                        return;
+                    }
+                }
+
+                var args = $"\"{_filterGeneratorScriptPath}\" \"{pobXmlPath}\" \"{accountName}\" --output \"{filterFolder}\" --league {leagueType} --phase {phase.ToLower()}";
+
+                var psi = new ProcessStartInfo
+                {
+                    FileName = _pythonPath,
+                    Arguments = args,
+                    WorkingDirectory = parserDir,
+                    UseShellExecute = false,
+                    RedirectStandardOutput = true,
+                    RedirectStandardError = true,
+                    CreateNoWindow = true
+                };
+
+                psi.Environment["PYTHONUTF8"] = "1";
+
+                var result = await Task.Run(() =>
+                {
+                    using var process = Process.Start(psi);
+                    if (process == null) return "Process failed to start";
+
+                    var output = process.StandardOutput.ReadToEnd();
+                    var error = process.StandardError.ReadToEnd();
+                    process.WaitForExit();
+
+                    return $"{output}\n{error}";
+                });
+
+                // 결과 표시
+                if (result.Contains("[완료]") || result.Contains("[OK]"))
+                {
+                    var message = phase.ToLower() == "all"
+                        ? $"필터 파일이 생성되었습니다!\n\n위치: {filterFolder}\n\n생성된 파일:\n• {accountName}_Starter.filter\n• {accountName}_Mid.filter\n• {accountName}_End.filter\n• {accountName}_HighEnd.filter"
+                        : $"필터 파일이 생성되었습니다!\n\n위치: {filterFolder}\\{accountName}_{phase}.filter";
+
+                    MessageBox.Show(message, "필터 생성 완료", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                    // 폴더 열기
+                    Process.Start("explorer.exe", filterFolder);
+                }
+                else
+                {
+                    MessageBox.Show($"필터 생성 중 오류가 발생했습니다.\n\n{result}", "오류", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+            catch (Exception ex)
+            {
+                ShowFriendlyError(ex, "필터 생성 중 오류가 발생했습니다.");
+            }
+        }
+
         private async void GetPersonalizedRecommendations_Click(object sender, RoutedEventArgs e)
         {
             var pobUrl = POBInputBox.Text?.Trim();
             var streamerName = StreamerInputBox.Text?.Trim();
 
             // 플레이스홀더 텍스트 제거
-            if (pobUrl == "https://pobb.in/...") pobUrl = null;
+            if (pobUrl == "https://pobb.in/..." || pobUrl == "URL 또는 POB 코드 붙여넣기") pobUrl = null;
             if (streamerName?.StartsWith("예:") == true) streamerName = null;
 
             if (string.IsNullOrWhiteSpace(pobUrl) && string.IsNullOrWhiteSpace(streamerName))
@@ -1168,6 +1901,12 @@ namespace PathcraftAI.UI
                 // 둘 다 비어있으면 일반 추천
                 await LoadRecommendations();
                 return;
+            }
+
+            // POB URL이 있으면 My Build 탭으로 전환
+            if (!string.IsNullOrWhiteSpace(pobUrl))
+            {
+                MainTabControl.SelectedIndex = 1; // My Build 탭
             }
 
             // 맞춤 추천 실행
@@ -1251,8 +1990,13 @@ namespace PathcraftAI.UI
             // Enable UTF-8 mode for Python
             psi.Environment["PYTHONUTF8"] = "1";
 
-            // API 키 환경 변수로 전달
-            psi.Environment["YOUTUBE_API_KEY"] = "AIzaSyBDC0li3oQsLwk6XPauI7wWL6QND9WUqGo";
+            // API 키 환경 변수로 전달 (설정에서 가져오기)
+            var settings = AppSettings.Load();
+            var youtubeApiKey = settings.GetApiKey("youtube") ?? "";
+            if (!string.IsNullOrEmpty(youtubeApiKey))
+            {
+                psi.Environment["YOUTUBE_API_KEY"] = youtubeApiKey;
+            }
 
             Debug.WriteLine($"[EXEC] Running personalized recommendation: {_pythonPath}");
             Debug.WriteLine($"[EXEC] Args: {psi.Arguments}");
@@ -1487,13 +2231,14 @@ namespace PathcraftAI.UI
             try
             {
                 // Python 스크립트로 캐릭터 정보 가져오기
-                var parserDir = Path.GetDirectoryName(_pythonPath);
-                var scriptPath = Path.Combine(parserDir!, "..", "get_characters.py");
+                var baseDir = AppDomain.CurrentDomain.BaseDirectory;
+                var projectRoot = Path.GetFullPath(Path.Combine(baseDir, "..", "..", "..", "..", ".."));
+                var parserDir = Path.Combine(projectRoot, "src", "PathcraftAI.Parser");
 
                 var psi = new ProcessStartInfo
                 {
                     FileName = _pythonPath,
-                    Arguments = $"-c \"from poe_oauth import load_token, get_user_characters; token = load_token(); chars = get_user_characters(token['access_token'])['characters'] if token else []; print(len(chars))\"",
+                    Arguments = $"-c \"from poe_oauth import load_token, get_user_characters; token = load_token(); result = get_user_characters(token['access_token']) if token else None; chars = result.get('characters', []) if isinstance(result, dict) else []; print(len(chars))\"",
                     WorkingDirectory = parserDir,
                     UseShellExecute = false,
                     RedirectStandardOutput = true,
@@ -1509,17 +2254,15 @@ namespace PathcraftAI.UI
 
                     if (int.TryParse(output.Trim(), out int charCount) && charCount > 0)
                     {
-                        CharacterCountText.Text = $"Total Characters: {charCount}";
-                        CharacterInfoPanel.Visibility = Visibility.Visible;
-
                         // 메인 캐릭터 찾기 (current: true인 캐릭터)
                         FindMainCharacter();
                     }
                 }
             }
-            catch
+            catch (Exception ex)
             {
-                // 캐릭터 정보 로드 실패는 조용히 무시
+                // 캐릭터 정보 로드 실패 로깅
+                Debug.WriteLine($"[ERROR] LoadCharacterInfo failed: {ex.Message}\n{ex.StackTrace}");
             }
         }
 
@@ -1527,20 +2270,26 @@ namespace PathcraftAI.UI
         {
             try
             {
+                var baseDir = AppDomain.CurrentDomain.BaseDirectory;
+                var projectRoot = Path.GetFullPath(Path.Combine(baseDir, "..", "..", "..", "..", ".."));
+                var parserDir = Path.Combine(projectRoot, "src", "PathcraftAI.Parser");
+
                 var pythonCode = @"
 from poe_oauth import load_token, get_user_characters
 token = load_token()
 if token:
-    chars = get_user_characters(token['access_token'])['characters']
-    current = next((c for c in chars if c.get('current')), chars[0] if chars else None)
-    if current:
-        print(f""{current['name']} Lv{current['level']} {current['class']}"")
+    result = get_user_characters(token['access_token'])
+    chars = result.get('characters', []) if isinstance(result, dict) else []
+    if chars:
+        current = next((c for c in chars if c.get('current')), chars[0])
+        if current:
+            print(f""{current['name']} Lv{current['level']} {current['class']}"")
 ";
                 var psi = new ProcessStartInfo
                 {
                     FileName = _pythonPath,
                     Arguments = $"-c \"{pythonCode}\"",
-                    WorkingDirectory = Path.GetDirectoryName(_pythonPath),
+                    WorkingDirectory = parserDir,
                     UseShellExecute = false,
                     RedirectStandardOutput = true,
                     RedirectStandardError = true,
@@ -1559,9 +2308,10 @@ if token:
                     }
                 }
             }
-            catch
+            catch (Exception ex)
             {
-                // 실패 시 무시
+                // 실패 시 로깅
+                Debug.WriteLine($"[ERROR] FindMainCharacter failed: {ex.Message}\n{ex.StackTrace}");
             }
         }
 
@@ -2148,6 +2898,424 @@ if token:
             }
         }
 
+        #region Leveling Guide
+
+        private string _levelingGuideScriptPath = "";
+        private string _currentMainSkillName = "";
+        private string _currentClassName = "";
+        private string _currentAscendancy = "";
+
+        private async Task LoadLevelingGuide(string pobUrl)
+        {
+            try
+            {
+                // skill_tag_system.py 스크립트 경로 설정
+                if (string.IsNullOrEmpty(_levelingGuideScriptPath))
+                {
+                    var parserDir = Path.GetDirectoryName(_filterGeneratorScriptPath);
+                    _levelingGuideScriptPath = Path.Combine(parserDir!, "skill_tag_system.py");
+                }
+
+                if (!File.Exists(_levelingGuideScriptPath))
+                {
+                    Debug.WriteLine($"[WARNING] skill_tag_system.py not found at {_levelingGuideScriptPath}");
+                    return;
+                }
+
+                // Python 스크립트 실행하여 레벨링 가이드 생성
+                var result = await Task.Run(() => RunLevelingGuideScript(pobUrl));
+
+                if (!string.IsNullOrEmpty(result))
+                {
+                    var guideData = JObject.Parse(result);
+                    DisplayLevelingGuide(guideData);
+                    LevelingGuideSection.Visibility = Visibility.Visible;
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"[ERROR] LoadLevelingGuide: {ex.Message}");
+            }
+        }
+
+        private string RunLevelingGuideScript(string pobUrl)
+        {
+            // 임시 Python 스크립트 파일 생성
+            var tempScriptPath = Path.Combine(Path.GetTempPath(), "leveling_guide_temp.py");
+            var pythonCode = $@"
+import sys
+import json
+sys.path.insert(0, r'{Path.GetDirectoryName(_levelingGuideScriptPath)}')
+from skill_tag_system import SkillTagSystem, ActGuideSearcher
+
+# POB URL에서 스킬 정보 추출 (간단히 테스트용으로 Penance Brand 사용)
+# 실제 구현에서는 POB 파싱 필요
+skill_system = SkillTagSystem()
+searcher = ActGuideSearcher(skill_system)
+
+# 스킬 ID 결정 (POB에서 추출해야 함)
+# 임시: Penance Brand of Dissipation
+skill_id = 'PenanceBrandAltX'
+class_name = 'Templar'
+ascendancy = 'Inquisitor'
+
+# 레벨링 가이드 생성
+guide = searcher.generate_leveling_guide_summary(
+    skill_system.get_skill_name(skill_id),
+    class_name,
+    ascendancy
+)
+
+# JSON 출력
+print(json.dumps(guide, ensure_ascii=False))
+";
+
+            File.WriteAllText(tempScriptPath, pythonCode, System.Text.Encoding.UTF8);
+
+            var psi = new ProcessStartInfo
+            {
+                FileName = _pythonPath,
+                Arguments = $"\"{tempScriptPath}\"",
+                UseShellExecute = false,
+                RedirectStandardOutput = true,
+                RedirectStandardError = true,
+                CreateNoWindow = true,
+                StandardOutputEncoding = System.Text.Encoding.UTF8,
+                WorkingDirectory = Path.GetDirectoryName(_levelingGuideScriptPath)
+            };
+
+            psi.Environment["PYTHONUTF8"] = "1";
+
+            using var process = Process.Start(psi);
+            if (process == null) return string.Empty;
+
+            var output = process.StandardOutput.ReadToEnd();
+            var error = process.StandardError.ReadToEnd();
+            process.WaitForExit();
+
+            if (process.ExitCode != 0)
+            {
+                Debug.WriteLine($"[ERROR] Leveling guide script error: {error}");
+                return string.Empty;
+            }
+
+            return output.Trim();
+        }
+
+        private void DisplayLevelingGuide(JObject guideData)
+        {
+            try
+            {
+                // 메인 스킬 정보
+                var skillName = guideData["skill_name"]?.ToString() ?? "Unknown";
+                var className = guideData["class_name"]?.ToString() ?? "Unknown";
+                var ascendancy = guideData["ascendancy"]?.ToString() ?? "";
+                var tags = guideData["tags"] as JArray;
+
+                _currentMainSkillName = skillName;
+                _currentClassName = className;
+                _currentAscendancy = ascendancy;
+
+                LevelingMainSkillText.Text = $"Main Skill: {skillName}";
+
+                if (tags != null && tags.Count > 0)
+                {
+                    var tagList = tags.Select(t => t.ToString()).ToList();
+                    LevelingTagsText.Text = $"Tags: {string.Join(", ", tagList)}";
+                }
+
+                // Tips
+                var tips = guideData["tips"] as JArray;
+                if (tips != null)
+                {
+                    var tipsList = tips.Select(t => $"• {t}").ToList();
+                    LevelingTipsList.ItemsSource = tipsList;
+                }
+
+                // Gem Progression
+                var gemProg = guideData["gem_progression"] as JArray;
+                if (gemProg != null)
+                {
+                    var gemList = new List<GemProgressionItem>();
+                    foreach (var gem in gemProg)
+                    {
+                        gemList.Add(new GemProgressionItem
+                        {
+                            Level = gem["level"]?.ToObject<int>() ?? 0,
+                            Gems = gem["gems"]?.ToString() ?? ""
+                        });
+                    }
+                    GemProgressionList.ItemsSource = gemList;
+                }
+
+                // Leveling Gear
+                var gearRec = guideData["leveling_gear"] as JArray;
+                if (gearRec != null)
+                {
+                    var gearList = new List<LevelingGearItem>();
+                    foreach (var gear in gearRec)
+                    {
+                        gearList.Add(new LevelingGearItem
+                        {
+                            Level = gear["level"]?.ToObject<int>() ?? 0,
+                            Item = gear["item"]?.ToString() ?? "",
+                            Reason = gear["reason"]?.ToString() ?? ""
+                        });
+                    }
+                    LevelingGearList.ItemsSource = gearList;
+                }
+
+                // Ascendancy Order
+                var ascOrder = guideData["ascendancy_order"] as JArray;
+                if (ascOrder != null)
+                {
+                    var orderList = new List<string>();
+                    for (int i = 0; i < ascOrder.Count; i++)
+                    {
+                        orderList.Add($"{i + 1}. {ascOrder[i]}");
+                    }
+                    AscendancyOrderList.ItemsSource = orderList;
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"[ERROR] DisplayLevelingGuide: {ex.Message}");
+            }
+        }
+
+        private void OpenYouTubeGuide_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                var skillName = _currentMainSkillName;
+                var className = _currentClassName;
+
+                if (string.IsNullOrEmpty(skillName))
+                {
+                    skillName = "Penance Brand";
+                }
+
+                // YouTube 검색 URL 생성
+                var searchQuery = $"{skillName} {className} leveling guide POE 3.27";
+                var encodedQuery = Uri.EscapeDataString(searchQuery);
+                var youtubeUrl = $"https://www.youtube.com/results?search_query={encodedQuery}";
+
+                Process.Start(new ProcessStartInfo
+                {
+                    FileName = youtubeUrl,
+                    UseShellExecute = true
+                });
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"[ERROR] OpenYouTubeGuide: {ex.Message}");
+            }
+        }
+
+        #endregion
+
+        #region Leveling Guide Data Classes
+
+        public class GemProgressionItem
+        {
+            public int Level { get; set; }
+            public string Gems { get; set; } = "";
+        }
+
+        public class LevelingGearItem
+        {
+            public int Level { get; set; }
+            public string Item { get; set; } = "";
+            public string Reason { get; set; } = "";
+        }
+
+        #endregion
+
+        #region Farming Strategy
+
+        private string _farmingStrategyScriptPath = "";
+
+        private async Task LoadFarmingStrategy(string pobUrl)
+        {
+            try
+            {
+                // farming_strategy_system.py 스크립트 경로 설정
+                if (string.IsNullOrEmpty(_farmingStrategyScriptPath))
+                {
+                    var parserDir = Path.GetDirectoryName(_filterGeneratorScriptPath);
+                    _farmingStrategyScriptPath = Path.Combine(parserDir!, "farming_strategy_system.py");
+                }
+
+                if (!File.Exists(_farmingStrategyScriptPath))
+                {
+                    Debug.WriteLine($"[WARNING] farming_strategy_system.py not found at {_farmingStrategyScriptPath}");
+                    return;
+                }
+
+                // Python 스크립트 실행하여 파밍 전략 생성
+                var result = await Task.Run(() => RunFarmingStrategyScript(pobUrl));
+
+                if (!string.IsNullOrEmpty(result))
+                {
+                    var guideData = JObject.Parse(result);
+                    DisplayFarmingStrategy(guideData);
+                    FarmingStrategySection.Visibility = Visibility.Visible;
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"[ERROR] LoadFarmingStrategy: {ex.Message}");
+            }
+        }
+
+        private string RunFarmingStrategyScript(string pobUrl)
+        {
+            // 임시 Python 스크립트 파일 생성
+            var tempScriptPath = Path.Combine(Path.GetTempPath(), "farming_strategy_temp.py");
+            var pythonCode = $@"
+import sys
+import json
+sys.path.insert(0, r'{Path.GetDirectoryName(_farmingStrategyScriptPath)}')
+from farming_strategy_system import FarmingStrategySystem
+
+system = FarmingStrategySystem()
+
+# 테스트용 빌드 정보 (실제로는 POB에서 추출)
+test_build = {{
+    'dps': 5000000,
+    'ehp': 40000,
+    'life_regen': 800,
+    'skill_tags': ['spell', 'aoe', 'brand', 'lightning'],
+    'budget': 'medium'
+}}
+
+guide = system.generate_farming_guide(test_build)
+print(json.dumps(guide, ensure_ascii=False))
+";
+
+            File.WriteAllText(tempScriptPath, pythonCode, System.Text.Encoding.UTF8);
+
+            var psi = new ProcessStartInfo
+            {
+                FileName = _pythonPath,
+                Arguments = $"\"{tempScriptPath}\"",
+                UseShellExecute = false,
+                RedirectStandardOutput = true,
+                RedirectStandardError = true,
+                CreateNoWindow = true,
+                StandardOutputEncoding = System.Text.Encoding.UTF8,
+                WorkingDirectory = Path.GetDirectoryName(_farmingStrategyScriptPath)
+            };
+
+            psi.Environment["PYTHONUTF8"] = "1";
+
+            using var process = Process.Start(psi);
+            if (process == null) return string.Empty;
+
+            var output = process.StandardOutput.ReadToEnd();
+            var error = process.StandardError.ReadToEnd();
+            process.WaitForExit();
+
+            if (process.ExitCode != 0)
+            {
+                Debug.WriteLine($"[ERROR] Farming strategy script error: {error}");
+                return string.Empty;
+            }
+
+            return output.Trim();
+        }
+
+        private void DisplayFarmingStrategy(JObject guideData)
+        {
+            try
+            {
+                // 빌드 태그
+                var buildTags = guideData["build_tags"] as JArray;
+                if (buildTags != null && buildTags.Count > 0)
+                {
+                    FarmingBuildTagsText.Text = string.Join(", ", buildTags.Select(t => t.ToString()));
+                }
+
+                // 전략 목록
+                var strategies = guideData["recommended_strategies"] as JArray;
+                if (strategies != null)
+                {
+                    var strategyList = new List<FarmingStrategyItem>();
+                    foreach (var strategy in strategies)
+                    {
+                        var maps = strategy["maps"] as JArray;
+                        var mapList = new List<FarmingMapItem>();
+                        if (maps != null)
+                        {
+                            foreach (var map in maps)
+                            {
+                                mapList.Add(new FarmingMapItem
+                                {
+                                    Name = map["name"]?.ToString() ?? "",
+                                    Tier = map["tier"]?.ToObject<int>() ?? 0,
+                                    Layout = map["layout"]?.ToString() ?? ""
+                                });
+                            }
+                        }
+
+                        var atlasPassives = strategy["atlas_passives"] as JArray;
+                        var passiveList = atlasPassives?.Select(p => p.ToString()).ToList() ?? new List<string>();
+
+                        var tips = strategy["tips"] as JArray;
+                        var tipList = tips?.Select(t => $"• {t}").ToList() ?? new List<string>();
+
+                        strategyList.Add(new FarmingStrategyItem
+                        {
+                            Name = strategy["name"]?.ToString() ?? "",
+                            Description = strategy["description"]?.ToString() ?? "",
+                            InvestmentDisplay = $"Investment: {strategy["investment"]}",
+                            ReturnsDisplay = $"Returns: {strategy["returns"]}",
+                            Maps = mapList,
+                            AtlasPassives = passiveList,
+                            Tips = tipList
+                        });
+                    }
+                    FarmingStrategiesList.ItemsSource = strategyList;
+                }
+
+                // 일반 팁
+                var generalTips = guideData["general_tips"] as JArray;
+                if (generalTips != null)
+                {
+                    var tipList = generalTips.Select(t => $"• {t}").ToList();
+                    FarmingGeneralTipsList.ItemsSource = tipList;
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"[ERROR] DisplayFarmingStrategy: {ex.Message}");
+            }
+        }
+
+        #endregion
+
+        #region Farming Strategy Data Classes
+
+        public class FarmingStrategyItem
+        {
+            public string Name { get; set; } = "";
+            public string Description { get; set; } = "";
+            public string InvestmentDisplay { get; set; } = "";
+            public string ReturnsDisplay { get; set; } = "";
+            public List<FarmingMapItem> Maps { get; set; } = new();
+            public List<string> AtlasPassives { get; set; } = new();
+            public List<string> Tips { get; set; } = new();
+        }
+
+        public class FarmingMapItem
+        {
+            public string Name { get; set; } = "";
+            public int Tier { get; set; }
+            public string Layout { get; set; } = "";
+        }
+
+        #endregion
+
         private void ShowNotification(string message, bool isError = false)
         {
             // 간단한 토스트 알림 (향후 개선 가능)
@@ -2281,5 +3449,7 @@ if token:
         public string ItemName { get; set; } = "";
         public double ChaosValue { get; set; }
         public string Reason { get; set; } = "";
+        public string TradeUrl { get; set; } = "";
+        public bool HasTradeUrl => !string.IsNullOrEmpty(TradeUrl);
     }
 }

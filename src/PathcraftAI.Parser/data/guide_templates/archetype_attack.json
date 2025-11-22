@@ -1,0 +1,180 @@
+{
+  "template_version": "1.0",
+  "template_type": "archetype",
+  "archetype": "attack",
+  "description": "근접/원거리 공격 빌드 아키타입 템플릿",
+  "created_date": "2025-11-22",
+  "extends": "common_template",
+
+  "stat_priority": {
+    "primary": "strength",
+    "secondary": ["dexterity"],
+    "note": "슬램/스트라이크는 힘, 레인저 공격은 민첩"
+  },
+
+  "defense_preference": {
+    "primary": "life",
+    "secondary": ["armour", "evasion"],
+    "note": "근접은 방어력, 원거리는 회피 선호"
+  },
+
+  "socket_colors": {
+    "primary": "red",
+    "secondary": ["green"],
+    "typical_setup": "RRRG, RRGG, RRRR"
+  },
+
+  "mana_management": {
+    "early_game": {
+      "method": "mana_leech",
+      "note": "마나 리치 노드 또는 장비로 해결"
+    },
+    "mid_game": {
+      "method": "mana_leech_node",
+      "note": "패시브 트리의 마나 리치 노드"
+    },
+    "late_game": {
+      "method": "-mana_cost_craft",
+      "note": "장비에 -마나 비용 크래프트, 또는 Inspiration"
+    }
+  },
+
+  "damage_scaling": {
+    "sources": [
+      "물리 데미지 증가",
+      "공격 속도",
+      "크리티컬 확률/배율",
+      "무기 데미지 (DPS)",
+      "Added Physical/Elemental Damage"
+    ],
+    "weapon_importance": "매우 높음 - 무기 DPS가 핵심"
+  },
+
+  "support_gem_priority": {
+    "damage": [
+      "Melee Physical Damage (근접 물리)",
+      "Brutality (만행)",
+      "Impale (꿰뚫기)",
+      "Pulverise (분쇄)",
+      "Fortify (강화)"
+    ],
+    "utility": [
+      "Lifetap (생명력 전환)",
+      "Faster Attacks (빠른 공격)",
+      "Multistrike (연속 타격)"
+    ]
+  },
+
+  "leveling_skill_progression": {
+    "description": "공격 빌드 레벨링 스킬 추천",
+    "melee_path": [
+      {
+        "level": 1,
+        "skills": ["Ground Slam", "Cleave", "Double Strike"],
+        "note": "초반 범용 근접 스킬"
+      },
+      {
+        "level": 12,
+        "skills": ["Sunder", "Leap Slam"],
+        "note": "Sunder는 최고의 레벨링 스킬"
+      },
+      {
+        "level": 28,
+        "skills": ["Cyclone", "Bladestorm", "목표 스킬"],
+        "note": "대부분의 근접 스킬 사용 가능"
+      }
+    ],
+    "ranged_path": [
+      {
+        "level": 1,
+        "skills": ["Burning Arrow", "Split Arrow"],
+        "note": "초반 활 스킬"
+      },
+      {
+        "level": 12,
+        "skills": ["Rain of Arrows", "Tornado Shot"],
+        "note": "광역 클리어"
+      }
+    ]
+  },
+
+  "aura_progression": {
+    "early": ["Pride (자부심)", "Blood and Sand"],
+    "mid": ["Pride", "Flesh and Stone", "Precision"],
+    "late": ["Pride", "Determination", "Blood Rage", "War Banner"]
+  },
+
+  "movement_skill": {
+    "primary": "Leap Slam",
+    "alternative": ["Whirling Blades", "Dash"],
+    "support": ["Faster Attacks"],
+    "note": "Fortify를 이동기에 연결 가능"
+  },
+
+  "ascendancy_synergy": {
+    "recommended": [
+      {
+        "class": "Slayer",
+        "reason": "오버리치, 컬링, 면역"
+      },
+      {
+        "class": "Champion",
+        "reason": "Fortify, Impale, 방어"
+      },
+      {
+        "class": "Berserker",
+        "reason": "높은 데미지, 공격 속도"
+      },
+      {
+        "class": "Gladiator",
+        "reason": "블록, 출혈"
+      }
+    ]
+  },
+
+  "unique_items_leveling": {
+    "weapons": [
+      {
+        "name": "Screaming Eagle",
+        "level": 6,
+        "note": "초반 도끼, 높은 물리 DPS"
+      },
+      {
+        "name": "The Cauteriser",
+        "level": 40,
+        "note": "좋은 물리 + 화염 데미지"
+      },
+      {
+        "name": "Terminus Est",
+        "level": 51,
+        "note": "Cyclone에 좋음, 프렌지 차지"
+      }
+    ],
+    "armor": [
+      {
+        "name": "Tabula Rasa",
+        "level": 1,
+        "note": "6링크 무색"
+      },
+      {
+        "name": "Goldrim",
+        "level": 1,
+        "note": "전체 저항"
+      },
+      {
+        "name": "Wanderlust",
+        "level": 3,
+        "note": "동결 면역 + 이동 속도"
+      }
+    ]
+  },
+
+  "melee_specific_tips": [
+    "무기 업그레이드가 가장 중요 - 높은 pDPS 무기 우선",
+    "Sunder로 레벨링하다가 28+ 에서 메인 스킬 전환",
+    "Leap Slam에 Faster Attacks 연결로 빠른 이동",
+    "Blood Rage는 프렌지 차지 + 공격 속도 제공",
+    "Ancestral Protector/Warchief로 보스전 DPS 증가",
+    "Molten Shell 또는 Steelskin을 CWDT에 연결"
+  ]
+}

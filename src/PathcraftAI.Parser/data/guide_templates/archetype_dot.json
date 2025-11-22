@@ -1,0 +1,238 @@
+{
+  "template_version": "1.0",
+  "template_type": "archetype",
+  "archetype": "dot",
+  "description": "DOT (Damage Over Time) 빌드 아키타입 템플릿",
+  "created_date": "2025-11-22",
+  "extends": "common_template",
+  "sources": ["PoE Vault - Toxic Rain Trickster", "Maxroll TR Pathfinder"],
+
+  "stat_priority": {
+    "primary": "dexterity",
+    "secondary": ["intelligence", "strength"],
+    "note": "독/출혈은 민첩, 카오스 DOT는 지능"
+  },
+
+  "defense_preference": {
+    "primary": "evasion",
+    "secondary": ["spell_suppression", "life"],
+    "note": "회피 + 스펠 억제 조합이 일반적"
+  },
+
+  "socket_colors": {
+    "primary": "green",
+    "secondary": ["blue"],
+    "typical_setup": "GGGB, GGGG, GGGR"
+  },
+
+  "mana_management": {
+    "early_game": {
+      "method": "mana_flask",
+      "note": "마나 플라스크로 버티기"
+    },
+    "mid_game": {
+      "method": "mana_leech_or_regen",
+      "note": "-마나 비용 크래프트 또는 리젠"
+    },
+    "late_game": {
+      "method": "eldritch_battery",
+      "note": "Eldritch Battery로 ES를 마나로 사용"
+    }
+  },
+
+  "damage_scaling": {
+    "sources": [
+      "DOT 배율 (Damage over Time Multiplier)",
+      "카오스/독/화염 데미지 증가",
+      "스킬 효과 지속시간",
+      "젬 레벨",
+      "Wither 스택 (카오스 DOT)"
+    ],
+    "hit_damage_note": "DOT는 히트 데미지와 별개 - 크리티컬/히트 스탯 불필요"
+  },
+
+  "support_gem_priority": {
+    "damage": [
+      "Void Manipulation (공허 조작)",
+      "Vicious Projectiles (악랄한 투사체)",
+      "Swift Affliction (신속한 고통)",
+      "Efficacy (유효성)",
+      "Concentrated Effect (집중 효과)"
+    ],
+    "utility": [
+      "Mirage Archer (환영 궁수)",
+      "Ballista Totem (발리스타 토템)",
+      "Greater Multiple Projectiles (더 큰 다중 투사체)"
+    ]
+  },
+
+  "leveling_skill_progression": {
+    "description": "DOT 빌드 레벨링 스킬 추천",
+    "chaos_dot_path": [
+      {
+        "level": 1,
+        "skills": ["Caustic Arrow", "Poison Arrow"],
+        "note": "초반 카오스 DOT"
+      },
+      {
+        "level": 12,
+        "skills": ["Toxic Rain"],
+        "note": "Toxic Rain 사용 가능"
+      },
+      {
+        "level": 28,
+        "skills": ["Essence Drain + Contagion", "Bane"],
+        "note": "스펠 DOT 옵션"
+      }
+    ],
+    "bleed_path": [
+      {
+        "level": 1,
+        "skills": ["Puncture", "Split Arrow"],
+        "note": "초반 출혈"
+      },
+      {
+        "level": 28,
+        "skills": ["Lacerate", "Bladestorm"],
+        "note": "출혈 근접 스킬"
+      }
+    ],
+    "ignite_path": [
+      {
+        "level": 1,
+        "skills": ["Fireball", "Burning Arrow"],
+        "note": "초반 점화"
+      },
+      {
+        "level": 12,
+        "skills": ["Armageddon Brand", "Flame Wall"],
+        "note": "점화 스케일링"
+      }
+    ]
+  },
+
+  "aura_progression": {
+    "early": ["Clarity (초반)", "Herald of Agony (독 빌드)"],
+    "mid": ["Grace (회피)", "Malevolence (DOT 배율)"],
+    "late": ["Grace", "Determination", "Malevolence", "Defiance Banner"]
+  },
+
+  "wither_setup": {
+    "description": "Wither - 카오스 DOT 필수",
+    "effect": "적의 카오스 저항 감소 (스택당 6%, 최대 15스택 = 90%)",
+    "options": [
+      {
+        "name": "Wither Totems",
+        "links": ["Wither", "Spell Totem", "Multiple Totems", "Faster Casting"],
+        "note": "가장 일반적인 세팅"
+      },
+      {
+        "name": "Withering Step",
+        "note": "이동기 + Wither 스택 적용"
+      },
+      {
+        "name": "Withering Touch Support",
+        "note": "미니언/토템 공격에 연결"
+      }
+    ]
+  },
+
+  "curse_setup": {
+    "description": "저주 - DOT 데미지 증폭",
+    "recommended": [
+      {
+        "name": "Despair",
+        "effect": "카오스 저항 감소 + DOT 증가",
+        "use_case": "카오스 DOT"
+      },
+      {
+        "name": "Temporal Chains",
+        "effect": "적 행동 속도 감소, DOT 지속시간 증가",
+        "use_case": "모든 DOT"
+      },
+      {
+        "name": "Vulnerability",
+        "effect": "물리 데미지 증가, 출혈에 좋음",
+        "use_case": "출혈 DOT"
+      },
+      {
+        "name": "Flammability",
+        "effect": "화염 저항 감소",
+        "use_case": "점화 DOT"
+      }
+    ],
+    "automation": "Hextouch Support 또는 Arcanist Brand로 자동화"
+  },
+
+  "ascendancy_synergy": {
+    "recommended": [
+      {
+        "class": "Pathfinder",
+        "reason": "플라스크 효과, 독 확산, 카오스 데미지"
+      },
+      {
+        "class": "Trickster",
+        "reason": "DOT 배율, ES 리젠, 속도"
+      },
+      {
+        "class": "Occultist",
+        "reason": "저주, 카오스 폭발, ES"
+      },
+      {
+        "class": "Deadeye",
+        "reason": "투사체, Mirage Archer"
+      }
+    ]
+  },
+
+  "unique_items_leveling": {
+    "weapons": [
+      {
+        "name": "Quill Rain",
+        "level": 5,
+        "note": "매우 빠른 공격 속도, TR/CA에 최적"
+      },
+      {
+        "name": "Silverbranch -> Silverbough",
+        "level": 1,
+        "note": "+젬 레벨 활, 업그레이드 가능"
+      }
+    ],
+    "armor": [
+      {
+        "name": "Tabula Rasa",
+        "level": 1,
+        "note": "6링크 무색"
+      },
+      {
+        "name": "Goldrim",
+        "level": 1,
+        "note": "전체 저항"
+      },
+      {
+        "name": "Hyrri's Bite",
+        "level": 10,
+        "note": "DOT 배율 퀴버"
+      }
+    ]
+  },
+
+  "dot_specific_tips": [
+    "DOT는 히트와 별개 - 크리티컬/정확도 스탯 불필요",
+    "DOT 배율이 가장 중요한 스탯",
+    "Malevolence 오라는 DOT 빌드 필수",
+    "Wither 스택 유지가 보스 DPS에 중요",
+    "스킬 효과 지속시간 = DOT 지속시간 증가",
+    "회피 + 스펠 억제 조합이 방어의 핵심",
+    "Eldritch Battery로 마나 문제 해결 가능"
+  ],
+
+  "toxic_rain_specific": {
+    "description": "Toxic Rain 특화 팁",
+    "pod_overlap": "포드가 겹치면 더 많은 데미지",
+    "attack_speed": "공격 속도 = 더 많은 포드",
+    "aoe": "광역이 너무 넓으면 포드 겹침 감소",
+    "duration": "지속시간 증가 = 포드가 더 오래 남음",
+    "ballista": "발리스타 토템으로 포드 수 증가"
+  }
+}
