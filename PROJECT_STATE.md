@@ -1,6 +1,6 @@
 # PathcraftAI - Project State Document
 
-> **Last Updated:** 2025-11-24
+> **Last Updated:** 2025-11-25
 > **이 파일은 Claude가 매번 작업 시작 전에 참조해야 합니다**
 
 ---
@@ -43,11 +43,17 @@
 - OpenAI/Claude/Gemini 지원
 - AI 빌드 가이드 생성
 
-### Phase 7: 파밍 전략 시스템 ✅ (NEW)
+### Phase 7: 파밍 전략 시스템 ✅
 - 리그 페이즈 가이드 (early/mid/late)
 - poe.ninja 실시간 가격 연동
 - 동적 ROI 기반 스카랍 조합 추천
 - 15개 파밍 메카닉 상세 데이터
+
+### Phase 7.2: Q&A 데이터 수집 ✅ (NEW)
+- 15,000 Q&A 쌍 수집 시스템
+- Reddit/Wiki/Forum/DC Inside/YouTube 크롤러
+- 템플릿 기반 고품질 Q&A 생성기 (5,000개)
+- OpenAI JSONL 형식 자동 변환
 
 ---
 
@@ -269,6 +275,8 @@ poedb_crawler.py             # poedb.tw 크롤러 (퀘스트, 젬, 레시피)
 game_data_fetcher.py         # POB 데이터 수집 (--clone, --parse-all)
 item_recommendation_engine.py # 동적 아이템 추천 (빌드 분석 → 모드 매칭 → 가격 최적화)
 build_pattern_crawler.py     # 빌드 전환 패턴 크롤러 (Reddit, GitHub)
+poe_qa_collector.py          # Fine-tuning Q&A 수집 메인 (15,000 Q&A)
+openai_finetuning.py         # OpenAI GPT-3.5 Fine-tuning 파이프라인
 ```
 
 ---
@@ -277,6 +285,7 @@ build_pattern_crawler.py     # 빌드 전환 패턴 크롤러 (Reddit, GitHub)
 
 | 날짜 | 변경 내용 |
 |------|----------|
+| 2025-11-25 | Phase 7.2 완료 - Fine-tuning Q&A 데이터 수집 시스템 (15,000 Q&A, 6개 소스, JSONL 자동 변환) |
 | 2025-11-24 | Leveling 3.27 필터 셉터 숨김 - Death Aura (Chaos DoT) 빌드용, 레벨링 캐스터 셉터 규칙 Hide |
 | 2025-11-24 | build_filter_generator.py 셉터 숨김 로직 추가 - DoT 빌드 타입 감지 시 셉터 Class 규칙 자동 숨김 |
 | 2025-11-23 | quest_rewards.json 재구성 - POE Wiki 검증 데이터, 클래스별 정확한 퀘스트 보상 (13개 퀘스트) |
