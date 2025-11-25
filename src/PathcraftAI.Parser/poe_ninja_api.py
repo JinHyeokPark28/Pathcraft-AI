@@ -257,17 +257,63 @@ class POENinjaAPI:
             base_type = item.get('baseType', '')
             chaos_value = item.get('chaosValue', 0)
 
-            # 이름만 사용 (검색 편의)
+            # 이름만 사용 (검색 편의) - 소문자
             if chaos_value > 0:
                 prices[name.lower()] = chaos_value
 
-            # 풀네임도 저장 (정확한 매칭)
+            # 풀네임도 저장 (정확한 매칭) - 소문자
             if base_type:
                 full_name = f"{name}, {base_type}"
                 if chaos_value > 0:
                     prices[full_name.lower()] = chaos_value
 
         return prices
+
+    def get_unique_with_base_types(self) -> Dict[str, Dict]:
+        """유니크 아이템의 이름, 베이스타입, 가격 정보 반환 (필터 생성용)
+
+        Returns:
+            {원본이름: {'base_type': 베이스타입, 'price': 가격}} 딕셔너리
+        """
+        result = {}
+
+        # 여러 유니크 카테고리
+        item_types = [
+            ('UniqueWeapon', 'weapon'),
+            ('UniqueArmour', 'armour'),
+            ('UniqueAccessory', 'accessory'),
+            ('UniqueFlask', 'flask'),
+            ('UniqueJewel', 'jewel'),
+        ]
+
+        for api_type, _ in item_types:
+            try:
+                url = f"{self.base_url}/itemoverview"
+                params = {
+                    'league': self.league,
+                    'type': api_type
+                }
+
+                response = self.session.get(url, params=params, timeout=15)
+                response.raise_for_status()
+
+                data = response.json()
+                if data and 'lines' in data:
+                    for item in data['lines']:
+                        name = item.get('name', '')
+                        base_type = item.get('baseType', '')
+                        chaos_value = item.get('chaosValue', 0)
+
+                        if name and chaos_value > 0:
+                            result[name] = {
+                                'base_type': base_type,
+                                'price': chaos_value
+                            }
+
+            except Exception as e:
+                print(f"[WARN] Failed to get {api_type}: {e}", file=sys.stderr)
+
+        return result
 
     def get_item_price(self, item_name: str) -> Optional[float]:
         """특정 아이템 가격 조회 (캐시 사용)

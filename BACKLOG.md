@@ -2,20 +2,90 @@
 
 > **[핵심 원칙]** Sprint 진행 중 새 아이디어는 절대 끼워넣지 말고, 여기에 기록합니다.
 
-**마지막 업데이트:** 2025-11-16
+**마지막 업데이트:** 2025-11-21
 **다음 Sprint Planning:** 2025-11-23
 
 ---
 
 ## High Priority (다음 Sprint 후보)
 
-### [기능] POB 파일 업로드
+### [기능] POE Trade 가격 조회 시스템
+
+**우선순위:** 높음
+**예상 시간:** 3단계 (단기/중기/장기)
+**관련 Phase:** Phase 9
+**제안자:** 빌드 가격 분석 작업 중
+**제안 날짜:** 2025-11-20
+
+**설명:**
+- 빌드 아이템 실시간 가격 조회
+- POE Trade API 연동
+- AI 분석과 가격 정보 통합
+
+**개발 로드맵:**
+
+#### 1단계: 단기 (현재 - poe.ninja API) ✅
+- [x] poe.ninja API 클라이언트 구현
+- [x] 기본 가격 조회 (평균 가격)
+- [x] 검색 링크 생성
+- 장점: 가볍고 빠름, Cloudflare 없음
+- 단점: 개별 매물 X, 필터 제한적
+
+#### 2단계: 중기 (1-2개월 - WebView2) ✅
+- [x] WPF에 WebView2 통합
+- [x] POE Trade 직접 호출
+- [x] 필터 검색 지원 (가격 범위, 스탯 등)
+- [x] .NET 네이티브 통합
+- [x] **POB → POE Trade 필터 자동 생성**
+  - [x] POB XML에서 아이템 정보 파싱
+  - [x] 소켓/링크 필터 자동 생성
+  - [x] 스탯 최소값 필터 (Life, Res 등)
+  - [x] 인플루언스 필터 (Shaper, Elder, Crusader, Redeemer, Hunter, Warlord)
+  - [x] 키스톤 필터 (Skin of the Lords)
+  - [x] 부패 여부 필터
+  - [x] Foulborn 필터 (리그 고유)
+  - [x] 리그 자동 감지/설정
+- 장점: Electron보다 가벼움 (200-300MB 절약)
+- 리스크: Cloudflare 우회 테스트 필요
+
+#### 3단계: 장기 (필요시 - Electron 모듈) ✅
+- [x] Electron 서브프로세스 구현
+- [x] Lazy Loading (필요시만 실행)
+- [x] 메모리 모니터링 (800MB 임계치)
+- [x] 5분 미사용시 자동 종료
+- [x] IPC 통신 (JSON-RPC)
+
+**리소스 관리:**
+- [x] 3단계 캐시 시스템 (Hot/Warm/Cold)
+- [x] 자동 캐시 정리
+- [ ] 개인화 데이터 백업 (세션 종료시)
+- [ ] 암호화된 백업 파일 (최근 5개 유지)
+
+**DoD:**
+- [x] 1단계: poe.ninja 가격 조회 작동
+- [x] 2단계: WebView2로 POE Trade 필터 검색
+- [x] 3단계: Electron 모듈 + 메모리 관리
+
+**의존성:**
+- [x] 1단계: 없음
+- [x] 2단계: Phase 8 WPF UI 완성
+- [x] 3단계: Node.js 환경
+
+**비고:**
+- 기술적 난이도: 1단계(하) → 2단계(중) → 3단계(상)
+- 사용자 요청 빈도: 매우 높음
+- 참고 코드: Awakened POE Trade, POE Overlay Community Fork
+
+---
+
+### [기능] POB 파일 업로드 ✅
 
 **우선순위:** 높음
 **예상 시간:** 1주
 **관련 Phase:** Phase 8 (C# WPF)
 **제안자:** 원래 PRD
 **제안 날짜:** 2025-11-16
+**완료 날짜:** 2025-11-21
 
 **설명:**
 - 로컬 POB 파일 (.xml) 업로드
@@ -23,14 +93,14 @@
 - 오프라인 빌드 디버깅
 
 **DoD:**
-- [ ] WPF OpenFileDialog 구현
-- [ ] .xml 파일 파싱 (기존 parser 재사용)
-- [ ] 분석 결과 UI 표시
-- [ ] 파일 크기 제한 (10MB)
-- [ ] 잘못된 파일 에러 처리
+- [x] WPF OpenFileDialog 구현
+- [x] .xml 파일 파싱 (기존 parser 재사용)
+- [x] 분석 결과 UI 표시
+- [x] 파일 크기 제한 (10MB)
+- [x] 잘못된 파일 에러 처리
 
 **의존성:**
-- [ ] Phase 8 C# WPF UI 완성
+- [x] Phase 8 C# WPF UI 완성
 
 **비고:**
 - 기술적 난이도: 하
@@ -38,13 +108,14 @@
 
 ---
 
-### [기능] Gemini LLM 지원
+### [기능] Gemini LLM 지원 ✅
 
 **우선순위:** 중간
 **예상 시간:** 2일
 **관련 Phase:** Phase 7
 **제안자:** 코드 리뷰 중 발견
 **제안 날짜:** 2025-11-16
+**완료 날짜:** 2025-11-21
 
 **설명:**
 - build_guide_generator.py에 Gemini 추가
@@ -52,10 +123,10 @@
 - Supporter Tier 선택지 추가
 
 **DoD:**
-- [ ] call_gemini() 함수 구현
-- [ ] --llm gemini 옵션 추가
-- [ ] 테스트 (gemini-pro 모델)
-- [ ] 에러 처리
+- [x] call_gemini() 함수 구현
+- [x] --llm gemini 옵션 추가
+- [x] 테스트 (gemini-pro 모델)
+- [x] 에러 처리
 
 **의존성:**
 - 없음
@@ -68,13 +139,14 @@
 
 ## Medium Priority (여유 있을 때)
 
-### [기능] 빌드 북마크 시스템
+### [기능] 빌드 북마크 시스템 ✅
 
 **우선순위:** 중간
 **예상 시간:** 3일
 **관련 Phase:** Phase 8
 **제안자:** 원래 PRD
 **제안 날짜:** 2025-11-16
+**완료 날짜:** 2025-11-21
 
 **설명:**
 - 좋아하는 빌드 저장
@@ -82,14 +154,14 @@
 - 메모 추가 가능
 
 **DoD:**
-- [ ] SQLite 데이터베이스 생성
-- [ ] 스키마 설계 (builds 테이블)
-- [ ] C# DB 연결 (System.Data.SQLite)
-- [ ] 북마크 추가/삭제 UI
-- [ ] 북마크 목록 페이지
+- [x] SQLite 데이터베이스 생성
+- [x] 스키마 설계 (builds 테이블)
+- [x] C# DB 연결 (Microsoft.Data.Sqlite)
+- [x] 북마크 추가/삭제 UI
+- [x] 북마크 목록 페이지
 
 **의존성:**
-- [ ] Phase 8 완료
+- [x] Phase 8 완료
 
 **비고:**
 - 기술적 난이도: 중
@@ -97,13 +169,14 @@
 
 ---
 
-### [개선] Python venv 경로 동적 감지
+### [개선] Python venv 경로 동적 감지 ✅
 
 **우선순위:** 중간
 **예상 시간:** 1일
 **관련 Phase:** Phase 8
 **제안자:** 배포 고려
 **제안 날짜:** 2025-11-16
+**완료 날짜:** 2025-11-21
 
 **설명:**
 - 현재: 하드코딩 .venv/Scripts/python.exe
@@ -111,13 +184,13 @@
 - 크로스 플랫폼 지원 (macOS: bin/python, Windows: Scripts/python.exe)
 
 **DoD:**
-- [ ] config.json 파일 생성
-- [ ] C# ConfigService 구현
-- [ ] 기본값: 자동 감지 로직
-- [ ] 설정 UI (Python 경로 수동 입력)
+- [x] config.json 파일 생성 (AppSettings)
+- [x] C# ConfigService 구현 (GetResolvedPythonPath)
+- [x] 기본값: 자동 감지 로직 (AutoDetectPythonPath)
+- [x] 설정 UI (Python 경로 수동 입력)
 
 **의존성:**
-- [ ] Phase 8 시작 후
+- [x] Phase 8 시작 후
 
 **비고:**
 - 기술적 난이도: 하
@@ -125,13 +198,14 @@
 
 ---
 
-### [기능] 검색 필터 (리그, 클래스, 정렬)
+### [기능] 검색 필터 (리그, 클래스, 정렬) ✅
 
 **우선순위:** 중간
 **예상 시간:** 3일
 **관련 Phase:** Phase 8
 **제안자:** 원래 PRD
 **제안 날짜:** 2025-11-16
+**완료 날짜:** 2025-11-21
 
 **설명:**
 - 리그 버전 선택 (3.27, 3.26, All)
@@ -139,13 +213,13 @@
 - 정렬 (조회수, 좋아요, 최신)
 
 **DoD:**
-- [ ] WPF 필터 UI (ComboBox, CheckBox)
-- [ ] Python 백엔드 필터 파라미터 추가
-- [ ] YouTube API 쿼리 수정
-- [ ] 결과 정렬 로직
+- [x] WPF 필터 UI (ComboBox, CheckBox)
+- [x] Python 백엔드 필터 파라미터 추가
+- [x] YouTube API 쿼리 수정
+- [x] 결과 정렬 로직
 
 **의존성:**
-- [ ] Phase 8 기본 UI 완성
+- [x] Phase 8 기본 UI 완성
 
 **비고:**
 - 기술적 난이도: 중
@@ -157,11 +231,12 @@
 
 ### [아이디어] 인게임 오버레이
 
-**우선순위:** 낮음
+**우선순위:** 낮음 → 중간 (POE Trade 3단계 완료 후)
 **예상 시간:** 4주+
 **관련 Phase:** 원래 PRD Phase 5
 **제안자:** 원래 PRD
 **제안 날짜:** 2025-11-16
+**업데이트:** 2025-11-20
 
 **설명:**
 - POE 게임 위에 투명 윈도우
@@ -178,6 +253,17 @@
 - MAU 5,000+ 달성
 - 사용자 요청 100+ 건
 - 기술적 리스크 검토 완료
+- ✅ **POE Trade 가격 조회 3단계 (Electron) 완료 필요**
+
+**차별점 (vs POE Overlay, Awakened POE Trade):**
+- AI 기반 빌드 분석 통합
+- 개인화 추천 시스템
+- 빌드 최적화 제안
+- poe.ninja + POE Trade 통합 가격 비교
+
+**참고:**
+- Awakened POE Trade: https://github.com/SnosMe/awakened-poe-trade
+- POE Overlay Community: https://github.com/PoE-Overlay-Community/PoE-Overlay-Community-Fork
 
 ---
 
@@ -249,16 +335,23 @@
 
 ## 백로그 통계
 
-**전체:** 8개 항목
-- High Priority: 2개
-- Medium Priority: 4개
+**전체:** 9개 항목
+- High Priority: 3개 (2개 완료 ✅)
+- Medium Priority: 4개 (4개 완료 ✅)
 - Low Priority: 2개
 - Rejected: 3개
 
-**다음 Sprint 후보 (Top 3):**
-1. POB 파일 업로드 (Phase 8 필수)
-2. 검색 필터 (Phase 8 권장)
-3. 빌드 북마크 시스템 (Phase 8 선택)
+**완료된 항목:**
+- ✅ POE Trade 가격 조회 시스템 (1단계, 2단계)
+- ✅ POB 파일 업로드
+- ✅ Gemini LLM 지원
+- ✅ 빌드 북마크 시스템
+- ✅ Python venv 경로 동적 감지
+- ✅ 검색 필터 (리그, 클래스, 정렬)
+
+**다음 Sprint 후보:**
+1. **POE Trade 가격 조회 시스템 3단계** (Electron 모듈)
+2. 인게임 오버레이 (Low Priority → 재검토 필요)
 
 ---
 

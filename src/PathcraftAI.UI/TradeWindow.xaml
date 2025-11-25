@@ -1,0 +1,95 @@
+<Window x:Class="PathcraftAI.UI.TradeWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:wv2="clr-namespace:Microsoft.Web.WebView2.Wpf;assembly=Microsoft.Web.WebView2.Wpf"
+        Title="POE Trade" Height="800" Width="1200"
+        WindowStartupLocation="CenterScreen"
+        Background="#1e1e2e">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Top Bar -->
+        <Border Grid.Row="0" Background="#181825" Padding="10">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Column="0" Text="POE Trade"
+                           Foreground="#cdd6f4" FontSize="16" FontWeight="Bold"
+                           VerticalAlignment="Center" Margin="0,0,15,0"/>
+
+                <TextBox x:Name="UrlTextBox" Grid.Column="1"
+                         Background="#313244" Foreground="#cdd6f4"
+                         BorderBrush="#45475a" BorderThickness="1"
+                         Padding="8,6" FontSize="12"
+                         VerticalAlignment="Center"
+                         IsReadOnly="True"/>
+
+                <Button x:Name="BackButton" Grid.Column="2" Content="◀"
+                        Width="35" Height="35" Margin="10,0,5,0"
+                        Background="#45475a" Foreground="#cdd6f4"
+                        BorderThickness="0" FontSize="14"
+                        Click="BackButton_Click"
+                        ToolTip="뒤로 가기"/>
+
+                <Button x:Name="ForwardButton" Grid.Column="3" Content="▶"
+                        Width="35" Height="35" Margin="0,0,5,0"
+                        Background="#45475a" Foreground="#cdd6f4"
+                        BorderThickness="0" FontSize="14"
+                        Click="ForwardButton_Click"
+                        ToolTip="앞으로 가기"/>
+
+                <Button x:Name="RefreshButton" Grid.Column="4" Content="↻"
+                        Width="35" Height="35"
+                        Background="#45475a" Foreground="#cdd6f4"
+                        BorderThickness="0" FontSize="14"
+                        Click="RefreshButton_Click"
+                        ToolTip="새로고침"/>
+            </Grid>
+        </Border>
+
+        <!-- WebView2 -->
+        <wv2:WebView2 x:Name="TradeWebView" Grid.Row="1"
+                      Source="https://www.pathofexile.com/trade"/>
+
+        <!-- Status Bar -->
+        <Border Grid.Row="2" Background="#181825" Padding="10,5">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock x:Name="StatusText" Grid.Column="0"
+                           Text="준비됨" Foreground="#a6adc8" FontSize="11"
+                           VerticalAlignment="Center"/>
+
+                <StackPanel Grid.Column="1" Orientation="Horizontal">
+                    <Button x:Name="CopyWhisperButton" Content="귓속말 복사"
+                            Padding="10,5" Margin="0,0,10,0"
+                            Background="#89b4fa" Foreground="#1e1e2e"
+                            BorderThickness="0" FontSize="11"
+                            Click="CopyWhisperButton_Click"
+                            ToolTip="선택한 아이템의 귓속말을 클립보드에 복사"/>
+
+                    <Button x:Name="OpenInBrowserButton" Content="브라우저에서 열기"
+                            Padding="10,5"
+                            Background="#45475a" Foreground="#cdd6f4"
+                            BorderThickness="0" FontSize="11"
+                            Click="OpenInBrowserButton_Click"
+                            ToolTip="현재 페이지를 기본 브라우저에서 열기"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+    </Grid>
+</Window>

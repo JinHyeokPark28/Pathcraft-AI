@@ -5,4 +5,9 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
+
+  <ItemGroup>
+    <!-- POE 게임 데이터 추출을 위한 LibGGPK3 -->
+    <ProjectReference Include="..\..\tools\LibGGPK3\LibBundledGGPK3\LibBundledGGPK3.csproj" />
+  </ItemGroup>
 </Project>

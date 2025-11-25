@@ -1,0 +1,1212 @@
+{
+  "version": "3.25",
+  "source": "poedb.tw",
+  "recipes": [
+    {
+      "result": "방어구 장인의 고철",
+      "ingredients": "1x대장장이의 숫돌",
+      "note": "Act 1 타클레이",
+      "category": "armour"
+    },
+    {
+      "result": "방어구 장인의 고철",
+      "ingredients": "Armour",
+      "note": "",
+      "category": "armour"
+    },
+    {
+      "result": "Hybrid Flask",
+      "ingredients": "1xLife Flask1xMana Flask1x연결의 오브",
+      "note": "",
+      "category": "flask"
+    },
+    {
+      "result": "Life Flask of next base Type",
+      "ingredients": "3xLife Flask",
+      "note": "",
+      "category": "flask"
+    },
+    {
+      "result": "Mana Flask of next base type",
+      "ingredients": "3xMana Flask",
+      "note": "",
+      "category": "flask"
+    },
+    {
+      "result": "Hybrid Flask of next base type",
+      "ingredients": "3xHybrid Flask",
+      "note": "",
+      "category": "flask"
+    },
+    {
+      "result": "비취 플라스크",
+      "ingredients": "1x루비 플라스크of Reflexes1x사파이어 플라스크of Reflexes1x토파즈 플라스크of Reflexes",
+      "note": "",
+      "category": "flask"
+    },
+    {
+      "result": "화강암 플라스크",
+      "ingredients": "1x루비 플라스크of Iron Skin1x사파이어 플라스크of Iron Skin1x토파즈 플라스크of Iron Skin",
+      "note": "",
+      "category": "flask"
+    },
+    {
+      "result": "Life Flask with Grants (x)% Of (local flask) Life Recovery To Minions",
+      "ingredients": "1xLife Flask1x진화의 오브1x뼈 영혼 방패",
+      "note": "Can be used to craft a Helmet with +1 to Level of Minion Gems in this item",
+      "category": "flask"
+    },
+    {
+      "result": "Magic Weapon with +1 to Level of all X Spell Skill Gems",
+      "ingredients": "1xNormal Rune Dagger/Sceptre/Staff/Wand1x2 or more quality Skill gems with a combined total of 40% quality & the X tag",
+      "note": "Patch 3.14, any gems with the appropriate tag (phys, cold, fire, etc.) and a total quality of 40 between gems",
+      "category": "gem"
+    },
+    {
+      "result": "Helmet with +1 to Level of Minion Gems in this item",
+      "ingredients": "1xNormal Helmet1x2 or more quality Skill gems with a combined total of 40% quality and the Minion tag",
+      "note": "",
+      "category": "gem"
+    },
+    {
+      "result": "decrease level of skill gem by 1",
+      "ingredients": "1xgem1x정제의 오브",
+      "note": "",
+      "category": "gem"
+    },
+    {
+      "result": "decrease level of skill gem to 1",
+      "ingredients": "1xgem1x후회의 오브",
+      "note": "",
+      "category": "gem"
+    },
+    {
+      "result": "20% quality support gem",
+      "ingredients": "1xlevel 20 support gem1x세공사의 프리즘",
+      "note": "",
+      "category": "gem"
+    },
+    {
+      "result": "연금술의 오브",
+      "ingredients": "1x후회의 오브",
+      "note": "Act 3 클라리사",
+      "category": "other"
+    },
+    {
+      "result": "후회의 오브",
+      "ingredients": "2x정제의 오브",
+      "note": "Act 2 이이나",
+      "category": "other"
+    },
+    {
+      "result": "정제의 오브",
+      "ingredients": "4x기회의 오브",
+      "note": "Act 2 이이나",
+      "category": "other"
+    },
+    {
+      "result": "기회의 오브",
+      "ingredients": "1x연결의 오브",
+      "note": "Act 3 클라리사",
+      "category": "other"
+    },
+    {
+      "result": "연결의 오브",
+      "ingredients": "4x쥬얼러 오브",
+      "note": "Act 2 이이나",
+      "category": "other"
+    },
+    {
+      "result": "색채의 오브",
+      "ingredients": "3x쥬얼러 오브",
+      "note": "Act 2 이이나",
+      "category": "other"
+    },
+    {
+      "result": "쥬얼러 오브",
+      "ingredients": "2x변화의 오브",
+      "note": "Act 2 이이나",
+      "category": "other"
+    },
+    {
+      "result": "변화의 오브",
+      "ingredients": "4x확장의 오브",
+      "note": "Act 1 네사",
+      "category": "other"
+    },
+    {
+      "result": "확장의 오브",
+      "ingredients": "4x진화의 오브",
+      "note": "Act 1 네사",
+      "category": "other"
+    },
+    {
+      "result": "진화의 오브",
+      "ingredients": "7x포탈 주문서",
+      "note": "Act 1 네사",
+      "category": "other"
+    },
+    {
+      "result": "포탈 주문서",
+      "ingredients": "3x감정 주문서",
+      "note": "Act 1 네사",
+      "category": "other"
+    },
+    {
+      "result": "대장장이의 숫돌",
+      "ingredients": "3x방어구 장인의 고철",
+      "note": "Act 3 그루스트",
+      "category": "other"
+    },
+    {
+      "result": "취소의 오브",
+      "ingredients": "2x후회의 오브",
+      "note": "키락",
+      "category": "other"
+    },
+    {
+      "result": "확장의 오브",
+      "ingredients": "1x6 ModifierRareItem",
+      "note": "",
+      "category": "other"
+    },
+    {
+      "result": "정제의 오브",
+      "ingredients": "1x2 ModifierRareItem",
+      "note": "",
+      "category": "other"
+    },
+    {
+      "result": "대장장이의 숫돌",
+      "ingredients": "Weapon",
+      "note": "",
+      "category": "other"
+    },
+    {
+      "result": "유리직공의 방울",
+      "ingredients": "Flask",
+      "note": "",
+      "category": "other"
+    },
+    {
+      "result": "지도제작자의 끌",
+      "ingredients": "Map",
+      "note": "",
+      "category": "other"
+    },
+    {
+      "result": "세공사의 프리즘",
+      "ingredients": "Gem",
+      "note": "",
+      "category": "other"
+    },
+    {
+      "result": "Catalyst",
+      "ingredients": "Catalyst",
+      "note": "",
+      "category": "other"
+    },
+    {
+      "result": "색채의 오브",
+      "ingredients": "Linked red, green, and blue",
+      "note": "",
+      "category": "other"
+    },
+    {
+      "result": "7x쥬얼러 오브",
+      "ingredients": "6 Sockets",
+      "note": "",
+      "category": "other"
+    },
+    {
+      "result": "20x연결의 오브",
+      "ingredients": "6 linked Sockets",
+      "note": "",
+      "category": "other"
+    },
+    {
+      "result": "기회의 오브",
+      "ingredients": "2xIdentified rare items with same name",
+      "note": "",
+      "category": "other"
+    },
+    {
+      "result": "연금술의 오브",
+      "ingredients": "3xIdentified rare items with same name",
+      "note": "",
+      "category": "other"
+    },
+    {
+      "result": "연금술의 오브",
+      "ingredients": "2xIdentified rare items with same name, both 20% quality",
+      "note": "",
+      "category": "other"
+    },
+    {
+      "result": "제왕의 오브",
+      "ingredients": "3xIdentified rare items with same name, all 20% quality",
+      "note": "",
+      "category": "other"
+    },
+    {
+      "result": "확장의 오브",
+      "ingredients": "1xnormal1xmagic1xrare",
+      "note": "",
+      "category": "other"
+    },
+    {
+      "result": "2x확장의 오브",
+      "ingredients": "1xnormal unidentified1xmagic unidentified1xrare unidentified",
+      "note": "",
+      "category": "other"
+    },
+    {
+      "result": "연금술의 오브",
+      "ingredients": "1xnormal 20% quality1xmagic 20% quality1xrare 20% quality",
+      "note": "",
+      "category": "other"
+    },
+    {
+      "result": "2x연금술의 오브",
+      "ingredients": "1xnormal 20% quality unidentified1xmagic 20% quality unidentified1xrare 20% quality unidentified",
+      "note": "",
+      "category": "other"
+    },
+    {
+      "result": "5x기회의 오브",
+      "ingredients": "1xnormal1xmagic1xrare1xunique",
+      "note": "",
+      "category": "other"
+    },
+    {
+      "result": "기회의 오브",
+      "ingredients": "1 to 59",
+      "note": "",
+      "category": "other"
+    },
+    {
+      "result": "2x기회의 오브",
+      "ingredients": "1 to 59, all unidentified OR all 20% quality",
+      "note": "",
+      "category": "other"
+    },
+    {
+      "result": "3x기회의 오브",
+      "ingredients": "1 to 59, all unidentified AND all 20% quality",
+      "note": "",
+      "category": "other"
+    },
+    {
+      "result": "카오스 오브",
+      "ingredients": "60 to 74",
+      "note": "",
+      "category": "other"
+    },
+    {
+      "result": "2x카오스 오브",
+      "ingredients": "60 to 74, all unidentified OR all 20% quality",
+      "note": "",
+      "category": "other"
+    },
+    {
+      "result": "3x카오스 오브",
+      "ingredients": "60 to 74, all unidentified AND all 20% quality",
+      "note": "",
+      "category": "other"
+    },
+    {
+      "result": "제왕의 오브",
+      "ingredients": "75 to 100",
+      "note": "",
+      "category": "other"
+    },
+    {
+      "result": "2x제왕의 오브",
+      "ingredients": "75 to 100, all unidentified OR all 20% quality",
+      "note": "",
+      "category": "other"
+    },
+    {
+      "result": "3x제왕의 오브",
+      "ingredients": "75 to 100, all unidentified AND all 20% quality",
+      "note": "",
+      "category": "other"
+    },
+    {
+      "result": "2x엑잘티드 파편",
+      "ingredients": "Identified, full set of the same influenced items",
+      "note": "",
+      "category": "other"
+    },
+    {
+      "result": "4x엑잘티드 파편",
+      "ingredients": "Unidentified, full set of the same influenced items",
+      "note": "",
+      "category": "other"
+    },
+    {
+      "result": "쥬얼러 오브",
+      "ingredients": "1x연결의 오브1x색채의 오브",
+      "note": "",
+      "category": "other"
+    },
+    {
+      "result": "감정 주문서",
+      "ingredients": "1x포탈 주문서",
+      "note": "",
+      "category": "other"
+    },
+    {
+      "result": "2x감정 주문서",
+      "ingredients": "1x방어구 장인의 고철",
+      "note": "",
+      "category": "other"
+    },
+    {
+      "result": "4x감정 주문서",
+      "ingredients": "1x대장장이의 숫돌",
+      "note": "",
+      "category": "other"
+    },
+    {
+      "result": "4x감정 주문서",
+      "ingredients": "1x변화의 오브",
+      "note": "",
+      "category": "other"
+    },
+    {
+      "result": "4x감정 주문서",
+      "ingredients": "1x진화의 오브",
+      "note": "",
+      "category": "other"
+    },
+    {
+      "result": "2x엑잘티드 오브5x제왕의 오브신성한 오브",
+      "ingredients": "1x칼란드라의 거울",
+      "note": "",
+      "category": "other"
+    },
+    {
+      "result": "카오스 오브",
+      "ingredients": "1x앗지리의 금고실",
+      "note": "",
+      "category": "other"
+    },
+    {
+      "result": "지도제작자의 끌",
+      "ingredients": "1x의사봉20% quality1xMap",
+      "note": "",
+      "category": "other"
+    },
+    {
+      "result": "바알 오브",
+      "ingredients": "7xvaal skill gems1xSacrifice vaal fragment",
+      "note": "",
+      "category": "other"
+    },
+    {
+      "result": "random Catalyst",
+      "ingredients": "3xCatalysts, all of same type",
+      "note": "",
+      "category": "other"
+    },
+    {
+      "result": "random Scarab",
+      "ingredients": "2xScarabs, the same tier1x지평의 오브",
+      "note": "",
+      "category": "other"
+    },
+    {
+      "result": "주입의 오브",
+      "ingredients": "2x자극의 오브1x연금술의 오브1xTrigger Gem",
+      "note": "",
+      "category": "other"
+    },
+    {
+      "result": "자극의 오브",
+      "ingredients": "4x주입의 오브1x정제의 오브1xTrigger Gem",
+      "note": "",
+      "category": "other"
+    },
+    {
+      "result": "속박 룬",
+      "ingredients": "5x태양 룬",
+      "note": "",
+      "category": "other"
+    },
+    {
+      "result": "생명 룬",
+      "ingredients": "5x속박 룬",
+      "note": "",
+      "category": "other"
+    },
+    {
+      "result": "전쟁 룬",
+      "ingredients": "5x생명 룬",
+      "note": "",
+      "category": "other"
+    },
+    {
+      "result": "강 룬",
+      "ingredients": "5x전쟁 룬",
+      "note": "",
+      "category": "other"
+    },
+    {
+      "result": "하사품 룬",
+      "ingredients": "5x강 룬",
+      "note": "",
+      "category": "other"
+    },
+    {
+      "result": "여정 룬",
+      "ingredients": "5x하사품 룬",
+      "note": "",
+      "category": "other"
+    },
+    {
+      "result": "산 룬",
+      "ingredients": "5x여정 룬",
+      "note": "",
+      "category": "other"
+    },
+    {
+      "result": "시간 룬",
+      "ingredients": "5x산 룬",
+      "note": "",
+      "category": "other"
+    },
+    {
+      "result": "조프의 보살핌",
+      "ingredients": "1x조프의 시초1x조프의 축복",
+      "note": "",
+      "category": "other"
+    },
+    {
+      "result": "무형의 지옥불",
+      "ingredients": "1x무형의 불꽃1x조프의 축복",
+      "note": "",
+      "category": "other"
+    },
+    {
+      "result": "조프의 피",
+      "ingredients": "1x조프의 심장1x조프의 축복",
+      "note": "",
+      "category": "other"
+    },
+    {
+      "result": "툴의 몰락",
+      "ingredients": "1x툴의 탄생1x툴의 축복",
+      "note": "",
+      "category": "other"
+    },
+    {
+      "result": "완벽한 구조",
+      "ingredients": "1x설맹의 은총1x툴의 축복",
+      "note": "",
+      "category": "other"
+    },
+    {
+      "result": "대혼란",
+      "ingredients": "1x평온1x툴의 축복",
+      "note": "",
+      "category": "other"
+    },
+    {
+      "result": "지혜와 행동의 손아귀",
+      "ingredients": "1x사고와 움직임의 손아귀1x에쉬의 축복",
+      "note": "",
+      "category": "other"
+    },
+    {
+      "result": "에쉬의 얼굴",
+      "ingredients": "1x에쉬의 거울1x에쉬의 축복",
+      "note": "",
+      "category": "other"
+    },
+    {
+      "result": "태풍의 합창",
+      "ingredients": "1x태풍의 목소리1x에쉬의 축복",
+      "note": "",
+      "category": "other"
+    },
+    {
+      "result": "울네톨의 포옹",
+      "ingredients": "1x울네톨의 입맞춤1x울네톨의 축복",
+      "note": "",
+      "category": "other"
+    },
+    {
+      "result": "붉은 발자취",
+      "ingredients": "1x끝없는 추적1x울네톨의 축복",
+      "note": "",
+      "category": "other"
+    },
+    {
+      "result": "포기",
+      "ingredients": "1x기대1x울네톨의 축복",
+      "note": "",
+      "category": "other"
+    },
+    {
+      "result": "차율라의 존재",
+      "ingredients": "1x차율라의 눈1x차율라의 축복",
+      "note": "",
+      "category": "other"
+    },
+    {
+      "result": "꿈속의 연합",
+      "ingredients": "1x야습1x차율라의 축복",
+      "note": "",
+      "category": "other"
+    },
+    {
+      "result": "군주의 가죽",
+      "ingredients": "1x충신의 가죽1x차율라의 축복",
+      "note": "",
+      "category": "other"
+    },
+    {
+      "result": "붉은 악몽",
+      "ingredients": "1x붉은 꿈1x차율라의 축복",
+      "note": "",
+      "category": "other"
+    },
+    {
+      "result": "녹색 악몽",
+      "ingredients": "1x녹색 꿈1x차율라의 축복",
+      "note": "",
+      "category": "other"
+    },
+    {
+      "result": "파란 악몽",
+      "ingredients": "1x파란 꿈1x차율라의 축복",
+      "note": "",
+      "category": "other"
+    },
+    {
+      "result": "루비 반지(normal)",
+      "ingredients": "1x철제 반지1xred skill gem",
+      "note": "",
+      "category": "other"
+    },
+    {
+      "result": "토파즈 반지(normal)",
+      "ingredients": "1x철제 반지1xgreen skill gem",
+      "note": "",
+      "category": "other"
+    },
+    {
+      "result": "사파이어 반지(normal)",
+      "ingredients": "1x철제 반지1xblue skill gem",
+      "note": "",
+      "category": "other"
+    },
+    {
+      "result": "분광 반지(normal)",
+      "ingredients": "3x쌍보석 반지Each Two-Stone Ring must be a different stone combination",
+      "note": "The resulting amulet will have the same itemlevel as the lowest of the 3 rings used.",
+      "category": "other"
+    },
+    {
+      "result": "산호 목걸이(rare)",
+      "ingredients": "7x철제 반지(magic or rare)1x산호 반지(rare)",
+      "note": "The resulting Coral Amulet will have the same item level as the Coral Ring; the item level of the Iron Rings is irrelevant. For the Iron Rings the 5-to-1 recipe for an unidentified magic or rare Iron Ring takes precedence over this recipe, so 4 magic and 3 rare rings (or vice versa) must be used. Recipe produces a shaper coral amulet if all used rings are shaped.",
+      "category": "other"
+    },
+    {
+      "result": "파우아 목걸이(rare)",
+      "ingredients": "7x철제 반지(magic or rare)1x파우아 반지(rare)",
+      "note": "The resulting Paua Amulet will have the same item level as the Paua Ring; the item level of the Iron Rings is irrelevant. For the Iron Rings the 5-to-1 recipe for an unidentified magic or rare Iron Ring takes precedence over this recipe, so 4 magic and 3 rare rings (or vice versa) must be used. Recipe produces a shaper paua amulet if all used rings are shaped.",
+      "category": "other"
+    },
+    {
+      "result": "오닉스 목걸이(normal)",
+      "ingredients": "1xamulet1xred skill ggem1xgreen skill gem1xblue skill gem",
+      "note": "This works even if the input amulet is corrupted. The resulting Onyx Amulet will not be corrupted, and any influence present on the input amulet will persist to the resulting Onyx Amulet. This can be used along with the Locus of Corruption in Incursion, which has a 25% chance of changing the sacrificed item into a corrupted influenced rare. If used on an amulet, it can then be traded to a vendor using this recipe to obtain an uncorrupted Onyx Amulet with the same influence.",
+      "category": "other"
+    },
+    {
+      "result": "오닉스 목걸이(normal)",
+      "ingredients": "1x관측기 목걸이1xred skill gem1xgreen skill gem1xblue skill gem",
+      "note": "The influences are random.",
+      "category": "other"
+    },
+    {
+      "result": "마노 목걸이",
+      "ingredients": "1x호박 목걸이1x청금석 목걸이1x진화의 오브",
+      "note": "",
+      "category": "other"
+    },
+    {
+      "result": "터키석 목걸이",
+      "ingredients": "1x비취 목걸이1x청금석 목걸이1x진화의 오브",
+      "note": "",
+      "category": "other"
+    },
+    {
+      "result": "황수정 목걸이",
+      "ingredients": "1x호박 목걸이1x비취 목걸이1x진화의 오브",
+      "note": "",
+      "category": "other"
+    },
+    {
+      "result": "item (magic, unidentified)",
+      "ingredients": "5xitem (magic)",
+      "note": "The components must all be of the same base item type (e.g., Coral Ring). The result will have the lowest item level of all components. This vendor recipe doesn't transfer influence to the resulting item, even if all five components are from the same influence.",
+      "category": "other"
+    },
+    {
+      "result": "탐욕스러운 사슬옷Item (rare, unidentified)",
+      "ingredients": "60x균열 반지",
+      "note": "",
+      "category": "other"
+    },
+    {
+      "result": "탐욕스러운 사슬옷Item (rare, unidentified)",
+      "ingredients": "10x냉동 보존 반지10x엔탈피 반지10x형상 없는 반지10x도망자 반지10x유기적 반지10x시냅스 반지",
+      "note": "",
+      "category": "other"
+    },
+    {
+      "result": "Item (rare, unidentified)",
+      "ingredients": "5xItem (rare)",
+      "note": "Components must all be of the same base item type (e.g. Coral Ring). Resulting item level - lowest of all components, and normal art. Cluster jewels - random number of passives on resulting item. The recipe does not transfer influence to the resulting item, even if all five components are from the same influence.",
+      "category": "other"
+    },
+    {
+      "result": "Item (rare, corrupted/uncorrupted)",
+      "ingredients": "5xItem (rare, corrupted/uncorrupted)",
+      "note": "Components must all be of the same base item type (e.g. Coral Ring).Resulting item level - lowest of all components, and normal art, not corrupted except basetype list below.The recipe works with item that naturally corrupted: e.g.  Breach Rings , Talismans and Thief's Trinket etc. But the recipe would yield a corrupted basetype.Cluster jewels - random number of passives on resulting item. The recipe does not transfer influence to the resulting item, even if all five components are from the same influence.",
+      "category": "other"
+    },
+    {
+      "result": "새겨진 결전",
+      "ingredients": "5x새겨진 결전",
+      "note": "",
+      "category": "other"
+    },
+    {
+      "result": "탐험 일지",
+      "ingredients": "5x탐험 일지",
+      "note": "",
+      "category": "other"
+    },
+    {
+      "result": "축성된 유물",
+      "ingredients": "5x축성된 유물",
+      "note": "",
+      "category": "other"
+    },
+    {
+      "result": "Magic Boots with 10% increased Movement Speed",
+      "ingredients": "1xNormal Boots1x수은 플라스크1x확장의 오브",
+      "note": "",
+      "category": "other"
+    },
+    {
+      "result": "Magic Boots with (X+5)% increased Movement Speed",
+      "ingredients": "1xMagic or Rare Boots with +X% Movement Speed1x수은 플라스크1x확장의 오브",
+      "note": "The sockets may change, but the base boot type will not.  This can be repeated up to 30% speed (Cheetah's).",
+      "category": "other"
+    },
+    {
+      "result": "Magic Ring or amulet with +x to Chaos Resistance(one tier higher)",
+      "ingredients": "1xMagic/Rare Ring or Amulet with+x to Chaos Resistance1x확장의 오브1x자수정 플라스크",
+      "note": "remove explicit mods,of Expulsionbecomeof Exile",
+      "category": "other"
+    },
+    {
+      "result": "잃어버린 합일",
+      "ingredients": "1x조프의 의지1x툴의 의지1x에쉬의 의지1x울네톨의 의지1x산산조각 난 의지",
+      "note": "",
+      "category": "other"
+    },
+    {
+      "result": "생명의 돌",
+      "ingredients": "1x태고의 고귀1x태고의 조화1x태고의 완력",
+      "note": "",
+      "category": "other"
+    },
+    {
+      "result": "아보릭스",
+      "ingredients": "1x그렐나무 자루1x벨팀버 검1x연결의 오브",
+      "note": "",
+      "category": "other"
+    },
+    {
+      "result": "황혼의 아침",
+      "ingredients": "1x솔라리스의 그늘1x루나리스의 빛1x연결의 오브",
+      "note": "",
+      "category": "other"
+    },
+    {
+      "result": "경멸받는 여신",
+      "ingredients": "1x속박된 여신20% quality1x고상한 검20% quality1x연소 보조at least 1% quality1x연결의 오브",
+      "note": "The sockets of The Goddess Bound and the Elegant Sword must also match exactly in number, color, and links.",
+      "category": "other"
+    },
+    {
+      "result": "하이리의 이빨",
+      "ingredients": "1x오닉스 목걸이(rare)1x상어이빨 화살통(normal)1x기회의 오브1x화살비at least 1% quality",
+      "note": "",
+      "category": "other"
+    },
+    {
+      "result": "실세",
+      "ingredients": "1x영혼 수확자1x심장 분쇄기1x연결의 오브",
+      "note": "",
+      "category": "other"
+    },
+    {
+      "result": "지식의 매듭",
+      "ingredients": "60xunique rings",
+      "note": "",
+      "category": "other"
+    },
+    {
+      "result": "커다란 일식",
+      "ingredients": "1x지지 않는 태양1x불굴의 달1x연결의 오브",
+      "note": "",
+      "category": "other"
+    },
+    {
+      "result": "레치",
+      "ingredients": "1x기근의 속박1x연회의 속박1x연결의 오브",
+      "note": "",
+      "category": "other"
+    },
+    {
+      "result": "레이클라스트의 별",
+      "ingredients": "1x루비 반지unique1x오닉스 목걸이1x번개 차원 이동level 20 corrupted",
+      "note": "",
+      "category": "other"
+    },
+    {
+      "result": "레이클라스트의 별",
+      "ingredients": "1x루비 반지1x진홍색 주얼avoid silence modifier1x황금 목걸이unique",
+      "note": "",
+      "category": "other"
+    },
+    {
+      "result": "조련",
+      "ingredients": "1x베렉의 유예1x베렉의 길1x베렉의 손아귀",
+      "note": "",
+      "category": "other"
+    },
+    {
+      "result": "빙타 광장",
+      "ingredients": "1x동쪽의 아그네로드1x서쪽의 아그네로드1x남쪽의 아그네로드1x북쪽의 아그네로드",
+      "note": "",
+      "category": "other"
+    },
+    {
+      "result": "unique item of the same name",
+      "ingredients": "3xunique item of the same name, not corrupted and have the same explicit",
+      "note": "Using this recipe can create synthesis boss-drop unique item without synthesis implicit; In other case it act similar as Divine Orb",
+      "category": "other"
+    },
+    {
+      "result": "선도자의 상징",
+      "ingredients": "1x아켈리의 산1x푸템보의 계곡1x우자자의 초원",
+      "note": "",
+      "category": "other"
+    },
+    {
+      "result": "카메리아의 탐욕",
+      "ingredients": "1x카메리아의 대형 망치1x얼음 쐐기 보조20Q1x빙하 망치20Q1x얼음 창20Q",
+      "note": "",
+      "category": "other"
+    },
+    {
+      "result": "집중 전투",
+      "ingredients": "1x원소의 일격20Q1x루비 반지1x사파이어 반지",
+      "note": "Prismatic Tag Gem, 2 of 3 Ruby/Sapphire/Topaz Ring",
+      "category": "other"
+    },
+    {
+      "result": "끝없는 불행",
+      "ingredients": "1x방출20Q1x새로운 활력 보조20Q1x효과 집중 보조20Q",
+      "note": "3.23 Recipe removed",
+      "category": "other"
+    },
+    {
+      "result": "망자의 판단",
+      "ingredients": "1x해골 소환20Q1xWand Normal1xWand Magic1xWand Rare1xWand Unique",
+      "note": "Wand same base3.23 Recipe removed",
+      "category": "other"
+    },
+    {
+      "result": "혼백의 수호",
+      "ingredients": "1x무기 기동20Q1xBow Normal1xBow Magic1xBow Rare1xBow Unique",
+      "note": "Bow same base3.23 Recipe removed",
+      "category": "other"
+    },
+    {
+      "result": "막기 확률 감소 보조",
+      "ingredients": "1xany dexterity shield with 20% quality1x관통상",
+      "note": "",
+      "category": "other"
+    },
+    {
+      "result": "점멸 화살",
+      "ingredients": "1x거울 화살1x변화의 오브",
+      "note": "",
+      "category": "other"
+    },
+    {
+      "result": "Blink Arrow of Bombarding Clones",
+      "ingredients": "1x Mirror Arrow of Bombarding Clones1x변화의 오브",
+      "note": "",
+      "category": "other"
+    },
+    {
+      "result": "Blink Arrow of Prismatic Clones",
+      "ingredients": "1x Mirror Arrow of Prismatic Clones1x변화의 오브",
+      "note": "",
+      "category": "other"
+    },
+    {
+      "result": "거울 화살",
+      "ingredients": "1x점멸 화살1x변화의 오브",
+      "note": "",
+      "category": "other"
+    },
+    {
+      "result": "Mirror Arrow of Bombarding Clones",
+      "ingredients": "1x Blink Arrow of Bombarding Clones1x변화의 오브",
+      "note": "",
+      "category": "other"
+    },
+    {
+      "result": "Mirror Arrow of Prismatic Clones",
+      "ingredients": "1x Blink Arrow of Prismatic Clones1x변화의 오브",
+      "note": "",
+      "category": "other"
+    },
+    {
+      "result": "사무치는 한기 보조체온저하 보조얼음 쐐기 보조냉기 관통 보조냉기 피해 추가 보조영감 보조",
+      "ingredients": "1x악몽",
+      "note": "",
+      "category": "other"
+    },
+    {
+      "result": "원소 관통 보조번제 보조벌어지는 상처 보조얼음 쐐기 보조영감 보조자극 보조",
+      "ingredients": "1x악몽 모조품1x번개 관통 보조level 201x화염 관통 보조level 201x냉기 관통 보조level 20",
+      "note": "",
+      "category": "other"
+    },
+    {
+      "result": "map, higher tier map within the Atlas region",
+      "ingredients": "3xmaps, all must be of the same type",
+      "note": "",
+      "category": "other"
+    },
+    {
+      "result": "10x무궁한 마라케스 파편",
+      "ingredients": "1x잔인한 속박",
+      "note": "",
+      "category": "other"
+    },
+    {
+      "result": "10x무궁한 영원한 제국 파편",
+      "ingredients": "1x고상한 오만",
+      "note": "",
+      "category": "other"
+    },
+    {
+      "result": "10x무궁한 템플러 파편",
+      "ingredients": "1x호전적인 신념",
+      "note": "",
+      "category": "other"
+    },
+    {
+      "result": "10x무궁한 바알 파편",
+      "ingredients": "1x찬란한 허영심",
+      "note": "",
+      "category": "other"
+    },
+    {
+      "result": "10x무궁한 카루이 파편",
+      "ingredients": "1x치명적인 긍지",
+      "note": "",
+      "category": "other"
+    },
+    {
+      "result": "5x성스러운 시험관",
+      "ingredients": "5xflask (any combination)1x신성한 오브",
+      "note": "",
+      "category": "other"
+    },
+    {
+      "result": "Polished Scarab",
+      "ingredients": "3x the same Rusted Scarab",
+      "note": "",
+      "category": "other"
+    },
+    {
+      "result": "Gilded Scarab",
+      "ingredients": "3x the same Polished Scarab",
+      "note": "",
+      "category": "other"
+    },
+    {
+      "result": "회귀의 서",
+      "ingredients": "1x정제의 오브1x감정 주문서",
+      "note": "",
+      "category": "other"
+    },
+    {
+      "result": "변심의 서Oak",
+      "ingredients": "20x후회의 오브1x호박 목걸이",
+      "note": "",
+      "category": "other"
+    },
+    {
+      "result": "변심의 서Kraityn",
+      "ingredients": "20x후회의 오브1x비취 목걸이",
+      "note": "",
+      "category": "other"
+    },
+    {
+      "result": "변심의 서Alira",
+      "ingredients": "20x후회의 오브1x청금석 목걸이",
+      "note": "",
+      "category": "other"
+    },
+    {
+      "result": "변심의 서Kill all bandits",
+      "ingredients": "20x후회의 오브1x오닉스 목걸이",
+      "note": "",
+      "category": "other"
+    },
+    {
+      "result": "격류의 교화",
+      "ingredients": "1x얽매이지 않은 흐름1x시간과 빛의 주문서",
+      "note": "",
+      "category": "other"
+    },
+    {
+      "result": "폭풍의 해방",
+      "ingredients": "1x폭풍의 속박1x자율 주문서",
+      "note": "",
+      "category": "other"
+    },
+    {
+      "result": "산산이 조각난 신성",
+      "ingredients": "1x분쇄형 회전기1x파쇄 주문서",
+      "note": "",
+      "category": "other"
+    },
+    {
+      "result": "불멸의 의지",
+      "ingredients": "1x불굴의 의지1x반영 주문서",
+      "note": "",
+      "category": "other"
+    },
+    {
+      "result": "누그러진 필멸성",
+      "ingredients": "1x증오의 신1x핏빛 연소 주문서",
+      "note": "",
+      "category": "other"
+    },
+    {
+      "result": "쇄도하는 생각",
+      "ingredients": "1x퍼져나가는 생각1x전격 주문서",
+      "note": "",
+      "category": "other"
+    },
+    {
+      "result": "꿰맨 악마의 가면",
+      "ingredients": "1x영혼 흡수자의 가면1x소환의 시약",
+      "note": "",
+      "category": "other"
+    },
+    {
+      "result": "겁쟁이의 유물",
+      "ingredients": "1x겁쟁이의 사슬1x결과의 시약",
+      "note": "",
+      "category": "other"
+    },
+    {
+      "result": "바알의 운명",
+      "ingredients": "1x바알의 사연1x운명의 시약",
+      "note": "",
+      "category": "other"
+    },
+    {
+      "result": "제르피의 심장",
+      "ingredients": "1x희생의 심장1x희생의 시약",
+      "note": "",
+      "category": "other"
+    },
+    {
+      "result": "오메이오칸",
+      "ingredients": "1x제물의 춤1x의식의 시약",
+      "note": "",
+      "category": "other"
+    },
+    {
+      "result": "아펩의 패권",
+      "ingredients": "1x아펩의 수면1x각성의 시약",
+      "note": "",
+      "category": "other"
+    },
+    {
+      "result": "영혼 거열기",
+      "ingredients": "1x영혼 포획자1x유령의 시약",
+      "note": "",
+      "category": "other"
+    },
+    {
+      "result": "노예 감독관의 손길",
+      "ingredients": "1x건축가의 손길1x지배의 시약",
+      "note": "",
+      "category": "other"
+    },
+    {
+      "result": "초월한 육체",
+      "ingredients": "1x조절된 육체1x초월의 시약",
+      "note": "",
+      "category": "other"
+    },
+    {
+      "result": "초월한 정신",
+      "ingredients": "1x조절된 정신1x초월의 시약",
+      "note": "",
+      "category": "other"
+    },
+    {
+      "result": "초월한 마음",
+      "ingredients": "1x조절된 마음1x초월의 시약",
+      "note": "",
+      "category": "other"
+    },
+    {
+      "result": "적갈빛 성유",
+      "ingredients": "3x투명한 성유",
+      "note": "",
+      "category": "other"
+    },
+    {
+      "result": "호박빛 성유",
+      "ingredients": "3x적갈빛 성유",
+      "note": "",
+      "category": "other"
+    },
+    {
+      "result": "신록빛 성유",
+      "ingredients": "3x호박빛 성유",
+      "note": "",
+      "category": "other"
+    },
+    {
+      "result": "청록빛 성유",
+      "ingredients": "3x신록빛 성유",
+      "note": "",
+      "category": "other"
+    },
+    {
+      "result": "담청빛 성유",
+      "ingredients": "3x청록빛 성유",
+      "note": "",
+      "category": "other"
+    },
+    {
+      "result": "남색 성유",
+      "ingredients": "3x담청빛 성유",
+      "note": "",
+      "category": "other"
+    },
+    {
+      "result": "보랏빛 성유",
+      "ingredients": "3x남색 성유",
+      "note": "",
+      "category": "other"
+    },
+    {
+      "result": "진홍빛 성유",
+      "ingredients": "3x보랏빛 성유",
+      "note": "",
+      "category": "other"
+    },
+    {
+      "result": "검은빛 성유",
+      "ingredients": "3x진홍빛 성유",
+      "note": "",
+      "category": "other"
+    },
+    {
+      "result": "오팔빛 성유",
+      "ingredients": "3x검은빛 성유",
+      "note": "",
+      "category": "other"
+    },
+    {
+      "result": "은빛 성유",
+      "ingredients": "3x오팔빛 성유",
+      "note": "",
+      "category": "other"
+    },
+    {
+      "result": "금빛 성유",
+      "ingredients": "3x은빛 성유",
+      "note": "",
+      "category": "other"
+    },
+    {
+      "result": "Magic Weapon with x added Physical Damage one tier higher",
+      "ingredients": "1xMagic or Rare Weapon with x added Fire Damage explicit mod (or Normal rarity for adding lowest tier mod)1x확장의 오브1x화강암 플라스크",
+      "note": "",
+      "category": "weapon"
+    },
+    {
+      "result": "Magic Weapon with x added Fire Damage one tier higher",
+      "ingredients": "1xMagic or Rare Weapon with x added Fire Damage explicit mod (or Normal rarity for adding lowest tier mod)1x확장의 오브1x루비 플라스크",
+      "note": "",
+      "category": "weapon"
+    },
+    {
+      "result": "Magic Weapon with x added Cold Damage one tier higher",
+      "ingredients": "1xMagic or Rare Weapon with x added Cold Damage explicit mod (or Normal rarity for adding lowest tier mod)1x확장의 오브1x사파이어 플라스크",
+      "note": "",
+      "category": "weapon"
+    },
+    {
+      "result": "Magic Weapon with x added Lightning Damage one tier higher",
+      "ingredients": "1xMagic or Rare Weapon with x added Lightning Damage explicit mod (or Normal rarity for adding lowest tier mod)1x확장의 오브1x토파즈 플라스크",
+      "note": "",
+      "category": "weapon"
+    },
+    {
+      "result": "Magic Weapon with added x Fire Damage to Spells",
+      "ingredients": "1xMagic Sceptre/Wand/Rune Dagger1x루비 반지1x변화의 오브",
+      "note": "3.21 removed",
+      "category": "weapon"
+    },
+    {
+      "result": "Magic Weapon with added x Cold Damage to Spells",
+      "ingredients": "1xMagic Sceptre/Wand/Rune Dagger1x사파이어 반지1x변화의 오브",
+      "note": "3.21 removed",
+      "category": "weapon"
+    },
+    {
+      "result": "Magic Weapon with added x Lightning Damage to Spells",
+      "ingredients": "1xMagic Sceptre/Wand/Rune Dagger1x토파즈 반지1x변화의 오브",
+      "note": "3.21 removed",
+      "category": "weapon"
+    },
+    {
+      "result": "Magic Weapon with (40 to 84%) Increased Physical Damage",
+      "ingredients": "1xWeapon1x소박한 띠Magic/Rare/Unique1x대장장이의 숫돌",
+      "note": "Magic: 40-49%(Heavy), Rare: 50-69%(Serrated), Unique: 65-84%(Wicked)",
+      "category": "weapon"
+    },
+    {
+      "result": "Magic Weapon with (10 to 59%) Increased Spell Damage",
+      "ingredients": "1xDagger/Sceptre/Staff/Wand1x사슬 허리띠Magic/Rare/Unique Chain Belt1x대장장이의 숫돌",
+      "note": "",
+      "category": "weapon"
+    }
+  ]
+}

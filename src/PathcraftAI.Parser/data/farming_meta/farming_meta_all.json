@@ -1,0 +1,1073 @@
+{
+  "version": "1.0",
+  "generated_date": "2025-11-22T23:33:39.718091",
+  "leagues": {
+    "3.24": {
+      "version": "3.24",
+      "name": "Necropolis",
+      "name_ko": "네크로폴리스",
+      "release_date": "2024-03-29",
+      "key_features": [
+        "T17 맵 드랍률 대폭 증가",
+        "스카랍 시스템 개편 (5티어)",
+        "아틀라스 트리 로드아웃 3개 저장",
+        "네크로폴리스 묘지 메커닉"
+      ]
+    },
+    "3.25": {
+      "version": "3.25",
+      "name": "Settlers of Kalguur",
+      "name_ko": "칼구르의 정착자들",
+      "release_date": "2024-07-26",
+      "key_features": [
+        "킹스마치 마을 건설",
+        "골드 화폐 시스템",
+        "용병 시스템",
+        "무역 선박 시스템"
+      ]
+    },
+    "3.26": {
+      "version": "3.26",
+      "name": "Secrets of the Atlas",
+      "name_ko": "아틀라스의 비밀",
+      "release_date": "2024-10-25",
+      "key_features": [
+        "T16.5 맵 (8모드 타락)",
+        "용병 강화",
+        "군단/하빙어 버프",
+        "아틀라스 키스톤 밸런스"
+      ]
+    },
+    "3.27": {
+      "version": "3.27",
+      "name": "Keepers League",
+      "name_ko": "관리자의 리그",
+      "release_date": "2025-01-24",
+      "key_features": [
+        "Genesis Tree 크래프팅",
+        "Foulborn 유니크",
+        "스트롱박스 강화",
+        "Legacy of Phrecia 이벤트 (아이돌 시스템)"
+      ]
+    }
+  },
+  "strategies": {
+    "3.24": [
+      {
+        "name": "Blight Maps",
+        "name_ko": "역병 지도 파밍",
+        "tier": "S",
+        "league_version": "3.24",
+        "description": "Blight maps require little to no budget and are scalable. Great for league start.",
+        "description_ko": "역병 지도는 적은 투자로 시작 가능하고 확장성이 좋음. 리그 스타트에 최적",
+        "investment": "low",
+        "returns": "high",
+        "build_requirements": [
+          "aoe",
+          "clear_speed"
+        ],
+        "recommended_maps": [
+          "Any"
+        ],
+        "atlas_passives": [
+          "Epidemiology",
+          "Immune Response",
+          "Spores on the Wind"
+        ],
+        "scarabs": [
+          "Blight Scarab",
+          "Blight Scarab of Bounty"
+        ],
+        "tips": [
+          "Oil drops are in high demand early league",
+          "Chance for Headhunter/Mageblood drops",
+          "Good for Chaos recipe"
+        ],
+        "tips_ko": [
+          "초반 리그에 오일 수요 높음",
+          "헤드헌터/메이지블러드 드랍 가능",
+          "카오스 레시피에 적합"
+        ],
+        "profit_per_hour": "3-8 Divine",
+        "source_urls": [
+          "https://www.aoeah.com/news/3186"
+        ]
+      },
+      {
+        "name": "Legion Farming",
+        "name_ko": "군단 파밍",
+        "tier": "A",
+        "league_version": "3.24",
+        "description": "Release and defeat Eternal Empire warriors for emblems and loot. Best for days 1-2.",
+        "description_ko": "영원한 제국 전사들을 해방하고 처치하여 엠블럼과 전리품 획득. 1-2일차 최고",
+        "investment": "low",
+        "returns": "medium",
+        "build_requirements": [
+          "aoe",
+          "clear_speed"
+        ],
+        "recommended_maps": [
+          "Glacier",
+          "Dunes",
+          "Cemetery"
+        ],
+        "atlas_passives": [
+          "Monumental",
+          "Protracted Battle",
+          "Emblematic"
+        ],
+        "scarabs": [
+          "Legion Scarab",
+          "Legion Scarab of Command"
+        ],
+        "tips": [
+          "Full release is the goal",
+          "Timeless Emblems are main income",
+          "Value drops quickly after day 2"
+        ],
+        "tips_ko": [
+          "전체 해방이 목표",
+          "타임리스 엠블럼이 주요 수입원",
+          "2일차 이후 가치 급락"
+        ],
+        "profit_per_hour": "2-5 Divine",
+        "source_urls": [
+          "https://www.aoeah.com/news/3186"
+        ]
+      },
+      {
+        "name": "T17 Map Farming",
+        "name_ko": "T17 지도 파밍",
+        "tier": "S",
+        "league_version": "3.24",
+        "description": "T17 maps with dramatically increased drop rates for currency and scarabs.",
+        "description_ko": "화폐와 스카랍 드랍률이 대폭 증가한 T17 지도 파밍",
+        "investment": "high",
+        "returns": "very_high",
+        "build_requirements": [
+          "tankiness",
+          "boss_dps",
+          "sustain"
+        ],
+        "recommended_maps": [
+          "Fortress",
+          "Sanctuary",
+          "Citadel"
+        ],
+        "atlas_passives": [
+          "Shaping the World",
+          "All Map Boss nodes"
+        ],
+        "scarabs": [
+          "Divination Scarab",
+          "Ambush Scarab"
+        ],
+        "tips": [
+          "Cannot sustain T17 from within T17",
+          "Farm T16 maps to get T17 drops",
+          "Fortress is most expensive T17"
+        ],
+        "tips_ko": [
+          "T17 내에서 T17 드랍 불가",
+          "T16 파밍으로 T17 획득",
+          "Fortress가 가장 비싼 T17"
+        ],
+        "profit_per_hour": "10-30 Divine",
+        "source_urls": [
+          "https://www.aoeah.com/news/3244"
+        ]
+      },
+      {
+        "name": "Expedition Farming",
+        "name_ko": "탐험 파밍",
+        "tier": "A",
+        "league_version": "3.24",
+        "description": "One of the best early map currency farming methods with cheap scarab setup.",
+        "description_ko": "저렴한 스카랍으로 초반 지도에서 화폐 파밍하기 좋은 방법",
+        "investment": "low",
+        "returns": "high",
+        "build_requirements": [
+          "single_target",
+          "tankiness"
+        ],
+        "recommended_maps": [
+          "Any with good layout"
+        ],
+        "atlas_passives": [
+          "Buried Knowledge",
+          "Ancient Writings",
+          "Extreme Archaeology"
+        ],
+        "scarabs": [
+          "Expedition Scarab of Archaeology",
+          "Expedition Scarab of Verisium Powder",
+          "Expedition Scarab of Runefinding"
+        ],
+        "tips": [
+          "Only ~5 Chaos per map investment",
+          "Logbooks are main income",
+          "Tujen and Rog trades are valuable"
+        ],
+        "tips_ko": [
+          "맵당 약 5 카오스 투자",
+          "로그북이 주요 수입원",
+          "투젠과 로그 거래 활용"
+        ],
+        "profit_per_hour": "4-8 Divine",
+        "source_urls": [
+          "https://www.gameleap.com/articles/path-of-exile-necropolis-3-24-atlas-strategies-expedition"
+        ]
+      },
+      {
+        "name": "Harbinger Farming",
+        "name_ko": "선구자 파밍",
+        "tier": "A",
+        "league_version": "3.24",
+        "description": "Pair Harbinger with Expedition or Essence for bigger profit.",
+        "description_ko": "탐험이나 에센스와 조합하여 더 큰 수익 창출",
+        "investment": "low",
+        "returns": "medium",
+        "build_requirements": [
+          "single_target"
+        ],
+        "recommended_maps": [
+          "Any"
+        ],
+        "atlas_passives": [
+          "All Harbinger nodes (29 points)",
+          "Scarab nodes"
+        ],
+        "scarabs": [
+          "Harbinger Scarab"
+        ],
+        "tips": [
+          "Works on any map layout",
+          "Combine with Beyond or Expedition",
+          "Ancient Orbs are main value"
+        ],
+        "tips_ko": [
+          "모든 맵 레이아웃에서 작동",
+          "비욘드나 탐험과 조합",
+          "Ancient Orb가 주요 가치"
+        ],
+        "profit_per_hour": "3-6 Divine",
+        "source_urls": [
+          "https://www.gameleap.com/articles/path-of-exile-necropolis-3-24-atlas-strategies-harbinger"
+        ]
+      },
+      {
+        "name": "Harvest Farming",
+        "name_ko": "수확 파밍",
+        "tier": "A",
+        "league_version": "3.24",
+        "description": "Run Jungle Valley with high quantity maps for Life Force farming.",
+        "description_ko": "정글 계곡에서 높은 퀀티티 지도로 라이프 포스 파밍",
+        "investment": "medium",
+        "returns": "high",
+        "build_requirements": [
+          "clear_speed"
+        ],
+        "recommended_maps": [
+          "Jungle Valley"
+        ],
+        "atlas_passives": [
+          "All Harvest nodes",
+          "Heart of the Grove"
+        ],
+        "scarabs": [
+          "Harvest Scarab of Doubling",
+          "Harvest Scarab of Cornucopia",
+          "Scarab of Monstrous Lineage"
+        ],
+        "tips": [
+          "Roll high quantity on maps",
+          "Use Atziri Fragments for extra quant",
+          "Jungle Valley has great layout"
+        ],
+        "tips_ko": [
+          "지도에 높은 퀀티티 굴리기",
+          "아츠리 파편으로 추가 퀀티티",
+          "정글 계곡 레이아웃 최적"
+        ],
+        "profit_per_hour": "5-10 Divine",
+        "source_urls": [
+          "https://www.gameleap.com/articles/path-of-exile-necropolis-3-24-atlas-strategies-harvest"
+        ]
+      },
+      {
+        "name": "Ritual Farming",
+        "name_ko": "의식 파밍",
+        "tier": "B",
+        "league_version": "3.24",
+        "description": "Ritual farming focusing on Favour rerolls for valuable items.",
+        "description_ko": "호의 리롤을 통한 고가 아이템 획득 의식 파밍",
+        "investment": "medium",
+        "returns": "medium",
+        "build_requirements": [
+          "clear_speed",
+          "sustain"
+        ],
+        "recommended_maps": [
+          "Any linear map"
+        ],
+        "atlas_passives": [
+          "All Ritual nodes",
+          "Avoid Immutable Dogma",
+          "Avoid Arbitrary Tenets"
+        ],
+        "scarabs": [
+          "Ritual Scarab"
+        ],
+        "tips": [
+          "Never take Immutable Dogma",
+          "Arbitrary Tenets adds too much RNG",
+          "Reroll for expensive uniques"
+        ],
+        "tips_ko": [
+          "Immutable Dogma 절대 찍지 말 것",
+          "Arbitrary Tenets는 RNG 너무 높음",
+          "비싼 유니크 나올 때까지 리롤"
+        ],
+        "profit_per_hour": "3-6 Divine",
+        "source_urls": [
+          "https://www.gameleap.com/articles/path-of-exile-necropolis-3-24-atlas-strategies-ritual"
+        ]
+      }
+    ],
+    "3.25": [
+      {
+        "name": "Simulacrum Farming",
+        "name_ko": "시뮬라크럼 파밍",
+        "tier": "S",
+        "league_version": "3.25",
+        "description": "Classic and reliable method for consistent currency gains. Potential for Voice Jewels worth mirrors.",
+        "description_ko": "안정적인 화폐 획득의 클래식한 방법. 미러급 가치의 보이스 주얼 가능성",
+        "investment": "medium",
+        "returns": "very_high",
+        "build_requirements": [
+          "tankiness",
+          "sustain",
+          "boss_dps"
+        ],
+        "recommended_maps": [
+          "Simulacrum"
+        ],
+        "atlas_passives": [
+          "Delirium nodes"
+        ],
+        "scarabs": [],
+        "tips": [
+          "Stable profits",
+          "Voice Jewels worth mirror+",
+          "Runs are inexpensive"
+        ],
+        "tips_ko": [
+          "안정적인 수익",
+          "보이스 주얼 미러 이상 가치",
+          "저렴한 입장료"
+        ],
+        "profit_per_hour": "5-15 Divine",
+        "source_urls": [
+          "https://www.mmopixel.com/news/poe-settlers-of-kalguur-league-3-25-best-currency-farming-strategies"
+        ]
+      },
+      {
+        "name": "Ritual + Harvest Farming",
+        "name_ko": "의식 + 수확 파밍",
+        "tier": "S",
+        "league_version": "3.25",
+        "description": "Classic combination for early league. Focus on stack deck drops.",
+        "description_ko": "초반 리그 클래식 조합. 스택 덱 드랍에 집중",
+        "investment": "medium",
+        "returns": "high",
+        "build_requirements": [
+          "clear_speed",
+          "sustain"
+        ],
+        "recommended_maps": [
+          "Any T16"
+        ],
+        "atlas_passives": [
+          "All Ritual nodes",
+          "All Harvest nodes"
+        ],
+        "scarabs": [
+          "Cloister Divination Scarab x5"
+        ],
+        "tips": [
+          "Use all Ritual and Harvest passive nodes",
+          "Proper setup is crucial",
+          "Great for early league"
+        ],
+        "tips_ko": [
+          "모든 의식/수확 패시브 찍기",
+          "세팅이 중요",
+          "초반 리그에 최적"
+        ],
+        "profit_per_hour": "4-8 Divine",
+        "source_urls": [
+          "https://www.mmopixel.com/news/poe-settlers-of-kalguur-league-3-25-best-currency-farming-strategies"
+        ]
+      },
+      {
+        "name": "T17 Fortress Farming",
+        "name_ko": "T17 요새 파밍",
+        "tier": "S",
+        "league_version": "3.25",
+        "description": "Focus on Fortress maps for ~26 Divine profit per 50 maps after costs.",
+        "description_ko": "요새 지도 집중 파밍으로 50맵당 약 26 디바인 순수익",
+        "investment": "high",
+        "returns": "very_high",
+        "build_requirements": [
+          "tankiness",
+          "boss_dps",
+          "sustain"
+        ],
+        "recommended_maps": [
+          "Fortress"
+        ],
+        "atlas_passives": [
+          "T17 specific nodes"
+        ],
+        "scarabs": [
+          "Various based on strategy"
+        ],
+        "tips": [
+          "~38.8 Divine gross in 50 maps",
+          "Get Fortress every 2 runs avg",
+          "Requires strong build"
+        ],
+        "tips_ko": [
+          "50맵당 총 38.8 디바인",
+          "평균 2런당 요새 1개",
+          "강한 빌드 필요"
+        ],
+        "profit_per_hour": "10-25 Divine",
+        "source_urls": [
+          "https://www.mmopixel.com/news/poe-settlers-of-kalguur-league-3-25-best-currency-farming-strategies"
+        ]
+      },
+      {
+        "name": "Alch and Go (Divine Altars)",
+        "name_ko": "알케미 앤 고 (신성 제단)",
+        "tier": "A",
+        "league_version": "3.25",
+        "description": "No-investment strategy. Fastest way to hit Divine Altars. New meta in 3.25.",
+        "description_ko": "무투자 전략. 신성 제단 도달 최고 속도. 3.25 뉴메타",
+        "investment": "low",
+        "returns": "medium",
+        "build_requirements": [
+          "clear_speed"
+        ],
+        "recommended_maps": [
+          "Any linear T16"
+        ],
+        "atlas_passives": [
+          "Altar nodes",
+          "Map sustain"
+        ],
+        "scarabs": [],
+        "tips": [
+          "Faster than juiced T17",
+          "Enter and exit quickly",
+          "Divine Altars are main income"
+        ],
+        "tips_ko": [
+          "T17 주스보다 빠름",
+          "빠른 진입/퇴장",
+          "신성 제단이 주요 수입원"
+        ],
+        "profit_per_hour": "3-7 Divine",
+        "source_urls": [
+          "https://www.poecurrency.com/news/poe-3-25-how-to-perform-this-alch-and-go-farming-strategy"
+        ]
+      },
+      {
+        "name": "Logbook Farming",
+        "name_ko": "로그북 파밍",
+        "tier": "A",
+        "league_version": "3.25",
+        "description": "Reliable choice for currency farming when buying in bulk.",
+        "description_ko": "대량 구매 시 안정적인 화폐 파밍 방법",
+        "investment": "medium",
+        "returns": "high",
+        "build_requirements": [
+          "single_target",
+          "tankiness"
+        ],
+        "recommended_maps": [
+          "Logbooks"
+        ],
+        "atlas_passives": [
+          "Expedition nodes"
+        ],
+        "scarabs": [],
+        "tips": [
+          "Buy logbooks in bulk",
+          "One of the best methods",
+          "Consistent returns"
+        ],
+        "tips_ko": [
+          "로그북 대량 구매",
+          "최고의 방법 중 하나",
+          "일관된 수익"
+        ],
+        "profit_per_hour": "5-12 Divine",
+        "source_urls": [
+          "https://www.mmopixel.com/news/poe-settlers-of-kalguur-league-3-25-best-currency-farming-strategies"
+        ]
+      },
+      {
+        "name": "Synthesis Maps (Gold Farming)",
+        "name_ko": "합성 지도 (골드 파밍)",
+        "tier": "A",
+        "league_version": "3.25",
+        "description": "Best way to earn gold for Kingsmarch. ~15k gold per run + 100% XP bonus.",
+        "description_ko": "킹스마치 골드 최고 획득법. 런당 약 15k 골드 + 100% 경험치 보너스",
+        "investment": "medium",
+        "returns": "high",
+        "build_requirements": [
+          "clear_speed"
+        ],
+        "recommended_maps": [
+          "Synthesis Maps"
+        ],
+        "atlas_passives": [
+          "Synthesis nodes"
+        ],
+        "scarabs": [],
+        "tips": [
+          "~15k gold per run average",
+          "100% XP bonus",
+          "Quick town upgrades"
+        ],
+        "tips_ko": [
+          "런당 평균 15k 골드",
+          "100% 경험치 보너스",
+          "빠른 마을 업그레이드"
+        ],
+        "profit_per_hour": "Gold focused",
+        "source_urls": [
+          "https://www.poecurrency.com/news/poe-3-25-best-strategies-for-gold-farming"
+        ]
+      },
+      {
+        "name": "Blight Farming",
+        "name_ko": "역병 파밍",
+        "tier": "A",
+        "league_version": "3.25",
+        "description": "Popular again due to T17/T16 juicing controversy. Provides bubble gum currency and rich loot.",
+        "description_ko": "T17/T16 주스 논란으로 다시 인기. 버블검 화폐와 풍부한 전리품 제공",
+        "investment": "low",
+        "returns": "high",
+        "build_requirements": [
+          "aoe",
+          "clear_speed"
+        ],
+        "recommended_maps": [
+          "Blight Maps"
+        ],
+        "atlas_passives": [
+          "Blight nodes"
+        ],
+        "scarabs": [
+          "Blight Scarab"
+        ],
+        "tips": [
+          "Effective currency strategy",
+          "Rich loot opportunities",
+          "Good alternative to T17"
+        ],
+        "tips_ko": [
+          "효과적인 화폐 전략",
+          "풍부한 전리품",
+          "T17의 좋은 대안"
+        ],
+        "profit_per_hour": "3-8 Divine",
+        "source_urls": [
+          "https://www.poecurrency.com/news/poe-3-25-how-to-use-blight-farming-strategy-to-obtain-currency-and-resource"
+        ]
+      },
+      {
+        "name": "Delve Farming",
+        "name_ko": "탐광 파밍",
+        "tier": "B",
+        "league_version": "3.25",
+        "description": "Optimal depth 250-300. Good for fossils and resonators.",
+        "description_ko": "최적 깊이 250-300. 화석과 공명기에 좋음",
+        "investment": "medium",
+        "returns": "medium",
+        "build_requirements": [
+          "tankiness",
+          "sustain"
+        ],
+        "recommended_maps": [
+          "Delve"
+        ],
+        "atlas_passives": [
+          "Delve nodes"
+        ],
+        "scarabs": [],
+        "tips": [
+          "Optimal depth 250-300",
+          "Requires good gear",
+          "Fossil farming main income"
+        ],
+        "tips_ko": [
+          "최적 깊이 250-300",
+          "좋은 장비 필요",
+          "화석 파밍이 주요 수입"
+        ],
+        "profit_per_hour": "3-6 Divine",
+        "source_urls": [
+          "https://www.mmopixel.com/news/poe-settlers-of-kalguur-league-3-25-best-currency-farming-strategies"
+        ]
+      }
+    ],
+    "3.26": [
+      {
+        "name": "Legion Farming",
+        "name_ko": "군단 파밍",
+        "tier": "S",
+        "league_version": "3.26",
+        "description": "Buffed in 3.26. Map crafting grants extra Legion without scarabs. Uses Dunes maps.",
+        "description_ko": "3.26에서 버프됨. 맵 크래프팅으로 스카랍 없이 추가 군단. 듄즈 맵 사용",
+        "investment": "low",
+        "returns": "high",
+        "build_requirements": [
+          "aoe",
+          "clear_speed"
+        ],
+        "recommended_maps": [
+          "Dunes"
+        ],
+        "atlas_passives": [
+          "Protracted Battle",
+          "Emblematic",
+          "Stalwart Defenders"
+        ],
+        "scarabs": [
+          "Legion Scarab",
+          "Ambush Scarab",
+          "Breach Scarab",
+          "Harbinger Scarab"
+        ],
+        "tips": [
+          "Legion was buffed in 3.26",
+          "Works with non-meta builds",
+          "Smooth and rewarding maps"
+        ],
+        "tips_ko": [
+          "3.26에서 군단 버프",
+          "비메타 빌드도 가능",
+          "부드럽고 보상 좋은 맵"
+        ],
+        "profit_per_hour": "5-10 Divine",
+        "source_urls": [
+          "https://www.aoeah.com/news/3984"
+        ]
+      },
+      {
+        "name": "Harbinger Farming",
+        "name_ko": "선구자 파밍",
+        "tier": "S",
+        "league_version": "3.26",
+        "description": "Safest way for currency flow. Fracturing orbs always in demand. Run T17+ for best results.",
+        "description_ko": "가장 안전한 화폐 획득법. 프랙처링 오브 항상 수요. T17+ 최적",
+        "investment": "medium",
+        "returns": "high",
+        "build_requirements": [
+          "single_target",
+          "clear_speed"
+        ],
+        "recommended_maps": [
+          "Any T17"
+        ],
+        "atlas_passives": [
+          "All Harbinger nodes"
+        ],
+        "scarabs": [
+          "Harbinger Scarab"
+        ],
+        "tips": [
+          "Run T17 for extra density",
+          "T16 with high pack size also works",
+          "Fracturing orbs main value"
+        ],
+        "tips_ko": [
+          "T17으로 추가 밀도",
+          "높은 팩사이즈 T16도 가능",
+          "프랙처링 오브가 주요 가치"
+        ],
+        "profit_per_hour": "5-12 Divine",
+        "source_urls": [
+          "https://ggwtb.com/blog/poe-3-26-harbingers-farming-guide-best-atlas-tree-strategy"
+        ]
+      },
+      {
+        "name": "T16.5 Abyss Farming",
+        "name_ko": "T16.5 심연 파밍",
+        "tier": "S",
+        "league_version": "3.26",
+        "description": "8-mod corrupted T16s with Atlas scaling. Mercenary can carry the map. No Risk Scarabs needed.",
+        "description_ko": "8모드 타락 T16에 아틀라스 스케일링. 용병이 맵 캐리 가능. 리스크 스카랍 불필요",
+        "investment": "medium",
+        "returns": "very_high",
+        "build_requirements": [
+          "tankiness"
+        ],
+        "recommended_maps": [
+          "Any 8-mod corrupted T16"
+        ],
+        "atlas_passives": [
+          "Abyss nodes",
+          "Corruption nodes"
+        ],
+        "scarabs": [
+          "Abyss Scarab"
+        ],
+        "tips": [
+          "Mercenary carries the map",
+          "Only need to survive and loot",
+          "Designed for non-mirror builds"
+        ],
+        "tips_ko": [
+          "용병이 맵 캐리",
+          "생존하고 루팅만 하면 됨",
+          "미러급 아닌 빌드용"
+        ],
+        "profit_per_hour": "8-15 Divine",
+        "source_urls": [
+          "https://www.aoeah.com/news/4017"
+        ]
+      },
+      {
+        "name": "Expedition Farming",
+        "name_ko": "탐험 파밍",
+        "tier": "A",
+        "league_version": "3.26",
+        "description": "One of the best early map currency farming methods. Atlas nodes available early.",
+        "description_ko": "초반 지도 화폐 파밍 최고 방법 중 하나. 아틀라스 노드 초반 사용 가능",
+        "investment": "low",
+        "returns": "high",
+        "build_requirements": [
+          "single_target",
+          "tankiness"
+        ],
+        "recommended_maps": [
+          "Any"
+        ],
+        "atlas_passives": [
+          "Expedition nodes"
+        ],
+        "scarabs": [
+          "Expedition Scarab"
+        ],
+        "tips": [
+          "Encounter guaranteed across most maps",
+          "Great for early league",
+          "Atlas nodes available early"
+        ],
+        "tips_ko": [
+          "대부분 맵에서 인카운터 보장",
+          "초반 리그에 최적",
+          "아틀라스 노드 초반 사용 가능"
+        ],
+        "profit_per_hour": "4-8 Divine",
+        "source_urls": [
+          "https://www.aoeah.com/news/3997"
+        ]
+      },
+      {
+        "name": "Altar/Exarch Farming (Jungle Valley)",
+        "name_ko": "제단/엑사크 파밍 (정글 계곡)",
+        "tier": "A",
+        "league_version": "3.26",
+        "description": "Alch & Go Exarch farming. No boss until arena means no boss altars, more minion altars.",
+        "description_ko": "알케미 앤 고 엑사크 파밍. 아레나까지 보스 없어 보스 제단 없음, 미니언 제단 더 많음",
+        "investment": "low",
+        "returns": "high",
+        "build_requirements": [
+          "clear_speed"
+        ],
+        "recommended_maps": [
+          "Jungle Valley",
+          "Mesa"
+        ],
+        "atlas_passives": [
+          "Altar nodes",
+          "Exarch influence"
+        ],
+        "scarabs": [],
+        "tips": [
+          "No boss until arena",
+          "More minion altars (most rewarding)",
+          "Mesa is good fallback"
+        ],
+        "tips_ko": [
+          "아레나까지 보스 없음",
+          "미니언 제단 더 많음 (가장 보상 좋음)",
+          "메사가 대안"
+        ],
+        "profit_per_hour": "4-8 Divine",
+        "source_urls": [
+          "https://www.aoeah.com/news/3997"
+        ]
+      },
+      {
+        "name": "Mirror Farming",
+        "name_ko": "미러 파밍",
+        "tier": "S",
+        "league_version": "3.26",
+        "description": "High-end strategy combining multiple mechanics for maximum returns.",
+        "description_ko": "여러 메커닉 조합 고급 전략으로 최대 수익 창출",
+        "investment": "very_high",
+        "returns": "very_high",
+        "build_requirements": [
+          "tankiness",
+          "boss_dps",
+          "clear_speed",
+          "sustain"
+        ],
+        "recommended_maps": [
+          "T17"
+        ],
+        "atlas_passives": [
+          "Combined high-end setup"
+        ],
+        "scarabs": [
+          "Multiple premium scarabs"
+        ],
+        "tips": [
+          "Combine multiple mechanics",
+          "Requires mirror-tier investment",
+          "Highest potential returns"
+        ],
+        "tips_ko": [
+          "여러 메커닉 조합",
+          "미러급 투자 필요",
+          "최고 잠재 수익"
+        ],
+        "profit_per_hour": "15-50+ Divine",
+        "source_urls": [
+          "https://www.aoeah.com/news/4030"
+        ]
+      }
+    ],
+    "3.27": [
+      {
+        "name": "Strongbox Farming",
+        "name_ko": "스트롱박스 파밍",
+        "tier": "S",
+        "league_version": "3.27",
+        "description": "Full Ambush scarabs + Shrines = currency piñatas. Weekend warriors hit 10+ Divine/hour.",
+        "description_ko": "앰부시 스카랍 + 성소 = 화폐 피냐타. 주말 워리어 시간당 10+ 디바인",
+        "investment": "medium",
+        "returns": "very_high",
+        "build_requirements": [
+          "clear_speed"
+        ],
+        "recommended_maps": [
+          "Any with good density"
+        ],
+        "atlas_passives": [
+          "Max strongbox wheels",
+          "Scarab clusters",
+          "Quant smalls"
+        ],
+        "scarabs": [
+          "Ambush Scarab (full set)"
+        ],
+        "tips": [
+          "Combine with Shrines",
+          "10+ Divine/hour possible",
+          "Wait for scarab stocks"
+        ],
+        "tips_ko": [
+          "성소와 조합",
+          "시간당 10+ 디바인 가능",
+          "스카랍 재고 기다리기"
+        ],
+        "profit_per_hour": "10-15 Divine",
+        "source_urls": [
+          "https://www.iggm.com/news/poe-3-27-strongbox-farming-strategies-maximize-currency-returns"
+        ]
+      },
+      {
+        "name": "Idol Strategy (Phrecia Event)",
+        "name_ko": "아이돌 전략 (프레시아 이벤트)",
+        "tier": "S",
+        "league_version": "3.27",
+        "description": "Legacy of Phrecia event uses Idol system replacing Atlas tree. Combine multiple mechanics.",
+        "description_ko": "프레시아 이벤트는 아틀라스 트리 대신 아이돌 시스템 사용. 여러 메커닉 조합",
+        "investment": "medium",
+        "returns": "high",
+        "build_requirements": [
+          "varied"
+        ],
+        "recommended_maps": [
+          "T16"
+        ],
+        "atlas_passives": [
+          "Idol based"
+        ],
+        "scarabs": [
+          "Various"
+        ],
+        "tips": [
+          "Idol system replaces Atlas tree",
+          "Combine multiple league mechanics",
+          "Prioritize map sustain"
+        ],
+        "tips_ko": [
+          "아이돌이 아틀라스 트리 대체",
+          "여러 리그 메커닉 조합",
+          "맵 서스테인 우선"
+        ],
+        "profit_per_hour": "5-12 Divine",
+        "source_urls": [
+          "https://www.aoeah.com/news/3815"
+        ]
+      },
+      {
+        "name": "Simulacrum Farming",
+        "name_ko": "시뮬라크럼 파밍",
+        "tier": "S",
+        "league_version": "3.27",
+        "description": "Once T16 stable, shift to Simulacrum. Great for builds with strong AoE and sustain.",
+        "description_ko": "T16 안정화 후 시뮬라크럼으로 전환. 강한 AoE와 서스테인 빌드에 최적",
+        "investment": "medium",
+        "returns": "very_high",
+        "build_requirements": [
+          "aoe",
+          "sustain",
+          "tankiness"
+        ],
+        "recommended_maps": [
+          "Simulacrum"
+        ],
+        "atlas_passives": [
+          "Delirium nodes"
+        ],
+        "scarabs": [],
+        "tips": [
+          "Simulacrum keys widely available",
+          "Great rewards",
+          "Strong AoE/sustain builds excel"
+        ],
+        "tips_ko": [
+          "시뮬라크럼 키 쉽게 구함",
+          "좋은 보상",
+          "강한 AoE/서스테인 빌드 최적"
+        ],
+        "profit_per_hour": "8-15 Divine",
+        "source_urls": [
+          "https://www.aoeah.com/news/3818"
+        ]
+      },
+      {
+        "name": "Heist Farming",
+        "name_ko": "강탈 파밍",
+        "tier": "A",
+        "league_version": "3.27",
+        "description": "Generates basic currency efficiently. Grand Heists drop replica uniques and experimental bases.",
+        "description_ko": "기본 화폐 효율적 생산. 대규모 강탈에서 레플리카 유니크와 실험용 베이스 드랍",
+        "investment": "low",
+        "returns": "high",
+        "build_requirements": [
+          "single_target"
+        ],
+        "recommended_maps": [
+          "Heist"
+        ],
+        "atlas_passives": [
+          "Heist nodes"
+        ],
+        "scarabs": [],
+        "tips": [
+          "Efficient basic currency gen",
+          "Replica uniques from Grand Heists",
+          "Thieves' Trinkets valuable"
+        ],
+        "tips_ko": [
+          "효율적인 기본 화폐 생산",
+          "대규모 강탈에서 레플리카 유니크",
+          "도둑의 장신구 가치있음"
+        ],
+        "profit_per_hour": "4-8 Divine",
+        "source_urls": [
+          "https://www.aoeah.com/news/3818"
+        ]
+      },
+      {
+        "name": "Boss Farming (Trialmaster/Kosis)",
+        "name_ko": "보스 파밍 (트라이얼마스터/코시스)",
+        "tier": "A",
+        "league_version": "3.27",
+        "description": "Big-ticket bosses with hefty loot. Challenging but rewarding.",
+        "description_ko": "큰 전리품의 빅티켓 보스. 도전적이지만 보상 좋음",
+        "investment": "high",
+        "returns": "very_high",
+        "build_requirements": [
+          "boss_dps",
+          "tankiness"
+        ],
+        "recommended_maps": [
+          "Boss arenas"
+        ],
+        "atlas_passives": [
+          "Boss nodes"
+        ],
+        "scarabs": [],
+        "tips": [
+          "Trialmaster and Kosis drop hefty loot",
+          "Challenging fights",
+          "Clear quickly for efficiency"
+        ],
+        "tips_ko": [
+          "트라이얼마스터와 코시스 큰 전리품",
+          "도전적인 전투",
+          "빠른 클리어가 효율"
+        ],
+        "profit_per_hour": "10-20 Divine",
+        "source_urls": [
+          "https://www.aoeah.com/news/3818"
+        ]
+      },
+      {
+        "name": "Foulborn Unique Crafting",
+        "name_ko": "파울본 유니크 크래프팅",
+        "tier": "A",
+        "league_version": "3.27",
+        "description": "Genesis Tree crafting system replaces original modifiers with potentially more powerful ones.",
+        "description_ko": "Genesis Tree 크래프팅으로 원본 모디파이어를 더 강력한 것으로 교체",
+        "investment": "high",
+        "returns": "very_high",
+        "build_requirements": [
+          "crafting_knowledge"
+        ],
+        "recommended_maps": [
+          "Any"
+        ],
+        "atlas_passives": [
+          "Genesis Tree unlocked"
+        ],
+        "scarabs": [],
+        "tips": [
+          "Genesis Tree must be unlocked",
+          "Replaces unique modifiers",
+          "Potentially more powerful results"
+        ],
+        "tips_ko": [
+          "Genesis Tree 해금 필요",
+          "유니크 모디파이어 교체",
+          "더 강력한 결과 가능"
+        ],
+        "profit_per_hour": "Variable",
+        "source_urls": [
+          "https://www.mmojugg.com/news/poe-327-best-currency-farming-profit-strategy.html"
+        ]
+      }
+    ]
+  }
+}

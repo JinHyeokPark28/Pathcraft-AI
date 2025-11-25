@@ -285,16 +285,22 @@ def calculate_item_value(unique_items: List[Dict]) -> float:
     return total_value
 
 
-def suggest_upgrades(unique_items: List[Dict], build_type: str) -> List[Dict]:
+def suggest_upgrades(unique_items: List[Dict], build_type: str, generate_trade_urls: bool = True) -> List[Dict]:
     """
     빌드 업그레이드 제안
+
+    Args:
+        unique_items: 현재 보유 유니크 아이템 목록
+        build_type: 빌드 타입
+        generate_trade_urls: Trade URL 생성 여부 (API 호출 필요)
 
     Returns:
         [
             {
                 "item_name": "Mageblood",
                 "reason": "Best in slot for most builds",
-                "chaos_value": 23350
+                "chaos_value": 23350,
+                "trade_url": "https://www.pathofexile.com/trade/search/Keepers/XXXXX"
             },
             ...
         ]
@@ -336,14 +342,35 @@ def suggest_upgrades(unique_items: List[Dict], build_type: str) -> List[Dict]:
                     chaos_value = item.get('chaosValue', 0)
                     price_map[name] = chaos_value
 
+    # Trade API 인스턴스 (URL 생성용)
+    trade_api = None
+    if generate_trade_urls:
+        try:
+            from poe_trade_api import POETradeAPI
+            trade_api = POETradeAPI(league="Keepers")
+        except Exception as e:
+            print(f"[WARN] Failed to initialize Trade API: {e}", file=sys.stderr)
+
     # 추천 아이템 중 아직 안 가진 것
     for item_name in recommended_items:
         if item_name.lower() not in current_items:
-            suggestions.append({
+            suggestion = {
                 "item_name": item_name,
                 "reason": f"Recommended upgrade for {build_type}",
-                "chaos_value": price_map.get(item_name, 0)
-            })
+                "chaos_value": price_map.get(item_name, 0),
+                "trade_url": ""
+            }
+
+            # Trade URL 생성
+            if trade_api:
+                try:
+                    trade_url = trade_api.search_unique_item_url(item_name)
+                    if trade_url:
+                        suggestion["trade_url"] = trade_url
+                except Exception as e:
+                    print(f"[WARN] Failed to get trade URL for {item_name}: {e}", file=sys.stderr)
+
+            suggestions.append(suggestion)
 
     return suggestions[:3]  # 상위 3개만
 

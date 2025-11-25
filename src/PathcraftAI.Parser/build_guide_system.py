@@ -6,10 +6,26 @@ Build Guide System
 
 import json
 import os
+import re
 import sys
 from typing import Dict, List, Optional, Tuple
 from dataclasses import dataclass
 from enum import Enum
+
+# Trade API 지연 로딩
+_trade_api = None
+
+def get_trade_api(league: str = "Keepers"):
+    """Trade API 지연 로딩"""
+    global _trade_api
+    if _trade_api is None:
+        try:
+            from poe_trade_api import POETradeAPI
+            _trade_api = POETradeAPI(league=league)
+        except Exception as e:
+            print(f"[WARNING] Failed to load Trade API: {e}", file=sys.stderr)
+            _trade_api = None
+    return _trade_api
 
 # Windows 콘솔 UTF-8 인코딩 설정
 if sys.platform == 'win32':
@@ -731,8 +747,8 @@ class BuildGuideSystem:
         return analysis
 
     def _upgrade_to_dict(self, upgrade: UpgradeItem, divine_rate: float) -> Dict:
-        """UpgradeItem을 딕셔너리로 변환"""
-        return {
+        """UpgradeItem을 딕셔너리로 변환 (Trade URL 포함)"""
+        result = {
             "slot": upgrade.slot,
             "current_item": upgrade.current_item,
             "target_item": upgrade.target_item,
@@ -742,8 +758,184 @@ class BuildGuideSystem:
             "priority_value": upgrade.priority.value,
             "reason": upgrade.reason,
             "dps_gain_percent": upgrade.dps_gain,
-            "ehp_gain": upgrade.ehp_gain
+            "ehp_gain": upgrade.ehp_gain,
+            "trade_url": None
         }
+
+        # Trade URL 생성
+        trade_url = self._generate_trade_url(upgrade)
+        if trade_url:
+            result["trade_url"] = trade_url
+
+        return result
+
+    def _generate_trade_url(self, upgrade: UpgradeItem) -> Optional[str]:
+        """업그레이드 아이템에 대한 Trade URL 생성"""
+        trade_api = get_trade_api(self.league)
+        if not trade_api:
+            return None
+
+        target = upgrade.target_item
+        slot = upgrade.slot
+        max_price = int(upgrade.estimated_price * 1.5)  # 예상 가격의 1.5배까지
+
+        try:
+            # 1. 유니크 아이템 검색
+            if self._is_likely_unique(target):
+                # 유니크 아이템 이름 추출 (예: "Double-corrupted Mageblood" -> "Mageblood")
+                unique_name = self._extract_unique_name(target)
+                if unique_name:
+                    return trade_api.search_unique_item_url(unique_name, max_price=max_price)
+
+            # 2. 슬롯별 스탯 기반 검색
+            item_type = self._slot_to_item_type(slot)
+            if item_type:
+                # 슬롯에 따른 기본 스탯 요구사항
+                stats = self._get_default_stats_for_slot(slot, upgrade)
+                if stats:
+                    return trade_api.search_with_shortcuts_url(
+                        item_type=item_type,
+                        shortcuts=stats,
+                        max_price=max_price
+                    )
+
+            # 3. 젬 검색
+            if slot == "Gem Upgrade" or "Gem" in target:
+                gem_name = self._extract_gem_name(target)
+                if gem_name:
+                    return trade_api.search_gem_url(
+                        gem_name=gem_name,
+                        min_level=20,
+                        min_quality=20,
+                        max_price=max_price
+                    )
+
+            return None
+
+        except Exception as e:
+            print(f"[WARN] Failed to generate trade URL for {target}: {e}", file=sys.stderr)
+            return None
+
+    def _extract_unique_name(self, target_item: str) -> Optional[str]:
+        """타겟 아이템에서 유니크 이름 추출"""
+        # 알려진 유니크 아이템 이름 리스트
+        known_uniques = [
+            "Mageblood", "Headhunter", "Aegis Aurora", "Nebulis", "The Surrender",
+            "Skin of the Lords", "Skin of the Loyal", "Ashes of the Stars",
+            "Crystallised Omniscience", "Melding of the Flesh", "Thread of Hope",
+            "Watcher's Eye", "Forbidden Flame", "Forbidden Flesh", "Badge of the Brotherhood",
+            "Doryani's Prototype", "Replica Dreamfeather", "Bottled Faith", "Dying Sun",
+            "Cospri's Malice", "Mjolner", "Inpulsa's Broken Heart", "Shav", "Shavronne",
+            "Farrul's Fur", "Original Sin", "Nimis", "Impossible Escape",
+            "Prism Guardian", "Ephemeral Edge", "Glorious Vanity", "Lethal Pride",
+            "Brutal Restraint", "Elegant Hubris", "Militant Faith", "Inspired Learning"
+        ]
+
+        target_lower = target_item.lower()
+        for unique in known_uniques:
+            if unique.lower() in target_lower:
+                return unique
+
+        # 패턴 매칭으로 추출 시도
+        # "Double-corrupted X" -> "X"
+        # "Perfect rolled X" -> "X"
+        patterns = [
+            r"double[- ]?corrupted\s+(.+)",
+            r"perfect\s+rolled\s+(.+)",
+            r"well[- ]?rolled\s+(.+)",
+        ]
+        for pattern in patterns:
+            match = re.search(pattern, target_lower, re.IGNORECASE)
+            if match:
+                extracted = match.group(1).strip()
+                # 알려진 유니크와 매칭
+                for unique in known_uniques:
+                    if unique.lower() in extracted:
+                        return unique
+
+        return None
+
+    def _slot_to_item_type(self, slot: str) -> Optional[str]:
+        """슬롯을 POE Trade 아이템 타입으로 변환"""
+        slot_map = {
+            "Helmet": "Helmet",
+            "Body Armour": "Body Armour",
+            "Gloves": "Gloves",
+            "Boots": "Boots",
+            "Belt": "Belt",
+            "Amulet": "Amulet",
+            "Ring 1": "Ring",
+            "Ring 2": "Ring",
+            "Weapon 1": None,  # 무기는 타입 다양
+            "Weapon 2": None,
+            "Shield": "Shield",
+        }
+        return slot_map.get(slot)
+
+    def _get_default_stats_for_slot(self, slot: str, upgrade: UpgradeItem) -> Optional[Dict]:
+        """슬롯별 기본 스탯 요구사항 반환"""
+        target = upgrade.target_item.lower()
+
+        # 공통 스탯
+        base_stats = {}
+
+        # 생명력 언급 시
+        if "life" in target or "생명력" in target:
+            base_stats["life"] = {"min": 60}
+
+        # 저항 언급 시
+        if "resistance" in target or "저항" in target:
+            base_stats["ele_res"] = {"min": 60}
+
+        # 슬롯별 특화 스탯
+        if slot == "Boots":
+            if "move" in target or "이동" in target:
+                base_stats["move_speed"] = {"min": 25}
+            else:
+                base_stats["move_speed"] = {"min": 20}
+
+        elif slot in ["Ring 1", "Ring 2"]:
+            if not base_stats:
+                base_stats = {
+                    "life": {"min": 50},
+                    "ele_res": {"min": 50}
+                }
+
+        elif slot == "Amulet":
+            if "gem" in target or "젬" in target:
+                base_stats["gem_level"] = {"min": 1}
+
+        elif slot == "Belt":
+            if not base_stats:
+                base_stats = {
+                    "life": {"min": 70},
+                    "ele_res": {"min": 40}
+                }
+
+        elif slot in ["Helmet", "Gloves"]:
+            if "suppress" in target:
+                pass  # suppress는 pseudo stat에 없음
+            if not base_stats:
+                base_stats = {
+                    "life": {"min": 60},
+                    "ele_res": {"min": 40}
+                }
+
+        return base_stats if base_stats else None
+
+    def _extract_gem_name(self, target_item: str) -> Optional[str]:
+        """타겟에서 젬 이름 추출"""
+        # Awakened 젬
+        if "awakened" in target_item.lower():
+            # "Awakened Support Gems" -> None (특정 젬 아님)
+            # "Awakened Multistrike" -> "Awakened Multistrike"
+            match = re.search(r"awakened\s+(\w+(?:\s+\w+)?)", target_item, re.IGNORECASE)
+            if match:
+                gem_name = match.group(0)
+                if "gems" not in gem_name.lower():
+                    return gem_name
+
+        return None
 
     def _format_budget(self, chaos_value: int, divine_rate: float) -> str:
         """예산을 읽기 좋은 형식으로 변환"""
@@ -827,6 +1019,8 @@ def main():
                     print(f"     예상 DPS 증가: +{upgrade['dps_gain_percent']}%")
                 if upgrade['ehp_gain']:
                     print(f"     예상 EHP 증가: +{upgrade['ehp_gain']}")
+                if upgrade.get('trade_url'):
+                    print(f"     Trade: {upgrade['trade_url']}")
 
             print()
 

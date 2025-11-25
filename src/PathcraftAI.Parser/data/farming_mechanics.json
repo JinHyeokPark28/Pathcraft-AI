@@ -1,0 +1,806 @@
+{
+  "version": "3.27",
+  "last_updated": "2025-01-23",
+  "description": "각 파밍 메카닉의 상세 정보 - Wiki, Maxroll, 디시인사이드 기반",
+
+  "expedition": {
+    "name_ko": "탐험",
+    "core_mechanic": "폭약 배치로 렘넌트와 루닉 몬스터 터뜨리기. 각 폭발 후 렘넌트 수정자가 이후 모든 몬스터에 적용",
+
+    "remnant_priority": {
+      "prefix": [
+        {"name": "루닉 몬스터 복제", "priority": 1, "note": "최우선"},
+        {"name": "루닉 몬스터 추가 35%", "priority": 2}
+      ],
+      "suffix": [
+        {"name": "로그북 드롭량 50% 증가", "priority": 1},
+        {"name": "아이템 드롭량 40% 증가", "priority": 2},
+        {"name": "스택 덱 추가 드롭 35%", "priority": 3},
+        {"name": "아티팩트 드롭량 50% 증가", "priority": 4}
+      ]
+    },
+
+    "vendors": {
+      "gwennen": {
+        "name_ko": "그웬넨",
+        "role": "미확인 장비 도박",
+        "target_items": ["Headhunter", "Mageblood"],
+        "strategy": "고가 유니크 도박용",
+        "currency": "Astragali"
+      },
+      "rog": {
+        "name_ko": "로그",
+        "role": "레어 아이템 크래프팅",
+        "strategy": "초반 리그에서 저비용 강력한 레어 제작",
+        "currency": "Exotic Coinage"
+      },
+      "tujen": {
+        "name_ko": "투젠",
+        "role": "화폐/아이템 흥정",
+        "target_items": ["신화의 보석", "미러 샤드", "Divine", "Chaos"],
+        "strategy": "66-75% 오퍼로 흥정",
+        "currency": "Exotic Coinage"
+      },
+      "dannig": {
+        "name_ko": "다닉",
+        "role": "로그북/리롤 커런시",
+        "strategy": "다른 벤더 아티팩트로 변환 - 자동 포함 권장",
+        "currency": "Exotic Coinage"
+      }
+    },
+
+    "atlas_nodes": [
+      {"name": "Ancient Writings", "effect": "렘넌트 수 증가"},
+      {"name": "Distinguished Demolitionist", "effect": "추가 폭약"},
+      {"name": "Buried Knowledge", "effect": "로그북 50% 증가"},
+      {"name": "Dannig's Stash", "effect": "다닉 우선"},
+      {"name": "Scrounging for Scraps", "effect": "투젠 우선"}
+    ],
+
+    "scarabs": {
+      "best": [
+        {"name": "Expedition Scarab of Runefinding", "effect": "루닉 몬스터 100% 증가", "limit": 2},
+        {"name": "Expedition Scarab of Archaeology", "effect": "렘넌트에 프리/서픽스 각 2개 추가"},
+        {"name": "Expedition Scarab of the Skald", "effect": "다닉만 출현"}
+      ]
+    },
+
+    "logbook_strategy": {
+      "min_ilvl": 83,
+      "priority_factions": ["Knights of the Sun", "Black Scythe Mercenaries"],
+      "tips": [
+        "렘넌트 먼저 배치 (효과 적용)",
+        "Runic Monster 마커 그룹 (2-3개+) 타겟",
+        "보스는 마지막에 (렘넌트 스택 최대화)",
+        "지하 영역 무조건 포함 (아티팩트 대량)"
+      ]
+    }
+  },
+
+  "essence": {
+    "name_ko": "에센스",
+    "core_mechanic": "에센스에 갇힌 몬스터 처치 후 에센스 획득. 아이템에 사용 시 특정 모드 부여",
+
+    "tiers": [
+      {"name": "Whispering", "tier": 1, "mlvl": "1-47"},
+      {"name": "Muttering", "tier": 2, "mlvl": "12-67"},
+      {"name": "Weeping", "tier": 3, "mlvl": "30+"},
+      {"name": "Wailing", "tier": 4, "mlvl": "48+"},
+      {"name": "Screaming", "tier": 5, "mlvl": "68+"},
+      {"name": "Shrieking", "tier": 6, "mlvl": "74+"},
+      {"name": "Deafening", "tier": 7, "mlvl": "82+", "note": "최고 티어, 파밍 타겟"}
+    ],
+
+    "corruption": {
+      "item": "Remnant of Corruption",
+      "effects": [
+        "에센스 한 단계 업그레이드",
+        "모든 에센스 파괴",
+        "특수 에센스로 변환",
+        "에센스 추가"
+      ],
+      "target_essences": ["Dread", "Envy", "Misery", "Scorn"],
+      "special_essences": [
+        {"name": "Hysteria", "note": "부패 전용"},
+        {"name": "Insanity", "note": "부패 전용"},
+        {"name": "Horror", "note": "부패 전용"},
+        {"name": "Delirium", "note": "부패 전용"}
+      ]
+    },
+
+    "atlas_nodes": [
+      {"name": "Prolific Essence", "effect": "맵당 에센스 몬스터 보장"},
+      {"name": "Amplified Energies", "effect": "Shrieking 에센스 증가"},
+      {"name": "Crystal Lattice", "effect": "+3 에센스 15% 확률"},
+      {"name": "Crystalline Carapaces", "effect": "에센스 스카랍 획득"}
+    ],
+
+    "scarabs": {
+      "setup": [
+        {"name": "Essence Scarab", "qty": 3, "effect": "기본 몬스터"},
+        {"name": "Essence Scarab of Ascent", "qty": 1, "effect": "드롭 300% 배수"}
+      ]
+    },
+
+    "key_points": [
+      "T6+ 맵이면 보상 동일 (티어 스케일링 없음)",
+      "모든 에센스 Deafening으로 업그레이드",
+      "TFT 벌크 110%에 판매",
+      "Kirac: Area Contains 2-3 Additional Essences (3c)"
+    ],
+
+    "best_maps": ["Strand", "Atoll", "Jungle Valley"]
+  },
+
+  "blight": {
+    "name_ko": "역병",
+    "core_mechanic": "타워 디펜스 - 균류 성장체를 정화 펌프로 방어",
+
+    "tower_types": {
+      "summoning": {
+        "name_ko": "소환사",
+        "strategy": "모든 자원을 소환사 타워에 사용 → 센티널로 업그레이드",
+        "final_form": "Sentinel Tower (비행 로봇 무리, 단일 대상 피해)"
+      },
+      "other_towers": ["Scout Tower", "Arc Tower", "Meteor Tower", "Seismic Tower"]
+    },
+
+    "oils": {
+      "tiers": [
+        {"name": "Clear Oil", "tier": 1, "level": 1},
+        {"name": "Sepia Oil", "tier": 2, "level": 10},
+        {"name": "Amber Oil", "tier": 3, "level": 19},
+        {"name": "Verdant Oil", "tier": 4, "level": 27},
+        {"name": "Teal Oil", "tier": 5, "level": 36},
+        {"name": "Azure Oil", "tier": 6, "level": 44},
+        {"name": "Indigo Oil", "tier": 7, "level": 48},
+        {"name": "Violet Oil", "tier": 8, "level": 52},
+        {"name": "Crimson Oil", "tier": 9, "level": 60, "note": "고가"},
+        {"name": "Black Oil", "tier": 10, "level": 68},
+        {"name": "Opalescent Oil", "tier": 11, "level": 73, "note": "고가"},
+        {"name": "Silver Oil", "tier": 12, "level": 78, "note": "고가"},
+        {"name": "Golden Oil", "tier": 13, "level": 80, "note": "최고가"}
+      ],
+      "upgrade": "3개 오일 → 한 단계 상위 오일 1개"
+    },
+
+    "anointment": {
+      "amulet": "3개 오일 조합 → 패시브 스킬 할당",
+      "ring": "2개 오일 → 역병 타워 버프",
+      "blighted_map": "1개 오일 → 몬스터 팩 사이즈 증가"
+    },
+
+    "atlas_nodes": [
+      {"name": "Epidemiology", "effect": "역병 조우 확률"},
+      {"name": "Immune Response", "effect": "보스 추가"},
+      {"name": "Sturdy Construction", "effect": "타워 강화"},
+      {"name": "Cassia's Pride", "effect": "타워 300% 강화, 플레이어 피해 75% 감소"}
+    ],
+
+    "ravaged_maps": {
+      "acquisition": "Blight Scarab of Blooming으로 T14+ → Ravaged 변환",
+      "difficulty": "일반 Blighted보다 훨씬 어려움",
+      "rewards": "대폭 증가된 보상"
+    },
+
+    "best_maps": ["Toxic Sewer", "Core"],
+    "map_tip": "가장 좁은 맵이 곁눈 최소화 → 최대 보상 집중"
+  },
+
+  "harvest": {
+    "name_ko": "수확",
+    "core_mechanic": "Sacred Grove에서 식물 수확 → 생기력(Lifeforce) 획득",
+
+    "lifeforce_types": [
+      {"name": "Primal (Blue)", "name_ko": "원시 (파랑)", "color": "blue"},
+      {"name": "Vivid (Yellow)", "name_ko": "생생한 (노랑)", "color": "yellow", "note": "보통 가장 비쌈"},
+      {"name": "Wild (Purple)", "name_ko": "야생 (분홍)", "color": "purple"}
+    ],
+
+    "crop_rotation": {
+      "description": "고투자, 높은 생기력 획득",
+      "order": [
+        "1. 보라(Purple) 먼저 수확",
+        "2. 파랑(Blue) 수확",
+        "3. 노랑(Yellow) 마지막 (최대 업그레이드)"
+      ]
+    },
+
+    "cornucopia": {
+      "description": "안정적, 낮은 변동성",
+      "key": "Cornucopia 스카랍으로 T4 보스 3명 보장"
+    },
+
+    "sacred_blossom": {
+      "source": "희귀 식물 (유니크 씨앗)",
+      "boss": "Oshabi",
+      "options": ["판매", "오샤비 도전"]
+    },
+
+    "atlas_nodes": [
+      {"name": "Call of the Grove", "effect": "Sacred Grove 조우 확률 증가 (필수)"},
+      {"name": "Bumper Crop", "effect": "추가 식물 구획 50% 확률"},
+      {"name": "Doubling Season", "effect": "생기력 복제 확률"},
+      {"name": "Heart of the Grove", "effect": "유니크 식물 조우 확률 증가"}
+    ],
+
+    "scarabs": {
+      "cornucopia_setup": [
+        "Harvest Scarab of Cornucopia",
+        "Harvest Scarab of Doubling",
+        "Influencing Scarab of Hordes"
+      ],
+      "awakened_setup": [
+        "Horned Scarab of Awakening",
+        "Harvest Scarab of Doubling"
+      ]
+    },
+
+    "key_points": [
+      "아이템 수량이 생기력 드롭량에 직접 영향",
+      "맵 수량/팩사이즈가 생기력 양에 영향"
+    ]
+  },
+
+  "ritual": {
+    "name_ko": "의식",
+    "core_mechanic": "제단 활성화 → 몬스터 처치 → 공물(Tribute) 획득 → 보상 구매",
+
+    "tribute_system": {
+      "monster_rewards": [
+        {"type": "일반", "first_appear": 10, "note": "첫 등장 100%"},
+        {"type": "매직", "first_appear": 25},
+        {"type": "레어", "first_appear": 135},
+        {"type": "고유", "first_appear": 75},
+        {"type": "지역 보스", "first_appear": 400}
+      ],
+      "decay": "재등장 시 40% 감소, 4번째 등장 시 0"
+    },
+
+    "defer_system": {
+      "cost": "원래 가격의 10% + 5%",
+      "discount": "연기할 때마다 10% 할인",
+      "limit": "약 9-10회",
+      "strategy": [
+        "비싼 아이템 발견 시 연기",
+        "매 맵마다 연기해야 가격 하락",
+        "연기 안 하면 가격 다시 상승"
+      ]
+    },
+
+    "altar_types": {
+      "elemental": [
+        {"name": "지옥의 제단", "damage": "화염"},
+        {"name": "쓸쓸한 제단", "damage": "냉기"},
+        {"name": "불규칙한 제단", "damage": "번개"}
+      ],
+      "chaos": [
+        {"name": "두려운 제단", "effect": "혼돈 피해 + 시들음"},
+        {"name": "역겨운 제단", "effect": "혼돈 피해 + 중독"}
+      ],
+      "special": [
+        {"name": "바알 제단", "effect": "드롭 아이템 부패"},
+        {"name": "오팔한 제단", "effect": "1000% IIR/IIQ"}
+      ]
+    },
+
+    "atlas_nodes": [
+      {"name": "Sacred Lands", "effect": "의식 몬스터 부활 → 추가 드롭"},
+      {"name": "Aqua Devotion", "effect": "맵당 최대 4개 제단"},
+      {"name": "Flexible Dogma", "effect": "제단 확률 10%"}
+    ],
+
+    "scarabs": {
+      "recommended": [
+        {"name": "Ritual Scarab of Selectiveness", "qty": 2, "effect": "무료 리롤"},
+        {"name": "Ritual Scarab of Wisps", "qty": 1}
+      ],
+      "cloister_combo": {
+        "scarabs": ["Divination Scarab of The Cloister x5"],
+        "note": "0.5d/2맵 안정적 수익"
+      }
+    },
+
+    "reroll_cost": 2000,
+    "high_value_items": ["Mirror Shard", "고가 카드", "Fractured/Synthesized 아이템"]
+  },
+
+  "delirium": {
+    "name_ko": "환영/딜리리움",
+    "core_mechanic": "딜리리움 오브로 맵 강화 (20-100%). 보상 타일 채우기",
+
+    "orb_layers": {
+      "recommendation": "80% (4오브) 최적",
+      "reason": "100%는 너무 느림"
+    },
+
+    "orb_types": {
+      "best": [
+        {"name": "Skittering Delirium Orb", "reward": "스카랍 2.5개/오브/임계점", "note": "최고"},
+        {"name": "Diviner's Delirium Orb", "reward": "스택 덱, 점술 카드"},
+        {"name": "Cartographer's Delirium Orb", "reward": "맵 (Shaper/Elder/Conqueror)"}
+      ]
+    },
+
+    "simulacrum": {
+      "cost": "300 스플린터",
+      "waves": 30,
+      "strategy": "15웨이브 클리어 목표",
+      "rewards": ["Voices", "클러스터 주얼"]
+    },
+
+    "cluster_jewels": {
+      "priority": ["4-5 패시브 미디엄", "8 패시브 라지"],
+      "selling": "벌크 판매"
+    },
+
+    "atlas_nodes": [
+      {"name": "Imagined Pursuits", "effect": "보스 킬 시 추가 보상 임계점 (필수)"},
+      {"name": "Screaming Whispers", "effect": "시뮬라크럼 스플린터 증가"},
+      {"name": "Delusions of Persecution", "effect": "유니크 클러스터 주얼 증가"}
+    ],
+
+    "strategy_tips": [
+      "13-14 보상 임계점 목표",
+      "Breach/Abyss 추가 → 몬스터 밀도 증가",
+      "Strand, Beach 등 오픈 레이아웃 추천",
+      "맵을 화이트/매직으로 유지 (난이도 최소화)"
+    ],
+
+    "build_requirements": {
+      "min_dps": 5000000,
+      "min_ehp": 60000,
+      "tags": ["tankiness", "clear_speed", "sustain"]
+    }
+  },
+
+  "legion": {
+    "name_ko": "군단",
+    "core_mechanic": "모놀리스 활성화 → 타이머 내 최대한 많은 군단 해방",
+
+    "factions": [
+      {"name": "Eternal Empire", "emblem": "Timeless Eternal Emblem", "rarity": "공통"},
+      {"name": "Vaal", "emblem": "Timeless Vaal Emblem", "rarity": "공통"},
+      {"name": "Karui", "emblem": "Timeless Karui Emblem", "rarity": "공통"},
+      {"name": "Templar", "emblem": "Timeless Templar Emblem", "rarity": "비공통", "note": "고가"},
+      {"name": "Maraketh", "emblem": "Timeless Maraketh Emblem", "rarity": "희귀", "note": "최고가"}
+    ],
+
+    "splinters": {
+      "combine": "100개 → 엠블렘",
+      "source": "군단 몬스터, 특히 장군 (자주색 광선)"
+    },
+
+    "generals": {
+      "indicator": "자주색 광선",
+      "reward": "대량의 타임리스 스플린터"
+    },
+
+    "timeless_conflict": {
+      "keystone": true,
+      "effect": "타이머 제거, 획득 보상 제한",
+      "recommendation": "비추천 (전체 수익 감소)"
+    },
+
+    "incubators": {
+      "priority": ["Diviner's Incubator", "Ornate Incubator"]
+    },
+
+    "atlas_nodes": [
+      {"name": "Monumental", "effect": "16% 추가 군단 확률"},
+      {"name": "Emblematic", "effect": "스플린터가 완전한 엠블렘으로 드롭 확률"},
+      {"name": "Chain of Command", "effect": "2개 추가 sergeants"}
+    ],
+
+    "scarabs": {
+      "optimal": "Legion Scarab x4 (4개 군단 보장)"
+    },
+
+    "best_maps": ["Dunes", "Beach"],
+    "key_requirement": "전체 군단 해방이 목표 → 높은 AoE/클리어 속도 필요"
+  },
+
+  "heist": {
+    "name_ko": "강탈",
+    "core_mechanic": "로그와 함께 침투 → 보상 상자 열기 → 탈출",
+
+    "rogues": {
+      "main": [
+        {"name": "Karst", "skill": "Lockpicking", "perk": "보상 상자 경보 40% 감소"},
+        {"name": "Tibbs", "skill": "Brute Force", "perk": "폐쇄 후 기계 상자 2개 해제"},
+        {"name": "Isla", "skill": "Engineering", "perk": "폐쇄 전 시간 50% 증가"},
+        {"name": "Tullina", "skill": "Agility", "perk": "추가 타겟 26%, 경보 14% 감소"},
+        {"name": "Niles", "skill": "Deception", "perk": "폐쇄 후 마법 상자 2개 해제"},
+        {"name": "Nenet", "skill": "Perception", "perk": "근처 적 정찰"},
+        {"name": "Vinderi", "skill": "Demolition", "perk": "상자 내용물 14% 복사 확률"},
+        {"name": "Gianna", "skill": "Disguise", "perk": "도면 드러내기 비용 30% 감소"},
+        {"name": "Huck", "skill": "Combat", "perk": "강력한 전투원, 아군 버프"}
+      ],
+      "support": ["Adiyah", "Faustus", "Whakano", "Kurai"]
+    },
+
+    "contract_rewards": {
+      "currency": ["Perception", "Counter-Thaumaturgy"],
+      "gear": ["Lockpicking", "Deception"],
+      "gems": ["Agility"],
+      "maps": ["Engineering"]
+    },
+
+    "alert_system": {
+      "phases": [
+        {"name": "침투", "description": "적 적음, 상자 개방 시 경보 증가"},
+        {"name": "임박한 폐쇄", "timer": "22초", "description": "제한 시간 시작"},
+        {"name": "폐쇄", "description": "추가 적 등장, 일부 상자 잠김"}
+      ],
+      "tip": "폐쇄 중 상자 개방 시 3초 타이머 감소"
+    },
+
+    "blueprint_strategy": {
+      "quick": "추가 윙 드러내기 X (시간 대비 비효율)",
+      "full_reveal": "지아나 드러내기 → 화폐/카드/하빈저 방 우선"
+    },
+
+    "unique_contracts": [
+      "Breaking the Unbreakable",
+      "Death to Darnaw",
+      "Heart of Glory",
+      "The Slaver King",
+      "The Twins"
+    ],
+
+    "changes_3_27": "로그 레벨 최대로 시작"
+  },
+
+  "strongbox": {
+    "name_ko": "금고/스트롱박스",
+    "core_mechanic": "금고 열기 → 몬스터 스폰 → 보상 획득",
+
+    "t17_strategy": {
+      "difficulty": "High",
+      "investment": "High",
+      "profitability": "최고 (10-15d/hour)",
+
+      "map_setup": {
+        "recommended_maps": [
+          {"name": "Sanctuary", "fragment": "Devouring Fragment"},
+          {"name": "Ziggurat", "fragment": "Devouring + Reality"},
+          {"name": "Abomination", "fragment": "Reality Fragment"}
+        ],
+        "rolling": ["100% more Scarabs", "140% more Currency"],
+        "quality": "Chisel 필수, Maven's at 130%+ Scarab"
+      },
+
+      "map_device": "Ambush (5 Additional Strongboxes, 3c)"
+    },
+
+    "scarabs": {
+      "expensive": [
+        "Ambush Scarab of Containment",
+        "Ambush Scarab of Discernment",
+        "Ambush Scarab of Hidden Compartments",
+        "Ambush Scarab of Potency"
+      ],
+      "budget": [
+        "Ambush Scarab of Discernment",
+        "Ambush Scarab of Hidden Compartments",
+        "Ambush Scarab x3"
+      ]
+    },
+
+    "primary_loot": [
+      "Divine Orb",
+      "Valdo's Puzzle Box",
+      "The Apothecary",
+      "The Doctor",
+      "House of Mirrors",
+      "Uber Boss Fragments",
+      "Scarabs"
+    ],
+
+    "scaling": "금고는 지역 수량에 스케일링",
+
+    "changes_3_27": "스카랍이 다른 소스에서 제거 → 가치 상승"
+  },
+
+  "betrayal": {
+    "name_ko": "배신",
+    "core_mechanic": "신디케이트 보드 관리 → 세이프하우스 → 마스터마인드",
+
+    "members": [
+      "Aisling", "Cameria", "Elreon", "Gravicius", "Guff",
+      "Haku", "Hillock", "It That Fled", "Janus", "Korell",
+      "Leo", "Riker", "Rin", "Jorgin", "Tora", "Vagan", "Vorici"
+    ],
+
+    "divisions": {
+      "transportation": {
+        "name_ko": "수송",
+        "best_members": ["Cameria (스카랍)"]
+      },
+      "fortification": {
+        "name_ko": "요새",
+        "best_members": ["Cameria (스카랍)"]
+      },
+      "research": {
+        "name_ko": "연구",
+        "best_members": [
+          {"name": "Aisling", "reward": "베일 모드 추가/제거", "note": "리더일 때만 최고가치"},
+          {"name": "It That Fled", "reward": "브리치스톤 업그레이드"},
+          {"name": "Vorici", "reward": "화이트 소켓"}
+        ]
+      },
+      "intervention": {
+        "name_ko": "개입",
+        "best_members": [
+          {"name": "Cameria", "reward": "스카랍"},
+          {"name": "리더", "reward": "Paradoxica 드랍 확률"}
+        ]
+      }
+    },
+
+    "board_layout": {
+      "recommended": "5-5-2-2 (Research 5, Fortification 5, Intervention 2, Transportation 2)",
+      "reason": "세이프하우스 회전 속도 극대화"
+    },
+
+    "board_management": {
+      "rank": "최대 3등급 (별)",
+      "interrogate": "등급 하락",
+      "execute": "등급 상승",
+      "max_jailed": 3,
+      "per_division": "최소 2명, 최대 5명"
+    },
+
+    "relationships": {
+      "trusted": "녹색 선 - 상호 지원 증가",
+      "rival": "빨간색 선 - 배신 기회 증가"
+    },
+
+    "atlas_nodes": [
+      {"name": "Intelligence Gathering", "effect": "마스터마인드 진행 가속"},
+      {"name": "Bribery", "effect": "유니크 아이템 보상 2배"},
+      {"name": "Test of Loyalty", "effect": "Rank 3 멤버 자주 출현"},
+      {"name": "Resource Reallocation", "effect": "세이프하우스 보상 품질 향상"}
+    ],
+
+    "mastermind": {
+      "changes_3_27": "보드 리셋 없음, 프래그먼트 드랍",
+      "when_to_trigger": "Rank 3 리더 2개+ 있을 때"
+    }
+  },
+
+  "breach": {
+    "name_ko": "균열",
+    "core_mechanic": "손 모양 활성화 → 30-60초간 몬스터 처치 → 스플린터 획득",
+
+    "types": [
+      {"name": "Xoph", "damage": "Fire", "boss": "Xoph, Dark Embers", "level": 81, "rarity": "공통"},
+      {"name": "Tul", "damage": "Cold", "boss": "Tul, Creeping Avalanche", "level": 81, "rarity": "공통"},
+      {"name": "Esh", "damage": "Lightning", "boss": "Esh, Forked Thought", "level": 81, "rarity": "공통"},
+      {"name": "Uul-Netol", "damage": "Physical", "boss": "Uul-Netol, Unburdened Flesh", "level": 82, "rarity": "비공통"},
+      {"name": "Chayula", "damage": "Chaos", "boss": "Chayula, Who Dreamt", "level": 83, "rarity": "희귀", "xp_bonus": "200%"}
+    ],
+
+    "splinters": {
+      "combine": "100개 → 브리치스톤",
+      "collection": "자동 수집, 브리치 닫힐 때 드랍"
+    },
+
+    "breachstones": {
+      "upgrade": "Blessing으로 Flawless 버전 업그레이드",
+      "blessing_source": "브리치로드만 드랍"
+    },
+
+    "unique_items": [
+      {"name": "Xoph's Heart", "type": "amulet", "effect": "화염 피해, 근처 적 재 덮음"},
+      {"name": "The Halcyon", "type": "amulet", "effect": "냉기, 동결 확산"},
+      {"name": "Voice of the Storm", "type": "amulet", "effect": "번개 스케일링"},
+      {"name": "Skin of the Loyal", "type": "chest", "effect": "6링크 부패, +1 젬 레벨"}
+    ],
+
+    "atlas_nodes": [
+      {"name": "Flash Breach", "effect": "브리치 지속시간 증가"},
+      {"name": "Within Their Grasp", "effect": "Clasped Hands 증가"}
+    ],
+
+    "changes_3_27": [
+      "모든 맵에 브리치 기본 스폰",
+      "Graftblood 25% 증가 (레벨 83 맵)",
+      "XP 너프됨"
+    ],
+
+    "tips": [
+      "Chayula/Uul-Netol이 가장 가치 있음",
+      "Clasped Hands 최대한 열기",
+      "한 번에 하나씩 브리치 열기"
+    ]
+  },
+
+  "abyss": {
+    "name_ko": "심연",
+    "core_mechanic": "크랙 따라가며 몬스터 처치 → 피트 생성 → 트로브/스파이어",
+
+    "progression": {
+      "crack": "크랙 형성 → 따라가며 몬스터 처치",
+      "pits": "1-4개 피트 생성",
+      "trove": "마지막 피트 → 어비스 트로브 (주얼 포함)",
+      "spire": "때때로 스티지안 스파이어 (Stygian Vise)"
+    },
+
+    "abyssal_depths": {
+      "min_level": 78,
+      "content": "어비스 리치(Lich) 보스 전투"
+    },
+
+    "jewel_types": [
+      {"name": "Ghastly Eye Jewel", "focus": "미니언 피해"},
+      {"name": "Hypnotic Eye Jewel", "focus": "아칸 서지"},
+      {"name": "Murderous Eye Jewel", "focus": "치명타 확률"},
+      {"name": "Searching Eye Jewel", "focus": "투사체 체인"}
+    ],
+
+    "stygian_spire_trick": [
+      "스파이어 절반 체력까지만 데미지",
+      "3번 발리 발사 대기",
+      "몬스터 대량 스폰 후 마무리"
+    ],
+
+    "atlas_nodes": [
+      {"name": "Abyssal Army", "effect": "어비스 몬스터 증가"},
+      {"name": "Inspired Darkness", "effect": "어비스 주얼 품질"},
+      {"name": "Ancient Conflict", "effect": "어비스 뎁스 확률"}
+    ],
+
+    "scarabs": {
+      "recommended": "Abyss Scarab of Edifice"
+    },
+
+    "high_value": ["5-6모드 어비스 주얼", "Darkness Enthroned 벨트"]
+  },
+
+  "harbinger": {
+    "name_ko": "선구자",
+    "core_mechanic": "하빈저는 직접 피해 불가 - 소환 미니언 처치로만 해칠 수 있음",
+
+    "shards": {
+      "basic": ["Alchemy", "Alteration", "Chaos", "Transmutation", "Regal", "Engineer's"],
+      "high_value": ["Ancient", "Annulment", "Exalted", "Mirror (레벨 35+)"],
+      "exclusive": ["Harbinger's Shard", "Horizon Shard", "Fracturing Shard"],
+      "note": "아이템 수량이 샤드 드롭에 영향 없음"
+    },
+
+    "beachhead": {
+      "boss": "King Harbinger",
+      "infused": "Infused Beachhead (레벨 83, T16) - 20 추가 하빈저"
+    },
+
+    "atlas_nodes": [
+      {"name": "Ominous Arrival", "effect": "하빈저 확률"},
+      {"name": "Additional Harbinger Chance", "effect": "추가 하빈저"},
+      {"name": "First Wave", "effect": "더 강력한 하빈저"}
+    ],
+
+    "scarabs": [
+      {"name": "Harbinger Scarab", "effect": "3개 추가"},
+      {"name": "Harbinger Scarab of Warhoards", "effect": "드롭 복제"},
+      {"name": "Harbinger Scarab of Regency", "effect": "강력한 보스"}
+    ],
+
+    "tips": [
+      "Harbinger's Orb → Beachhead 맵 (15-20% 확률)",
+      "수량/희귀도 영향 안 받음"
+    ]
+  },
+
+  "delve": {
+    "name_ko": "탐광",
+    "core_mechanic": "Sulphite로 Crawler 구동 → 광산 탐사 → 체크포인트 도달",
+
+    "sulphite": {
+      "source": "맵에서 Niko 조우 시 3개 캐시",
+      "capacity": "기본 1,200, 최대 65,000",
+      "scaling": "맵 아이템 수량에 따라 증가"
+    },
+
+    "depth_progression": {
+      "ilvl_83": "깊이 145",
+      "scaling_start": "깊이 146부터 몬스터 강화",
+      "optimal_farming": "깊이 150-200 (ilvl 83, 모든 보스)"
+    },
+
+    "fractured_wall": {
+      "method": "다이너마이트로 파괴",
+      "indicator": "2개 경로만 있으면 숨겨진 3번째 경로 가능성",
+      "rule": "노드는 보통 1, 3, 또는 4개 경로"
+    },
+
+    "special_biomes": {
+      "cities": [
+        {"name": "Vaal Outpost", "depth": 50, "boss": "Ahuatotli, the Blind"},
+        {"name": "Abyssal City", "depth": 90, "boss": "Kurgal, the Blackblooded"},
+        {"name": "Primeval Ruins", "depth": 130, "boss": "Aul, the Crystal King"}
+      ],
+      "normal": ["Mines", "Fungal Caverns", "Petrified Forest", "Frozen Hollow", "Magma Fissure"]
+    },
+
+    "fossils_by_biome": {
+      "Mines": ["Metallic", "Serrated", "Pristine", "Aetheric"],
+      "Fungal Caverns": ["Dense", "Aberrant", "Corroded", "Gilded"],
+      "Petrified Forest": ["Bound", "Jagged", "Sanctified"],
+      "Frozen Hollow": ["Frigid", "Prismatic", "Shuddering"],
+      "Magma Fissure": ["Scorched", "Pristine", "Fundamental"]
+    },
+
+    "azurite_upgrades": [
+      {"name": "빛 반경", "max_level": 30, "effect": "3,000% 증가"},
+      {"name": "어둠 저항", "max_level": 105},
+      {"name": "플레어 용량", "max": 20},
+      {"name": "다이너마이트 용량", "max": 7}
+    ],
+
+    "darkness": {
+      "mechanic": "조명 밖 → Darkness 디버프 피해",
+      "note": "미니언/토템은 어둠 피해 안 받음"
+    },
+
+    "tips": [
+      "이동 속도/AoE 빠른 캐릭터 추천",
+      "화석은 TFT 벌크로 판매",
+      "고가치 노드: Crystal Spire, Time-Lost Cavern"
+    ]
+  },
+
+  "sanctum": {
+    "name_ko": "성역",
+    "core_mechanic": "Resolve (추가 체력바) 관리하며 4층 클리어",
+
+    "resolve_system": {
+      "default_max": 300,
+      "loss_condition": "0이 되면 성역에서 퇴장",
+      "mechanic": "몬스터/함정 피격 시 감소. 거리 가까울수록 감소량 줄어듦",
+      "defenses": {
+        "armour": "Resolve Mitigation",
+        "evasion": "Resolve Avoidance",
+        "energy_shield": "Resolve Aegis"
+      }
+    },
+
+    "boons_and_afflictions": {
+      "major_boons": [
+        {"name": "All-Seeing Eye", "effect": "전체 맵 공개"},
+        {"name": "Holy Descry", "effect": "풀 Resolve로 부활 1회"}
+      ],
+      "afflictions": [
+        {"name": "Deadly Snare", "effect": "함정이 무한 Resolve 피해"},
+        {"name": "Demonic Skull", "effect": "Resolve 회복 불가"}
+      ]
+    },
+
+    "aureus": {
+      "type": "거래 불가 화폐",
+      "source": "상자, 적 처치",
+      "use": ["Divinia에게서 분 및 유물 구매", "Gilded Font에서 골드로 변환"]
+    },
+
+    "floor_structure": {
+      "total_floors": 4,
+      "rooms_per_floor": 8,
+      "boss_room": "각 층 8번째 방",
+      "max_area_level": 83
+    },
+
+    "relics": {
+      "grid": "5x4 (18 슬롯, 초기 6개만 사용 가능)",
+      "source": ["가드/미니보스/보스 보상", "Divinia에게서 300 Aureus로 구매"],
+      "note": "수정 불가"
+    },
+
+    "final_boss": {
+      "name": "Lycia",
+      "phases": 2,
+      "second_phase": "The Beyond 아레나 (Resolve 메카닉 없음)"
+    },
+
+    "profit_note": "1카오스로 디바인 복사 가능 - 현재 최고 수익 (디시 평가)"
+  }
+}

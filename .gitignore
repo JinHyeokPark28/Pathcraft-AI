@@ -40,3 +40,64 @@ temp_*.md
 # Logs
 *.log
 nul
+
+# .NET Build outputs
+bin/
+obj/
+*.dll
+*.pdb
+*.exe
+*.deps.json
+*.runtimeconfig.json
+*.cache
+*.baml
+*.g.cs
+*.g.resources
+
+# Visual Studio
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+*.vsidx
+*.v2
+*.backup.json
+
+# Test files
+temp_*.xml
+temp_*.txt
+*.filter
+!src/PathcraftAI.Parser/data/**/*.filter
+
+# C# specific
+*.AssemblyInfo.cs
+*.AssemblyInfoInputs.cache
+*.GeneratedMSBuildEditorConfig.editorconfig
+*.assets.cache
+*.csproj.*.cache
+*.csproj.nuget.*
+project.assets.json
+project.nuget.cache
+*.sourcelink.json
+*_wpftmp.*
+
+# SQLite databases
+*.db
+*.db-shm
+*.db-wal
+
+# Electron node_modules
+node_modules/
+
+# Crash logs
+crash_log.txt
+
+# Config (로컬 설정만)
+.claude/settings.local.json
+
+# External tools/repos (git submodules)
+src/PathcraftAI.Parser/pob_repo/
+tools/LibGGPK3/
+tools/PoE-Overlay-Community-Fork/
+tools/awakened-poe-trade/

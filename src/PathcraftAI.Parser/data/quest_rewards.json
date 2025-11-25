@@ -1,0 +1,205 @@
+{
+  "version": "3.25",
+  "source": "poewiki.net",
+  "note": "POE Wiki verified data - accurate quest gem rewards by class",
+  "classes": ["Marauder", "Witch", "Scion", "Ranger", "Duelist", "Shadow", "Templar"],
+  "quests": [
+    {
+      "name": "Enemy at the Gate",
+      "act": 1,
+      "npc": "Tarkleigh",
+      "rewards": {
+        "Marauder": ["Ground Slam", "Molten Strike", "Heavy Strike"],
+        "Witch": ["Freezing Pulse", "Fireball", "Blight"],
+        "Scion": ["Spectral Throw"],
+        "Ranger": ["Burning Arrow", "Caustic Arrow", "Split Arrow"],
+        "Duelist": ["Double Strike", "Cleave", "Lacerate"],
+        "Shadow": ["Viper Strike", "Ethereal Knives", "Cobra Lash"],
+        "Templar": ["Glacial Hammer", "Rolling Magma", "Smite"]
+      }
+    },
+    {
+      "name": "Mercy Mission",
+      "act": 1,
+      "npc": "Nessa",
+      "rewards": {
+        "Marauder": ["Ancestral Protector", "Steelskin", "Vitality"],
+        "Witch": ["Frost Bomb", "Arcane Cloak", "Clarity"],
+        "Scion": ["Frostblink", "Dash"],
+        "Ranger": ["Dash", "Blink Arrow"],
+        "Duelist": ["Dash", "War Banner"],
+        "Shadow": ["Dash", "Smoke Mine", "Withering Step"],
+        "Templar": ["Frostblink", "Holy Flame Totem", "Purity of Elements"]
+      }
+    },
+    {
+      "name": "Breaking Some Eggs",
+      "act": 1,
+      "npc": "Tarkleigh",
+      "rewards": {
+        "Marauder": ["Leap Slam", "Shield Charge"],
+        "Witch": ["Flame Wall", "Orb of Storms"],
+        "Scion": ["Frostblink"],
+        "Ranger": ["Bear Trap", "Puncture"],
+        "Duelist": ["Shield Charge", "Vigilant Strike"],
+        "Shadow": ["Bear Trap", "Whirling Blades"],
+        "Templar": ["Shield Charge", "Flame Wall"]
+      }
+    },
+    {
+      "name": "The Caged Brute",
+      "act": 1,
+      "npc": "Tarkleigh",
+      "rewards": {
+        "Marauder": ["Melee Splash Support", "Ruthless Support", "Added Fire Damage Support"],
+        "Witch": ["Arcane Surge Support", "Added Lightning Damage Support", "Added Cold Damage Support"],
+        "Scion": ["Onslaught Support"],
+        "Ranger": ["Pierce Support", "Chance to Bleed Support", "Mirage Archer Support"],
+        "Duelist": ["Chance to Bleed Support", "Maim Support", "Onslaught Support"],
+        "Shadow": ["Chance to Poison Support", "Lesser Poison Support", "Added Chaos Damage Support"],
+        "Templar": ["Elemental Proliferation Support", "Added Lightning Damage Support", "Added Cold Damage Support"]
+      }
+    },
+    {
+      "name": "The Siren's Cadence",
+      "act": 1,
+      "npc": "Nessa",
+      "rewards": {
+        "Marauder": ["Anger", "Determination"],
+        "Witch": ["Clarity", "Zealotry"],
+        "Scion": ["Precision"],
+        "Ranger": ["Grace", "Precision"],
+        "Duelist": ["Pride", "Dread Banner"],
+        "Shadow": ["Malevolence", "Aspect of the Spider"],
+        "Templar": ["Wrath", "Hatred"]
+      }
+    },
+    {
+      "name": "Intruders in Black",
+      "act": 2,
+      "npc": "Greust",
+      "rewards": {
+        "Marauder": ["Sunder", "Earthquake", "Tectonic Slam"],
+        "Witch": ["Arc", "Ball Lightning", "Essence Drain"],
+        "Scion": ["Herald of Ice", "Herald of Thunder", "Herald of Ash"],
+        "Ranger": ["Rain of Arrows", "Venom Gyre", "Scourge Arrow"],
+        "Duelist": ["Bladestorm", "Reave", "Shattering Steel"],
+        "Shadow": ["Blade Flurry", "Blade Vortex", "Soulrend"],
+        "Templar": ["Storm Brand", "Armageddon Brand", "Wave of Conviction"]
+      }
+    },
+    {
+      "name": "Sharp and Cruel",
+      "act": 2,
+      "npc": "Yeena",
+      "rewards": {
+        "Marauder": ["Melee Physical Damage Support", "Concentrated Effect Support"],
+        "Witch": ["Controlled Destruction Support", "Spell Echo Support"],
+        "Scion": ["Faster Attacks Support", "Faster Casting Support"],
+        "Ranger": ["Vicious Projectiles Support", "Volley Support"],
+        "Duelist": ["Multistrike Support", "Fortify Support"],
+        "Shadow": ["Deadly Ailments Support", "Swift Affliction Support"],
+        "Templar": ["Elemental Focus Support", "Increased Critical Strikes Support"]
+      }
+    },
+    {
+      "name": "The Root of the Problem",
+      "act": 2,
+      "npc": "Yeena",
+      "rewards": {
+        "Marauder": ["Blood Rage", "Enduring Cry"],
+        "Witch": ["Desecrate", "Summon Skeletons"],
+        "Scion": ["Portal"],
+        "Ranger": ["Phase Run", "Blood Rage"],
+        "Duelist": ["Blood Rage", "Rallying Cry"],
+        "Shadow": ["Phase Run", "Wither"],
+        "Templar": ["Consecrated Ground", "Tempest Shield"]
+      }
+    },
+    {
+      "name": "Lost in Love",
+      "act": 3,
+      "npc": "Clarissa",
+      "rewards": {
+        "Marauder": ["Punishment", "Warlord's Mark"],
+        "Witch": ["Despair", "Enfeeble"],
+        "Scion": ["Assassin's Mark"],
+        "Ranger": ["Projectile Weakness", "Sniper's Mark"],
+        "Duelist": ["Vulnerability", "Warlord's Mark"],
+        "Shadow": ["Assassin's Mark", "Despair"],
+        "Templar": ["Conductivity", "Flammability", "Frostbite"]
+      }
+    },
+    {
+      "name": "A Fixture of Fate",
+      "act": 3,
+      "npc": "Siosa",
+      "note": "All gems from Acts 1-3 available for purchase",
+      "rewards": {
+        "Marauder": [],
+        "Witch": [],
+        "Scion": [],
+        "Ranger": [],
+        "Duelist": [],
+        "Shadow": [],
+        "Templar": []
+      }
+    },
+    {
+      "name": "Sever the Right Hand",
+      "act": 3,
+      "npc": "Maramoa",
+      "rewards": {
+        "Marauder": ["Empower Support", "Enhance Support", "Enlighten Support"],
+        "Witch": ["Empower Support", "Enhance Support", "Enlighten Support"],
+        "Scion": ["Empower Support", "Enhance Support", "Enlighten Support"],
+        "Ranger": ["Empower Support", "Enhance Support", "Enlighten Support"],
+        "Duelist": ["Empower Support", "Enhance Support", "Enlighten Support"],
+        "Shadow": ["Empower Support", "Enhance Support", "Enlighten Support"],
+        "Templar": ["Empower Support", "Enhance Support", "Enlighten Support"]
+      }
+    },
+    {
+      "name": "Breaking the Seal",
+      "act": 4,
+      "npc": "Dialla",
+      "rewards": {
+        "Marauder": ["Cast when Damage Taken Support", "Cast on Critical Strike Support"],
+        "Witch": ["Cast when Damage Taken Support", "Spell Cascade Support"],
+        "Scion": ["Cast when Damage Taken Support"],
+        "Ranger": ["Cast on Critical Strike Support", "Ballista Totem Support"],
+        "Duelist": ["Cast when Damage Taken Support", "Ancestral Call Support"],
+        "Shadow": ["Cast on Critical Strike Support", "Unleash Support"],
+        "Templar": ["Cast when Damage Taken Support", "Spell Cascade Support"]
+      }
+    },
+    {
+      "name": "The Eternal Nightmare",
+      "act": 4,
+      "npc": "Oyun",
+      "rewards": {
+        "Marauder": ["Multistrike Support", "Brutality Support"],
+        "Witch": ["Greater Multiple Projectiles Support", "Spell Echo Support"],
+        "Scion": ["Greater Multiple Projectiles Support"],
+        "Ranger": ["Greater Multiple Projectiles Support", "Chain Support"],
+        "Duelist": ["Multistrike Support", "Impale Support"],
+        "Shadow": ["Greater Multiple Projectiles Support", "Nightblade Support"],
+        "Templar": ["Greater Multiple Projectiles Support", "Awakened Added Fire Damage Support"]
+      }
+    }
+  ],
+  "vendor_unlocks": [
+    {
+      "quest": "A Fixture of Fate",
+      "act": 3,
+      "npc": "Siosa",
+      "description": "All gems from Acts 1-3 purchasable by all classes"
+    },
+    {
+      "quest": "Fallen from Grace",
+      "act": 6,
+      "npc": "Lilly Roth",
+      "description": "All gems in the game purchasable by all classes"
+    }
+  ]
+}

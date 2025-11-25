@@ -22,12 +22,224 @@ if sys.platform == 'win32':
 # 템플릿 경로
 TEMPLATE_DIR = os.path.join(os.path.dirname(__file__), "data", "guide_templates")
 BUILDS_DIR = os.path.join(TEMPLATE_DIR, "builds")
+DATA_DIR = os.path.join(os.path.dirname(__file__), "data")
+
+
+class KoreanTranslator:
+    """POE 공식 한국어 번역 헬퍼"""
+
+    def __init__(self):
+        self.translations = {}
+        self.reverse_translations = {}  # 한국어 -> 영어
+        self._load_translations()
+
+    def _load_translations(self):
+        """번역 데이터 로드"""
+        # awakened_translations.json이 가장 포괄적
+        awakened_path = os.path.join(DATA_DIR, "awakened_translations.json")
+        merged_path = os.path.join(DATA_DIR, "merged_translations.json")
+
+        # awakened_translations 로드
+        if os.path.exists(awakened_path):
+            try:
+                with open(awakened_path, 'r', encoding='utf-8') as f:
+                    data = json.load(f)
+                    # 스킬 젬 번역
+                    if 'skills' in data:
+                        for en, ko in data['skills'].items():
+                            self.translations[en.lower()] = ko
+                            self.reverse_translations[ko] = en
+                    # 아이템 번역
+                    if 'items' in data:
+                        for en, ko in data['items'].items():
+                            self.translations[en.lower()] = ko
+                            self.reverse_translations[ko] = en
+                    # 스탯/모드 번역
+                    if 'mods' in data:
+                        for en, ko in data['mods'].items():
+                            self.translations[en.lower()] = ko
+                    # 직접 매핑 (최상위 레벨)
+                    for key, value in data.items():
+                        if isinstance(value, str) and key not in ['source', 'version']:
+                            self.translations[key.lower()] = value
+            except Exception as e:
+                print(f"[WARN] awakened_translations 로드 실패: {e}")
+
+        # merged_translations 로드 (추가)
+        if os.path.exists(merged_path):
+            try:
+                with open(merged_path, 'r', encoding='utf-8') as f:
+                    data = json.load(f)
+                    # items 필드 (영어 -> 한국어)
+                    if 'items' in data:
+                        for en, ko in data['items'].items():
+                            if en.lower() not in self.translations:
+                                self.translations[en.lower()] = ko
+                    # skills 필드 (영어 -> 한국어)
+                    if 'skills' in data:
+                        for en, ko in data['skills'].items():
+                            if en.lower() not in self.translations:
+                                self.translations[en.lower()] = ko
+                    # items_kr 필드 (한국어 -> 영어, 반전 필요)
+                    if 'items_kr' in data:
+                        for ko, en in data['items_kr'].items():
+                            if en.lower() not in self.translations:
+                                self.translations[en.lower()] = ko
+                                self.reverse_translations[ko] = en
+                    # skills_kr 필드 (한국어 -> 영어, 반전 필요)
+                    if 'skills_kr' in data:
+                        for ko, en in data['skills_kr'].items():
+                            if en.lower() not in self.translations:
+                                self.translations[en.lower()] = ko
+                                self.reverse_translations[ko] = en
+                    # stats_kr 필드 (한국어 -> 영어, 반전 필요)
+                    if 'stats_kr' in data:
+                        for ko, en in data['stats_kr'].items():
+                            if en.lower() not in self.translations:
+                                self.translations[en.lower()] = ko
+            except Exception as e:
+                print(f"[WARN] merged_translations 로드 실패: {e}")
+
+        # 수동 추가: 게임 메커니즘 용어
+        self._add_game_terms()
+
+    def _add_game_terms(self):
+        """게임 메커니즘 관련 용어 추가"""
+        game_terms = {
+            # 리그 메커니즘
+            "delirium": "환영",
+            "blight": "역병",
+            "breach": "균열",
+            "abyss": "심연",
+            "legion": "군단",
+            "metamorph": "메타몰프",
+            "ritual": "의식",
+            "ultimatum": "결전",
+            "expedition": "탐험",
+            "heist": "강탈",
+            "harvest": "수확",
+            "incursion": "침입",
+            "delve": "탐광",
+            "betrayal": "배신",
+            "synthesis": "합성",
+
+            # 게임 용어
+            "simulacrum": "복제된 영토",
+            "scarab": "갑충석",
+            "fossil": "화석",
+            "resonator": "공명기",
+            "essence": "에센스",
+            "currency": "화폐",
+            "fragment": "파편",
+            "splinter": "조각",
+
+            # 아이템 등급
+            "normal": "일반",
+            "magic": "마법",
+            "rare": "희귀",
+            "unique": "고유",
+
+            # 속성
+            "fire": "화염",
+            "cold": "냉기",
+            "lightning": "번개",
+            "chaos": "카오스",
+            "physical": "물리",
+
+            # 방어
+            "armour": "방어도",
+            "evasion": "회피",
+            "energy shield": "에너지 보호막",
+            "life": "생명력",
+            "mana": "마나",
+            "resistance": "저항",
+
+            # 공격/스펠
+            "attack": "공격",
+            "spell": "스펠",
+            "minion": "소환수",
+            "totem": "토템",
+            "trap": "덫",
+            "mine": "지뢰",
+
+            # 기타
+            "critical strike": "치명타",
+            "critical": "치명타",
+            "leech": "흡수",
+            "regeneration": "재생",
+            "flask": "플라스크",
+            "aura": "오라",
+            "curse": "저주",
+            "herald": "전령",
+
+            # 파밍 장소
+            "map": "지도",
+            "boss": "보스",
+            "monster": "몬스터",
+        }
+
+        # 게임 용어는 공식 번역으로 덮어쓰기 (우선순위 높음)
+        for en, ko in game_terms.items():
+            self.translations[en] = ko
+
+    def translate(self, text: str, keep_english: bool = False) -> str:
+        """텍스트 번역
+
+        Args:
+            text: 번역할 텍스트
+            keep_english: True면 "한국어 (English)" 형식으로 반환
+        """
+        if not text:
+            return text
+
+        # 정확한 매칭
+        lower_text = text.lower()
+        if lower_text in self.translations:
+            ko = self.translations[lower_text]
+            if keep_english:
+                return f"{ko} ({text})"
+            return ko
+
+        # 부분 매칭 시도 (긴 것부터)
+        result = text
+        for en, ko in sorted(self.translations.items(), key=lambda x: len(x[0]), reverse=True):
+            if en in lower_text:
+                # 대소문자 무시하고 치환
+                import re
+                pattern = re.compile(re.escape(en), re.IGNORECASE)
+                result = pattern.sub(ko, result)
+
+        return result
+
+    def translate_skill(self, skill_name: str) -> str:
+        """스킬 이름 번역"""
+        # 이미 "한국어 (English)" 형식이면 그대로 반환
+        if " (" in skill_name and skill_name.endswith(")"):
+            return skill_name
+        return self.translate(skill_name, keep_english=True)
+
+    def translate_item(self, item_name: str) -> str:
+        """아이템 이름 번역"""
+        # 이미 "한국어 (English)" 형식이면 그대로 반환
+        if " (" in item_name and item_name.endswith(")"):
+            return item_name
+        return self.translate(item_name, keep_english=True)
+
+    def extract_english_name(self, text: str) -> str:
+        """'한국어 (English)' 형식에서 영어 이름 추출"""
+        if " (" in text and text.endswith(")"):
+            # "한국어 (English)" -> "English"
+            start = text.rfind("(") + 1
+            end = text.rfind(")")
+            return text[start:end]
+        return text
 
 
 class GuideGenerator:
     """템플릿 기반 레벨링 가이드 생성기"""
 
     def __init__(self):
+        self.translator = KoreanTranslator()
         self.common_template = self._load_template("common_template.json")
         self.archetypes = {
             "spell": self._load_template("archetype_spell.json"),
@@ -247,6 +459,133 @@ class GuideGenerator:
             }
 
         return guide
+
+    def generate_ui_compatible_guide(self, pob_code: str) -> Dict[str, Any]:
+        """UI에서 사용하는 형식으로 가이드 생성"""
+        guide = self.generate_guide(pob_code)
+
+        if "error" in guide:
+            return guide
+
+        build_info = guide.get("build_info", {})
+        archetype_guide = guide.get("archetype_guide", {})
+        build_specific = guide.get("build_specific", {})
+        common = guide.get("common", {})
+
+        # 스킬 이름 번역
+        main_skill = build_info.get("main_skill", "Unknown")
+        translated_skill = self.translator.translate_skill(main_skill)
+
+        # 스킬 태그 번역
+        skills = build_info.get("skills", [])[:5]
+        translated_skills = [self.translator.translate_skill(s) for s in skills]
+
+        # UI가 기대하는 형식으로 변환
+        ui_guide = {
+            "skill_name": translated_skill,
+            "skill_name_en": main_skill,
+            "class_name": build_info.get("class", "Unknown"),
+            "ascendancy": build_info.get("ascendancy", ""),
+            "archetype": guide.get("archetype", "spell"),
+            "tags": translated_skills,
+            "tips": [],
+            "gem_progression": [],
+            "leveling_gear": [],
+            "ascendancy_order": []
+        }
+
+        # 팁 생성
+        tips = []
+
+        # 아키타입별 팁 추가
+        if archetype_guide:
+            mana = archetype_guide.get("mana_management", {})
+            if mana:
+                early = mana.get("early_game", {})
+                if early:
+                    tips.append(f"초반 마나: {early.get('note', '')}")
+
+            damage = archetype_guide.get("damage_scaling", {})
+            if damage and "sources" in damage:
+                tips.append(f"데미지 스케일링: {', '.join(damage['sources'][:3])}")
+
+        # 공통 팁 추가
+        if common:
+            defense = common.get("defense_framework", {})
+            if defense:
+                res = defense.get("resistance_targets", {})
+                if "act5_kitava" in res:
+                    act5 = res["act5_kitava"]
+                    tips.append(f"액트5 목표: 화염 {act5.get('fire', 0)}%, 냉기 {act5.get('cold', 0)}%, 번개 {act5.get('lightning', 0)}%")
+
+        # 빌드 특화 팁
+        if build_specific:
+            playstyle = build_specific.get("playstyle_tips", {})
+            if playstyle and "damage_rotation" in playstyle:
+                rotation = playstyle["damage_rotation"]
+                if rotation:
+                    tips.append(f"로테이션: {rotation[0]}")
+
+            mistakes = build_specific.get("common_mistakes", [])
+            for mistake in mistakes[:2]:
+                tips.append(f"주의: {mistake}")
+
+        ui_guide["tips"] = tips
+
+        # 젬 진행도 생성
+        gem_prog = []
+        if archetype_guide:
+            support_priority = archetype_guide.get("support_gem_priority", {})
+            damage_gems = support_priority.get("damage", [])
+            if damage_gems:
+                # 젬 이름 번역
+                translated_gems = [self.translator.translate_skill(g) for g in damage_gems[:3]]
+                gem_prog.append({"level": 1, "gems": ", ".join(translated_gems)})
+                if len(damage_gems) > 3:
+                    translated_gems = [self.translator.translate_skill(g) for g in damage_gems[3:6]]
+                    gem_prog.append({"level": 38, "gems": ", ".join(translated_gems)})
+
+        if build_specific:
+            skill_prog = build_specific.get("skill_progression", {})
+            for act, data in skill_prog.items():
+                if isinstance(data, dict):
+                    main = data.get("main_skill", {})
+                    if isinstance(main, dict):
+                        level_range = data.get("level_range", [1, 12])
+                        links = main.get("links", [])
+                        if links:
+                            # 스킬과 링크 번역
+                            skill_name = self.translator.translate_skill(main.get('name', ''))
+                            translated_links = [self.translator.translate_skill(l) for l in links]
+                            gem_prog.append({
+                                "level": level_range[0] if level_range else 1,
+                                "gems": f"{skill_name}: {', '.join(translated_links)}"
+                            })
+
+        ui_guide["gem_progression"] = sorted(gem_prog, key=lambda x: x["level"])
+
+        # 레벨링 장비 생성
+        leveling_gear = []
+        if archetype_guide:
+            unique_items = archetype_guide.get("unique_items_leveling", {})
+            for slot, items in unique_items.items():
+                if isinstance(items, list):
+                    for item in items[:2]:
+                        if isinstance(item, dict):
+                            # 아이템 이름 번역
+                            item_name = self.translator.translate_item(item.get("name", ""))
+                            leveling_gear.append({
+                                "level": item.get("level", 1),
+                                "item": item_name,
+                                "reason": item.get("note", "")
+                            })
+
+        ui_guide["leveling_gear"] = sorted(leveling_gear, key=lambda x: x["level"])
+
+        # 아센던시 순서 (일반적인 순서)
+        ui_guide["ascendancy_order"] = ["1st Lab (Normal)", "2nd Lab (Cruel)", "3rd Lab (Merciless)", "4th Lab (Eternal)"]
+
+        return ui_guide
 
     def print_guide(self, guide: Dict) -> None:
         """가이드를 읽기 쉽게 출력"""

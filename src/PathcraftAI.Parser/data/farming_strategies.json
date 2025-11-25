@@ -1,0 +1,826 @@
+{
+  "version": "3.27",
+  "last_updated": "2025-01-01",
+  "league_phases": {
+    "early": {
+      "name_ko": "리그 초반",
+      "duration": "1-3일",
+      "divine_chaos_ratio": "40-80c",
+      "key_strategies": ["act_heist", "chaos_recipe", "essence", "atlas_rush"],
+      "priorities": [
+        "아틀라스 등반 (최우선)",
+        "알케앤고로 맵 진행",
+        "카오스 레시피 (첫 빌드 자금)",
+        "액트 강탈 (레벨 61-67)"
+      ]
+    },
+    "mid": {
+      "name_ko": "리그 중반",
+      "duration": "3일~2달",
+      "divine_chaos_ratio": "100-200c",
+      "key_strategies": ["expedition", "essence", "harvest", "ritual", "blight"],
+      "priorities": [
+        "전략 파밍 시작",
+        "빌드 파워 기반 선택",
+        "스카랍 조합 최적화"
+      ]
+    },
+    "late": {
+      "name_ko": "리그 후반",
+      "duration": "2달+",
+      "divine_chaos_ratio": "100-150c",
+      "key_strategies": ["delirium", "boss", "strongbox", "t17"],
+      "priorities": [
+        "스카랍/맵 가격 하락으로 고투자 접근 가능",
+        "Divine 가격 유지됨",
+        "고효율 전략 집중"
+      ]
+    }
+  },
+  "strategies": {
+    "act_heist": {
+      "name": "Act Heist",
+      "name_ko": "액트 강탈",
+      "tier": "A",
+      "investment": "none",
+      "phase": ["early"],
+      "description_ko": "액트 6-7에서 강탈로 초기 자금 확보",
+      "build_requirements": {
+        "min_level": 61,
+        "max_level": 67,
+        "tags": []
+      },
+      "expected_profit": {
+        "chaos_per_hour": 150,
+        "divine_per_hour": 1,
+        "note": "1시간 파밍 = 100-200c (Divine 40c 기준 2-5d)"
+      },
+      "execution_guide": {
+        "steps": [
+          "레벨 61-67 사이에 와카노에서 계약 구매",
+          "Perception, Counter-Thaumaturgy 계약 우선 (화폐)",
+          "Lockpicking, Deception 계약 (장비/도면)",
+          "주얼리 드랍으로 카오스 레시피 병행",
+          "약 1시간 파밍 → 100-200c 확보 → 아틀라스 진입"
+        ],
+        "tips": [
+          "적이 약해서 빌드 파워 필요 없음",
+          "이동 속도가 핵심",
+          "도면은 바로 판매 또는 축적"
+        ]
+      },
+      "scarab_setup": null,
+      "atlas_nodes": null
+    },
+    "chaos_recipe": {
+      "name": "Chaos Recipe",
+      "name_ko": "카오스 레시피",
+      "tier": "B",
+      "investment": "none",
+      "phase": ["early"],
+      "description_ko": "ilvl 60-74 레어 풀셋으로 카오스 획득",
+      "build_requirements": {
+        "min_level": 60,
+        "tags": []
+      },
+      "expected_profit": {
+        "chaos_per_hour": 40,
+        "divine_per_hour": 0,
+        "note": "Divine 40c 기준 1d/hour, 첫 빌드 자금용"
+      },
+      "execution_guide": {
+        "steps": [
+          "T1-T8 맵에서 ilvl 60-74 레어 수집",
+          "쿼드탭에 덤프 → 나중에 정리",
+          "언아이디 풀셋 = 2c (추천)",
+          "아이디 풀셋 = 1c",
+          "반지/아뮬렛이 병목 → 강탈/델브에서 타겟팅"
+        ],
+        "tips": [
+          "첫 빌드 구매 자금 (50-100c) 모으면 중단",
+          "시간 효율 떨어지면 바로 전환",
+          "ilvl 75+ 섞이면 리갈 오브로 변경됨 주의"
+        ],
+        "when_to_stop": [
+          "엔드게임 전략 파밍 가능할 때",
+          "T14+ 고속 클리어 가능할 때"
+        ]
+      },
+      "scarab_setup": null,
+      "atlas_nodes": null
+    },
+    "heist": {
+      "name": "Heist",
+      "name_ko": "강탈",
+      "tier": "A",
+      "investment": "low",
+      "phase": ["early", "mid"],
+      "description_ko": "계약/도면으로 안정적 수익",
+      "build_requirements": {
+        "tags": ["movement_speed"]
+      },
+      "expected_profit": {
+        "chaos_per_hour": 0,
+        "divine_per_hour": 3,
+        "range": "2-5",
+        "note": "계약 집중 시 2-3d, 도면 포함 시 3-5d"
+      },
+      "execution_guide": {
+        "best_contracts": {
+          "currency": ["Perception", "Counter-Thaumaturgy"],
+          "gear": ["Lockpicking", "Deception"]
+        },
+        "best_rogues": {
+          "Vinderi": "상자 내용물 복사 확률",
+          "Gianna": "드러내기 비용 30% 감소",
+          "Karst": "보상 상자 경보 40% 감소",
+          "Tullina": "추가 타겟 26%, 경보 14% 감소"
+        },
+        "blueprint_strategy": {
+          "quick": "추가 윙 드러내기 X (시간 대비 비효율)",
+          "full_reveal": "지아나 드러내기 → 화폐/카드/하빈저 방 우선"
+        },
+        "tips": [
+          "3.27에서 로그 레벨 최대로 시작",
+          "레벨 80+ 계약/도면만 사용",
+          "Deception이 가장 빠르고 수익 좋음"
+        ]
+      },
+      "scarab_setup": {
+        "atlas_nodes": ["Rogue Marker", "Smuggler's Stash", "Casing the Joint"],
+        "map_device": "Heist (3 Smuggler's Caches, 6c)"
+      },
+      "atlas_nodes": [
+        "Dutiful Soldier",
+        "Casing the Joint",
+        "Rogue's Stash"
+      ]
+    },
+    "expedition": {
+      "name": "Expedition",
+      "name_ko": "탐험",
+      "tier": "S",
+      "investment": "low",
+      "phase": ["early", "mid"],
+      "description_ko": "로그북과 벤더 거래로 높은 수익",
+      "build_requirements": {
+        "tags": ["tankiness", "single_target"]
+      },
+      "expected_profit": {
+        "chaos_per_hour": 0,
+        "divine_per_hour": 4,
+        "range": "2-6",
+        "note": "평균 3-4d/hour, 숙련자 6d+"
+      },
+      "execution_guide": {
+        "remnant_priority": [
+          "1. Runic Monster 복제",
+          "2. 로그북 수량 증가",
+          "3. 레어 몬스터 증가",
+          "4. 아이템 수량/희귀도"
+        ],
+        "placement_guide": [
+          "렘넌트 먼저 배치 (효과 적용 위해)",
+          "Runic Monster 마커 그룹 (2-3개+) 타겟",
+          "보스는 마지막에 (렘넌트 스택 최대화)",
+          "지하 영역 무조건 포함 (아티팩트 대량)"
+        ],
+        "vendors": {
+          "Tujen": {
+            "role": "도박 (Divine, Chaos, 주얼리)",
+            "tips": [
+              "리롤 커런시 우선 확보",
+              "Exotic Coinage 항상 구매",
+              "1주차 기대치: 2-5 Divine/hour"
+            ]
+          },
+          "Dannig": {
+            "role": "로그북, 리롤 커런시",
+            "tips": ["Exceptional Artifact 재보충"]
+          },
+          "Rog": {
+            "role": "크래프팅, 아이템 플립"
+          }
+        },
+        "logbook_tips": [
+          "ilvl 83+ 로그북만 사용",
+          "수량 65%+ 롤링",
+          "Knights of the Sun → Dannig + Tujen/Rog 조합"
+        ]
+      },
+      "scarab_setup": {
+        "low": {
+          "scarabs": ["Expedition Scarab"],
+          "cost_per_map": 5
+        },
+        "high": {
+          "scarabs": ["Expedition Scarab of Verisium Powder", "Expedition Scarab of Runefinding"],
+          "cost_per_map": 30
+        }
+      },
+      "atlas_nodes": [
+        "Buried Knowledge",
+        "Ancient Writings",
+        "Extreme Archaeology"
+      ]
+    },
+    "essence": {
+      "name": "Essence",
+      "name_ko": "에센스",
+      "tier": "A",
+      "investment": "low",
+      "phase": ["early", "mid"],
+      "description_ko": "T6+ 맵에서 안정적 수익, 티어 상관없이 보상 동일",
+      "build_requirements": {
+        "tags": ["clear_speed"]
+      },
+      "expected_profit": {
+        "chaos_per_hour": 0,
+        "divine_per_hour": 4,
+        "range": "3-6",
+        "note": "평균 4d/hour, 숙련자 6d+"
+      },
+      "execution_guide": {
+        "key_points": [
+          "T6+ 맵이면 보상 동일 (티어 스케일링 없음)",
+          "모든 에센스 '귀를 찢는(Deafening)'으로 업그레이드",
+          "Remnant of Corruption으로 업그레이드/변환",
+          "TFT 벌크 110%에 판매"
+        ],
+        "tips": [
+          "다른 메카닉과 조합 추천 (Heist, Expedition)",
+          "Vaal Orb으로 변환 시도"
+        ]
+      },
+      "scarab_setup": {
+        "low": {
+          "scarabs": ["Essence Scarab of Stability"],
+          "cost_per_map": 2
+        },
+        "medium": {
+          "scarabs": [
+            "Essence Scarab of Stability",
+            "Essence Scarab of Ascent",
+            "Essence Scarab x2"
+          ],
+          "cost_per_map": 15
+        },
+        "high": {
+          "scarabs": [
+            "Essence Scarab of Calcification",
+            "Essence Scarab of Stability",
+            "Essence Scarab of Ascent",
+            "Scarab of Adversaries"
+          ],
+          "cost_per_map": 30
+        }
+      },
+      "atlas_nodes": [
+        "Crystal Resonance",
+        "Remnant of Corruption",
+        "Amplified Energies"
+      ]
+    },
+    "blight": {
+      "name": "Blight",
+      "name_ko": "역병",
+      "tier": "A",
+      "investment": "medium",
+      "phase": ["mid", "late"],
+      "description_ko": "맵, 스카랍, 오일 파밍",
+      "build_requirements": {
+        "tags": ["aoe", "clear_speed"]
+      },
+      "expected_profit": {
+        "chaos_per_hour": 0,
+        "divine_per_hour": 5,
+        "range": "3-8",
+        "note": "평균 5d/hour, Ravaged 맵 포함"
+      },
+      "execution_guide": {
+        "best_maps": ["Toxic Sewer (좁은 레이아웃)"],
+        "tips": [
+          "Blooming 스카랍으로 T14 → Ravaged 변환",
+          "Favored Map 12개 모두 Toxic Sewer",
+          "Singular Focus 피하기 (비favored 블라이트 맵 안 떨어짐)"
+        ]
+      },
+      "scarab_setup": {
+        "recommended": {
+          "scarabs": [
+            "Blight Scarab of Blooming",
+            "Cartography Scarab of Escalation",
+            "Influencing Scarab of Hordes",
+            "Monstrous Lineage x2"
+          ],
+          "cost_per_map": 40
+        }
+      },
+      "atlas_nodes": [
+        "Immune Response",
+        "Epidemiology",
+        "Sturdy Construction",
+        "Blight Boss nodes"
+      ]
+    },
+    "harvest": {
+      "name": "Harvest",
+      "name_ko": "생기",
+      "tier": "A",
+      "investment": "medium-high",
+      "phase": ["mid", "late"],
+      "description_ko": "생기력(Lifeforce) 파밍",
+      "build_requirements": {
+        "tags": ["clear_speed"]
+      },
+      "expected_profit": {
+        "chaos_per_hour": 0,
+        "divine_per_hour": 5,
+        "range": "3-8",
+        "note": "평균 5d/hour, Awakened 고투자"
+      },
+      "execution_guide": {
+        "strategies": {
+          "crop_rotation": {
+            "name_ko": "작물 순환",
+            "description": "고투자, 높은 생기력",
+            "harvest_order": [
+              "1. 보라(Purple) 먼저 수확",
+              "2. 파랑(Blue) 수확",
+              "3. 노랑(Yellow) 마지막에 (최대 업그레이드)"
+            ]
+          },
+          "cornucopia": {
+            "name_ko": "풍요의 뿔",
+            "description": "안정적, 낮은 변동성",
+            "key": "Cornucopia 스카랍으로 T4 보스 3명 보장"
+          }
+        },
+        "tips": [
+          "Vivid (노랑) 생기력이 보통 가장 비쌈",
+          "Sacred Blossom 드랍 시 판매 또는 오샤비 도전",
+          "맵 수량/팩사이즈가 생기력 양에 영향"
+        ]
+      },
+      "scarab_setup": {
+        "cornucopia": {
+          "scarabs": [
+            "Harvest Scarab of Cornucopia",
+            "Harvest Scarab of Doubling",
+            "Influencing Scarab of Hordes",
+            "Cartography Scarab of Escalation"
+          ],
+          "cost_per_map": 50
+        },
+        "awakened": {
+          "scarabs": [
+            "Horned Scarab of Awakening",
+            "Harvest Scarab of Doubling"
+          ],
+          "cost_per_map": 100
+        }
+      },
+      "atlas_nodes": [
+        "Heart of the Grove",
+        "Bumper Crop",
+        "All Harvest nodes"
+      ]
+    },
+    "ritual": {
+      "name": "Ritual",
+      "name_ko": "의식",
+      "tier": "A",
+      "investment": "medium",
+      "phase": ["mid", "late"],
+      "description_ko": "연기(Defer) 시스템으로 고가 아이템 획득",
+      "build_requirements": {
+        "tags": []
+      },
+      "expected_profit": {
+        "chaos_per_hour": 0,
+        "divine_per_hour": 4,
+        "range": "3-6",
+        "note": "평균 4d/hour, Cloister = 0.5d/2맵"
+      },
+      "execution_guide": {
+        "defer_strategy": [
+          "비싼 아이템 발견 시 연기(Defer)",
+          "매 맵마다 연기해야 가격 하락",
+          "연기 안 하면 가격 다시 상승",
+          "마지막 리롤 후 5K+ Tribute 유지"
+        ],
+        "reroll_tips": [
+          "무료 리롤 (Selectiveness 스카랍) 활용",
+          "고가 아이템: Mirror Shard, 비싼 카드",
+          "Fractured/Synthesized 아이템 주목"
+        ],
+        "best_maps": ["Jungle Valley", "City Square (보스 제단 없음)"]
+      },
+      "scarab_setup": {
+        "recommended": {
+          "scarabs": [
+            "Ritual Scarab of Selectiveness x2",
+            "Ritual Scarab of Wisps",
+            "Scarab of Adversaries"
+          ],
+          "cost_per_map": 30
+        },
+        "cloister_combo": {
+          "scarabs": ["Divination Scarab of The Cloister x5"],
+          "cost_per_map": 50,
+          "note": "의식 + 카드 파밍 조합"
+        }
+      },
+      "atlas_nodes": [
+        "Sacred Lands",
+        "Aqua Devotion",
+        "Flexible Dogma",
+        "Arbitrary Tenants"
+      ]
+    },
+    "betrayal": {
+      "name": "Betrayal",
+      "name_ko": "배신",
+      "tier": "B",
+      "investment": "low",
+      "phase": ["mid"],
+      "description_ko": "신디케이트 보드 관리로 세이프하우스 수익",
+      "build_requirements": {
+        "tags": []
+      },
+      "expected_profit": {
+        "divine_per_hour": 4
+      },
+      "execution_guide": {
+        "board_setup": {
+          "layout": "5522 레이아웃 추천",
+          "key_placements": {
+            "Research": ["Aisling (베일 벤치)", "Janus", "It That Fled"],
+            "Fortification": "순환용",
+            "Intervention": "낮은 우선순위"
+          }
+        },
+        "mastermind": {
+          "changes_3_27": "마스터마인드 보드 리셋 없음, 프래그먼트 드랍",
+          "when_to_trigger": "Rank 3 리더 2개+ 있을 때",
+          "rewards": "Veiled Exalted Orb, 카타리나 유니크"
+        },
+        "tips": [
+          "Aisling 벤치 = 엔드게임 크래프팅 필수",
+          "Janus ↔ Cameria 라이벌로 스택덱/스카랍 밸런스"
+        ]
+      },
+      "scarab_setup": null,
+      "atlas_nodes": [
+        "Intelligence Gathering",
+        "Bribery",
+        "Test of Loyalty",
+        "Resource Reallocation"
+      ]
+    },
+    "delirium": {
+      "name": "Delirium",
+      "name_ko": "환영",
+      "tier": "S",
+      "investment": "high",
+      "phase": ["late"],
+      "description_ko": "고투자 고수익, 클러스터/시뮬라크럼",
+      "build_requirements": {
+        "tags": ["tankiness", "clear_speed", "sustain"],
+        "min_level": 90
+      },
+      "expected_profit": {
+        "chaos_per_hour": 0,
+        "divine_per_hour": 6,
+        "range": "4-10",
+        "note": "평균 6d/hour, 시뮬라크럼 1-2d/런"
+      },
+      "execution_guide": {
+        "strategies": {
+          "orb_farming": {
+            "description": "80% 딜리리움 맵 (4 오브)",
+            "best_orbs": ["Skittering", "Diviner's", "Cartographer's"],
+            "tips": ["100%는 너무 느림, 80%가 최적"]
+          },
+          "mirror_farming": {
+            "description": "딜리리움 미러 스폰",
+            "key": "보상 타일 최대한 채우기",
+            "force_spawn": "Kirac 크래프트 또는 컴패스"
+          },
+          "simulacrum": {
+            "description": "시뮬라크럼 300 스플린터",
+            "tips": "15웨이브 클리어, Voices 판매"
+          }
+        },
+        "tips": [
+          "Breach/Abyss 추가 → 몬스터 밀도 증가 → 보상 타일 빠르게 채움",
+          "Strand, Beach 등 오픈 레이아웃 추천"
+        ]
+      },
+      "scarab_setup": {
+        "recommended": {
+          "scarabs": [
+            "Delirium Scarab of Mania x2",
+            "Delirium Scarab of Neuroses",
+            "Breach/Abyss Scarab"
+          ],
+          "cost_per_map": 60
+        }
+      },
+      "atlas_nodes": [
+        "Perseverance",
+        "Delirious",
+        "Descent into Madness"
+      ]
+    },
+    "legion": {
+      "name": "Legion",
+      "name_ko": "군단",
+      "tier": "B",
+      "investment": "medium",
+      "phase": ["mid"],
+      "description_ko": "너프됨, 스플린터/인큐베이터",
+      "build_requirements": {
+        "tags": ["aoe", "clear_speed"]
+      },
+      "expected_profit": {
+        "chaos_per_hour": 0,
+        "divine_per_hour": 4,
+        "range": "2-6",
+        "note": "평균 4d/hour, 엠블렘 세트 판매"
+      },
+      "execution_guide": {
+        "tips": [
+          "오픈 레이아웃 맵 필수 (Dunes, Beach)",
+          "전체 군단 해방이 목표",
+          "Emblem 풀셋으로 TFT 판매"
+        ]
+      },
+      "scarab_setup": {
+        "recommended": {
+          "scarabs": ["Legion Scarab x4"],
+          "cost_per_map": 20
+        }
+      },
+      "atlas_nodes": [
+        "Monumental",
+        "War Supplies"
+      ]
+    },
+    "harbinger": {
+      "name": "Harbinger",
+      "name_ko": "선구자",
+      "tier": "B",
+      "investment": "low-medium",
+      "phase": ["early", "mid"],
+      "description_ko": "Ancient Orb, Beachhead 맵",
+      "build_requirements": {
+        "tags": ["single_target"]
+      },
+      "expected_profit": {
+        "chaos_per_hour": 0,
+        "divine_per_hour": 3,
+        "range": "2-5",
+        "note": "평균 3d/hour, Ancient Orb 판매"
+      },
+      "execution_guide": {
+        "tips": [
+          "Harbinger's Orb → Beachhead 맵 (15-20% 확률)",
+          "수량/희귀도 영향 안 받음",
+          "맵 완료 시간이 오래 걸림"
+        ]
+      },
+      "scarab_setup": {
+        "budget": {
+          "scarabs": [
+            "Harbinger Scarab x2",
+            "Harbinger Scarab of Regency"
+          ],
+          "cost_per_map": 15
+        },
+        "full": {
+          "scarabs": [
+            "Harbinger Scarab x2",
+            "Harbinger Scarab of Obelisks",
+            "Harbinger Scarab of Regency",
+            "Harbinger Scarab of Warhoards"
+          ],
+          "cost_per_map": 40
+        }
+      },
+      "atlas_nodes": [
+        "Ominous Arrival",
+        "Unspeakable Offence",
+        "First Wave"
+      ]
+    },
+    "breach": {
+      "name": "Breach",
+      "name_ko": "균열",
+      "tier": "B",
+      "investment": "medium",
+      "phase": ["mid"],
+      "description_ko": "브리치스톤, Chayula 타겟",
+      "build_requirements": {
+        "tags": ["aoe", "clear_speed"]
+      },
+      "expected_profit": {
+        "chaos_per_hour": 0,
+        "divine_per_hour": 3,
+        "range": "2-5",
+        "note": "3.27 너프, 평균 3d/hour"
+      },
+      "execution_guide": {
+        "tips": [
+          "3.27: 모든 맵에 브리치 기본 스폰",
+          "Chayula/Uul Netol이 가장 가치 있음",
+          "Clasped Hands 최대한 열기",
+          "한 번에 하나씩 브리치 열기"
+        ]
+      },
+      "scarab_setup": {
+        "recommended": {
+          "scarabs": [
+            "Breach Scarab of Lordship",
+            "Breach Scarab x4",
+            "Breach Scarab of Snares"
+          ],
+          "cost_per_map": 40
+        }
+      },
+      "atlas_nodes": [
+        "Flash Breach",
+        "Within Their Grasp"
+      ]
+    },
+    "abyss": {
+      "name": "Abyss",
+      "name_ko": "심연",
+      "tier": "B",
+      "investment": "medium",
+      "phase": ["mid"],
+      "description_ko": "Stygian Vise, 어비스 주얼",
+      "build_requirements": {
+        "tags": ["aoe"]
+      },
+      "expected_profit": {
+        "chaos_per_hour": 0,
+        "divine_per_hour": 4,
+        "range": "3-6",
+        "note": "평균 4d/hour, 어비스 주얼"
+      },
+      "execution_guide": {
+        "stygian_spire_trick": [
+          "스파이어 절반 체력까지만 데미지",
+          "3번 발리 발사 대기",
+          "몬스터 대량 스폰 후 마무리"
+        ],
+        "tips": [
+          "5-6모드 어비스 주얼이 고가",
+          "Darkness Enthroned 벨트 인기"
+        ]
+      },
+      "scarab_setup": {
+        "recommended": {
+          "scarabs": ["Abyss Scarab of Edifice"],
+          "cost_per_map": 15
+        }
+      },
+      "atlas_nodes": [
+        "Abyssal Army",
+        "Inspired Darkness",
+        "Ancient Conflict"
+      ]
+    },
+    "delve": {
+      "name": "Delve",
+      "name_ko": "탐광",
+      "tier": "B",
+      "investment": "low",
+      "phase": ["mid", "late"],
+      "description_ko": "화석/공명기 파밍",
+      "build_requirements": {
+        "tags": ["movement_speed"]
+      },
+      "expected_profit": {
+        "chaos_per_hour": 0,
+        "divine_per_hour": 3,
+        "range": "2-5",
+        "note": "평균 3d/hour, 화석/공명기"
+      },
+      "execution_guide": {
+        "strategy": [
+          "T16 맵에서 Niko로 황산염 수집",
+          "깊이 150-200이 최적 (ilvl 83, 모든 보스)",
+          "Fractured Wall 찾기 (2연결 노드)",
+          "고가치 노드: Crystal Spire, Time-Lost Cavern"
+        ],
+        "3_27_changes": "Mining Byproducts 너프 → 공명기 가격 상승",
+        "tips": [
+          "이동 속도/AoE 빠른 캐릭터",
+          "화석은 TFT 벌크로 판매"
+        ]
+      },
+      "scarab_setup": null,
+      "atlas_nodes": [
+        "Sulphite nodes",
+        "Niko missions"
+      ]
+    },
+    "strongbox": {
+      "name": "Strongbox",
+      "name_ko": "금고",
+      "tier": "S",
+      "investment": "high",
+      "phase": ["late"],
+      "description_ko": "T17 금고 파밍, 스카랍/Divine",
+      "build_requirements": {
+        "tags": ["clear_speed"]
+      },
+      "expected_profit": {
+        "chaos_per_hour": 0,
+        "divine_per_hour": 10,
+        "range": "8-15",
+        "note": "평균 10d/hour, 숙련자 15d+"
+      },
+      "execution_guide": {
+        "strategy": [
+          "T17 맵 필수",
+          "맵 롤링: 100% more Scarabs 또는 140% more Currency",
+          "팩사이즈 24-26%+",
+          "Chisel 필수"
+        ],
+        "tips": [
+          "3.27: 스카랍 다른 소스에서 제거 → 가치 상승",
+          "Fortress 맵 (T17) = 배럴에서 추가 드랍"
+        ]
+      },
+      "scarab_setup": {
+        "high": {
+          "scarabs": ["Ambush Scarab of Containment"],
+          "cost_per_map": 100,
+          "note": "모든 몬스터 → 금고"
+        },
+        "budget": {
+          "scarabs": [
+            "Ambush Scarab of Hidden Compartments",
+            "Ambush Scarab of Potency",
+            "Ambush Scarab of Discernment"
+          ],
+          "cost_per_map": 40
+        }
+      },
+      "atlas_nodes": [
+        "All Strongbox nodes",
+        "Double currency",
+        "Double divination card"
+      ]
+    },
+    "boss_farming": {
+      "name": "Boss Farming",
+      "name_ko": "보스 파밍",
+      "tier": "A",
+      "investment": "very_high",
+      "phase": ["late"],
+      "description_ko": "Maven/Uber 보스",
+      "build_requirements": {
+        "tags": ["boss_dps", "single_target", "tankiness"],
+        "min_dps": 10000000
+      },
+      "expected_profit": {
+        "divine_per_hour": 10,
+        "note": "변동성 높음, 잭팟 의존"
+      },
+      "execution_guide": {
+        "guardian_invitations": [
+          "The Formed, The Twisted, The Elderslayers",
+          "수량 65%+ 롤링",
+          "Maven 적용 필수"
+        ],
+        "uber_bosses": {
+          "tip": "Fragment 5개 필요 (각 0.7 Div)",
+          "risk": "큰 손실 또는 적은 이득 가능성"
+        },
+        "destructive_play": "Silo 맵에서 보스 무적기 활용"
+      },
+      "scarab_setup": null,
+      "atlas_nodes": [
+        "Shaping the World",
+        "Guardian's Aid"
+      ]
+    }
+  },
+  "common_scarab_synergies": {
+    "monster_density": ["Scarab of Adversaries", "Influencing Scarab of Hordes", "Monstrous Lineage"],
+    "map_sustain": ["Cartography Scarab of Escalation", "Cartography Scarab of Duplication"],
+    "currency": ["Currency Scarab of Abundance"],
+    "divination": ["Divination Scarab of the Cloister"]
+  },
+  "map_device_crafts": {
+    "Heist": {"cost": 6, "effect": "3 Smuggler's Caches"},
+    "Ambush": {"cost": 3, "effect": "4 Strongboxes"},
+    "Breach": {"cost": 3, "effect": "3 Breaches"},
+    "Beyond": {"cost": 5, "effect": "Beyond portals"},
+    "Delirium": {"cost": 8, "effect": "Delirium Mirror"}
+  }
+}

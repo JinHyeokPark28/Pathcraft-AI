@@ -1,0 +1,799 @@
+{
+  "version": "1.0",
+  "updated": "2025-11-23T20:56:24.719313",
+  "stats": {
+    "reddit": {
+      "posts_scanned": 363,
+      "patterns_found": 208
+    },
+    "dcinside": {
+      "posts_scanned": 73,
+      "patterns_found": 0
+    },
+    "github": {
+      "repos_scanned": 18,
+      "patterns_found": 0
+    }
+  },
+  "total_patterns": 69,
+  "patterns": [
+    {
+      "final_skill": "Righteous Fire",
+      "leveling_skill": "Flame Wall",
+      "class": "Templar",
+      "ascendancy": "Chieftain",
+      "transition_point": "maps_entry",
+      "source": "reddit",
+      "url": "https://reddit.com/r/PathOfExileBuilds/comments/1bo7ji3/324_summoner_necromancer_optimized_leveling_guide/",
+      "pob_code": null
+    },
+    {
+      "final_skill": "Righteous Fire",
+      "leveling_skill": "Holy Flame Totem",
+      "class": "Templar",
+      "ascendancy": "Chieftain",
+      "transition_point": "maps_entry",
+      "source": "reddit",
+      "url": "https://reddit.com/r/PathOfExileBuilds/comments/1bo7ji3/324_summoner_necromancer_optimized_leveling_guide/",
+      "pob_code": null
+    },
+    {
+      "final_skill": "Summon Skeletons",
+      "leveling_skill": "Summon Raging Spirit",
+      "class": "Templar",
+      "ascendancy": "Chieftain",
+      "transition_point": "maps_entry",
+      "source": "reddit",
+      "url": "https://reddit.com/r/PathOfExileBuilds/comments/1bo7ji3/324_summoner_necromancer_optimized_leveling_guide/",
+      "pob_code": null
+    },
+    {
+      "final_skill": "Raise Zombie",
+      "leveling_skill": "Summon Raging Spirit",
+      "class": "Templar",
+      "ascendancy": "Chieftain",
+      "transition_point": "maps_entry",
+      "source": "reddit",
+      "url": "https://reddit.com/r/PathOfExileBuilds/comments/1bo7ji3/324_summoner_necromancer_optimized_leveling_guide/",
+      "pob_code": null
+    },
+    {
+      "final_skill": "Raise Spectre",
+      "leveling_skill": "Summon Raging Spirit",
+      "class": "Templar",
+      "ascendancy": "Chieftain",
+      "transition_point": "maps_entry",
+      "source": "reddit",
+      "url": "https://reddit.com/r/PathOfExileBuilds/comments/1bo7ji3/324_summoner_necromancer_optimized_leveling_guide/",
+      "pob_code": null
+    },
+    {
+      "final_skill": "Lightning Arrow",
+      "leveling_skill": "Burning Arrow",
+      "class": "Ranger",
+      "ascendancy": null,
+      "transition_point": "maps_entry",
+      "source": "reddit",
+      "url": "https://reddit.com/r/PathOfExileBuilds/comments/1itzd0l/easy_leveling_guide_for_any_ranger_build_in_event/",
+      "pob_code": null
+    },
+    {
+      "final_skill": "Lightning Arrow",
+      "leveling_skill": "Galvanic Arrow",
+      "class": "Ranger",
+      "ascendancy": null,
+      "transition_point": "maps_entry",
+      "source": "reddit",
+      "url": "https://reddit.com/r/PathOfExileBuilds/comments/1itzd0l/easy_leveling_guide_for_any_ranger_build_in_event/",
+      "pob_code": null
+    },
+    {
+      "final_skill": "Blazing Salvo",
+      "leveling_skill": "Rolling Magma",
+      "class": null,
+      "ascendancy": "Juggernaut",
+      "transition_point": "maps_entry",
+      "source": "reddit",
+      "url": "https://reddit.com/r/PathOfExileBuilds/comments/1l5xyzt/326_secrets_of_the_atlas_league_start_build_index/",
+      "pob_code": "com/document/u/0/d/1NbBbwPDUrtwYryAElxNIHs0chSiRwF5jDIBhf6fZZow/mobilebasic"
+    },
+    {
+      "final_skill": "Ice Nova",
+      "leveling_skill": "Frostbolt",
+      "class": null,
+      "ascendancy": "Juggernaut",
+      "transition_point": "maps_entry",
+      "source": "reddit",
+      "url": "https://reddit.com/r/PathOfExileBuilds/comments/1l5xyzt/326_secrets_of_the_atlas_league_start_build_index/",
+      "pob_code": "com/document/u/0/d/1NbBbwPDUrtwYryAElxNIHs0chSiRwF5jDIBhf6fZZow/mobilebasic"
+    },
+    {
+      "final_skill": "Vortex",
+      "leveling_skill": "Frostbolt",
+      "class": null,
+      "ascendancy": "Juggernaut",
+      "transition_point": "maps_entry",
+      "source": "reddit",
+      "url": "https://reddit.com/r/PathOfExileBuilds/comments/1l5xyzt/326_secrets_of_the_atlas_league_start_build_index/",
+      "pob_code": "com/document/u/0/d/1NbBbwPDUrtwYryAElxNIHs0chSiRwF5jDIBhf6fZZow/mobilebasic"
+    },
+    {
+      "final_skill": "Ball Lightning",
+      "leveling_skill": "Arc",
+      "class": null,
+      "ascendancy": "Juggernaut",
+      "transition_point": "maps_entry",
+      "source": "reddit",
+      "url": "https://reddit.com/r/PathOfExileBuilds/comments/1l5xyzt/326_secrets_of_the_atlas_league_start_build_index/",
+      "pob_code": "com/document/u/0/d/1NbBbwPDUrtwYryAElxNIHs0chSiRwF5jDIBhf6fZZow/mobilebasic"
+    },
+    {
+      "final_skill": "Earthquake",
+      "leveling_skill": "Ground Slam",
+      "class": null,
+      "ascendancy": "Juggernaut",
+      "transition_point": "maps_entry",
+      "source": "reddit",
+      "url": "https://reddit.com/r/PathOfExileBuilds/comments/1l5xyzt/326_secrets_of_the_atlas_league_start_build_index/",
+      "pob_code": "com/document/u/0/d/1NbBbwPDUrtwYryAElxNIHs0chSiRwF5jDIBhf6fZZow/mobilebasic"
+    },
+    {
+      "final_skill": "Spark",
+      "leveling_skill": "Arc",
+      "class": null,
+      "ascendancy": "Juggernaut",
+      "transition_point": "maps_entry",
+      "source": "reddit",
+      "url": "https://reddit.com/r/PathOfExileBuilds/comments/1eaudsu/325_settlers_of_kalguur_league_start_build_index/",
+      "pob_code": "com/document/d/1NbBbwPDUrtwYryAElxNIHs0chSiRwF5jDIBhf6fZZow/edit"
+    },
+    {
+      "final_skill": "Arc",
+      "leveling_skill": "Spark",
+      "class": null,
+      "ascendancy": "Juggernaut",
+      "transition_point": "maps_entry",
+      "source": "reddit",
+      "url": "https://reddit.com/r/PathOfExileBuilds/comments/1eaudsu/325_settlers_of_kalguur_league_start_build_index/",
+      "pob_code": "com/document/d/1NbBbwPDUrtwYryAElxNIHs0chSiRwF5jDIBhf6fZZow/edit"
+    },
+    {
+      "final_skill": "Ball Lightning",
+      "leveling_skill": "Spark",
+      "class": null,
+      "ascendancy": "Juggernaut",
+      "transition_point": "maps_entry",
+      "source": "reddit",
+      "url": "https://reddit.com/r/PathOfExileBuilds/comments/1eaudsu/325_settlers_of_kalguur_league_start_build_index/",
+      "pob_code": "com/document/d/1NbBbwPDUrtwYryAElxNIHs0chSiRwF5jDIBhf6fZZow/edit"
+    },
+    {
+      "final_skill": "Lacerate",
+      "leveling_skill": "Cleave",
+      "class": null,
+      "ascendancy": "Juggernaut",
+      "transition_point": "maps_entry",
+      "source": "reddit",
+      "url": "https://reddit.com/r/PathOfExileBuilds/comments/1eaudsu/325_settlers_of_kalguur_league_start_build_index/",
+      "pob_code": "com/document/d/1NbBbwPDUrtwYryAElxNIHs0chSiRwF5jDIBhf6fZZow/edit"
+    },
+    {
+      "final_skill": "Storm Brand",
+      "leveling_skill": "Armageddon Brand",
+      "class": "Templar",
+      "ascendancy": "Deadeye",
+      "transition_point": "maps_entry",
+      "source": "reddit",
+      "url": "https://reddit.com/r/PathOfExileBuilds/comments/12dz0el/nirocs_armageddon_brand_recall_leaguestarter_pob/",
+      "pob_code": null
+    },
+    {
+      "final_skill": "Arc",
+      "leveling_skill": "Storm Brand",
+      "class": "Templar",
+      "ascendancy": "Deadeye",
+      "transition_point": "maps_entry",
+      "source": "reddit",
+      "url": "https://reddit.com/r/PathOfExileBuilds/comments/12dz0el/nirocs_armageddon_brand_recall_leaguestarter_pob/",
+      "pob_code": null
+    },
+    {
+      "final_skill": "Storm Brand",
+      "leveling_skill": "Arc",
+      "class": "Templar",
+      "ascendancy": "Deadeye",
+      "transition_point": "maps_entry",
+      "source": "reddit",
+      "url": "https://reddit.com/r/PathOfExileBuilds/comments/12dz0el/nirocs_armageddon_brand_recall_leaguestarter_pob/",
+      "pob_code": null
+    },
+    {
+      "final_skill": "Scourge Arrow",
+      "leveling_skill": "Caustic Arrow",
+      "class": null,
+      "ascendancy": "Inquisitor",
+      "transition_point": "maps_entry",
+      "source": "reddit",
+      "url": "https://reddit.com/r/PathOfExileBuilds/comments/wwidt5/ama_crafting_ama_for_319_lake_of_kalandra/",
+      "pob_code": null
+    },
+    {
+      "final_skill": "Lightning Arrow",
+      "leveling_skill": "Rain Of Arrows",
+      "class": null,
+      "ascendancy": "Inquisitor",
+      "transition_point": "maps_entry",
+      "source": "reddit",
+      "url": "https://reddit.com/r/PathOfExileBuilds/comments/zbsyu5/320_sanctum_league_start_build_index/",
+      "pob_code": "com/r/PathOfExileBuilds/comments/zcwofu/subtractems"
+    },
+    {
+      "final_skill": "Toxic Rain",
+      "leveling_skill": "Caustic Arrow",
+      "class": null,
+      "ascendancy": "Inquisitor",
+      "transition_point": "maps_entry",
+      "source": "reddit",
+      "url": "https://reddit.com/r/PathOfExileBuilds/comments/zbsyu5/320_sanctum_league_start_build_index/",
+      "pob_code": "com/r/PathOfExileBuilds/comments/zcwofu/subtractems"
+    },
+    {
+      "final_skill": "Cyclone",
+      "leveling_skill": "Sunder",
+      "class": "Marauder",
+      "ascendancy": "Elementalist",
+      "transition_point": "maps_entry",
+      "source": "reddit",
+      "url": "https://reddit.com/r/PathOfExileBuilds/comments/1ea8qxy/summary_of_what_might_work_325_from_a_filthy/",
+      "pob_code": null
+    },
+    {
+      "final_skill": "Cyclone",
+      "leveling_skill": "Sweep",
+      "class": "Marauder",
+      "ascendancy": "Elementalist",
+      "transition_point": "maps_entry",
+      "source": "reddit",
+      "url": "https://reddit.com/r/PathOfExileBuilds/comments/1ea8qxy/summary_of_what_might_work_325_from_a_filthy/",
+      "pob_code": null
+    },
+    {
+      "final_skill": "Reave",
+      "leveling_skill": "Double Strike",
+      "class": "Marauder",
+      "ascendancy": "Elementalist",
+      "transition_point": "maps_entry",
+      "source": "reddit",
+      "url": "https://reddit.com/r/PathOfExileBuilds/comments/1ea8qxy/summary_of_what_might_work_325_from_a_filthy/",
+      "pob_code": null
+    },
+    {
+      "final_skill": "Shattering Steel",
+      "leveling_skill": "Splitting Steel",
+      "class": null,
+      "ascendancy": "Champion",
+      "transition_point": "maps_entry",
+      "source": "reddit",
+      "url": "https://reddit.com/r/PathOfExileBuilds/comments/qgq4w8/hello_i_am_following_big_ducks_steel_champion_but/",
+      "pob_code": null
+    },
+    {
+      "final_skill": "Spark",
+      "leveling_skill": "Storm Brand",
+      "class": null,
+      "ascendancy": "Berserker",
+      "transition_point": "maps_entry",
+      "source": "reddit",
+      "url": "https://reddit.com/r/PathOfExileBuilds/comments/wmcgxl/319_lake_of_kalandra_build_index/",
+      "pob_code": null
+    },
+    {
+      "final_skill": "Lightning Strike",
+      "leveling_skill": "Spectral Helix",
+      "class": null,
+      "ascendancy": "Berserker",
+      "transition_point": "maps_entry",
+      "source": "reddit",
+      "url": "https://reddit.com/r/PathOfExileBuilds/comments/wmcgxl/319_lake_of_kalandra_build_index/",
+      "pob_code": null
+    },
+    {
+      "final_skill": "Dominating Blow",
+      "leveling_skill": "Absolution",
+      "class": null,
+      "ascendancy": "Guardian",
+      "transition_point": "maps_entry",
+      "source": "reddit",
+      "url": "https://reddit.com/r/PathOfExileBuilds/comments/1omf85i/living_lightning_whats_working_whats_not/",
+      "pob_code": null
+    },
+    {
+      "final_skill": "Spark",
+      "leveling_skill": "Orb Of Storms",
+      "class": null,
+      "ascendancy": null,
+      "transition_point": "maps_entry",
+      "source": "reddit",
+      "url": "https://reddit.com/r/PathOfExileBuilds/comments/1hn36ag/levelling_with_spark_feels_terrible_any_tips/",
+      "pob_code": null
+    },
+    {
+      "final_skill": "Penance Brand",
+      "leveling_skill": "Armageddon Brand",
+      "class": "Scion",
+      "ascendancy": "Juggernaut",
+      "transition_point": "maps_entry",
+      "source": "reddit",
+      "url": "https://reddit.com/r/PathOfExileBuilds/comments/1bmbqp6/324_necropolis_league_start_build_index/",
+      "pob_code": null
+    },
+    {
+      "final_skill": "Penance Brand Of Dissipation",
+      "leveling_skill": "Armageddon Brand",
+      "class": "Scion",
+      "ascendancy": "Juggernaut",
+      "transition_point": "maps_entry",
+      "source": "reddit",
+      "url": "https://reddit.com/r/PathOfExileBuilds/comments/1bmbqp6/324_necropolis_league_start_build_index/",
+      "pob_code": null
+    },
+    {
+      "final_skill": "Detonate Dead",
+      "leveling_skill": "Cremation",
+      "class": "Scion",
+      "ascendancy": "Juggernaut",
+      "transition_point": "maps_entry",
+      "source": "reddit",
+      "url": "https://reddit.com/r/PathOfExileBuilds/comments/1bmbqp6/324_necropolis_league_start_build_index/",
+      "pob_code": null
+    },
+    {
+      "final_skill": "Ice Shot",
+      "leveling_skill": "Rain Of Arrows",
+      "class": null,
+      "ascendancy": "Juggernaut",
+      "transition_point": "maps_entry",
+      "source": "reddit",
+      "url": "https://reddit.com/r/PathOfExileBuilds/comments/12bcnsi/321_crucible_league_start_build_index/",
+      "pob_code": "com/r/PathOfExileBuilds/comments/12b8ubs/boneshatter"
+    },
+    {
+      "final_skill": "Bladestorm",
+      "leveling_skill": "Perforate",
+      "class": null,
+      "ascendancy": "Juggernaut",
+      "transition_point": "maps_entry",
+      "source": "reddit",
+      "url": "https://reddit.com/r/PathOfExileBuilds/comments/1iecd6x/29_off_meta_builds_for_settlers_pohx_private/",
+      "pob_code": null
+    },
+    {
+      "final_skill": "Pyroclast Mine",
+      "leveling_skill": "Stormblast Mine",
+      "class": null,
+      "ascendancy": "Guardian",
+      "transition_point": "maps_entry",
+      "source": "reddit",
+      "url": "https://reddit.com/r/PathOfExileBuilds/comments/18ns2p5/sabotage_of_qol_mine_aura_stacker_with_armageddon/",
+      "pob_code": null
+    },
+    {
+      "final_skill": "Arc",
+      "leveling_skill": "Stormblast Mine",
+      "class": null,
+      "ascendancy": "Guardian",
+      "transition_point": "maps_entry",
+      "source": "reddit",
+      "url": "https://reddit.com/r/PathOfExileBuilds/comments/18ns2p5/sabotage_of_qol_mine_aura_stacker_with_armageddon/",
+      "pob_code": null
+    },
+    {
+      "final_skill": "Vortex",
+      "leveling_skill": "Wintertide Brand",
+      "class": "Shadow",
+      "ascendancy": "Juggernaut",
+      "transition_point": "maps_entry",
+      "source": "reddit",
+      "url": "https://reddit.com/r/PathOfExileBuilds/comments/1oit0of/327_keepers_of_the_flame_league_start_build_index/",
+      "pob_code": null
+    },
+    {
+      "final_skill": "Detonate Dead",
+      "leveling_skill": "Rolling Magma",
+      "class": "Shadow",
+      "ascendancy": "Juggernaut",
+      "transition_point": "maps_entry",
+      "source": "reddit",
+      "url": "https://reddit.com/r/PathOfExileBuilds/comments/1oit0of/327_keepers_of_the_flame_league_start_build_index/",
+      "pob_code": null
+    },
+    {
+      "final_skill": "Ice Nova",
+      "leveling_skill": "Freezing Pulse",
+      "class": "Shadow",
+      "ascendancy": "Juggernaut",
+      "transition_point": "maps_entry",
+      "source": "reddit",
+      "url": "https://reddit.com/r/PathOfExileBuilds/comments/1oit0of/327_keepers_of_the_flame_league_start_build_index/",
+      "pob_code": null
+    },
+    {
+      "final_skill": "Vortex",
+      "leveling_skill": "Freezing Pulse",
+      "class": "Shadow",
+      "ascendancy": "Juggernaut",
+      "transition_point": "maps_entry",
+      "source": "reddit",
+      "url": "https://reddit.com/r/PathOfExileBuilds/comments/1oit0of/327_keepers_of_the_flame_league_start_build_index/",
+      "pob_code": null
+    },
+    {
+      "final_skill": "Ice Nova",
+      "leveling_skill": "Ice Spear",
+      "class": "Shadow",
+      "ascendancy": "Juggernaut",
+      "transition_point": "maps_entry",
+      "source": "reddit",
+      "url": "https://reddit.com/r/PathOfExileBuilds/comments/1oit0of/327_keepers_of_the_flame_league_start_build_index/",
+      "pob_code": null
+    },
+    {
+      "final_skill": "Ice Nova",
+      "leveling_skill": "Freezing Pulse Totem",
+      "class": "Shadow",
+      "ascendancy": "Juggernaut",
+      "transition_point": "maps_entry",
+      "source": "reddit",
+      "url": "https://reddit.com/r/PathOfExileBuilds/comments/1oit0of/327_keepers_of_the_flame_league_start_build_index/",
+      "pob_code": null
+    },
+    {
+      "final_skill": "Lacerate",
+      "leveling_skill": "Perforate",
+      "class": "Shadow",
+      "ascendancy": "Juggernaut",
+      "transition_point": "maps_entry",
+      "source": "reddit",
+      "url": "https://reddit.com/r/PathOfExileBuilds/comments/1oit0of/327_keepers_of_the_flame_league_start_build_index/",
+      "pob_code": null
+    },
+    {
+      "final_skill": "Dominating Blow",
+      "leveling_skill": "Summon Holy Relic",
+      "class": "Shadow",
+      "ascendancy": "Juggernaut",
+      "transition_point": "maps_entry",
+      "source": "reddit",
+      "url": "https://reddit.com/r/PathOfExileBuilds/comments/1oit0of/327_keepers_of_the_flame_league_start_build_index/",
+      "pob_code": null
+    },
+    {
+      "final_skill": "Penance Brand",
+      "leveling_skill": "Storm Brand",
+      "class": null,
+      "ascendancy": null,
+      "transition_point": "maps_entry",
+      "source": "reddit",
+      "url": "https://reddit.com/r/PathOfExileBuilds/comments/1p34ata/help_with_penance_brand/",
+      "pob_code": null
+    },
+    {
+      "final_skill": "Penance Brand Of Dissipation",
+      "leveling_skill": "Storm Brand",
+      "class": null,
+      "ascendancy": null,
+      "transition_point": "maps_entry",
+      "source": "reddit",
+      "url": "https://reddit.com/r/PathOfExileBuilds/comments/1p34ata/help_with_penance_brand/",
+      "pob_code": null
+    },
+    {
+      "final_skill": "Cremation",
+      "leveling_skill": "Holy Flame Totem",
+      "class": "Witch",
+      "ascendancy": null,
+      "transition_point": "maps_entry",
+      "source": "reddit",
+      "url": "https://reddit.com/r/PathOfExileBuilds/comments/ulpdaq/best_caster_skills_to_level_128_stormblast_mine/",
+      "pob_code": null
+    },
+    {
+      "final_skill": "Arc",
+      "leveling_skill": "Storm Call",
+      "class": null,
+      "ascendancy": null,
+      "transition_point": "maps_entry",
+      "source": "reddit",
+      "url": "https://reddit.com/r/PathOfExileBuilds/comments/1iqr0f8/what_are_other_people_cooking_for_offmetagarbage/",
+      "pob_code": null
+    },
+    {
+      "final_skill": "Tectonic Slam",
+      "leveling_skill": "Ground Slam",
+      "class": null,
+      "ascendancy": null,
+      "transition_point": "maps_entry",
+      "source": "reddit",
+      "url": "https://reddit.com/r/PathOfExileBuilds/comments/1iqr0f8/what_are_other_people_cooking_for_offmetagarbage/",
+      "pob_code": null
+    },
+    {
+      "final_skill": "Lancing Steel",
+      "leveling_skill": "Splitting Steel",
+      "class": null,
+      "ascendancy": null,
+      "transition_point": "maps_entry",
+      "source": "reddit",
+      "url": "https://reddit.com/r/PathOfExileBuilds/comments/1e6rigq/relative_effective_damage_increases_for_melee/",
+      "pob_code": null
+    },
+    {
+      "final_skill": "Cyclone",
+      "leveling_skill": "Cleave",
+      "class": null,
+      "ascendancy": null,
+      "transition_point": "maps_entry",
+      "source": "reddit",
+      "url": "https://reddit.com/r/PathOfExileBuilds/comments/1e6rigq/relative_effective_damage_increases_for_melee/",
+      "pob_code": null
+    },
+    {
+      "final_skill": "Bladestorm",
+      "leveling_skill": "Cleave",
+      "class": null,
+      "ascendancy": null,
+      "transition_point": "maps_entry",
+      "source": "reddit",
+      "url": "https://reddit.com/r/PathOfExileBuilds/comments/1e6rigq/relative_effective_damage_increases_for_melee/",
+      "pob_code": null
+    },
+    {
+      "final_skill": "Ice Crash",
+      "leveling_skill": "Ground Slam",
+      "class": null,
+      "ascendancy": null,
+      "transition_point": "maps_entry",
+      "source": "reddit",
+      "url": "https://reddit.com/r/PathOfExileBuilds/comments/1e6rigq/relative_effective_damage_increases_for_melee/",
+      "pob_code": null
+    },
+    {
+      "final_skill": "Earthquake",
+      "leveling_skill": "Sunder",
+      "class": null,
+      "ascendancy": null,
+      "transition_point": "maps_entry",
+      "source": "reddit",
+      "url": "https://reddit.com/r/PathOfExileBuilds/comments/1e6rigq/relative_effective_damage_increases_for_melee/",
+      "pob_code": null
+    },
+    {
+      "final_skill": "Bladestorm",
+      "leveling_skill": "Sweep",
+      "class": null,
+      "ascendancy": null,
+      "transition_point": "maps_entry",
+      "source": "reddit",
+      "url": "https://reddit.com/r/PathOfExileBuilds/comments/1e6rigq/relative_effective_damage_increases_for_melee/",
+      "pob_code": null
+    },
+    {
+      "final_skill": "Blade Flurry",
+      "leveling_skill": "Double Strike",
+      "class": null,
+      "ascendancy": null,
+      "transition_point": "maps_entry",
+      "source": "reddit",
+      "url": "https://reddit.com/r/PathOfExileBuilds/comments/1e6rigq/relative_effective_damage_increases_for_melee/",
+      "pob_code": null
+    },
+    {
+      "final_skill": "Vaal Spark",
+      "leveling_skill": "Arc",
+      "class": "Witch",
+      "ascendancy": "Occultist",
+      "transition_point": "specific_level",
+      "source": "reddit",
+      "url": "https://reddit.com/r/PathOfExileBuilds/comments/wjxah7/the_new_vaal_caress_gloves_are_a_musthave_upgrade/",
+      "pob_code": "ninja/challenge/builds/char/Shipe322/ColdComfortWeather"
+    },
+    {
+      "final_skill": "Vaal Spark",
+      "leveling_skill": "Spark",
+      "class": "Witch",
+      "ascendancy": "Occultist",
+      "transition_point": "specific_level",
+      "source": "reddit",
+      "url": "https://reddit.com/r/PathOfExileBuilds/comments/wjxah7/the_new_vaal_caress_gloves_are_a_musthave_upgrade/",
+      "pob_code": "ninja/challenge/builds/char/Shipe322/ColdComfortWeather"
+    },
+    {
+      "final_skill": "Bane",
+      "leveling_skill": "Blight",
+      "class": "Witch",
+      "ascendancy": "Occultist",
+      "transition_point": "specific_level",
+      "source": "reddit",
+      "url": "https://reddit.com/r/PathOfExileBuilds/comments/wjxah7/the_new_vaal_caress_gloves_are_a_musthave_upgrade/",
+      "pob_code": "ninja/challenge/builds/char/Shipe322/ColdComfortWeather"
+    },
+    {
+      "final_skill": "Fireball",
+      "leveling_skill": "Rolling Magma",
+      "class": null,
+      "ascendancy": null,
+      "transition_point": "maps_entry",
+      "source": "reddit",
+      "url": "https://reddit.com/r/PathOfExileBuilds/comments/12cmv8b/biggest_winners_from_datamine/",
+      "pob_code": null
+    },
+    {
+      "final_skill": "Fireball",
+      "leveling_skill": "Flame Wall",
+      "class": null,
+      "ascendancy": null,
+      "transition_point": "maps_entry",
+      "source": "reddit",
+      "url": "https://reddit.com/r/PathOfExileBuilds/comments/12cmv8b/biggest_winners_from_datamine/",
+      "pob_code": null
+    },
+    {
+      "final_skill": "Cold Snap",
+      "leveling_skill": "Freezing Pulse",
+      "class": "Scion",
+      "ascendancy": "Juggernaut",
+      "transition_point": "maps_entry",
+      "source": "reddit",
+      "url": "https://reddit.com/r/PathOfExileBuilds/comments/10v6jey/build_suggestion_tanky_spellcaster_for_my_daughter/",
+      "pob_code": null
+    },
+    {
+      "final_skill": "Bane",
+      "leveling_skill": "Essence Drain",
+      "class": "Scion",
+      "ascendancy": "Juggernaut",
+      "transition_point": "maps_entry",
+      "source": "reddit",
+      "url": "https://reddit.com/r/PathOfExileBuilds/comments/10v6jey/build_suggestion_tanky_spellcaster_for_my_daughter/",
+      "pob_code": null
+    },
+    {
+      "final_skill": "Essence Drain",
+      "leveling_skill": "Blight",
+      "class": "Scion",
+      "ascendancy": "Juggernaut",
+      "transition_point": "maps_entry",
+      "source": "reddit",
+      "url": "https://reddit.com/r/PathOfExileBuilds/comments/10v6jey/build_suggestion_tanky_spellcaster_for_my_daughter/",
+      "pob_code": null
+    },
+    {
+      "final_skill": "Death Aura",
+      "leveling_skill": "Soulrend",
+      "class": "Witch",
+      "ascendancy": "Occultist",
+      "transition_point": "maps_entry",
+      "source": "streamer",
+      "url": "https://www.twitch.tv/aer0",
+      "pob_code": null,
+      "notes": "카오스 DoT 레벨링 - Soulrend 메인",
+      "leveling_phases": [
+        {
+          "level_range": "1-12",
+          "skill": "Blight",
+          "socket_colors": "BBB",
+          "gems": ["Blight", "Infused Channelling", "Efficacy"],
+          "notes": "채널링 초반 레벨링"
+        },
+        {
+          "level_range": "12-28",
+          "skill": "Essence Drain",
+          "socket_colors": "BBB",
+          "gems": ["Essence Drain", "Efficacy", "Arcane Surge"],
+          "combo_skill": "Contagion",
+          "combo_gems": ["Contagion", "Arcane Surge"],
+          "notes": "ED/Contagion 콤보"
+        },
+        {
+          "level_range": "28+",
+          "skill": "Soulrend",
+          "socket_colors": "BBBG",
+          "gems": ["Soulrend", "Efficacy", "Void Manipulation", "GMP"],
+          "notes": "Soulrend로 전환"
+        }
+      ],
+      "utility_gems": {
+        "auras": ["Malevolence", "Flesh and Stone"],
+        "curses": ["Despair"],
+        "movement": ["Flame Dash", "Shield Charge"],
+        "support": ["Arcane Surge", "Momentum"]
+      }
+    },
+    {
+      "final_skill": "Death Aura",
+      "leveling_skill": "Bane",
+      "class": "Witch",
+      "ascendancy": "Occultist",
+      "transition_point": "maps_entry",
+      "source": "streamer",
+      "url": "https://www.twitch.tv/exiledcat",
+      "pob_code": null,
+      "notes": "카오스 DoT 레벨링 - Bane 메인",
+      "leveling_phases": [
+        {
+          "level_range": "1-12",
+          "skill": "Blight",
+          "socket_colors": "BBB",
+          "gems": ["Blight", "Infused Channelling", "Efficacy"]
+        },
+        {
+          "level_range": "12-24",
+          "skill": "Essence Drain",
+          "socket_colors": "BBB",
+          "gems": ["Essence Drain", "Efficacy", "Arcane Surge"],
+          "combo_skill": "Contagion"
+        },
+        {
+          "level_range": "24+",
+          "skill": "Bane",
+          "socket_colors": "BBBB",
+          "gems": ["Bane", "Despair", "Efficacy", "Void Manipulation"],
+          "notes": "Bane + 저주 통합"
+        }
+      ]
+    },
+    {
+      "final_skill": "Death Aura",
+      "leveling_skill": "Essence Drain",
+      "class": "Witch",
+      "ascendancy": "Occultist",
+      "transition_point": "maps_entry",
+      "source": "streamer",
+      "url": "https://www.youtube.com/dongyangkom",
+      "pob_code": null,
+      "notes": "카오스 DoT 레벨링 - ED/Contagion 콤보",
+      "leveling_phases": [
+        {
+          "level_range": "1-12",
+          "skill": "Blight",
+          "socket_colors": "BBB",
+          "gems": ["Blight", "Infused Channelling", "Efficacy"]
+        },
+        {
+          "level_range": "12+",
+          "skill": "Essence Drain",
+          "socket_colors": "BBBB",
+          "gems": ["Essence Drain", "Efficacy", "Controlled Destruction", "Void Manipulation"],
+          "combo_skill": "Contagion",
+          "combo_gems": ["Contagion", "Increased Area", "Arcane Surge"]
+        }
+      ]
+    },
+    {
+      "final_skill": "Death Aura",
+      "leveling_skill": "Blight",
+      "class": "Witch",
+      "ascendancy": "Occultist",
+      "transition_point": "maps_entry",
+      "source": "pathcraftai",
+      "url": null,
+      "pob_code": null,
+      "notes": "카오스 DoT 레벨링 - Blight CwC 세팅",
+      "leveling_phases": [
+        {
+          "level_range": "1-38",
+          "skill": "Blight",
+          "socket_colors": "BBB",
+          "gems": ["Blight", "Infused Channelling", "Efficacy"]
+        },
+        {
+          "level_range": "38+",
+          "skill": "Blight",
+          "socket_colors": "BBBBB",
+          "gems": ["Blight", "Cast while Channelling", "Soulrend", "Efficacy", "Void Manipulation"],
+          "notes": "Blight CwC Soulrend"
+        }
+      ]
+    }
+  ]
+}

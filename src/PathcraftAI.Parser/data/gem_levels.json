@@ -1,0 +1,3300 @@
+{
+  "version": "3.25",
+  "source": "poedb.tw",
+  "gems": {
+    "Cleave": {
+      "name": "Cleave",
+      "required_level": 1,
+      "tags": [],
+      "url": "/us/Cleave"
+    },
+    "Cleave of Rage": {
+      "name": "Cleave of Rage",
+      "required_level": 1,
+      "tags": [],
+      "url": "/us/Cleave_of_Rage"
+    },
+    "Glacial Hammer": {
+      "name": "Glacial Hammer",
+      "required_level": 1,
+      "tags": [],
+      "url": "/us/Glacial_Hammer"
+    },
+    "Glacial Hammer of Shattering": {
+      "name": "Glacial Hammer of Shattering",
+      "required_level": 1,
+      "tags": [],
+      "url": "/us/Glacial_Hammer_of_Shattering"
+    },
+    "Tender Embrace": {
+      "name": "Tender Embrace",
+      "required_level": 1,
+      "tags": [],
+      "url": "/us/Tender_Embrace"
+    },
+    "Return to Dust": {
+      "name": "Return to Dust",
+      "required_level": 1,
+      "tags": [],
+      "url": "/us/Return_to_Dust"
+    },
+    "Seize the Flesh": {
+      "name": "Seize the Flesh",
+      "required_level": 1,
+      "tags": [],
+      "url": "/us/Seize_the_Flesh"
+    },
+    "The Grey Wind Howls": {
+      "name": "The Grey Wind Howls",
+      "required_level": 1,
+      "tags": [],
+      "url": "/us/The_Grey_Wind_Howls"
+    },
+    "Heart of Flame": {
+      "name": "Heart of Flame",
+      "required_level": 1,
+      "tags": [],
+      "url": "/us/Heart_of_Flame"
+    },
+    "Call the Pyre": {
+      "name": "Call the Pyre",
+      "required_level": 1,
+      "tags": [],
+      "url": "/us/Call_the_Pyre"
+    },
+    "His Burning Message": {
+      "name": "His Burning Message",
+      "required_level": 1,
+      "tags": [],
+      "url": "/us/His_Burning_Message"
+    },
+    "Ground Slam": {
+      "name": "Ground Slam",
+      "required_level": 1,
+      "tags": [],
+      "url": "/us/Ground_Slam"
+    },
+    "Ground Slam of Earthshaking": {
+      "name": "Ground Slam of Earthshaking",
+      "required_level": 1,
+      "tags": [],
+      "url": "/us/Ground_Slam_of_Earthshaking"
+    },
+    "Heavy Strike": {
+      "name": "Heavy Strike",
+      "required_level": 1,
+      "tags": [],
+      "url": "/us/Heavy_Strike"
+    },
+    "Heavy Strike of Trarthus": {
+      "name": "Heavy Strike of Trarthus",
+      "required_level": 1,
+      "tags": [],
+      "url": "/us/Heavy_Strike_of_Trarthus"
+    },
+    "Molten Strike": {
+      "name": "Molten Strike",
+      "required_level": 1,
+      "tags": [],
+      "url": "/us/Molten_Strike"
+    },
+    "Molten Strike of the Zenith": {
+      "name": "Molten Strike of the Zenith",
+      "required_level": 1,
+      "tags": [],
+      "url": "/us/Molten_Strike_of_the_Zenith"
+    },
+    "Perforate": {
+      "name": "Perforate",
+      "required_level": 1,
+      "tags": [],
+      "url": "/us/Perforate"
+    },
+    "Perforate of Duality": {
+      "name": "Perforate of Duality",
+      "required_level": 1,
+      "tags": [],
+      "url": "/us/Perforate_of_Duality"
+    },
+    "Perforate of Bloodshed": {
+      "name": "Perforate of Bloodshed",
+      "required_level": 1,
+      "tags": [],
+      "url": "/us/Perforate_of_Bloodshed"
+    },
+    "Shield Crush": {
+      "name": "Shield Crush",
+      "required_level": 1,
+      "tags": [],
+      "url": "/us/Shield_Crush"
+    },
+    "Shield Crush of the Chieftain": {
+      "name": "Shield Crush of the Chieftain",
+      "required_level": 1,
+      "tags": [],
+      "url": "/us/Shield_Crush_of_the_Chieftain"
+    },
+    "Smite": {
+      "name": "Smite",
+      "required_level": 1,
+      "tags": [],
+      "url": "/us/Smite"
+    },
+    "Smite of Divine Judgement": {
+      "name": "Smite of Divine Judgement",
+      "required_level": 1,
+      "tags": [],
+      "url": "/us/Smite_of_Divine_Judgement"
+    },
+    "Vaal Cleave": {
+      "name": "Vaal Cleave",
+      "required_level": 1,
+      "tags": [],
+      "url": "/us/Vaal_Cleave"
+    },
+    "Vaal Glacial Hammer": {
+      "name": "Vaal Glacial Hammer",
+      "required_level": 1,
+      "tags": [],
+      "url": "/us/Vaal_Glacial_Hammer"
+    },
+    "Vaal Ground Slam": {
+      "name": "Vaal Ground Slam",
+      "required_level": 1,
+      "tags": [],
+      "url": "/us/Vaal_Ground_Slam"
+    },
+    "Vaal Molten Strike": {
+      "name": "Vaal Molten Strike",
+      "required_level": 1,
+      "tags": [],
+      "url": "/us/Vaal_Molten_Strike"
+    },
+    "Vaal Smite": {
+      "name": "Vaal Smite",
+      "required_level": 1,
+      "tags": [],
+      "url": "/us/Vaal_Smite"
+    },
+    "Ancestral Protector": {
+      "name": "Ancestral Protector",
+      "required_level": 4,
+      "tags": [],
+      "url": "/us/Ancestral_Protector"
+    },
+    "Blood and Sand": {
+      "name": "Blood and Sand",
+      "required_level": 4,
+      "tags": [],
+      "url": "/us/Blood_and_Sand"
+    },
+    "Crushing Fist": {
+      "name": "Crushing Fist",
+      "required_level": 4,
+      "tags": [],
+      "url": "/us/Crushing_Fist"
+    },
+    "Decoy Totem": {
+      "name": "Decoy Totem",
+      "required_level": 4,
+      "tags": [],
+      "url": "/us/Decoy_Totem"
+    },
+    "Devouring Totem": {
+      "name": "Devouring Totem",
+      "required_level": 4,
+      "tags": [],
+      "url": "/us/Devouring_Totem"
+    },
+    "Holy Flame Totem": {
+      "name": "Holy Flame Totem",
+      "required_level": 4,
+      "tags": [],
+      "url": "/us/Holy_Flame_Totem"
+    },
+    "Holy Flame Totem of Ire": {
+      "name": "Holy Flame Totem of Ire",
+      "required_level": 4,
+      "tags": [],
+      "url": "/us/Holy_Flame_Totem_of_Ire"
+    },
+    "Steelskin": {
+      "name": "Steelskin",
+      "required_level": 4,
+      "tags": [],
+      "url": "/us/Steelskin"
+    },
+    "Rejuvenation Totem": {
+      "name": "Rejuvenation Totem",
+      "required_level": 4,
+      "tags": [],
+      "url": "/us/Rejuvenation_Totem"
+    },
+    "Shield Charge": {
+      "name": "Shield Charge",
+      "required_level": 4,
+      "tags": [],
+      "url": "/us/Shield_Charge"
+    },
+    "Vaal Rejuvenation Totem": {
+      "name": "Vaal Rejuvenation Totem",
+      "required_level": 4,
+      "tags": [],
+      "url": "/us/Vaal_Rejuvenation_Totem"
+    },
+    "Vigilant Strike": {
+      "name": "Vigilant Strike",
+      "required_level": 4,
+      "tags": [],
+      "url": "/us/Vigilant_Strike"
+    },
+    "War Banner": {
+      "name": "War Banner",
+      "required_level": 4,
+      "tags": [],
+      "url": "/us/War_Banner"
+    },
+    "Enduring Cry": {
+      "name": "Enduring Cry",
+      "required_level": 10,
+      "tags": [],
+      "url": "/us/Enduring_Cry"
+    },
+    "Intimidating Cry": {
+      "name": "Intimidating Cry",
+      "required_level": 10,
+      "tags": [],
+      "url": "/us/Intimidating_Cry"
+    },
+    "Leap Slam": {
+      "name": "Leap Slam",
+      "required_level": 10,
+      "tags": [],
+      "url": "/us/Leap_Slam"
+    },
+    "Leap Slam of Groundbreaking": {
+      "name": "Leap Slam of Groundbreaking",
+      "required_level": 10,
+      "tags": [],
+      "url": "/us/Leap_Slam_of_Groundbreaking"
+    },
+    "Vitality": {
+      "name": "Vitality",
+      "required_level": 10,
+      "tags": [],
+      "url": "/us/Vitality"
+    },
+    "Absolution": {
+      "name": "Absolution",
+      "required_level": 12,
+      "tags": [],
+      "url": "/us/Absolution"
+    },
+    "Absolution of Inspiring": {
+      "name": "Absolution of Inspiring",
+      "required_level": 12,
+      "tags": [],
+      "url": "/us/Absolution_of_Inspiring"
+    },
+    "Chain Hook": {
+      "name": "Chain Hook",
+      "required_level": 12,
+      "tags": [],
+      "url": "/us/Chain_Hook"
+    },
+    "Chain Hook of Trarthus": {
+      "name": "Chain Hook of Trarthus",
+      "required_level": 12,
+      "tags": [],
+      "url": "/us/Chain_Hook_of_Trarthus"
+    },
+    "Earthshatter": {
+      "name": "Earthshatter",
+      "required_level": 12,
+      "tags": [],
+      "url": "/us/Earthshatter"
+    },
+    "Earthshatter of Fragility": {
+      "name": "Earthshatter of Fragility",
+      "required_level": 12,
+      "tags": [],
+      "url": "/us/Earthshatter_of_Fragility"
+    },
+    "Earthshatter of Prominence": {
+      "name": "Earthshatter of Prominence",
+      "required_level": 12,
+      "tags": [],
+      "url": "/us/Earthshatter_of_Prominence"
+    },
+    "Exsanguinate": {
+      "name": "Exsanguinate",
+      "required_level": 12,
+      "tags": [],
+      "url": "/us/Exsanguinate"
+    },
+    "Exsanguinate of Transmission": {
+      "name": "Exsanguinate of Transmission",
+      "required_level": 12,
+      "tags": [],
+      "url": "/us/Exsanguinate_of_Transmission"
+    },
+    "Infernal Blow": {
+      "name": "Infernal Blow",
+      "required_level": 12,
+      "tags": [],
+      "url": "/us/Infernal_Blow"
+    },
+    "Infernal Blow of Immolation": {
+      "name": "Infernal Blow of Immolation",
+      "required_level": 12,
+      "tags": [],
+      "url": "/us/Infernal_Blow_of_Immolation"
+    },
+    "Searing Bond": {
+      "name": "Searing Bond",
+      "required_level": 12,
+      "tags": [],
+      "url": "/us/Searing_Bond"
+    },
+    "Static Strike": {
+      "name": "Static Strike",
+      "required_level": 12,
+      "tags": [],
+      "url": "/us/Static_Strike"
+    },
+    "Sunder": {
+      "name": "Sunder",
+      "required_level": 12,
+      "tags": [],
+      "url": "/us/Sunder"
+    },
+    "Sunder of Earthbreaking": {
+      "name": "Sunder of Earthbreaking",
+      "required_level": 12,
+      "tags": [],
+      "url": "/us/Sunder_of_Earthbreaking"
+    },
+    "Sunder of Trarthus": {
+      "name": "Sunder of Trarthus",
+      "required_level": 12,
+      "tags": [],
+      "url": "/us/Sunder_of_Trarthus"
+    },
+    "Sweep": {
+      "name": "Sweep",
+      "required_level": 12,
+      "tags": [],
+      "url": "/us/Sweep"
+    },
+    "Vaal Absolution": {
+      "name": "Vaal Absolution",
+      "required_level": 12,
+      "tags": [],
+      "url": "/us/Vaal_Absolution"
+    },
+    "Vaal Volcanic Fissure": {
+      "name": "Vaal Volcanic Fissure",
+      "required_level": 12,
+      "tags": [],
+      "url": "/us/Vaal_Volcanic_Fissure"
+    },
+    "Volcanic Fissure": {
+      "name": "Volcanic Fissure",
+      "required_level": 12,
+      "tags": [],
+      "url": "/us/Volcanic_Fissure"
+    },
+    "Volcanic Fissure of Snaking": {
+      "name": "Volcanic Fissure of Snaking",
+      "required_level": 12,
+      "tags": [],
+      "url": "/us/Volcanic_Fissure_of_Snaking"
+    },
+    "Ancestral Cry": {
+      "name": "Ancestral Cry",
+      "required_level": 16,
+      "tags": [],
+      "url": "/us/Ancestral_Cry"
+    },
+    "Corrupting Fever": {
+      "name": "Corrupting Fever",
+      "required_level": 16,
+      "tags": [],
+      "url": "/us/Corrupting_Fever"
+    },
+    "Defiance Banner": {
+      "name": "Defiance Banner",
+      "required_level": 16,
+      "tags": [],
+      "url": "/us/Defiance_Banner"
+    },
+    "Eviscerate": {
+      "name": "Eviscerate",
+      "required_level": 16,
+      "tags": [],
+      "url": "/us/Eviscerate"
+    },
+    "Flesh and Stone": {
+      "name": "Flesh and Stone",
+      "required_level": 16,
+      "tags": [],
+      "url": "/us/Flesh_and_Stone"
+    },
+    "Herald of Ash": {
+      "name": "Herald of Ash",
+      "required_level": 16,
+      "tags": [],
+      "url": "/us/Herald_of_Ash"
+    },
+    "Herald of Purity": {
+      "name": "Herald of Purity",
+      "required_level": 16,
+      "tags": [],
+      "url": "/us/Herald_of_Purity"
+    },
+    "Molten Shell": {
+      "name": "Molten Shell",
+      "required_level": 16,
+      "tags": [],
+      "url": "/us/Molten_Shell"
+    },
+    "Seismic Cry": {
+      "name": "Seismic Cry",
+      "required_level": 16,
+      "tags": [],
+      "url": "/us/Seismic_Cry"
+    },
+    "Swordstorm": {
+      "name": "Swordstorm",
+      "required_level": 16,
+      "tags": [],
+      "url": "/us/Swordstorm"
+    },
+    "Vaal Molten Shell": {
+      "name": "Vaal Molten Shell",
+      "required_level": 16,
+      "tags": [],
+      "url": "/us/Vaal_Molten_Shell"
+    },
+    "Warlord's Mark": {
+      "name": "Warlord's Mark",
+      "required_level": 16,
+      "tags": [],
+      "url": "/us/Warlords_Mark"
+    },
+    "Anger": {
+      "name": "Anger",
+      "required_level": 24,
+      "tags": [],
+      "url": "/us/Anger"
+    },
+    "Autoexertion": {
+      "name": "Autoexertion",
+      "required_level": 24,
+      "tags": [],
+      "url": "/us/Autoexertion"
+    },
+    "Battlemage's Cry": {
+      "name": "Battlemage's Cry",
+      "required_level": 24,
+      "tags": [],
+      "url": "/us/Battlemages_Cry"
+    },
+    "Determination": {
+      "name": "Determination",
+      "required_level": 24,
+      "tags": [],
+      "url": "/us/Determination"
+    },
+    "Dread Banner": {
+      "name": "Dread Banner",
+      "required_level": 24,
+      "tags": [],
+      "url": "/us/Dread_Banner"
+    },
+    "General's Cry": {
+      "name": "General's Cry",
+      "required_level": 24,
+      "tags": [],
+      "url": "/us/Generals_Cry"
+    },
+    "Infernal Cry": {
+      "name": "Infernal Cry",
+      "required_level": 24,
+      "tags": [],
+      "url": "/us/Infernal_Cry"
+    },
+    "Petrified Blood": {
+      "name": "Petrified Blood",
+      "required_level": 24,
+      "tags": [],
+      "url": "/us/Petrified_Blood"
+    },
+    "Pride": {
+      "name": "Pride",
+      "required_level": 24,
+      "tags": [],
+      "url": "/us/Pride"
+    },
+    "Punishment": {
+      "name": "Punishment",
+      "required_level": 24,
+      "tags": [],
+      "url": "/us/Punishment"
+    },
+    "Purity of Fire": {
+      "name": "Purity of Fire",
+      "required_level": 24,
+      "tags": [],
+      "url": "/us/Purity_of_Fire"
+    },
+    "Rallying Cry": {
+      "name": "Rallying Cry",
+      "required_level": 24,
+      "tags": [],
+      "url": "/us/Rallying_Cry"
+    },
+    "Vaal Impurity of Fire": {
+      "name": "Vaal Impurity of Fire",
+      "required_level": 24,
+      "tags": [],
+      "url": "/us/Vaal_Impurity_of_Fire"
+    },
+    "Vengeful Cry": {
+      "name": "Vengeful Cry",
+      "required_level": 24,
+      "tags": [],
+      "url": "/us/Vengeful_Cry"
+    },
+    "Vulnerability": {
+      "name": "Vulnerability",
+      "required_level": 24,
+      "tags": [],
+      "url": "/us/Vulnerability"
+    },
+    "Ancestral Warchief": {
+      "name": "Ancestral Warchief",
+      "required_level": 28,
+      "tags": [],
+      "url": "/us/Ancestral_Warchief"
+    },
+    "Animate Guardian": {
+      "name": "Animate Guardian",
+      "required_level": 28,
+      "tags": [],
+      "url": "/us/Animate_Guardian"
+    },
+    "Animate Guardian of Smiting": {
+      "name": "Animate Guardian of Smiting",
+      "required_level": 28,
+      "tags": [],
+      "url": "/us/Animate_Guardian_of_Smiting"
+    },
+    "Bladestorm": {
+      "name": "Bladestorm",
+      "required_level": 28,
+      "tags": [],
+      "url": "/us/Bladestorm"
+    },
+    "Bladestorm of Uncertainty": {
+      "name": "Bladestorm of Uncertainty",
+      "required_level": 28,
+      "tags": [],
+      "url": "/us/Bladestorm_of_Uncertainty"
+    },
+    "Boneshatter": {
+      "name": "Boneshatter",
+      "required_level": 28,
+      "tags": [],
+      "url": "/us/Boneshatter"
+    },
+    "Boneshatter of Complex Trauma": {
+      "name": "Boneshatter of Complex Trauma",
+      "required_level": 28,
+      "tags": [],
+      "url": "/us/Boneshatter_of_Complex_Trauma"
+    },
+    "Boneshatter of Carnage": {
+      "name": "Boneshatter of Carnage",
+      "required_level": 28,
+      "tags": [],
+      "url": "/us/Boneshatter_of_Carnage"
+    },
+    "Consecrated Path": {
+      "name": "Consecrated Path",
+      "required_level": 28,
+      "tags": [],
+      "url": "/us/Consecrated_Path"
+    },
+    "Consecrated Path of Endurance": {
+      "name": "Consecrated Path of Endurance",
+      "required_level": 28,
+      "tags": [],
+      "url": "/us/Consecrated_Path_of_Endurance"
+    },
+    "Dominating Blow": {
+      "name": "Dominating Blow",
+      "required_level": 28,
+      "tags": [],
+      "url": "/us/Dominating_Blow"
+    },
+    "Dominating Blow of Inspiring": {
+      "name": "Dominating Blow of Inspiring",
+      "required_level": 28,
+      "tags": [],
+      "url": "/us/Dominating_Blow_of_Inspiring"
+    },
+    "Earthquake": {
+      "name": "Earthquake",
+      "required_level": 28,
+      "tags": [],
+      "url": "/us/Earthquake"
+    },
+    "Earthquake of Amplification": {
+      "name": "Earthquake of Amplification",
+      "required_level": 28,
+      "tags": [],
+      "url": "/us/Earthquake_of_Amplification"
+    },
+    "Ice Crash": {
+      "name": "Ice Crash",
+      "required_level": 28,
+      "tags": [],
+      "url": "/us/Ice_Crash"
+    },
+    "Ice Crash of Cadence": {
+      "name": "Ice Crash of Cadence",
+      "required_level": 28,
+      "tags": [],
+      "url": "/us/Ice_Crash_of_Cadence"
+    },
+    "Rage Vortex": {
+      "name": "Rage Vortex",
+      "required_level": 28,
+      "tags": [],
+      "url": "/us/Rage_Vortex"
+    },
+    "Rage Vortex of Berserking": {
+      "name": "Rage Vortex of Berserking",
+      "required_level": 28,
+      "tags": [],
+      "url": "/us/Rage_Vortex_of_Berserking"
+    },
+    "Reap": {
+      "name": "Reap",
+      "required_level": 28,
+      "tags": [],
+      "url": "/us/Reap"
+    },
+    "Shockwave Totem": {
+      "name": "Shockwave Totem",
+      "required_level": 28,
+      "tags": [],
+      "url": "/us/Shockwave_Totem"
+    },
+    "Tectonic Slam": {
+      "name": "Tectonic Slam",
+      "required_level": 28,
+      "tags": [],
+      "url": "/us/Tectonic_Slam"
+    },
+    "Tectonic Slam of Cataclysm": {
+      "name": "Tectonic Slam of Cataclysm",
+      "required_level": 28,
+      "tags": [],
+      "url": "/us/Tectonic_Slam_of_Cataclysm"
+    },
+    "Vaal Ancestral Warchief": {
+      "name": "Vaal Ancestral Warchief",
+      "required_level": 28,
+      "tags": [],
+      "url": "/us/Vaal_Ancestral_Warchief"
+    },
+    "Vaal Domination": {
+      "name": "Vaal Domination",
+      "required_level": 28,
+      "tags": [],
+      "url": "/us/Vaal_Domination"
+    },
+    "Vaal Earthquake": {
+      "name": "Vaal Earthquake",
+      "required_level": 28,
+      "tags": [],
+      "url": "/us/Vaal_Earthquake"
+    },
+    "Vaal Reap": {
+      "name": "Vaal Reap",
+      "required_level": 28,
+      "tags": [],
+      "url": "/us/Vaal_Reap"
+    },
+    "Berserk": {
+      "name": "Berserk",
+      "required_level": 34,
+      "tags": [],
+      "url": "/us/Berserk"
+    },
+    "Flame Link": {
+      "name": "Flame Link",
+      "required_level": 34,
+      "tags": [],
+      "url": "/us/Flame_Link"
+    },
+    "Frozen Legion": {
+      "name": "Frozen Legion",
+      "required_level": 34,
+      "tags": [],
+      "url": "/us/Frozen_Legion"
+    },
+    "Frozen Legion of Rallying": {
+      "name": "Frozen Legion of Rallying",
+      "required_level": 34,
+      "tags": [],
+      "url": "/us/Frozen_Legion_of_Rallying"
+    },
+    "Immortal Call": {
+      "name": "Immortal Call",
+      "required_level": 34,
+      "tags": [],
+      "url": "/us/Immortal_Call"
+    },
+    "Protective Link": {
+      "name": "Protective Link",
+      "required_level": 34,
+      "tags": [],
+      "url": "/us/Protective_Link"
+    },
+    "Summon Flame Golem": {
+      "name": "Summon Flame Golem",
+      "required_level": 34,
+      "tags": [],
+      "url": "/us/Summon_Flame_Golem"
+    },
+    "Summon Flame Golem of Hordes": {
+      "name": "Summon Flame Golem of Hordes",
+      "required_level": 34,
+      "tags": [],
+      "url": "/us/Summon_Flame_Golem_of_Hordes"
+    },
+    "Summon Flame Golem of the Meteor": {
+      "name": "Summon Flame Golem of the Meteor",
+      "required_level": 34,
+      "tags": [],
+      "url": "/us/Summon_Flame_Golem_of_the_Meteor"
+    },
+    "Summon Stone Golem": {
+      "name": "Summon Stone Golem",
+      "required_level": 34,
+      "tags": [],
+      "url": "/us/Summon_Stone_Golem"
+    },
+    "Summon Stone Golem of Hordes": {
+      "name": "Summon Stone Golem of Hordes",
+      "required_level": 34,
+      "tags": [],
+      "url": "/us/Summon_Stone_Golem_of_Hordes"
+    },
+    "Summon Stone Golem of Safeguarding": {
+      "name": "Summon Stone Golem of Safeguarding",
+      "required_level": 34,
+      "tags": [],
+      "url": "/us/Summon_Stone_Golem_of_Safeguarding"
+    },
+    "Vaal Immortal Call": {
+      "name": "Vaal Immortal Call",
+      "required_level": 34,
+      "tags": [],
+      "url": "/us/Vaal_Immortal_Call"
+    },
+    "Burning Arrow": {
+      "name": "Burning Arrow",
+      "required_level": 1,
+      "tags": [],
+      "url": "/us/Burning_Arrow"
+    },
+    "Burning Arrow of Vigour": {
+      "name": "Burning Arrow of Vigour",
+      "required_level": 1,
+      "tags": [],
+      "url": "/us/Burning_Arrow_of_Vigour"
+    },
+    "Caustic Arrow": {
+      "name": "Caustic Arrow",
+      "required_level": 1,
+      "tags": [],
+      "url": "/us/Caustic_Arrow"
+    },
+    "Caustic Arrow of Poison": {
+      "name": "Caustic Arrow of Poison",
+      "required_level": 1,
+      "tags": [],
+      "url": "/us/Caustic_Arrow_of_Poison"
+    },
+    "Cobra Lash": {
+      "name": "Cobra Lash",
+      "required_level": 1,
+      "tags": [],
+      "url": "/us/Cobra_Lash"
+    },
+    "Double Strike": {
+      "name": "Double Strike",
+      "required_level": 1,
+      "tags": [],
+      "url": "/us/Double_Strike"
+    },
+    "Double Strike of Impaling": {
+      "name": "Double Strike of Impaling",
+      "required_level": 1,
+      "tags": [],
+      "url": "/us/Double_Strike_of_Impaling"
+    },
+    "Double Strike of Momentum": {
+      "name": "Double Strike of Momentum",
+      "required_level": 1,
+      "tags": [],
+      "url": "/us/Double_Strike_of_Momentum"
+    },
+    "Dual Strike": {
+      "name": "Dual Strike",
+      "required_level": 1,
+      "tags": [],
+      "url": "/us/Dual_Strike"
+    },
+    "Dual Strike of Ambidexterity": {
+      "name": "Dual Strike of Ambidexterity",
+      "required_level": 1,
+      "tags": [],
+      "url": "/us/Dual_Strike_of_Ambidexterity"
+    },
+    "Ethereal Knives": {
+      "name": "Ethereal Knives",
+      "required_level": 1,
+      "tags": [],
+      "url": "/us/Ethereal_Knives"
+    },
+    "Ethereal Knives of Lingering Blades": {
+      "name": "Ethereal Knives of Lingering Blades",
+      "required_level": 1,
+      "tags": [],
+      "url": "/us/Ethereal_Knives_of_Lingering_Blades"
+    },
+    "Ethereal Knives of the Massacre": {
+      "name": "Ethereal Knives of the Massacre",
+      "required_level": 1,
+      "tags": [],
+      "url": "/us/Ethereal_Knives_of_the_Massacre"
+    },
+    "Explosive Trap": {
+      "name": "Explosive Trap",
+      "required_level": 1,
+      "tags": [],
+      "url": "/us/Explosive_Trap"
+    },
+    "Explosive Trap of Shrapnel": {
+      "name": "Explosive Trap of Shrapnel",
+      "required_level": 1,
+      "tags": [],
+      "url": "/us/Explosive_Trap_of_Shrapnel"
+    },
+    "Explosive Trap of Magnitude": {
+      "name": "Explosive Trap of Magnitude",
+      "required_level": 1,
+      "tags": [],
+      "url": "/us/Explosive_Trap_of_Magnitude"
+    },
+    "Frost Blades": {
+      "name": "Frost Blades",
+      "required_level": 1,
+      "tags": [],
+      "url": "/us/Frost_Blades"
+    },
+    "Frost Blades of Katabasis": {
+      "name": "Frost Blades of Katabasis",
+      "required_level": 1,
+      "tags": [],
+      "url": "/us/Frost_Blades_of_Katabasis"
+    },
+    "Galvanic Arrow": {
+      "name": "Galvanic Arrow",
+      "required_level": 1,
+      "tags": [],
+      "url": "/us/Galvanic_Arrow"
+    },
+    "Galvanic Arrow of Energy": {
+      "name": "Galvanic Arrow of Energy",
+      "required_level": 1,
+      "tags": [],
+      "url": "/us/Galvanic_Arrow_of_Energy"
+    },
+    "Galvanic Arrow of Surging": {
+      "name": "Galvanic Arrow of Surging",
+      "required_level": 1,
+      "tags": [],
+      "url": "/us/Galvanic_Arrow_of_Surging"
+    },
+    "Dance in the White": {
+      "name": "Dance in the White",
+      "required_level": 1,
+      "tags": [],
+      "url": "/us/Dance_in_the_White"
+    },
+    "Falling Crystals": {
+      "name": "Falling Crystals",
+      "required_level": 1,
+      "tags": [],
+      "url": "/us/Falling_Crystals"
+    },
+    "Ice Shot": {
+      "name": "Ice Shot",
+      "required_level": 1,
+      "tags": [],
+      "url": "/us/Ice_Shot"
+    },
+    "Ice Shot of Penetration": {
+      "name": "Ice Shot of Penetration",
+      "required_level": 1,
+      "tags": [],
+      "url": "/us/Ice_Shot_of_Penetration"
+    },
+    "Spectral Throw": {
+      "name": "Spectral Throw",
+      "required_level": 1,
+      "tags": [],
+      "url": "/us/Spectral_Throw"
+    },
+    "Spectral Throw of Materialising": {
+      "name": "Spectral Throw of Materialising",
+      "required_level": 1,
+      "tags": [],
+      "url": "/us/Spectral_Throw_of_Materialising"
+    },
+    "Spectral Throw of Trarthus": {
+      "name": "Spectral Throw of Trarthus",
+      "required_level": 1,
+      "tags": [],
+      "url": "/us/Spectral_Throw_of_Trarthus"
+    },
+    "Split Arrow": {
+      "name": "Split Arrow",
+      "required_level": 1,
+      "tags": [],
+      "url": "/us/Split_Arrow"
+    },
+    "Split Arrow of Splitting": {
+      "name": "Split Arrow of Splitting",
+      "required_level": 1,
+      "tags": [],
+      "url": "/us/Split_Arrow_of_Splitting"
+    },
+    "Splitting Steel": {
+      "name": "Splitting Steel",
+      "required_level": 1,
+      "tags": [],
+      "url": "/us/Splitting_Steel"
+    },
+    "Splitting Steel of Ammunition": {
+      "name": "Splitting Steel of Ammunition",
+      "required_level": 1,
+      "tags": [],
+      "url": "/us/Splitting_Steel_of_Ammunition"
+    },
+    "Vaal Burning Arrow": {
+      "name": "Vaal Burning Arrow",
+      "required_level": 1,
+      "tags": [],
+      "url": "/us/Vaal_Burning_Arrow"
+    },
+    "Vaal Caustic Arrow": {
+      "name": "Vaal Caustic Arrow",
+      "required_level": 1,
+      "tags": [],
+      "url": "/us/Vaal_Caustic_Arrow"
+    },
+    "Vaal Double Strike": {
+      "name": "Vaal Double Strike",
+      "required_level": 1,
+      "tags": [],
+      "url": "/us/Vaal_Double_Strike"
+    },
+    "Vaal Ice Shot": {
+      "name": "Vaal Ice Shot",
+      "required_level": 1,
+      "tags": [],
+      "url": "/us/Vaal_Ice_Shot"
+    },
+    "Vaal Spectral Throw": {
+      "name": "Vaal Spectral Throw",
+      "required_level": 1,
+      "tags": [],
+      "url": "/us/Vaal_Spectral_Throw"
+    },
+    "Viper Strike": {
+      "name": "Viper Strike",
+      "required_level": 1,
+      "tags": [],
+      "url": "/us/Viper_Strike"
+    },
+    "Viper Strike of the Mamba": {
+      "name": "Viper Strike of the Mamba",
+      "required_level": 1,
+      "tags": [],
+      "url": "/us/Viper_Strike_of_the_Mamba"
+    },
+    "Animate Weapon": {
+      "name": "Animate Weapon",
+      "required_level": 4,
+      "tags": [],
+      "url": "/us/Animate_Weapon"
+    },
+    "Animate Weapon of Self Reflection": {
+      "name": "Animate Weapon of Self Reflection",
+      "required_level": 4,
+      "tags": [],
+      "url": "/us/Animate_Weapon_of_Self_Reflection"
+    },
+    "Animate Weapon of Ranged Arms": {
+      "name": "Animate Weapon of Ranged Arms",
+      "required_level": 4,
+      "tags": [],
+      "url": "/us/Animate_Weapon_of_Ranged_Arms"
+    },
+    "Bear Trap": {
+      "name": "Bear Trap",
+      "required_level": 4,
+      "tags": [],
+      "url": "/us/Bear_Trap"
+    },
+    "Bear Trap of Skewers": {
+      "name": "Bear Trap of Skewers",
+      "required_level": 4,
+      "tags": [],
+      "url": "/us/Bear_Trap_of_Skewers"
+    },
+    "Dash": {
+      "name": "Dash",
+      "required_level": 4,
+      "tags": [],
+      "url": "/us/Dash"
+    },
+    "Detonate Dead": {
+      "name": "Detonate Dead",
+      "required_level": 4,
+      "tags": [],
+      "url": "/us/Detonate_Dead"
+    },
+    "Detonate Dead of Scavenging": {
+      "name": "Detonate Dead of Scavenging",
+      "required_level": 4,
+      "tags": [],
+      "url": "/us/Detonate_Dead_of_Scavenging"
+    },
+    "Detonate Dead of Chain Reaction": {
+      "name": "Detonate Dead of Chain Reaction",
+      "required_level": 4,
+      "tags": [],
+      "url": "/us/Detonate_Dead_of_Chain_Reaction"
+    },
+    "Puncture": {
+      "name": "Puncture",
+      "required_level": 4,
+      "tags": [],
+      "url": "/us/Puncture"
+    },
+    "Puncture of Shanking": {
+      "name": "Puncture of Shanking",
+      "required_level": 4,
+      "tags": [],
+      "url": "/us/Puncture_of_Shanking"
+    },
+    "Shrapnel Ballista": {
+      "name": "Shrapnel Ballista",
+      "required_level": 4,
+      "tags": [],
+      "url": "/us/Shrapnel_Ballista"
+    },
+    "Shrapnel Ballista of Steel": {
+      "name": "Shrapnel Ballista of Steel",
+      "required_level": 4,
+      "tags": [],
+      "url": "/us/Shrapnel_Ballista_of_Steel"
+    },
+    "Sniper's Mark": {
+      "name": "Sniper's Mark",
+      "required_level": 4,
+      "tags": [],
+      "url": "/us/Snipers_Mark"
+    },
+    "Vaal Animate Weapon": {
+      "name": "Vaal Animate Weapon",
+      "required_level": 4,
+      "tags": [],
+      "url": "/us/Vaal_Animate_Weapon"
+    },
+    "Vaal Detonate Dead": {
+      "name": "Vaal Detonate Dead",
+      "required_level": 4,
+      "tags": [],
+      "url": "/us/Vaal_Detonate_Dead"
+    },
+    "Blink Arrow": {
+      "name": "Blink Arrow",
+      "required_level": 10,
+      "tags": [],
+      "url": "/us/Blink_Arrow"
+    },
+    "Blink Arrow of Bombarding Clones": {
+      "name": "Blink Arrow of Bombarding Clones",
+      "required_level": 10,
+      "tags": [],
+      "url": "/us/Blink_Arrow_of_Bombarding_Clones"
+    },
+    "Blink Arrow of Prismatic Clones": {
+      "name": "Blink Arrow of Prismatic Clones",
+      "required_level": 10,
+      "tags": [],
+      "url": "/us/Blink_Arrow_of_Prismatic_Clones"
+    },
+    "Flicker Strike": {
+      "name": "Flicker Strike",
+      "required_level": 10,
+      "tags": [],
+      "url": "/us/Flicker_Strike"
+    },
+    "Flicker Strike of Power": {
+      "name": "Flicker Strike of Power",
+      "required_level": 10,
+      "tags": [],
+      "url": "/us/Flicker_Strike_of_Power"
+    },
+    "Mirror Arrow": {
+      "name": "Mirror Arrow",
+      "required_level": 10,
+      "tags": [],
+      "url": "/us/Mirror_Arrow"
+    },
+    "Mirror Arrow of Bombarding Clones": {
+      "name": "Mirror Arrow of Bombarding Clones",
+      "required_level": 10,
+      "tags": [],
+      "url": "/us/Mirror_Arrow_of_Bombarding_Clones"
+    },
+    "Mirror Arrow of Prismatic Clones": {
+      "name": "Mirror Arrow of Prismatic Clones",
+      "required_level": 10,
+      "tags": [],
+      "url": "/us/Mirror_Arrow_of_Prismatic_Clones"
+    },
+    "Precision": {
+      "name": "Precision",
+      "required_level": 10,
+      "tags": [],
+      "url": "/us/Precision"
+    },
+    "Smoke Mine": {
+      "name": "Smoke Mine",
+      "required_level": 10,
+      "tags": [],
+      "url": "/us/Smoke_Mine"
+    },
+    "Unearth": {
+      "name": "Unearth",
+      "required_level": 10,
+      "tags": [],
+      "url": "/us/Unearth"
+    },
+    "Vaal Flicker Strike": {
+      "name": "Vaal Flicker Strike",
+      "required_level": 10,
+      "tags": [],
+      "url": "/us/Vaal_Flicker_Strike"
+    },
+    "Whirling Blades": {
+      "name": "Whirling Blades",
+      "required_level": 10,
+      "tags": [],
+      "url": "/us/Whirling_Blades"
+    },
+    "Withering Step": {
+      "name": "Withering Step",
+      "required_level": 10,
+      "tags": [],
+      "url": "/us/Withering_Step"
+    },
+    "Barrage": {
+      "name": "Barrage",
+      "required_level": 12,
+      "tags": [],
+      "url": "/us/Barrage"
+    },
+    "Barrage of Volley Fire": {
+      "name": "Barrage of Volley Fire",
+      "required_level": 12,
+      "tags": [],
+      "url": "/us/Barrage_of_Volley_Fire"
+    },
+    "Blade Trap": {
+      "name": "Blade Trap",
+      "required_level": 12,
+      "tags": [],
+      "url": "/us/Blade_Trap"
+    },
+    "Blade Trap of Greatswords": {
+      "name": "Blade Trap of Greatswords",
+      "required_level": 12,
+      "tags": [],
+      "url": "/us/Blade_Trap_of_Greatswords"
+    },
+    "Blade Trap of Laceration": {
+      "name": "Blade Trap of Laceration",
+      "required_level": 12,
+      "tags": [],
+      "url": "/us/Blade_Trap_of_Laceration"
+    },
+    "Blade Vortex": {
+      "name": "Blade Vortex",
+      "required_level": 12,
+      "tags": [],
+      "url": "/us/Blade_Vortex"
+    },
+    "Blade Vortex of the Scythe": {
+      "name": "Blade Vortex of the Scythe",
+      "required_level": 12,
+      "tags": [],
+      "url": "/us/Blade_Vortex_of_the_Scythe"
+    },
+    "Elemental Hit": {
+      "name": "Elemental Hit",
+      "required_level": 12,
+      "tags": [],
+      "url": "/us/Elemental_Hit"
+    },
+    "Elemental Hit of the Spectrum": {
+      "name": "Elemental Hit of the Spectrum",
+      "required_level": 12,
+      "tags": [],
+      "url": "/us/Elemental_Hit_of_the_Spectrum"
+    },
+    "Fire Trap": {
+      "name": "Fire Trap",
+      "required_level": 12,
+      "tags": [],
+      "url": "/us/Fire_Trap"
+    },
+    "Fire Trap of Blasting": {
+      "name": "Fire Trap of Blasting",
+      "required_level": 12,
+      "tags": [],
+      "url": "/us/Fire_Trap_of_Blasting"
+    },
+    "Lacerate": {
+      "name": "Lacerate",
+      "required_level": 12,
+      "tags": [],
+      "url": "/us/Lacerate"
+    },
+    "Lacerate of Butchering": {
+      "name": "Lacerate of Butchering",
+      "required_level": 12,
+      "tags": [],
+      "url": "/us/Lacerate_of_Butchering"
+    },
+    "Lacerate of Haemorrhage": {
+      "name": "Lacerate of Haemorrhage",
+      "required_level": 12,
+      "tags": [],
+      "url": "/us/Lacerate_of_Haemorrhage"
+    },
+    "Lightning Arrow": {
+      "name": "Lightning Arrow",
+      "required_level": 12,
+      "tags": [],
+      "url": "/us/Lightning_Arrow"
+    },
+    "Lightning Arrow of Electrocution": {
+      "name": "Lightning Arrow of Electrocution",
+      "required_level": 12,
+      "tags": [],
+      "url": "/us/Lightning_Arrow_of_Electrocution"
+    },
+    "Lightning Strike": {
+      "name": "Lightning Strike",
+      "required_level": 12,
+      "tags": [],
+      "url": "/us/Lightning_Strike"
+    },
+    "Lightning Strike of Arcing": {
+      "name": "Lightning Strike of Arcing",
+      "required_level": 12,
+      "tags": [],
+      "url": "/us/Lightning_Strike_of_Arcing"
+    },
+    "Poisonous Concoction": {
+      "name": "Poisonous Concoction",
+      "required_level": 12,
+      "tags": [],
+      "url": "/us/Poisonous_Concoction"
+    },
+    "Poisonous Concoction of Bouncing": {
+      "name": "Poisonous Concoction of Bouncing",
+      "required_level": 12,
+      "tags": [],
+      "url": "/us/Poisonous_Concoction_of_Bouncing"
+    },
+    "Rain of Arrows": {
+      "name": "Rain of Arrows",
+      "required_level": 12,
+      "tags": [],
+      "url": "/us/Rain_of_Arrows"
+    },
+    "Rain of Arrows of Artillery": {
+      "name": "Rain of Arrows of Artillery",
+      "required_level": 12,
+      "tags": [],
+      "url": "/us/Rain_of_Arrows_of_Artillery"
+    },
+    "Rain of Arrows of Saturation": {
+      "name": "Rain of Arrows of Saturation",
+      "required_level": 12,
+      "tags": [],
+      "url": "/us/Rain_of_Arrows_of_Saturation"
+    },
+    "Reave": {
+      "name": "Reave",
+      "required_level": 12,
+      "tags": [],
+      "url": "/us/Reave"
+    },
+    "Reave of Refraction": {
+      "name": "Reave of Refraction",
+      "required_level": 12,
+      "tags": [],
+      "url": "/us/Reave_of_Refraction"
+    },
+    "Shattering Steel": {
+      "name": "Shattering Steel",
+      "required_level": 12,
+      "tags": [],
+      "url": "/us/Shattering_Steel"
+    },
+    "Shattering Steel of Ammunition": {
+      "name": "Shattering Steel of Ammunition",
+      "required_level": 12,
+      "tags": [],
+      "url": "/us/Shattering_Steel_of_Ammunition"
+    },
+    "Siege Ballista": {
+      "name": "Siege Ballista",
+      "required_level": 12,
+      "tags": [],
+      "url": "/us/Siege_Ballista"
+    },
+    "Siege Ballista of Splintering": {
+      "name": "Siege Ballista of Splintering",
+      "required_level": 12,
+      "tags": [],
+      "url": "/us/Siege_Ballista_of_Splintering"
+    },
+    "Siege Ballista of Trarthus": {
+      "name": "Siege Ballista of Trarthus",
+      "required_level": 12,
+      "tags": [],
+      "url": "/us/Siege_Ballista_of_Trarthus"
+    },
+    "Spectral Helix": {
+      "name": "Spectral Helix",
+      "required_level": 12,
+      "tags": [],
+      "url": "/us/Spectral_Helix"
+    },
+    "Spectral Helix of Trarthus": {
+      "name": "Spectral Helix of Trarthus",
+      "required_level": 12,
+      "tags": [],
+      "url": "/us/Spectral_Helix_of_Trarthus"
+    },
+    "Toxic Rain": {
+      "name": "Toxic Rain",
+      "required_level": 12,
+      "tags": [],
+      "url": "/us/Toxic_Rain"
+    },
+    "Toxic Rain of Sporeburst": {
+      "name": "Toxic Rain of Sporeburst",
+      "required_level": 12,
+      "tags": [],
+      "url": "/us/Toxic_Rain_of_Sporeburst"
+    },
+    "Toxic Rain of Withering": {
+      "name": "Toxic Rain of Withering",
+      "required_level": 12,
+      "tags": [],
+      "url": "/us/Toxic_Rain_of_Withering"
+    },
+    "Vaal Blade Vortex": {
+      "name": "Vaal Blade Vortex",
+      "required_level": 12,
+      "tags": [],
+      "url": "/us/Vaal_Blade_Vortex"
+    },
+    "Vaal Lightning Arrow": {
+      "name": "Vaal Lightning Arrow",
+      "required_level": 12,
+      "tags": [],
+      "url": "/us/Vaal_Lightning_Arrow"
+    },
+    "Vaal Lightning Strike": {
+      "name": "Vaal Lightning Strike",
+      "required_level": 12,
+      "tags": [],
+      "url": "/us/Vaal_Lightning_Strike"
+    },
+    "Vaal Rain of Arrows": {
+      "name": "Vaal Rain of Arrows",
+      "required_level": 12,
+      "tags": [],
+      "url": "/us/Vaal_Rain_of_Arrows"
+    },
+    "Vaal Reave": {
+      "name": "Vaal Reave",
+      "required_level": 12,
+      "tags": [],
+      "url": "/us/Vaal_Reave"
+    },
+    "Vaal Venom Gyre": {
+      "name": "Vaal Venom Gyre",
+      "required_level": 12,
+      "tags": [],
+      "url": "/us/Vaal_Venom_Gyre"
+    },
+    "Venom Gyre": {
+      "name": "Venom Gyre",
+      "required_level": 12,
+      "tags": [],
+      "url": "/us/Venom_Gyre"
+    },
+    "Volatile Dead": {
+      "name": "Volatile Dead",
+      "required_level": 12,
+      "tags": [],
+      "url": "/us/Volatile_Dead"
+    },
+    "Volatile Dead of Confinement": {
+      "name": "Volatile Dead of Confinement",
+      "required_level": 12,
+      "tags": [],
+      "url": "/us/Volatile_Dead_of_Confinement"
+    },
+    "Volatile Dead of Seething": {
+      "name": "Volatile Dead of Seething",
+      "required_level": 12,
+      "tags": [],
+      "url": "/us/Volatile_Dead_of_Seething"
+    },
+    "Arctic Armour": {
+      "name": "Arctic Armour",
+      "required_level": 16,
+      "tags": [],
+      "url": "/us/Old_Arctic_Armour"
+    },
+    "Blade Blast": {
+      "name": "Blade Blast",
+      "required_level": 16,
+      "tags": [],
+      "url": "/us/Blade_Blast"
+    },
+    "Blade Blast of Unloading": {
+      "name": "Blade Blast of Unloading",
+      "required_level": 16,
+      "tags": [],
+      "url": "/us/Blade_Blast_of_Unloading"
+    },
+    "Blade Blast of Dagger Detonation": {
+      "name": "Blade Blast of Dagger Detonation",
+      "required_level": 16,
+      "tags": [],
+      "url": "/us/Blade_Blast_of_Dagger_Detonation"
+    },
+    "Blood Rage": {
+      "name": "Blood Rage",
+      "required_level": 16,
+      "tags": [],
+      "url": "/us/Blood_Rage"
+    },
+    "Desecrate": {
+      "name": "Desecrate",
+      "required_level": 16,
+      "tags": [],
+      "url": "/us/Desecrate"
+    },
+    "Ensnaring Arrow": {
+      "name": "Ensnaring Arrow",
+      "required_level": 16,
+      "tags": [],
+      "url": "/us/Ensnaring_Arrow"
+    },
+    "Frenzy": {
+      "name": "Frenzy",
+      "required_level": 16,
+      "tags": [],
+      "url": "/us/Frenzy"
+    },
+    "Frenzy of Onslaught": {
+      "name": "Frenzy of Onslaught",
+      "required_level": 16,
+      "tags": [],
+      "url": "/us/Frenzy_of_Onslaught"
+    },
+    "Glacial Shield Swipe": {
+      "name": "Glacial Shield Swipe",
+      "required_level": 16,
+      "tags": [],
+      "url": "/us/Glacial_Shield_Swipe"
+    },
+    "Herald of Agony": {
+      "name": "Herald of Agony",
+      "required_level": 16,
+      "tags": [],
+      "url": "/us/Herald_of_Agony"
+    },
+    "Herald of Ice": {
+      "name": "Herald of Ice",
+      "required_level": 16,
+      "tags": [],
+      "url": "/us/Herald_of_Ice"
+    },
+    "Poacher's Mark": {
+      "name": "Poacher's Mark",
+      "required_level": 16,
+      "tags": [],
+      "url": "/us/Poachers_Mark"
+    },
+    "Vaal Arctic Armour": {
+      "name": "Vaal Arctic Armour",
+      "required_level": 16,
+      "tags": [],
+      "url": "/us/Vaal_Arctic_Armour"
+    },
+    "Alchemist's Mark": {
+      "name": "Alchemist's Mark",
+      "required_level": 24,
+      "tags": [],
+      "url": "/us/Alchemists_Mark"
+    },
+    "Grace": {
+      "name": "Grace",
+      "required_level": 24,
+      "tags": [],
+      "url": "/us/Grace"
+    },
+    "Haste": {
+      "name": "Haste",
+      "required_level": 24,
+      "tags": [],
+      "url": "/us/Haste"
+    },
+    "Hatred": {
+      "name": "Hatred",
+      "required_level": 24,
+      "tags": [],
+      "url": "/us/Hatred"
+    },
+    "Plague Bearer": {
+      "name": "Plague Bearer",
+      "required_level": 24,
+      "tags": [],
+      "url": "/us/Plague_Bearer"
+    },
+    "Purity of Ice": {
+      "name": "Purity of Ice",
+      "required_level": 24,
+      "tags": [],
+      "url": "/us/Purity_of_Ice"
+    },
+    "Temporal Chains": {
+      "name": "Temporal Chains",
+      "required_level": 24,
+      "tags": [],
+      "url": "/us/Temporal_Chains"
+    },
+    "Vaal Grace": {
+      "name": "Vaal Grace",
+      "required_level": 24,
+      "tags": [],
+      "url": "/us/Vaal_Grace"
+    },
+    "Vaal Haste": {
+      "name": "Vaal Haste",
+      "required_level": 24,
+      "tags": [],
+      "url": "/us/Vaal_Haste"
+    },
+    "Vaal Impurity of Ice": {
+      "name": "Vaal Impurity of Ice",
+      "required_level": 24,
+      "tags": [],
+      "url": "/us/Vaal_Impurity_of_Ice"
+    },
+    "Artillery Ballista": {
+      "name": "Artillery Ballista",
+      "required_level": 28,
+      "tags": [],
+      "url": "/us/Artillery_Ballista"
+    },
+    "Artillery Ballista of Cross Strafe": {
+      "name": "Artillery Ballista of Cross Strafe",
+      "required_level": 28,
+      "tags": [],
+      "url": "/us/Artillery_Ballista_of_Cross_Strafe"
+    },
+    "Artillery Ballista of Focus Fire": {
+      "name": "Artillery Ballista of Focus Fire",
+      "required_level": 28,
+      "tags": [],
+      "url": "/us/Artillery_Ballista_of_Focus_Fire"
+    },
+    "Blade Flurry": {
+      "name": "Blade Flurry",
+      "required_level": 28,
+      "tags": [],
+      "url": "/us/Blade_Flurry"
+    },
+    "Blade Flurry of Incision": {
+      "name": "Blade Flurry of Incision",
+      "required_level": 28,
+      "tags": [],
+      "url": "/us/Blade_Flurry_of_Incision"
+    },
+    "Bladefall": {
+      "name": "Bladefall",
+      "required_level": 28,
+      "tags": [],
+      "url": "/us/Bladefall"
+    },
+    "Bladefall of Volleys": {
+      "name": "Bladefall of Volleys",
+      "required_level": 28,
+      "tags": [],
+      "url": "/us/Bladefall_of_Volleys"
+    },
+    "Bladefall of Impaling": {
+      "name": "Bladefall of Impaling",
+      "required_level": 28,
+      "tags": [],
+      "url": "/us/Bladefall_of_Impaling"
+    },
+    "Bladefall of Trarthus": {
+      "name": "Bladefall of Trarthus",
+      "required_level": 28,
+      "tags": [],
+      "url": "/us/Bladefall_of_Trarthus"
+    },
+    "Blast Rain": {
+      "name": "Blast Rain",
+      "required_level": 28,
+      "tags": [],
+      "url": "/us/Blast_Rain"
+    },
+    "Blast Rain of Trarthus": {
+      "name": "Blast Rain of Trarthus",
+      "required_level": 28,
+      "tags": [],
+      "url": "/us/Blast_Rain_of_Trarthus"
+    },
+    "Charged Dash": {
+      "name": "Charged Dash",
+      "required_level": 28,
+      "tags": [],
+      "url": "/us/Charged_Dash"
+    },
+    "Conflagration": {
+      "name": "Conflagration",
+      "required_level": 28,
+      "tags": [],
+      "url": "/us/Conflagration"
+    },
+    "Cremation": {
+      "name": "Cremation",
+      "required_level": 28,
+      "tags": [],
+      "url": "/us/Cremation"
+    },
+    "Cremation of Exhuming": {
+      "name": "Cremation of Exhuming",
+      "required_level": 28,
+      "tags": [],
+      "url": "/us/Cremation_of_Exhuming"
+    },
+    "Cremation of the Volcano": {
+      "name": "Cremation of the Volcano",
+      "required_level": 28,
+      "tags": [],
+      "url": "/us/Cremation_of_the_Volcano"
+    },
+    "Cyclone": {
+      "name": "Cyclone",
+      "required_level": 28,
+      "tags": [],
+      "url": "/us/Cyclone"
+    },
+    "Cyclone of Tumult": {
+      "name": "Cyclone of Tumult",
+      "required_level": 28,
+      "tags": [],
+      "url": "/us/Cyclone_of_Tumult"
+    },
+    "Explosive Arrow": {
+      "name": "Explosive Arrow",
+      "required_level": 28,
+      "tags": [],
+      "url": "/us/Explosive_Arrow"
+    },
+    "Explosive Concoction": {
+      "name": "Explosive Concoction",
+      "required_level": 28,
+      "tags": [],
+      "url": "/us/Explosive_Concoction"
+    },
+    "Explosive Concoction of Destruction": {
+      "name": "Explosive Concoction of Destruction",
+      "required_level": 28,
+      "tags": [],
+      "url": "/us/Explosive_Concoction_of_Destruction"
+    },
+    "Flamethrower Trap": {
+      "name": "Flamethrower Trap",
+      "required_level": 28,
+      "tags": [],
+      "url": "/us/Flamethrower_Trap"
+    },
+    "Ice Trap": {
+      "name": "Ice Trap",
+      "required_level": 28,
+      "tags": [],
+      "url": "/us/Ice_Trap"
+    },
+    "Ice Trap of Hollowness": {
+      "name": "Ice Trap of Hollowness",
+      "required_level": 28,
+      "tags": [],
+      "url": "/us/Ice_Trap_of_Hollowness"
+    },
+    "Lancing Steel": {
+      "name": "Lancing Steel",
+      "required_level": 28,
+      "tags": [],
+      "url": "/us/Lancing_Steel"
+    },
+    "Lancing Steel of Spraying": {
+      "name": "Lancing Steel of Spraying",
+      "required_level": 28,
+      "tags": [],
+      "url": "/us/Lancing_Steel_of_Spraying"
+    },
+    "Pestilent Strike": {
+      "name": "Pestilent Strike",
+      "required_level": 28,
+      "tags": [],
+      "url": "/us/Pestilent_Strike"
+    },
+    "Scourge Arrow": {
+      "name": "Scourge Arrow",
+      "required_level": 28,
+      "tags": [],
+      "url": "/us/Scourge_Arrow"
+    },
+    "Scourge Arrow of Menace": {
+      "name": "Scourge Arrow of Menace",
+      "required_level": 28,
+      "tags": [],
+      "url": "/us/Scourge_Arrow_of_Menace"
+    },
+    "Seismic Trap": {
+      "name": "Seismic Trap",
+      "required_level": 28,
+      "tags": [],
+      "url": "/us/Seismic_Trap"
+    },
+    "Seismic Trap of Swells": {
+      "name": "Seismic Trap of Swells",
+      "required_level": 28,
+      "tags": [],
+      "url": "/us/Seismic_Trap_of_Swells"
+    },
+    "Spectral Shield Throw": {
+      "name": "Spectral Shield Throw",
+      "required_level": 28,
+      "tags": [],
+      "url": "/us/Spectral_Shield_Throw"
+    },
+    "Spectral Shield Throw of Shattering": {
+      "name": "Spectral Shield Throw of Shattering",
+      "required_level": 28,
+      "tags": [],
+      "url": "/us/Spectral_Shield_Throw_of_Shattering"
+    },
+    "Spectral Shield Throw of Trarthus": {
+      "name": "Spectral Shield Throw of Trarthus",
+      "required_level": 28,
+      "tags": [],
+      "url": "/us/Spectral_Shield_Throw_of_Trarthus"
+    },
+    "Storm Rain": {
+      "name": "Storm Rain",
+      "required_level": 28,
+      "tags": [],
+      "url": "/us/Storm_Rain"
+    },
+    "Storm Rain of the Conduit": {
+      "name": "Storm Rain of the Conduit",
+      "required_level": 28,
+      "tags": [],
+      "url": "/us/Storm_Rain_of_the_Conduit"
+    },
+    "Storm Rain of the Fence": {
+      "name": "Storm Rain of the Fence",
+      "required_level": 28,
+      "tags": [],
+      "url": "/us/Storm_Rain_of_the_Fence"
+    },
+    "Thunderstorm": {
+      "name": "Thunderstorm",
+      "required_level": 28,
+      "tags": [],
+      "url": "/us/Thunderstorm"
+    },
+    "Tornado Shot": {
+      "name": "Tornado Shot",
+      "required_level": 28,
+      "tags": [],
+      "url": "/us/Tornado_Shot"
+    },
+    "Tornado Shot of Cloudburst": {
+      "name": "Tornado Shot of Cloudburst",
+      "required_level": 28,
+      "tags": [],
+      "url": "/us/Tornado_Shot_of_Cloudburst"
+    },
+    "Vaal Blade Flurry": {
+      "name": "Vaal Blade Flurry",
+      "required_level": 28,
+      "tags": [],
+      "url": "/us/Vaal_Blade_Flurry"
+    },
+    "Vaal Cyclone": {
+      "name": "Vaal Cyclone",
+      "required_level": 28,
+      "tags": [],
+      "url": "/us/Vaal_Cyclone"
+    },
+    "Wild Strike": {
+      "name": "Wild Strike",
+      "required_level": 28,
+      "tags": [],
+      "url": "/us/Wild_Strike"
+    },
+    "Wild Strike of Extremes": {
+      "name": "Wild Strike of Extremes",
+      "required_level": 28,
+      "tags": [],
+      "url": "/us/Wild_Strike_of_Extremes"
+    },
+    "Ambush": {
+      "name": "Ambush",
+      "required_level": 34,
+      "tags": [],
+      "url": "/us/Ambush"
+    },
+    "Intuitive Link": {
+      "name": "Intuitive Link",
+      "required_level": 34,
+      "tags": [],
+      "url": "/us/Intuitive_Link"
+    },
+    "Phase Run": {
+      "name": "Phase Run",
+      "required_level": 34,
+      "tags": [],
+      "url": "/us/Old_Phase_Run"
+    },
+    "Snipe": {
+      "name": "Snipe",
+      "required_level": 34,
+      "tags": [],
+      "url": "/us/Snipe"
+    },
+    "Summon Ice Golem": {
+      "name": "Summon Ice Golem",
+      "required_level": 34,
+      "tags": [],
+      "url": "/us/Summon_Ice_Golem"
+    },
+    "Summon Ice Golem of Hordes": {
+      "name": "Summon Ice Golem of Hordes",
+      "required_level": 34,
+      "tags": [],
+      "url": "/us/Summon_Ice_Golem_of_Hordes"
+    },
+    "Summon Ice Golem of Shattering": {
+      "name": "Summon Ice Golem of Shattering",
+      "required_level": 34,
+      "tags": [],
+      "url": "/us/Summon_Ice_Golem_of_Shattering"
+    },
+    "Temporal Rift": {
+      "name": "Temporal Rift",
+      "required_level": 34,
+      "tags": [],
+      "url": "/us/Temporal_Rift"
+    },
+    "Tornado": {
+      "name": "Tornado",
+      "required_level": 34,
+      "tags": [],
+      "url": "/us/Tornado"
+    },
+    "Tornado of Elemental Turbulence": {
+      "name": "Tornado of Elemental Turbulence",
+      "required_level": 34,
+      "tags": [],
+      "url": "/us/Tornado_of_Elemental_Turbulence"
+    },
+    "Vampiric Link": {
+      "name": "Vampiric Link",
+      "required_level": 34,
+      "tags": [],
+      "url": "/us/Vampiric_Link"
+    },
+    "Blight": {
+      "name": "Blight",
+      "required_level": 1,
+      "tags": [],
+      "url": "/us/Blight"
+    },
+    "Blight of Contagion": {
+      "name": "Blight of Contagion",
+      "required_level": 1,
+      "tags": [],
+      "url": "/us/Blight_of_Contagion"
+    },
+    "Blight of Atrophy": {
+      "name": "Blight of Atrophy",
+      "required_level": 1,
+      "tags": [],
+      "url": "/us/Blight_of_Atrophy"
+    },
+    "Fireball": {
+      "name": "Fireball",
+      "required_level": 1,
+      "tags": [],
+      "url": "/us/Fireball"
+    },
+    "Freezing Pulse": {
+      "name": "Freezing Pulse",
+      "required_level": 1,
+      "tags": [],
+      "url": "/us/Freezing_Pulse"
+    },
+    "Frostbolt": {
+      "name": "Frostbolt",
+      "required_level": 1,
+      "tags": [],
+      "url": "/us/Frostbolt"
+    },
+    "Wreathed in Light": {
+      "name": "Wreathed in Light",
+      "required_level": 1,
+      "tags": [],
+      "url": "/us/Wreathed_in_Light"
+    },
+    "Enervating Grasp": {
+      "name": "Enervating Grasp",
+      "required_level": 1,
+      "tags": [],
+      "url": "/us/Enervating_Grasp"
+    },
+    "The Great Avalanche": {
+      "name": "The Great Avalanche",
+      "required_level": 1,
+      "tags": [],
+      "url": "/us/The_Great_Avalanche"
+    },
+    "Kinetic Bolt": {
+      "name": "Kinetic Bolt",
+      "required_level": 1,
+      "tags": [],
+      "url": "/us/Kinetic_Bolt"
+    },
+    "Kinetic Bolt of Fragmentation": {
+      "name": "Kinetic Bolt of Fragmentation",
+      "required_level": 1,
+      "tags": [],
+      "url": "/us/Kinetic_Bolt_of_Fragmentation"
+    },
+    "Lightning Tendrils": {
+      "name": "Lightning Tendrils",
+      "required_level": 1,
+      "tags": [],
+      "url": "/us/Lightning_Tendrils"
+    },
+    "Lightning Tendrils of Eccentricity": {
+      "name": "Lightning Tendrils of Eccentricity",
+      "required_level": 1,
+      "tags": [],
+      "url": "/us/Lightning_Tendrils_of_Eccentricity"
+    },
+    "Lightning Tendrils of Escalation": {
+      "name": "Lightning Tendrils of Escalation",
+      "required_level": 1,
+      "tags": [],
+      "url": "/us/Lightning_Tendrils_of_Escalation"
+    },
+    "Purifying Flame": {
+      "name": "Purifying Flame",
+      "required_level": 1,
+      "tags": [],
+      "url": "/us/Purifying_Flame"
+    },
+    "Purifying Flame of Revelations": {
+      "name": "Purifying Flame of Revelations",
+      "required_level": 1,
+      "tags": [],
+      "url": "/us/Purifying_Flame_of_Revelations"
+    },
+    "Raise Zombie": {
+      "name": "Raise Zombie",
+      "required_level": 1,
+      "tags": [],
+      "url": "/us/Raise_Zombie"
+    },
+    "Raise Zombie of Slamming": {
+      "name": "Raise Zombie of Slamming",
+      "required_level": 1,
+      "tags": [],
+      "url": "/us/Raise_Zombie_of_Slamming"
+    },
+    "Raise Zombie of Falling": {
+      "name": "Raise Zombie of Falling",
+      "required_level": 1,
+      "tags": [],
+      "url": "/us/Raise_Zombie_of_Falling"
+    },
+    "Rolling Magma": {
+      "name": "Rolling Magma",
+      "required_level": 1,
+      "tags": [],
+      "url": "/us/Rolling_Magma"
+    },
+    "Spark": {
+      "name": "Spark",
+      "required_level": 1,
+      "tags": [],
+      "url": "/us/Spark"
+    },
+    "Spark of the Nova": {
+      "name": "Spark of the Nova",
+      "required_level": 1,
+      "tags": [],
+      "url": "/us/Spark_of_the_Nova"
+    },
+    "Spark of Unpredictability": {
+      "name": "Spark of Unpredictability",
+      "required_level": 1,
+      "tags": [],
+      "url": "/us/Spark_of_Unpredictability"
+    },
+    "Stormblast Mine": {
+      "name": "Stormblast Mine",
+      "required_level": 1,
+      "tags": [],
+      "url": "/us/Stormblast_Mine"
+    },
+    "Vaal Blight": {
+      "name": "Vaal Blight",
+      "required_level": 1,
+      "tags": [],
+      "url": "/us/Vaal_Blight"
+    },
+    "Vaal Fireball": {
+      "name": "Vaal Fireball",
+      "required_level": 1,
+      "tags": [],
+      "url": "/us/Vaal_Fireball"
+    },
+    "Vaal Spark": {
+      "name": "Vaal Spark",
+      "required_level": 1,
+      "tags": [],
+      "url": "/us/Vaal_Spark"
+    },
+    "Contagion": {
+      "name": "Contagion",
+      "required_level": 4,
+      "tags": [],
+      "url": "/us/Contagion"
+    },
+    "Contagion of Subsiding": {
+      "name": "Contagion of Subsiding",
+      "required_level": 4,
+      "tags": [],
+      "url": "/us/Contagion_of_Subsiding"
+    },
+    "Contagion of Transference": {
+      "name": "Contagion of Transference",
+      "required_level": 4,
+      "tags": [],
+      "url": "/us/Contagion_of_Transference"
+    },
+    "Conversion Trap": {
+      "name": "Conversion Trap",
+      "required_level": 4,
+      "tags": [],
+      "url": "/us/Conversion_Trap"
+    },
+    "Flame Wall": {
+      "name": "Flame Wall",
+      "required_level": 4,
+      "tags": [],
+      "url": "/us/Flame_Wall"
+    },
+    "Frost Bomb": {
+      "name": "Frost Bomb",
+      "required_level": 4,
+      "tags": [],
+      "url": "/us/Frost_Bomb"
+    },
+    "Frost Bomb of Instability": {
+      "name": "Frost Bomb of Instability",
+      "required_level": 4,
+      "tags": [],
+      "url": "/us/Frost_Bomb_of_Instability"
+    },
+    "Frost Bomb of Forthcoming": {
+      "name": "Frost Bomb of Forthcoming",
+      "required_level": 4,
+      "tags": [],
+      "url": "/us/Frost_Bomb_of_Forthcoming"
+    },
+    "Frost Wall": {
+      "name": "Frost Wall",
+      "required_level": 4,
+      "tags": [],
+      "url": "/us/Frost_Wall"
+    },
+    "Frostblink": {
+      "name": "Frostblink",
+      "required_level": 4,
+      "tags": [],
+      "url": "/us/Frostblink"
+    },
+    "Frostblink of Wintry Blast": {
+      "name": "Frostblink of Wintry Blast",
+      "required_level": 4,
+      "tags": [],
+      "url": "/us/Frostblink_of_Wintry_Blast"
+    },
+    "Orb of Storms": {
+      "name": "Orb of Storms",
+      "required_level": 4,
+      "tags": [],
+      "url": "/us/Orb_of_Storms"
+    },
+    "Summon Holy Relic": {
+      "name": "Summon Holy Relic",
+      "required_level": 4,
+      "tags": [],
+      "url": "/us/Summon_Holy_Relic"
+    },
+    "Summon Holy Relic of Conviction": {
+      "name": "Summon Holy Relic of Conviction",
+      "required_level": 4,
+      "tags": [],
+      "url": "/us/Summon_Holy_Relic_of_Conviction"
+    },
+    "Summon Raging Spirit": {
+      "name": "Summon Raging Spirit",
+      "required_level": 4,
+      "tags": [],
+      "url": "/us/Summon_Raging_Spirit"
+    },
+    "Summon Raging Spirit of Enormity": {
+      "name": "Summon Raging Spirit of Enormity",
+      "required_level": 4,
+      "tags": [],
+      "url": "/us/Summon_Raging_Spirit_of_Enormity"
+    },
+    "Bodyswap": {
+      "name": "Bodyswap",
+      "required_level": 10,
+      "tags": [],
+      "url": "/us/Bodyswap"
+    },
+    "Bodyswap of Sacrifice": {
+      "name": "Bodyswap of Sacrifice",
+      "required_level": 10,
+      "tags": [],
+      "url": "/us/Bodyswap_of_Sacrifice"
+    },
+    "Clarity": {
+      "name": "Clarity",
+      "required_level": 10,
+      "tags": [],
+      "url": "/us/Clarity"
+    },
+    "Flame Dash": {
+      "name": "Flame Dash",
+      "required_level": 10,
+      "tags": [],
+      "url": "/us/Flame_Dash"
+    },
+    "Flame Dash of Return": {
+      "name": "Flame Dash of Return",
+      "required_level": 10,
+      "tags": [],
+      "url": "/us/Flame_Dash_of_Return"
+    },
+    "Lightning Warp": {
+      "name": "Lightning Warp",
+      "required_level": 10,
+      "tags": [],
+      "url": "/us/Lightning_Warp"
+    },
+    "Siphoning Trap": {
+      "name": "Siphoning Trap",
+      "required_level": 10,
+      "tags": [],
+      "url": "/us/Siphoning_Trap"
+    },
+    "Summon Skeletons": {
+      "name": "Summon Skeletons",
+      "required_level": 10,
+      "tags": [],
+      "url": "/us/Summon_Skeletons"
+    },
+    "Summon Skeletons of Archers": {
+      "name": "Summon Skeletons of Archers",
+      "required_level": 10,
+      "tags": [],
+      "url": "/us/Summon_Skeletons_of_Archers"
+    },
+    "Summon Skeletons of Mages": {
+      "name": "Summon Skeletons of Mages",
+      "required_level": 10,
+      "tags": [],
+      "url": "/us/Summon_Skeletons_of_Mages"
+    },
+    "Vaal Clarity": {
+      "name": "Vaal Clarity",
+      "required_level": 10,
+      "tags": [],
+      "url": "/us/Vaal_Clarity"
+    },
+    "Vaal Lightning Warp": {
+      "name": "Vaal Lightning Warp",
+      "required_level": 10,
+      "tags": [],
+      "url": "/us/Vaal_Lightning_Warp"
+    },
+    "Vaal Summon Skeletons": {
+      "name": "Vaal Summon Skeletons",
+      "required_level": 10,
+      "tags": [],
+      "url": "/us/Vaal_Summon_Skeletons"
+    },
+    "Wither": {
+      "name": "Wither",
+      "required_level": 10,
+      "tags": [],
+      "url": "/us/Wither"
+    },
+    "Arc": {
+      "name": "Arc",
+      "required_level": 12,
+      "tags": [],
+      "url": "/us/Arc"
+    },
+    "Arc of Surging": {
+      "name": "Arc of Surging",
+      "required_level": 12,
+      "tags": [],
+      "url": "/us/Arc_of_Surging"
+    },
+    "Arc of Oscillating": {
+      "name": "Arc of Oscillating",
+      "required_level": 12,
+      "tags": [],
+      "url": "/us/Arc_of_Oscillating"
+    },
+    "Blazing Salvo": {
+      "name": "Blazing Salvo",
+      "required_level": 12,
+      "tags": [],
+      "url": "/us/Blazing_Salvo"
+    },
+    "Bone Offering": {
+      "name": "Bone Offering",
+      "required_level": 12,
+      "tags": [],
+      "url": "/us/Bone_Offering"
+    },
+    "Creeping Frost": {
+      "name": "Creeping Frost",
+      "required_level": 12,
+      "tags": [],
+      "url": "/us/Creeping_Frost"
+    },
+    "Essence Drain": {
+      "name": "Essence Drain",
+      "required_level": 12,
+      "tags": [],
+      "url": "/us/Essence_Drain"
+    },
+    "Essence Drain of Desperation": {
+      "name": "Essence Drain of Desperation",
+      "required_level": 12,
+      "tags": [],
+      "url": "/us/Essence_Drain_of_Desperation"
+    },
+    "Essence Drain of Wickedness": {
+      "name": "Essence Drain of Wickedness",
+      "required_level": 12,
+      "tags": [],
+      "url": "/us/Essence_Drain_of_Wickedness"
+    },
+    "Flame Surge": {
+      "name": "Flame Surge",
+      "required_level": 12,
+      "tags": [],
+      "url": "/us/Flame_Surge"
+    },
+    "Flame Surge of Combusting": {
+      "name": "Flame Surge of Combusting",
+      "required_level": 12,
+      "tags": [],
+      "url": "/us/Flame_Surge_of_Combusting"
+    },
+    "Flesh Offering": {
+      "name": "Flesh Offering",
+      "required_level": 12,
+      "tags": [],
+      "url": "/us/Flesh_Offering"
+    },
+    "Ice Nova": {
+      "name": "Ice Nova",
+      "required_level": 12,
+      "tags": [],
+      "url": "/us/Ice_Nova"
+    },
+    "Ice Nova of Frostbolts": {
+      "name": "Ice Nova of Frostbolts",
+      "required_level": 12,
+      "tags": [],
+      "url": "/us/Ice_Nova_of_Frostbolts"
+    },
+    "Ice Nova of Deep Freeze": {
+      "name": "Ice Nova of Deep Freeze",
+      "required_level": 12,
+      "tags": [],
+      "url": "/us/Ice_Nova_of_Deep_Freeze"
+    },
+    "Ice Spear": {
+      "name": "Ice Spear",
+      "required_level": 12,
+      "tags": [],
+      "url": "/us/Ice_Spear"
+    },
+    "Ice Spear of Splitting": {
+      "name": "Ice Spear of Splitting",
+      "required_level": 12,
+      "tags": [],
+      "url": "/us/Ice_Spear_of_Splitting"
+    },
+    "Icicle Mine": {
+      "name": "Icicle Mine",
+      "required_level": 12,
+      "tags": [],
+      "url": "/us/Icicle_Mine"
+    },
+    "Icicle Mine of Fanning": {
+      "name": "Icicle Mine of Fanning",
+      "required_level": 12,
+      "tags": [],
+      "url": "/us/Icicle_Mine_of_Fanning"
+    },
+    "Icicle Mine of Sabotage": {
+      "name": "Icicle Mine of Sabotage",
+      "required_level": 12,
+      "tags": [],
+      "url": "/us/Icicle_Mine_of_Sabotage"
+    },
+    "Incinerate": {
+      "name": "Incinerate",
+      "required_level": 12,
+      "tags": [],
+      "url": "/us/Incinerate"
+    },
+    "Incinerate of Expanse": {
+      "name": "Incinerate of Expanse",
+      "required_level": 12,
+      "tags": [],
+      "url": "/us/Incinerate_of_Expanse"
+    },
+    "Incinerate of Venting": {
+      "name": "Incinerate of Venting",
+      "required_level": 12,
+      "tags": [],
+      "url": "/us/Incinerate_of_Venting"
+    },
+    "Kinetic Fusillade": {
+      "name": "Kinetic Fusillade",
+      "required_level": 12,
+      "tags": [],
+      "url": "/us/Kinetic_Fusillade"
+    },
+    "Lightning Trap": {
+      "name": "Lightning Trap",
+      "required_level": 12,
+      "tags": [],
+      "url": "/us/Lightning_Trap"
+    },
+    "Lightning Trap of Sparking": {
+      "name": "Lightning Trap of Sparking",
+      "required_level": 12,
+      "tags": [],
+      "url": "/us/Lightning_Trap_of_Sparking"
+    },
+    "Manabond": {
+      "name": "Manabond",
+      "required_level": 12,
+      "tags": [],
+      "url": "/us/Manabond"
+    },
+    "Power Siphon": {
+      "name": "Power Siphon",
+      "required_level": 12,
+      "tags": [],
+      "url": "/us/Power_Siphon"
+    },
+    "Power Siphon of the Archmage": {
+      "name": "Power Siphon of the Archmage",
+      "required_level": 12,
+      "tags": [],
+      "url": "/us/Power_Siphon_of_the_Archmage"
+    },
+    "Scorching Ray": {
+      "name": "Scorching Ray",
+      "required_level": 12,
+      "tags": [],
+      "url": "/us/Scorching_Ray"
+    },
+    "Scorching Ray of Immolation": {
+      "name": "Scorching Ray of Immolation",
+      "required_level": 12,
+      "tags": [],
+      "url": "/us/Scorching_Ray_of_Immolation"
+    },
+    "Spirit Offering": {
+      "name": "Spirit Offering",
+      "required_level": 12,
+      "tags": [],
+      "url": "/us/Spirit_Offering"
+    },
+    "Storm Brand": {
+      "name": "Storm Brand",
+      "required_level": 12,
+      "tags": [],
+      "url": "/us/Storm_Brand"
+    },
+    "Storm Brand of Indecision": {
+      "name": "Storm Brand of Indecision",
+      "required_level": 12,
+      "tags": [],
+      "url": "/us/Storm_Brand_of_Indecision"
+    },
+    "Storm Burst": {
+      "name": "Storm Burst",
+      "required_level": 12,
+      "tags": [],
+      "url": "/us/Storm_Burst"
+    },
+    "Storm Call": {
+      "name": "Storm Call",
+      "required_level": 12,
+      "tags": [],
+      "url": "/us/Storm_Call"
+    },
+    "Storm Call of Trarthus": {
+      "name": "Storm Call of Trarthus",
+      "required_level": 12,
+      "tags": [],
+      "url": "/us/Storm_Call_of_Trarthus"
+    },
+    "Vaal Arc": {
+      "name": "Vaal Arc",
+      "required_level": 12,
+      "tags": [],
+      "url": "/us/Vaal_Arc"
+    },
+    "Vaal Ice Nova": {
+      "name": "Vaal Ice Nova",
+      "required_level": 12,
+      "tags": [],
+      "url": "/us/Vaal_Ice_Nova"
+    },
+    "Vaal Lightning Trap": {
+      "name": "Vaal Lightning Trap",
+      "required_level": 12,
+      "tags": [],
+      "url": "/us/Vaal_Lightning_Trap"
+    },
+    "Vaal Power Siphon": {
+      "name": "Vaal Power Siphon",
+      "required_level": 12,
+      "tags": [],
+      "url": "/us/Vaal_Power_Siphon"
+    },
+    "Vaal Storm Call": {
+      "name": "Vaal Storm Call",
+      "required_level": 12,
+      "tags": [],
+      "url": "/us/Vaal_Storm_Call"
+    },
+    "Voltaxic Burst": {
+      "name": "Voltaxic Burst",
+      "required_level": 12,
+      "tags": [],
+      "url": "/us/Voltaxic_Burst"
+    },
+    "Wintertide Brand": {
+      "name": "Wintertide Brand",
+      "required_level": 12,
+      "tags": [],
+      "url": "/us/Wintertide_Brand"
+    },
+    "Arcane Cloak": {
+      "name": "Arcane Cloak",
+      "required_level": 16,
+      "tags": [],
+      "url": "/us/Arcane_Cloak"
+    },
+    "Assassin's Mark": {
+      "name": "Assassin's Mark",
+      "required_level": 16,
+      "tags": [],
+      "url": "/us/Assassins_Mark"
+    },
+    "Brand Recall": {
+      "name": "Brand Recall",
+      "required_level": 16,
+      "tags": [],
+      "url": "/us/Brand_Recall"
+    },
+    "Cold Snap": {
+      "name": "Cold Snap",
+      "required_level": 16,
+      "tags": [],
+      "url": "/us/Cold_Snap"
+    },
+    "Cold Snap of Power": {
+      "name": "Cold Snap of Power",
+      "required_level": 16,
+      "tags": [],
+      "url": "/us/Cold_Snap_of_Power"
+    },
+    "Divine Retribution": {
+      "name": "Divine Retribution",
+      "required_level": 16,
+      "tags": [],
+      "url": "/us/Divine_Retribution"
+    },
+    "Forbidden Rite": {
+      "name": "Forbidden Rite",
+      "required_level": 16,
+      "tags": [],
+      "url": "/us/Forbidden_Rite"
+    },
+    "Forbidden Rite of Soul Sacrifice": {
+      "name": "Forbidden Rite of Soul Sacrifice",
+      "required_level": 16,
+      "tags": [],
+      "url": "/us/Forbidden_Rite_of_Soul_Sacrifice"
+    },
+    "Galvanic Field": {
+      "name": "Galvanic Field",
+      "required_level": 16,
+      "tags": [],
+      "url": "/us/Galvanic_Field"
+    },
+    "Galvanic Field of Intensity": {
+      "name": "Galvanic Field of Intensity",
+      "required_level": 16,
+      "tags": [],
+      "url": "/us/Galvanic_Field_of_Intensity"
+    },
+    "Herald of Thunder": {
+      "name": "Herald of Thunder",
+      "required_level": 16,
+      "tags": [],
+      "url": "/us/Herald_of_Thunder"
+    },
+    "Righteous Fire": {
+      "name": "Righteous Fire",
+      "required_level": 16,
+      "tags": [],
+      "url": "/us/Righteous_Fire"
+    },
+    "Righteous Fire of Arcane Devotion": {
+      "name": "Righteous Fire of Arcane Devotion",
+      "required_level": 16,
+      "tags": [],
+      "url": "/us/Righteous_Fire_of_Arcane_Devotion"
+    },
+    "Summon Skitterbots": {
+      "name": "Summon Skitterbots",
+      "required_level": 16,
+      "tags": [],
+      "url": "/us/Summon_Skitterbots"
+    },
+    "Tempest Shield": {
+      "name": "Tempest Shield",
+      "required_level": 16,
+      "tags": [],
+      "url": "/us/Tempest_Shield"
+    },
+    "Vaal Cold Snap": {
+      "name": "Vaal Cold Snap",
+      "required_level": 16,
+      "tags": [],
+      "url": "/us/Vaal_Cold_Snap"
+    },
+    "Vaal Righteous Fire": {
+      "name": "Vaal Righteous Fire",
+      "required_level": 16,
+      "tags": [],
+      "url": "/us/Vaal_Righteous_Fire"
+    },
+    "Wall of Force": {
+      "name": "Wall of Force",
+      "required_level": 16,
+      "tags": [],
+      "url": "/us/Wall_of_Force"
+    },
+    "Wave of Conviction": {
+      "name": "Wave of Conviction",
+      "required_level": 16,
+      "tags": [],
+      "url": "/us/Wave_of_Conviction"
+    },
+    "Wave of Conviction of Trarthus": {
+      "name": "Wave of Conviction of Trarthus",
+      "required_level": 16,
+      "tags": [],
+      "url": "/us/Wave_of_Conviction_of_Trarthus"
+    },
+    "Automation": {
+      "name": "Automation",
+      "required_level": 24,
+      "tags": [],
+      "url": "/us/Automation"
+    },
+    "Bane": {
+      "name": "Bane",
+      "required_level": 24,
+      "tags": [],
+      "url": "/us/Bane"
+    },
+    "Bane of Condemnation": {
+      "name": "Bane of Condemnation",
+      "required_level": 24,
+      "tags": [],
+      "url": "/us/Bane_of_Condemnation"
+    },
+    "Conductivity": {
+      "name": "Conductivity",
+      "required_level": 24,
+      "tags": [],
+      "url": "/us/Conductivity"
+    },
+    "Despair": {
+      "name": "Despair",
+      "required_level": 24,
+      "tags": [],
+      "url": "/us/Despair"
+    },
+    "Discipline": {
+      "name": "Discipline",
+      "required_level": 24,
+      "tags": [],
+      "url": "/us/Discipline"
+    },
+    "Elemental Weakness": {
+      "name": "Elemental Weakness",
+      "required_level": 24,
+      "tags": [],
+      "url": "/us/Elemental_Weakness"
+    },
+    "Energy Blade": {
+      "name": "Energy Blade",
+      "required_level": 24,
+      "tags": [],
+      "url": "/us/Energy_Blade"
+    },
+    "Enfeeble": {
+      "name": "Enfeeble",
+      "required_level": 24,
+      "tags": [],
+      "url": "/us/Enfeeble"
+    },
+    "Flammability": {
+      "name": "Flammability",
+      "required_level": 24,
+      "tags": [],
+      "url": "/us/Flammability"
+    },
+    "Frostbite": {
+      "name": "Frostbite",
+      "required_level": 24,
+      "tags": [],
+      "url": "/us/Frostbite"
+    },
+    "Malevolence": {
+      "name": "Malevolence",
+      "required_level": 24,
+      "tags": [],
+      "url": "/us/Malevolence"
+    },
+    "Purity of Elements": {
+      "name": "Purity of Elements",
+      "required_level": 24,
+      "tags": [],
+      "url": "/us/Purity_of_Elements"
+    },
+    "Purity of Lightning": {
+      "name": "Purity of Lightning",
+      "required_level": 24,
+      "tags": [],
+      "url": "/us/Purity_of_Lightning"
+    },
+    "Spellslinger": {
+      "name": "Spellslinger",
+      "required_level": 24,
+      "tags": [],
+      "url": "/us/Spellslinger"
+    },
+    "Vaal Discipline": {
+      "name": "Vaal Discipline",
+      "required_level": 24,
+      "tags": [],
+      "url": "/us/Vaal_Discipline"
+    },
+    "Vaal Impurity of Lightning": {
+      "name": "Vaal Impurity of Lightning",
+      "required_level": 24,
+      "tags": [],
+      "url": "/us/Vaal_Impurity_of_Lightning"
+    },
+    "Wrath": {
+      "name": "Wrath",
+      "required_level": 24,
+      "tags": [],
+      "url": "/us/Wrath"
+    },
+    "Zealotry": {
+      "name": "Zealotry",
+      "required_level": 24,
+      "tags": [],
+      "url": "/us/Zealotry"
+    },
+    "Armageddon Brand": {
+      "name": "Armageddon Brand",
+      "required_level": 28,
+      "tags": [],
+      "url": "/us/Armageddon_Brand"
+    },
+    "Armageddon Brand of Volatility": {
+      "name": "Armageddon Brand of Volatility",
+      "required_level": 28,
+      "tags": [],
+      "url": "/us/Armageddon_Brand_of_Volatility"
+    },
+    "Armageddon Brand of Recall": {
+      "name": "Armageddon Brand of Recall",
+      "required_level": 28,
+      "tags": [],
+      "url": "/us/Armageddon_Brand_of_Recall"
+    },
+    "Ball Lightning": {
+      "name": "Ball Lightning",
+      "required_level": 28,
+      "tags": [],
+      "url": "/us/Ball_Lightning"
+    },
+    "Ball Lightning of Orbiting": {
+      "name": "Ball Lightning of Orbiting",
+      "required_level": 28,
+      "tags": [],
+      "url": "/us/Ball_Lightning_of_Orbiting"
+    },
+    "Ball Lightning of Static": {
+      "name": "Ball Lightning of Static",
+      "required_level": 28,
+      "tags": [],
+      "url": "/us/Ball_Lightning_of_Static"
+    },
+    "Crackling Lance": {
+      "name": "Crackling Lance",
+      "required_level": 28,
+      "tags": [],
+      "url": "/us/Crackling_Lance"
+    },
+    "Crackling Lance of Branching": {
+      "name": "Crackling Lance of Branching",
+      "required_level": 28,
+      "tags": [],
+      "url": "/us/Crackling_Lance_of_Branching"
+    },
+    "Crackling Lance of Disintegration": {
+      "name": "Crackling Lance of Disintegration",
+      "required_level": 28,
+      "tags": [],
+      "url": "/us/Crackling_Lance_of_Disintegration"
+    },
+    "Dark Pact": {
+      "name": "Dark Pact",
+      "required_level": 28,
+      "tags": [],
+      "url": "/us/Dark_Pact"
+    },
+    "Dark Pact of Trarthus": {
+      "name": "Dark Pact of Trarthus",
+      "required_level": 28,
+      "tags": [],
+      "url": "/us/Dark_Pact_of_Trarthus"
+    },
+    "Discharge": {
+      "name": "Discharge",
+      "required_level": 28,
+      "tags": [],
+      "url": "/us/Discharge"
+    },
+    "Discharge of Misery": {
+      "name": "Discharge of Misery",
+      "required_level": 28,
+      "tags": [],
+      "url": "/us/Discharge_of_Misery"
+    },
+    "Divine Ire": {
+      "name": "Divine Ire",
+      "required_level": 28,
+      "tags": [],
+      "url": "/us/Divine_Ire"
+    },
+    "Divine Ire of Holy Lightning": {
+      "name": "Divine Ire of Holy Lightning",
+      "required_level": 28,
+      "tags": [],
+      "url": "/us/Divine_Ire_of_Holy_Lightning"
+    },
+    "Divine Ire of Disintegration": {
+      "name": "Divine Ire of Disintegration",
+      "required_level": 28,
+      "tags": [],
+      "url": "/us/Divine_Ire_of_Disintegration"
+    },
+    "Eye of Winter": {
+      "name": "Eye of Winter",
+      "required_level": 28,
+      "tags": [],
+      "url": "/us/Eye_of_Winter"
+    },
+    "Eye of Winter of Finality": {
+      "name": "Eye of Winter of Finality",
+      "required_level": 28,
+      "tags": [],
+      "url": "/us/Eye_of_Winter_of_Finality"
+    },
+    "Eye of Winter of Transience": {
+      "name": "Eye of Winter of Transience",
+      "required_level": 28,
+      "tags": [],
+      "url": "/us/Eye_of_Winter_of_Transience"
+    },
+    "Firestorm": {
+      "name": "Firestorm",
+      "required_level": 28,
+      "tags": [],
+      "url": "/us/Firestorm"
+    },
+    "Firestorm of Meteors": {
+      "name": "Firestorm of Meteors",
+      "required_level": 28,
+      "tags": [],
+      "url": "/us/Firestorm_of_Meteors"
+    },
+    "Firestorm of Pelting": {
+      "name": "Firestorm of Pelting",
+      "required_level": 28,
+      "tags": [],
+      "url": "/us/Firestorm_of_Pelting"
+    },
+    "Flameblast": {
+      "name": "Flameblast",
+      "required_level": 28,
+      "tags": [],
+      "url": "/us/Flameblast"
+    },
+    "Flameblast of Celerity": {
+      "name": "Flameblast of Celerity",
+      "required_level": 28,
+      "tags": [],
+      "url": "/us/Flameblast_of_Celerity"
+    },
+    "Flameblast of Contraction": {
+      "name": "Flameblast of Contraction",
+      "required_level": 28,
+      "tags": [],
+      "url": "/us/Flameblast_of_Contraction"
+    },
+    "Glacial Cascade": {
+      "name": "Glacial Cascade",
+      "required_level": 28,
+      "tags": [],
+      "url": "/us/Glacial_Cascade"
+    },
+    "Glacial Cascade of the Fissure": {
+      "name": "Glacial Cascade of the Fissure",
+      "required_level": 28,
+      "tags": [],
+      "url": "/us/Glacial_Cascade_of_the_Fissure"
+    },
+    "Hexblast": {
+      "name": "Hexblast",
+      "required_level": 28,
+      "tags": [],
+      "url": "/us/Hexblast"
+    },
+    "Hexblast of Contradiction": {
+      "name": "Hexblast of Contradiction",
+      "required_level": 28,
+      "tags": [],
+      "url": "/us/Hexblast_of_Contradiction"
+    },
+    "Hexblast of Havoc": {
+      "name": "Hexblast of Havoc",
+      "required_level": 28,
+      "tags": [],
+      "url": "/us/Hexblast_of_Havoc"
+    },
+    "Kinetic Blast": {
+      "name": "Kinetic Blast",
+      "required_level": 28,
+      "tags": [],
+      "url": "/us/Kinetic_Blast"
+    },
+    "Kinetic Blast of Clustering": {
+      "name": "Kinetic Blast of Clustering",
+      "required_level": 28,
+      "tags": [],
+      "url": "/us/Kinetic_Blast_of_Clustering"
+    },
+    "Kinetic Rain": {
+      "name": "Kinetic Rain",
+      "required_level": 28,
+      "tags": [],
+      "url": "/us/Kinetic_Rain"
+    },
+    "Kinetic Rain of Impact": {
+      "name": "Kinetic Rain of Impact",
+      "required_level": 28,
+      "tags": [],
+      "url": "/us/Kinetic_Rain_of_Impact"
+    },
+    "Lightning Conduit": {
+      "name": "Lightning Conduit",
+      "required_level": 28,
+      "tags": [],
+      "url": "/us/Lightning_Conduit"
+    },
+    "Lightning Conduit of the Heavens": {
+      "name": "Lightning Conduit of the Heavens",
+      "required_level": 28,
+      "tags": [],
+      "url": "/us/Lightning_Conduit_of_the_Heavens"
+    },
+    "Lightning Spire Trap": {
+      "name": "Lightning Spire Trap",
+      "required_level": 28,
+      "tags": [],
+      "url": "/us/Lightning_Spire_Trap"
+    },
+    "Lightning Spire Trap of Zapping": {
+      "name": "Lightning Spire Trap of Zapping",
+      "required_level": 28,
+      "tags": [],
+      "url": "/us/Lightning_Spire_Trap_of_Zapping"
+    },
+    "Lightning Spire Trap of Overloading": {
+      "name": "Lightning Spire Trap of Overloading",
+      "required_level": 28,
+      "tags": [],
+      "url": "/us/Lightning_Spire_Trap_of_Overloading"
+    },
+    "Penance Brand": {
+      "name": "Penance Brand",
+      "required_level": 28,
+      "tags": [],
+      "url": "/us/Penance_Brand"
+    },
+    "Penance Brand of Dissipation": {
+      "name": "Penance Brand of Dissipation",
+      "required_level": 28,
+      "tags": [],
+      "url": "/us/Penance_Brand_of_Dissipation"
+    },
+    "Penance Brand of Conduction": {
+      "name": "Penance Brand of Conduction",
+      "required_level": 28,
+      "tags": [],
+      "url": "/us/Penance_Brand_of_Conduction"
+    },
+    "Pyroclast Mine": {
+      "name": "Pyroclast Mine",
+      "required_level": 28,
+      "tags": [],
+      "url": "/us/Pyroclast_Mine"
+    },
+    "Pyroclast Mine of Sabotage": {
+      "name": "Pyroclast Mine of Sabotage",
+      "required_level": 28,
+      "tags": [],
+      "url": "/us/Pyroclast_Mine_of_Sabotage"
+    },
+    "Raise Spectre": {
+      "name": "Raise Spectre",
+      "required_level": 28,
+      "tags": [],
+      "url": "/us/Raise_Spectre"
+    },
+    "Raise Spectre of Transience": {
+      "name": "Raise Spectre of Transience",
+      "required_level": 28,
+      "tags": [],
+      "url": "/us/Raise_Spectre_of_Transience"
+    },
+    "Shock Nova": {
+      "name": "Shock Nova",
+      "required_level": 28,
+      "tags": [],
+      "url": "/us/Shock_Nova"
+    },
+    "Somatic Shell": {
+      "name": "Somatic Shell",
+      "required_level": 28,
+      "tags": [],
+      "url": "/us/Somatic_Shell"
+    },
+    "Soulrend": {
+      "name": "Soulrend",
+      "required_level": 28,
+      "tags": [],
+      "url": "/us/Soulrend"
+    },
+    "Soulrend of Reaping": {
+      "name": "Soulrend of Reaping",
+      "required_level": 28,
+      "tags": [],
+      "url": "/us/Soulrend_of_Reaping"
+    },
+    "Soulrend of the Spiral": {
+      "name": "Soulrend of the Spiral",
+      "required_level": 28,
+      "tags": [],
+      "url": "/us/Soulrend_of_the_Spiral"
+    },
+    "Stormbind": {
+      "name": "Stormbind",
+      "required_level": 28,
+      "tags": [],
+      "url": "/us/Stormbind"
+    },
+    "Stormbind of Teleportation": {
+      "name": "Stormbind of Teleportation",
+      "required_level": 28,
+      "tags": [],
+      "url": "/us/Stormbind_of_Teleportation"
+    },
+    "Summon Reaper": {
+      "name": "Summon Reaper",
+      "required_level": 28,
+      "tags": [],
+      "url": "/us/Summon_Reaper"
+    },
+    "Summon Reaper of Revenants": {
+      "name": "Summon Reaper of Revenants",
+      "required_level": 28,
+      "tags": [],
+      "url": "/us/Summon_Reaper_of_Revenants"
+    },
+    "Summon Reaper of Eviscerating": {
+      "name": "Summon Reaper of Eviscerating",
+      "required_level": 28,
+      "tags": [],
+      "url": "/us/Summon_Reaper_of_Eviscerating"
+    },
+    "Vaal Firestorm": {
+      "name": "Vaal Firestorm",
+      "required_level": 28,
+      "tags": [],
+      "url": "/us/Vaal_Firestorm"
+    },
+    "Vaal Flameblast": {
+      "name": "Vaal Flameblast",
+      "required_level": 28,
+      "tags": [],
+      "url": "/us/Vaal_Flameblast"
+    },
+    "Vortex": {
+      "name": "Vortex",
+      "required_level": 28,
+      "tags": [],
+      "url": "/us/Vortex"
+    },
+    "Vortex of Projection": {
+      "name": "Vortex of Projection",
+      "required_level": 28,
+      "tags": [],
+      "url": "/us/Vortex_of_Projection"
+    },
+    "Winter Orb": {
+      "name": "Winter Orb",
+      "required_level": 28,
+      "tags": [],
+      "url": "/us/Winter_Orb"
+    },
+    "Destructive Link": {
+      "name": "Destructive Link",
+      "required_level": 34,
+      "tags": [],
+      "url": "/us/Destructive_Link"
+    },
+    "Frost Shield": {
+      "name": "Frost Shield",
+      "required_level": 34,
+      "tags": [],
+      "url": "/us/Frost_Shield"
+    },
+    "Hydrosphere": {
+      "name": "Hydrosphere",
+      "required_level": 34,
+      "tags": [],
+      "url": "/us/Hydrosphere"
+    },
+    "Sigil of Power": {
+      "name": "Sigil of Power",
+      "required_level": 34,
+      "tags": [],
+      "url": "/us/Sigil_of_Power"
+    },
+    "Soul Link": {
+      "name": "Soul Link",
+      "required_level": 34,
+      "tags": [],
+      "url": "/us/Soul_Link"
+    },
+    "Summon Carrion Golem": {
+      "name": "Summon Carrion Golem",
+      "required_level": 34,
+      "tags": [],
+      "url": "/us/Summon_Carrion_Golem"
+    },
+    "Summon Carrion Golem of Hordes": {
+      "name": "Summon Carrion Golem of Hordes",
+      "required_level": 34,
+      "tags": [],
+      "url": "/us/Summon_Carrion_Golem_of_Hordes"
+    },
+    "Summon Carrion Golem of Scavenging": {
+      "name": "Summon Carrion Golem of Scavenging",
+      "required_level": 34,
+      "tags": [],
+      "url": "/us/Summon_Carrion_Golem_of_Scavenging"
+    },
+    "Summon Chaos Golem": {
+      "name": "Summon Chaos Golem",
+      "required_level": 34,
+      "tags": [],
+      "url": "/us/Summon_Chaos_Golem"
+    },
+    "Summon Chaos Golem of Hordes": {
+      "name": "Summon Chaos Golem of Hordes",
+      "required_level": 34,
+      "tags": [],
+      "url": "/us/Summon_Chaos_Golem_of_Hordes"
+    },
+    "Summon Chaos Golem of the Maelström": {
+      "name": "Summon Chaos Golem of the Maelström",
+      "required_level": 34,
+      "tags": [],
+      "url": "/us/Summon_Chaos_Golem_of_the_Maelstr%C3%B6m"
+    },
+    "Summon Lightning Golem": {
+      "name": "Summon Lightning Golem",
+      "required_level": 34,
+      "tags": [],
+      "url": "/us/Summon_Lightning_Golem"
+    },
+    "Summon Lightning Golem of Hordes": {
+      "name": "Summon Lightning Golem of Hordes",
+      "required_level": 34,
+      "tags": [],
+      "url": "/us/Summon_Lightning_Golem_of_Hordes"
+    },
+    "Void Sphere": {
+      "name": "Void Sphere",
+      "required_level": 34,
+      "tags": [],
+      "url": "/us/Void_Sphere"
+    },
+    "Void Sphere of Rending": {
+      "name": "Void Sphere of Rending",
+      "required_level": 34,
+      "tags": [],
+      "url": "/us/Void_Sphere_of_Rending"
+    },
+    "Arcanist Brand": {
+      "name": "Arcanist Brand",
+      "required_level": 38,
+      "tags": [],
+      "url": "/us/Arcanist_Brand"
+    },
+    "Quickstep": {
+      "name": "Quickstep",
+      "required_level": 1,
+      "tags": [],
+      "url": "/us/Quickstep"
+    },
+    "Detonate Mines": {
+      "name": "Detonate Mines",
+      "required_level": 8,
+      "tags": [],
+      "url": "/us/Detonate_Mines"
+    },
+    "Portal": {
+      "name": "Portal",
+      "required_level": 10,
+      "tags": [],
+      "url": "/us/Portal"
+    },
+    "Vaal Breach": {
+      "name": "Vaal Breach",
+      "required_level": 10,
+      "tags": [],
+      "url": "/us/Vaal_Breach"
+    },
+    "Convocation": {
+      "name": "Convocation",
+      "required_level": 24,
+      "tags": [],
+      "url": "/us/Convocation"
+    }
+  }
+}

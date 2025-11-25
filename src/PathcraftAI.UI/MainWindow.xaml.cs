@@ -59,7 +59,7 @@ namespace PathcraftAI.UI
             _upgradePathScriptPath = Path.Combine(parserDir, "upgrade_path.py");
             _upgradePathTradeScriptPath = Path.Combine(parserDir, "upgrade_path_trade.py");
             _passiveTreeScriptPath = Path.Combine(parserDir, "passive_tree_analyzer.py");
-            _filterGeneratorScriptPath = Path.Combine(parserDir, "filter_generator.py");
+            _filterGeneratorScriptPath = Path.Combine(parserDir, "build_filter_generator.py");
             _tokenFilePath = Path.Combine(parserDir, "poe_token.json");
 
             // 경로 확인 및 디버깅
@@ -1781,31 +1781,27 @@ namespace PathcraftAI.UI
 
         private async void GenerateFilter_Click(object sender, RoutedEventArgs e)
         {
-            var accountName = FilterAccountNameBox.Text?.Trim();
-            if (string.IsNullOrWhiteSpace(accountName))
-            {
-                MessageBox.Show("계정 이름을 입력해주세요.", "입력 필요", MessageBoxButton.OK, MessageBoxImage.Information);
-                return;
-            }
-
             var pobUrl = POBInputBox.Text?.Trim();
             if (pobUrl == "https://pobb.in/..." || pobUrl == "URL 또는 POB 코드 붙여넣기") pobUrl = null;
 
-            if (string.IsNullOrWhiteSpace(pobUrl) && string.IsNullOrEmpty(_currentPOBXmlPath))
+            // POB URL 또는 저장된 XML 필요
+            string pobInput;
+            if (!string.IsNullOrWhiteSpace(pobUrl))
             {
-                MessageBox.Show("먼저 POB를 분석해주세요.", "POB 필요", MessageBoxButton.OK, MessageBoxImage.Information);
+                pobInput = pobUrl;
+            }
+            else if (!string.IsNullOrEmpty(_currentPOBXmlPath) && File.Exists(_currentPOBXmlPath))
+            {
+                pobInput = _currentPOBXmlPath;
+            }
+            else
+            {
+                MessageBox.Show("POB URL을 입력하거나 빌드를 먼저 분석해주세요.", "POB 필요", MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
 
             try
             {
-                // 선택된 단계
-                var phaseItem = FilterPhaseComboBox.SelectedItem as ComboBoxItem;
-                var phase = phaseItem?.Content?.ToString() ?? "all";
-
-                // 리그 타입
-                var leagueType = _isHardcoreMode ? "HC" : "SC";
-
                 // POE 필터 폴더 경로
                 var filterFolder = Path.Combine(
                     Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
@@ -1819,25 +1815,8 @@ namespace PathcraftAI.UI
                 // Python 스크립트 실행
                 var parserDir = Path.GetDirectoryName(_filterGeneratorScriptPath)!;
 
-                // POB XML 파일 생성 (URL인 경우 임시 파일)
-                string pobXmlPath;
-                if (!string.IsNullOrEmpty(_currentPOBXmlPath) && File.Exists(_currentPOBXmlPath))
-                {
-                    pobXmlPath = _currentPOBXmlPath;
-                }
-                else
-                {
-                    // pob_parser.py를 사용하여 URL에서 XML 추출 필요
-                    // 임시로 temp_pob.xml 사용
-                    pobXmlPath = Path.Combine(parserDir, "temp_pob.xml");
-                    if (!File.Exists(pobXmlPath))
-                    {
-                        MessageBox.Show("POB XML 파일을 찾을 수 없습니다.\n먼저 빌드를 분석해주세요.", "파일 없음", MessageBoxButton.OK, MessageBoxImage.Warning);
-                        return;
-                    }
-                }
-
-                var args = $"\"{_filterGeneratorScriptPath}\" \"{pobXmlPath}\" \"{accountName}\" --output \"{filterFolder}\" --league {leagueType} --phase {phase.ToLower()}";
+                // build_filter_generator.py는 POB URL/파일만 받으면 됨
+                var args = $"\"{_filterGeneratorScriptPath}\" \"{pobInput}\" --output \"{filterFolder}\"";
 
                 var psi = new ProcessStartInfo
                 {
@@ -1865,11 +1844,24 @@ namespace PathcraftAI.UI
                 });
 
                 // 결과 표시
-                if (result.Contains("[완료]") || result.Contains("[OK]"))
+                if (result.Contains("Generated") || result.Contains("filter files"))
                 {
-                    var message = phase.ToLower() == "all"
-                        ? $"필터 파일이 생성되었습니다!\n\n위치: {filterFolder}\n\n생성된 파일:\n• {accountName}_Starter.filter\n• {accountName}_Mid.filter\n• {accountName}_End.filter\n• {accountName}_HighEnd.filter"
-                        : $"필터 파일이 생성되었습니다!\n\n위치: {filterFolder}\\{accountName}_{phase}.filter";
+                    // 생성된 파일 이름 추출
+                    var generatedFiles = new System.Collections.Generic.List<string>();
+                    foreach (var line in result.Split('\n'))
+                    {
+                        if (line.Contains("Generated:") && line.Contains(".filter"))
+                        {
+                            var fileName = Path.GetFileName(line.Split("Generated:")[1].Trim());
+                            generatedFiles.Add(fileName);
+                        }
+                    }
+
+                    var fileList = generatedFiles.Count > 0
+                        ? string.Join("\n• ", generatedFiles)
+                        : "Leveling / EarlyMap / Endgame";
+
+                    var message = $"필터 파일이 생성되었습니다!\n\n위치: {filterFolder}\n\n생성된 파일:\n• {fileList}\n\n게임에서 /itemfilter 명령어로 적용하세요.";
 
                     MessageBox.Show(message, "필터 생성 완료", MessageBoxButton.OK, MessageBoxImage.Information);
 
@@ -2946,28 +2938,33 @@ if token:
 import sys
 import json
 sys.path.insert(0, r'{Path.GetDirectoryName(_levelingGuideScriptPath)}')
-from skill_tag_system import SkillTagSystem, ActGuideSearcher
+from guide_generator import GuideGenerator
+from pob_parser import fetch_pob_code, decode_pob, parse_pob_xml
 
-# POB URL에서 스킬 정보 추출 (간단히 테스트용으로 Penance Brand 사용)
-# 실제 구현에서는 POB 파싱 필요
-skill_system = SkillTagSystem()
-searcher = ActGuideSearcher(skill_system)
+# POB 코드/URL 처리
+pob_input = r'''{pobUrl}'''
 
-# 스킬 ID 결정 (POB에서 추출해야 함)
-# 임시: Penance Brand of Dissipation
-skill_id = 'PenanceBrandAltX'
-class_name = 'Templar'
-ascendancy = 'Inquisitor'
+try:
+    # POB 코드 가져오기
+    if pob_input.startswith('http'):
+        pob_code = fetch_pob_code(pob_input)
+    else:
+        pob_code = pob_input
 
-# 레벨링 가이드 생성
-guide = searcher.generate_leveling_guide_summary(
-    skill_system.get_skill_name(skill_id),
-    class_name,
-    ascendancy
-)
+    if not pob_code:
+        print(json.dumps({{'error': 'Could not fetch POB code'}}))
+        sys.exit(1)
 
-# JSON 출력
-print(json.dumps(guide, ensure_ascii=False))
+    # 가이드 생성 (UI 호환 형식)
+    generator = GuideGenerator()
+    guide = generator.generate_ui_compatible_guide(pob_code)
+
+    # JSON 출력
+    print(json.dumps(guide, ensure_ascii=False))
+
+except Exception as e:
+    print(json.dumps({{'error': str(e)}}))
+    sys.exit(1)
 ";
 
             File.WriteAllText(tempScriptPath, pythonCode, System.Text.Encoding.UTF8);

@@ -32,6 +32,109 @@ if sys.platform == 'win32':
 # 기존 모듈들은 직접 구현으로 대체 (import 순환 오류 방지)
 
 
+def apply_build_filters(
+    recommendations: List[Dict],
+    char_class: Optional[str] = None,
+    sort_order: str = "views",
+    budget: Optional[int] = None
+) -> List[Dict]:
+    """
+    빌드 추천 결과에 필터 적용
+
+    Args:
+        recommendations: 추천 카테고리 목록
+        char_class: 클래스 필터 (예: "Witch", "Shadow")
+        sort_order: 정렬 기준 ("views", "date", "likes", "price")
+        budget: 최대 예산 (chaos)
+
+    Returns:
+        필터링된 추천 목록
+    """
+    filtered_recommendations = []
+
+    # 클래스 → 어센던시 매핑
+    CLASS_ASCENDANCIES = {
+        "witch": ["occultist", "necromancer", "elementalist"],
+        "shadow": ["assassin", "saboteur", "trickster"],
+        "ranger": ["deadeye", "raider", "pathfinder"],
+        "duelist": ["slayer", "gladiator", "champion"],
+        "marauder": ["juggernaut", "berserker", "chieftain"],
+        "templar": ["inquisitor", "hierophant", "guardian"],
+        "scion": ["ascendant"]
+    }
+
+    for category in recommendations:
+        builds = category.get("builds", [])
+
+        # 클래스 필터
+        if char_class:
+            class_lower = char_class.lower()
+            # 어센던시 목록 생성
+            ascendancies = CLASS_ASCENDANCIES.get(class_lower, [class_lower])
+
+            filtered_builds = []
+            for b in builds:
+                # 기존 필드 체크
+                match = (
+                    class_lower in (b.get("class", "") or "").lower()
+                    or class_lower in (b.get("ascendancy", "") or "").lower()
+                    or class_lower in (b.get("ascendancy_class", "") or "").lower()
+                )
+
+                # title에서 클래스/어센던시 찾기
+                title = (b.get("title", "") or "").lower()
+                if not match:
+                    for asc in ascendancies:
+                        if asc in title:
+                            match = True
+                            break
+
+                # build_keyword에서도 찾기
+                keyword = (b.get("build_keyword", "") or "").lower()
+                if not match and keyword:
+                    for asc in ascendancies:
+                        if asc in keyword:
+                            match = True
+                            break
+
+                if match:
+                    filtered_builds.append(b)
+
+            builds = filtered_builds
+
+        # 예산 필터 (estimated_cost 또는 budget 필드)
+        if budget:
+            filtered_builds = []
+            for b in builds:
+                cost = b.get("estimated_cost") or b.get("budget") or b.get("price")
+                if cost is None:
+                    # 가격 정보 없으면 포함 (기본적으로)
+                    filtered_builds.append(b)
+                elif cost <= budget:
+                    filtered_builds.append(b)
+            builds = filtered_builds
+
+        # 정렬
+        if sort_order == "views":
+            builds = sorted(builds, key=lambda b: b.get("views", 0) or 0, reverse=True)
+        elif sort_order == "date":
+            builds = sorted(builds, key=lambda b: b.get("published_at", "") or "", reverse=True)
+        elif sort_order == "likes":
+            builds = sorted(builds, key=lambda b: b.get("likes", 0) or 0, reverse=True)
+        elif sort_order == "price":
+            builds = sorted(builds, key=lambda b: (b.get("estimated_cost") or b.get("budget") or 0))
+
+        # 필터링된 결과가 있으면 추가
+        if builds:
+            filtered_recommendations.append({
+                **category,
+                "builds": builds,
+                "count": len(builds)
+            })
+
+    return filtered_recommendations
+
+
 def get_current_league() -> str:
     """
     현재 활성 리그 자동 감지
@@ -158,7 +261,10 @@ def get_auto_recommendations(
     user_characters: Optional[List[Dict]] = None,
     max_builds: int = 10,
     include_streamers: bool = True,
-    include_user_build_analysis: bool = True
+    include_user_build_analysis: bool = True,
+    char_class: Optional[str] = None,
+    sort_order: str = "views",
+    budget: Optional[int] = None
 ) -> Dict:
     """
     자동 빌드 추천 시스템
@@ -335,6 +441,37 @@ def get_auto_recommendations(
     print(file=sys.stderr)
     print("=" * 80, file=sys.stderr)
 
+    # 필터 적용
+    if char_class or budget or sort_order != "views":
+        print(f"[FILTER] Applying filters: class={char_class}, budget={budget}, sort={sort_order}", file=sys.stderr)
+        recommendations = apply_build_filters(
+            recommendations,
+            char_class=char_class,
+            sort_order=sort_order,
+            budget=budget
+        )
+
+    # Divine/Chaos 환율 및 예산 구간 가져오기
+    divine_rate = 150.0  # 기본값
+    budget_tiers = []
+    try:
+        from poe_ninja_api import POENinjaAPI
+        ninja_api = POENinjaAPI(league=league)
+        divine_rate = ninja_api.get_divine_chaos_rate()
+        budget_tiers = ninja_api.get_budget_tiers(league_phase)
+        print(f"[INFO] Divine rate: {divine_rate:.1f}c", file=sys.stderr)
+    except Exception as e:
+        print(f"[WARN] Failed to get Divine rate: {e}", file=sys.stderr)
+        # 기본 예산 구간 사용
+        budget_tiers = [
+            {"label": "전체", "chaos_value": None},
+            {"label": "~50c", "chaos_value": 50},
+            {"label": "~100c", "chaos_value": 100},
+            {"label": "~1 div", "chaos_value": int(divine_rate)},
+            {"label": "~3 div", "chaos_value": int(divine_rate * 3)},
+            {"label": "~5 div", "chaos_value": int(divine_rate * 5)},
+        ]
+
     return {
         "league": league,
         "league_phase": league_phase,
@@ -342,7 +479,16 @@ def get_auto_recommendations(
         "recommendations": recommendations,
         "user_context": user_context,
         "total_builds": sum(r['count'] for r in recommendations),
-        "generated_at": datetime.now().isoformat()
+        "generated_at": datetime.now().isoformat(),
+        "filters": {
+            "class": char_class,
+            "sort": sort_order,
+            "budget": budget
+        },
+        "currency": {
+            "divine_chaos_rate": divine_rate,
+            "budget_tiers": budget_tiers
+        }
     }
 
 
@@ -447,23 +593,636 @@ def get_personalized_recommendations(
 
 
 def filter_builds_by_streamer(streamer_name: str, league: str, limit: int = 10) -> List[Dict]:
-    """스트리머 이름으로 빌드 필터링"""
+    """스트리머 이름 또는 스킬/아이템으로 빌드 검색"""
 
-    # 스트리머 빌드 캐시에서 검색
-    streamer_builds = get_streamer_builds_cached(league, limit=50)  # 더 많이 가져와서 필터링
+    # =============================================================================
+    # STREAMER SELECTION CRITERIA (스트리머 선정 기준)
+    # =============================================================================
+    #
+    # Tier 1 (핵심 스트리머):
+    #   - 구독자: 50,000+
+    #   - 최근 3개월 내 POE 영상: 30개+
+    #   - 평균 조회수: 5,000+
+    #   - 예: Zizaran, Mathil, 게이머 비누
+    #
+    # Tier 2 (활성 스트리머):
+    #   - 구독자: 10,000+
+    #   - 최근 2개월 내 POE 영상: 15개+
+    #   - 평균 조회수: 2,000+
+    #   - 예: GhazzyTV, POEASY, 엠피스
+    #
+    # Tier 3 (커뮤니티 스트리머):
+    #   - 구독자: 1,000+
+    #   - 최근 1개월 내 POE 영상: 5개+
+    #   - 평균 조회수: 500+
+    #   - 예: 커뮤니티 추천
+    #
+    # 자동 제외 기준:
+    #   - 90일 이상 POE 영상 없음
+    #   - 구독자 1,000 미만
+    #   - POE 콘텐츠 비중 10% 미만
+    #   - 리그 시작 후 2주 내 영상 0개
+    #
+    # 참고: 활발한 스트리머 업로드 패턴
+    #   - Zizaran: 리그 시작 시 일 3-5개, 평상시 주 5-10개
+    #   - Mathil: 리그 기간 주 10-15개
+    #   - GhazzyTV: 주 5-7개 (가이드 위주)
+    #   - 한국 유튜버: 주 2-5개 (상대적으로 적음)
+    #
+    # 분기별 리뷰: 매 분기 첫째 주 리뷰 (1월, 4월, 7월, 10월)
+    # =============================================================================
 
-    # 이름으로 필터링 (대소문자 무시, 부분 일치)
+    STREAMER_CRITERIA = {
+        'tier_1': {
+            'min_subscribers': 50000,
+            'min_videos_90d': 30,
+            'min_avg_views': 5000,
+            'description': '핵심 스트리머 (Zizaran, Mathil, 게이머 비누)'
+        },
+        'tier_2': {
+            'min_subscribers': 10000,
+            'min_videos_60d': 15,
+            'min_avg_views': 2000,
+            'description': '활성 스트리머 (GhazzyTV, POEASY, 엠피스)'
+        },
+        'tier_3': {
+            'min_subscribers': 1000,
+            'min_videos_30d': 5,
+            'min_avg_views': 500,
+            'description': '커뮤니티 스트리머'
+        }
+    }
+
+    # 유명 스트리머 이름 -> POE 계정 매핑
+    STREAMER_ACCOUNTS = {
+        'pohx': 'Pohx',
+        'zizaran': 'Zizaran',
+        'mathil': 'Mathil',
+        'empyrean': 'Empyrian',
+        'ghazzy': 'GhazzyTV',
+        'subtractem': 'Subtractem',
+        'jungroan': 'jungroan',
+        'ruetoo': 'RueToo',
+        'palsteron': 'Palsteron',
+        'goratha': 'Goratha',
+        'path of matth': 'pathofmatth',
+        'tytykiller': 'tytykiller',
+        'steelmage': 'Steelmage',
+        'darkee': 'Darkee',
+        'lightee': 'Lightee7',
+        'ben': 'Ben_',
+        'imexile': 'imexile',
+    }
+
+    # 유명 스트리머 이름 -> YouTube 채널명 매핑
+    # 마지막 리뷰: 2025-11-21 (데이터 수집 기반)
+    STREAMER_YOUTUBE_CHANNELS = {
+        # =====================================================================
+        # TIER 1: 핵심 스트리머 (50K+ 구독자, 3개월 30+ 영상, 5K+ 조회수)
+        # 실제 데이터 기반 (2025-11-21 수집)
+        # =====================================================================
+        'zizaran': 'Zizaran',           # 325K subs, 72 videos, 49K views
+        'pohx': 'Pohx',                 # 138K subs, 62 videos, 18K views, RF 전문
+        'ghazzy': 'GhazzyTV',           # 145K subs, 67 videos, 44K views, 미니언 전문
+        'palsteron': 'Palsteron',       # 95K subs, 57 videos, 54K views, 리그스타터 전문
+        'jungroan': 'jungroan',         # 96K subs, 30 videos, 43K views
+        'empyrean': 'Empyrean',         # 192K subs, 67 videos, 52K views, 그룹 파밍
+        'fastaf': 'FastAF',             # 100K subs, 41 videos, 10K views
+        'lolcohol': 'Lolcohol',         # 63K subs, 97 videos, 21K views
+        'fubgun': 'Fubgun',             # 121K subs, 103 videos, 56K views
+        'sirgog': 'sirgog',             # 55K subs, 56 videos, 16K views
+        'ds_lily': 'ds lily',           # 72K subs, 83 videos, 16K views
+        'lily': 'ds lily',
+
+        # =====================================================================
+        # TIER 2: 활성 스트리머 (10K+ 구독자, 2개월 15+ 영상, 2K+ 조회수)
+        # =====================================================================
+        'mathil': 'Mathilification',    # 186K subs, 20 videos, 31K views
+        'crouching_tuna': 'Crouching_Tuna',  # 55K subs, 22 videos, 19K views
+        'ruetoo': 'Ruetoo',             # 42K subs, 24 videos, 51K views
+        'steelmage': 'Steelmage',       # 49K subs, 21 videos, 26K views, 레이스 전문
+        'spicysushi': 'Spicysushi PoE', # 53K subs, 20 videos, 106K views
+        'havoc': 'havoc616 VODS',       # 21K subs, 21 videos, 17K views, 레이스 전문
+        'havoc616': 'havoc616 VODS',
+        'alkaizer': 'AlkaizerSenpai',   # 69K subs, 29 videos, 29K views
+        'waggle': 'Dsfarblarwaggle',    # 17K subs, 21 videos, 6K views
+        'balormage': 'BalorMage',       # 30K subs, 19 videos, 19K views
+        'balor mage': 'BalorMage',
+        'donthecrown': 'DonTheCrown',   # 55K subs, 29 videos, 4K views
+        'don the crown': 'DonTheCrown',
+
+        # =====================================================================
+        # TIER 3: 커뮤니티 스트리머 (1K+ 구독자, 1개월 5+ 영상, 500+ 조회수)
+        # 또는 높은 조회수/구독자지만 영상이 적은 경우
+        # =====================================================================
+        'goratha': 'Goratha',           # 41K subs, 14 videos, 46K views
+        'imexile': 'Imexile',           # 18K subs, 10 videos, 47K views
+        'cutedog': 'CuteDog_',          # 45K subs, 12 videos, 9K views
+        'raizqt': 'RaizQT',             # 57K subs, 10 videos, 9K views
+        'nugiyen': 'nugiyen',           # 19K subs, 6 videos, 5K views
+        'tytykiller': 'Tytykiller',     # 36K subs, 5 videos, 25K views, 레이스 전문
+        'quin69': 'Quin69TV',           # 93K subs, 14 videos, 34K views
+        'kay gaming': 'Kay Gaming',     # 56K subs, 11 videos, 5K views
+        'kay': 'Kay Gaming',
+
+        # Twitch 전용 (YouTube 비활성) - 참고용
+        # 'darkee', 'lightee', 'octavian0', 'ben' - Twitch에서만 활동
+
+        # =====================================================================
+        # 한국인 스트리머/유튜버 (실제 데이터 기반 2025-11-21)
+        # =====================================================================
+
+        # TIER 1: 핵심 (50K+ 구독자, 30+ 영상)
+        '게이머비누': '게이머비누Gamerbinu',  # 79K subs, 70 videos, 27K views
+        '게이머 비누': '게이머비누Gamerbinu',
+        'gamer binu': '게이머비누Gamerbinu',
+        '비누': '게이머비누Gamerbinu',
+
+        '포이지': 'PoEasy 쉽고 편한 게임 채널',  # 83K subs, 46 videos, 18K views
+        'poeasy': 'PoEasy 쉽고 편한 게임 채널',
+
+        # TIER 2: 활성 (10K+ 구독자, 15+ 영상)
+        '추봉이': '추봉이',              # 36K subs, 33 videos, 12K views
+        'chubong': '추봉이',
+
+        '뀨튜브': 'KKYU TUBE',           # 33K subs, 42 videos, 12K views
+        'ggyu': 'KKYU TUBE',
+
+        '로나': '로나의 게임 채널 Ronatube',  # 23K subs, 34 videos, 4K views
+        '로나의 게임채널': '로나의 게임 채널 Ronatube',
+
+        '스테tv': '스테TV',              # 24K subs, 55 videos, 6K views
+        '스테': '스테TV',
+        'ste': '스테TV',
+
+        '까까모리': '까까모리',          # 22K subs, 159 videos, 3K views
+        'kkakkamori': '까까모리',
+
+        '개굴덱': '개굴덱',              # 35K subs, 41 videos, 41K views (Tier 2로 승격)
+        'gaeguldek': '개굴덱',
+
+        # TIER 3: 커뮤니티 (활동 중이지만 영상 적음)
+        '엠피스': '엠피스 AMPHIS',       # 62K subs, 11 videos, 27K views
+        'mpis': '엠피스 AMPHIS',
+
+        '혜미': '혜미 Ham',              # 20K subs, 6 videos, 8K views
+        '혜미ham': '혜미 Ham',
+        'hyemi': '혜미 Ham',
+
+        '스탠다드qk': '스텐다드StandardQK',  # 14K subs, 13 videos, 5K views
+        '스탠다드': '스텐다드StandardQK',
+        'standardqk': '스텐다드StandardQK',
+    }
+
+    # 스킬/아이템 키워드 매핑 (POE 커뮤니티 약어 포함)
+    SKILL_KEYWORDS = {
+        # RF / Fire DoT
+        'rf': 'Righteous Fire',
+        'righteous fire': 'Righteous Fire',
+        'death aura': 'Death Aura',
+        'deaths oath': 'Death Aura',
+        "death's oath": 'Death Aura',
+
+        # Melee
+        'boneshatter': 'Boneshatter',
+        'cyclone': 'Cyclone',
+        'eq': 'Earthquake',
+        'earthquake': 'Earthquake',
+        'ls': 'Lightning Strike',
+        'lightning strike': 'Lightning Strike',
+        'gh': 'Glacial Hammer',
+        'glacial hammer': 'Glacial Hammer',
+        'flicker': 'Flicker Strike',
+        'flicker strike': 'Flicker Strike',
+        'shield crush': 'Shield Crush',
+        'spectral helix': 'Spectral Helix',
+        'sst': 'Spectral Shield Throw',
+        'spectral shield throw': 'Spectral Shield Throw',
+        'reave': 'Reave',
+        'lacerate': 'Lacerate',
+        'blade flurry': 'Blade Flurry',
+
+        # Bow
+        'ts': 'Tornado Shot',
+        'tornado shot': 'Tornado Shot',
+        'la': 'Lightning Arrow',
+        'lightning arrow': 'Lightning Arrow',
+        'ea': 'Explosive Arrow',
+        'explosive arrow': 'Explosive Arrow',
+        'ca': 'Caustic Arrow',
+        'caustic arrow': 'Caustic Arrow',
+        'ice shot': 'Ice Shot',
+        'roa': 'Rain of Arrows',
+        'rain of arrows': 'Rain of Arrows',
+        'scourge arrow': 'Scourge Arrow',
+        'ballista': 'Ballista Totem',
+
+        # Spell - Cold
+        'fp': 'Freezing Pulse',
+        'freezing pulse': 'Freezing Pulse',
+        'ice nova': 'Ice Nova',
+        'ice spear': 'Ice Spear',
+        'eow': 'Eye of Winter',
+        'eye of winter': 'Eye of Winter',
+        'creeping frost': 'Creeping Frost',
+        'vortex': 'Vortex',
+        'cold snap': 'Cold Snap',
+
+        # Spell - Lightning
+        'spark': 'Spark',
+        'arc': 'Arc',
+        'oos': 'Orb of Storms',
+        'orb of storms': 'Orb of Storms',
+        'storm call': 'Storm Call',
+        'ball lightning': 'Ball Lightning',
+        'bl': 'Ball Lightning',
+        'crackling lance': 'Crackling Lance',
+
+        # Spell - Fire
+        'fb': 'Flameblast',
+        'flameblast': 'Flameblast',
+        'fireball': 'Fireball',
+        'dd': 'Detonate Dead',
+        'detonate dead': 'Detonate Dead',
+        'cremation': 'Cremation',
+        'incinerate': 'Incinerate',
+
+        # Spell - Chaos/Physical
+        'ed': 'Essence Drain',
+        'essence drain': 'Essence Drain',
+        'contagion': 'Contagion',
+        'bane': 'Bane',
+        'ek': 'Ethereal Knives',
+        'ethereal knives': 'Ethereal Knives',
+        'bv': 'Blade Vortex',
+        'blade vortex': 'Blade Vortice',
+        'bb': 'Blade Blast',
+        'blade blast': 'Blade Blast',
+        'bf': 'Bladefall',
+        'bladefall': 'Bladefall',
+        'fr': 'Forbidden Rite',
+        'forbidden rite': 'Forbidden Rite',
+        'cf': 'Corrupting Fever',
+        'corrupting fever': 'Corrupting Fever',
+        'pc': 'Poisonous Concoction',
+        'poisonous concoction': 'Poisonous Concoction',
+
+        # Minions
+        'minion': None,  # 특수 검색
+        'spectre': 'Raise Spectre',
+        'raise spectre': 'Raise Spectre',
+        'zombie': 'Raise Zombie',
+        'raise zombie': 'Raise Zombie',
+        'skeleton': 'Summon Skeletons',
+        'summon skeletons': 'Summon Skeletons',
+        'srs': 'Summon Raging Spirit',
+        'summon raging spirit': 'Summon Raging Spirit',
+        'ag': 'Animate Guardian',
+        'animate guardian': 'Animate Guardian',
+        'aw': 'Animate Weapon',
+        'animate weapon': 'Animate Weapon',
+        'golem': 'Summon Stone Golem',
+        'carrion golem': 'Summon Carrion Golem',
+        'absolution': 'Absolution',
+
+        # Traps/Mines
+        'seismic trap': 'Seismic Trap',
+        'exsanguinate': 'Exsanguinate',
+        'lightning trap': 'Lightning Trap',
+        'arc mine': 'Arc',
+        'icicle mine': 'Icicle Mine',
+        'pyroclast mine': 'Pyroclast Mine',
+
+        # Totems
+        'hft': 'Holy Flame Totem',
+        'holy flame totem': 'Holy Flame Totem',
+        'ancestral warchief': 'Ancestral Warchief',
+        'earthbreaker': 'Earthbreaker',
+
+        # Other
+        'aa': 'Arctic Armour',
+        'arctic armour': 'Arctic Armour',
+        'ms': 'Molten Shell',
+        'molten shell': 'Molten Shell',
+        'pb': 'Petrified Blood',
+        'petrified blood': 'Petrified Blood',
+        'coc': 'Cast On Critical Strike',
+        'cast on crit': 'Cast On Critical Strike',
+        'cwdt': 'Cast when Damage Taken',
+        'discharge': 'Discharge',
+        'flamewall': 'Flame Wall',
+        'herald': None,  # 특수 검색
+        'aura': None,  # 특수 검색
+    }
+
+    # 아이템 키워드 매핑
+    ITEM_KEYWORDS = {
+        "death's oath": "Death's Oath",
+        'deaths oath': "Death's Oath",
+        'mageblood': 'Mageblood',
+        'headhunter': 'Headhunter',
+        'hh': 'Headhunter',
+        'ashes': 'Ashes of the Stars',
+        'nimis': 'Nimis',
+        'aegis aurora': 'Aegis Aurora',
+        'aegis': 'Aegis Aurora',
+        'melding': 'Melding of the Flesh',
+    }
+
+    search_term = streamer_name.lower().strip()
     filtered = []
-    search_name = streamer_name.lower()
 
-    for build in streamer_builds:
-        streamer = build.get('streamer_name', '').lower()
-        channel = build.get('channel', '').lower()
+    # 한국어 번역 데이터 로드
+    translations = load_korean_translations()
 
-        if search_name in streamer or search_name in channel:
-            filtered.append(build)
-            if len(filtered) >= limit:
+    # 0. 한국어 검색어를 영어로 변환
+    if translations and search_term in [kr.lower() for kr in translations.get('skills_kr', {}).keys()]:
+        # 한국어 스킬명 찾기
+        for kr_name, en_name in translations.get('skills_kr', {}).items():
+            if kr_name.lower() == search_term:
+                search_term = en_name.lower()
+                print(f"[INFO] Korean to English: {kr_name} -> {en_name}", file=sys.stderr)
                 break
+
+    # 1. 스트리머 이름 -> YouTube 채널 검색 (우선순위 최상위)
+    if search_term in STREAMER_YOUTUBE_CHANNELS:
+        channel_name = STREAMER_YOUTUBE_CHANNELS[search_term]
+        print(f"[INFO] Searching YouTube for streamer: {channel_name}", file=sys.stderr)
+
+        try:
+            from youtube_build_collector import search_youtube_builds
+
+            # 리그 버전 추출 (Keepers -> 3.27)
+            league_version = "3.27"  # 기본값
+            if "keepers" in league.lower():
+                league_version = "3.27"
+
+            # YouTube에서 해당 채널의 빌드 검색
+            # POB 링크 없어도 결과 반환하도록 수정
+            from googleapiclient.discovery import build as youtube_build
+            import os
+
+            api_key = os.environ.get('YOUTUBE_API_KEY')
+            if api_key:
+                try:
+                    youtube = youtube_build('youtube', 'v3', developerKey=api_key)
+
+                    # 채널명으로 직접 검색
+                    # 한국어 채널인지 확인
+                    is_korean = any(ord(c) >= 0xAC00 and ord(c) <= 0xD7A3 for c in channel_name)
+
+                    if is_korean:
+                        # 한국어 채널: POE 또는 패스오브엑자일 사용
+                        search_query = f"{channel_name} POE 빌드"
+                        relevance_lang = 'ko'
+                    else:
+                        search_query = f"{channel_name} poe {league_version} build"
+                        relevance_lang = 'en'
+
+                    print(f"[INFO] Searching YouTube: {search_query}", file=sys.stderr)
+
+                    # 최근 영상만 검색
+                    from datetime import datetime, timedelta
+                    # 한국어 채널은 더 넓은 범위 (6개월), 영어는 2개월
+                    days_back = 180 if is_korean else 60
+                    published_after = (datetime.now() - timedelta(days=days_back)).strftime('%Y-%m-%dT00:00:00Z')
+
+                    search_response = youtube.search().list(
+                        q=search_query,
+                        part='id,snippet',
+                        maxResults=limit * 2,  # 필터링 후 줄어들 수 있어서 더 많이 검색
+                        type='video',
+                        order='date',  # 최신순으로 정렬
+                        publishedAfter=published_after,  # 최근 2개월 영상만
+                        relevanceLanguage=relevance_lang
+                    ).execute()
+
+                    for item in search_response.get('items', []):
+                        video_id = item['id']['videoId']
+                        snippet = item['snippet']
+
+                        # 비디오 상세 정보 가져오기
+                        video_response = youtube.videos().list(
+                            part='snippet,statistics',
+                            id=video_id
+                        ).execute()
+
+                        if not video_response.get('items'):
+                            continue
+
+                        video_data = video_response['items'][0]
+                        description = video_data['snippet']['description']
+                        statistics = video_data['statistics']
+
+                        # POB 링크 추출 (없어도 OK)
+                        from youtube_build_collector import extract_pob_links
+                        pob_links = extract_pob_links(description)
+
+                        # 썸네일 URL 추출
+                        thumbnails = video_data['snippet'].get('thumbnails', {})
+                        thumbnail_url = (
+                            thumbnails.get('medium', {}).get('url') or
+                            thumbnails.get('default', {}).get('url') or
+                            f"https://img.youtube.com/vi/{video_id}/mqdefault.jpg"
+                        )
+
+                        # 채널명이 일치하는 영상을 우선적으로 추가
+                        build_channel_lower = snippet['channelTitle'].lower()
+                        channel_name_lower = channel_name.lower()
+
+                        is_exact_channel = (
+                            channel_name_lower in build_channel_lower or
+                            build_channel_lower in channel_name_lower
+                        )
+
+                        build_data = {
+                            'title': snippet['title'],
+                            'channel': snippet['channelTitle'],
+                            'url': f"https://www.youtube.com/watch?v={video_id}",
+                            'thumbnail': thumbnail_url,
+                            'views': int(statistics.get('viewCount', 0)),
+                            'likes': int(statistics.get('likeCount', 0)),
+                            'pob_links': pob_links,
+                            'published_at': snippet['publishedAt'],
+                            'source': 'youtube',
+                            'streamer_name': streamer_name,
+                            'is_exact_channel': is_exact_channel
+                        }
+
+                        if is_exact_channel:
+                            # 정확한 채널은 앞에 추가
+                            filtered.insert(0, build_data)
+                        else:
+                            filtered.append(build_data)
+
+                    # limit 초과 시 정확한 채널 우선 유지
+                    if len(filtered) > limit:
+                        # is_exact_channel True인 것 우선 정렬
+                        filtered.sort(key=lambda x: (not x.get('is_exact_channel', False), -x.get('views', 0)))
+                        filtered = filtered[:limit]
+
+                    if filtered:
+                        print(f"[OK] Found {len(filtered)} YouTube videos for {channel_name}", file=sys.stderr)
+                        return filtered
+
+                except Exception as e:
+                    print(f"[WARN] Direct YouTube search failed: {e}", file=sys.stderr)
+
+            # API 키 없거나 직접 검색 실패시 기존 search_youtube_builds 사용
+            youtube_builds = search_youtube_builds(
+                keyword=channel_name,
+                league_version=league_version,
+                max_results=limit,
+                use_cache=True
+            )
+
+            for build in youtube_builds:
+                # 채널명이 일치하는지 확인 (대소문자 무시)
+                build_channel = build.get('channel', '').lower()
+                if channel_name.lower() in build_channel or build_channel in channel_name.lower():
+                    filtered.append({
+                        'title': build.get('title', 'Unknown'),
+                        'channel': build.get('channel', ''),
+                        'url': build.get('url', ''),
+                        'thumbnail': build.get('thumbnail', ''),
+                        'views': build.get('views', 0),
+                        'likes': build.get('likes', 0),
+                        'pob_links': build.get('pob_links', []),
+                        'published_at': build.get('published_at', ''),
+                        'source': 'youtube',
+                        'streamer_name': streamer_name
+                    })
+                else:
+                    # 채널이 다르더라도 검색 결과에 포함 (관련 빌드)
+                    filtered.append({
+                        'title': build.get('title', 'Unknown'),
+                        'channel': build.get('channel', ''),
+                        'url': build.get('url', ''),
+                        'thumbnail': build.get('thumbnail', ''),
+                        'views': build.get('views', 0),
+                        'likes': build.get('likes', 0),
+                        'pob_links': build.get('pob_links', []),
+                        'published_at': build.get('published_at', ''),
+                        'source': 'youtube',
+                        'streamer_name': streamer_name
+                    })
+
+                if len(filtered) >= limit:
+                    break
+
+            if filtered:
+                print(f"[OK] Found {len(filtered)} YouTube builds for {channel_name}", file=sys.stderr)
+                return filtered
+
+        except Exception as e:
+            print(f"[WARN] YouTube search failed: {e}", file=sys.stderr)
+
+    # 2. poe.ninja 계정 검색 (YouTube 결과 없을 때 fallback)
+    if not filtered and search_term in STREAMER_ACCOUNTS:
+        account_name = STREAMER_ACCOUNTS[search_term]
+        print(f"[INFO] Searching for streamer account on poe.ninja: {account_name}", file=sys.stderr)
+        # poe.ninja에서 해당 계정의 빌드 찾기
+        try:
+            from poe_ninja_build_scraper import fetch_poe_ninja_builds
+            builds = fetch_poe_ninja_builds(league=league, limit=100)
+            for build in builds:
+                acc = build.get('account', {}).get('name', '').lower()
+                if account_name.lower() in acc:
+                    filtered.append({
+                        'character_name': build.get('name', 'Unknown'),
+                        'class': build.get('class', 'Unknown'),
+                        'level': build.get('level', 100),
+                        'main_skill': build.get('mainSkill', 'Unknown'),
+                        'account_name': build.get('account', {}).get('name', ''),
+                        'depth': build.get('depth-solo', 0),
+                        'pob_code': '',
+                        'source': 'poe.ninja',
+                        'streamer_name': streamer_name
+                    })
+                    if len(filtered) >= limit:
+                        break
+        except Exception as e:
+            print(f"[ERROR] Failed to search streamer on poe.ninja: {e}", file=sys.stderr)
+
+    # 3. 스킬 키워드 검색
+    if not filtered and search_term in SKILL_KEYWORDS:
+        skill_name = SKILL_KEYWORDS[search_term]
+        if skill_name:
+            print(f"[INFO] Searching for skill: {skill_name}", file=sys.stderr)
+            try:
+                from poe_ninja_build_scraper import fetch_poe_ninja_builds
+                builds = fetch_poe_ninja_builds(league=league, skill=skill_name, limit=limit)
+                for build in builds:
+                    filtered.append({
+                        'character_name': build.get('name', 'Unknown'),
+                        'class': build.get('class', 'Unknown'),
+                        'level': build.get('level', 100),
+                        'main_skill': skill_name,
+                        'account_name': build.get('account', {}).get('name', ''),
+                        'depth': build.get('depth-solo', 0),
+                        'pob_code': '',
+                        'source': 'poe.ninja',
+                    })
+            except Exception as e:
+                print(f"[ERROR] Failed to search skill: {e}", file=sys.stderr)
+
+    # 4. 아이템 키워드 검색
+    if not filtered and search_term in ITEM_KEYWORDS:
+        item_name = ITEM_KEYWORDS[search_term]
+        print(f"[INFO] Searching for item: {item_name}", file=sys.stderr)
+        try:
+            from poe_ninja_build_scraper import fetch_poe_ninja_builds
+            builds = fetch_poe_ninja_builds(league=league, item=item_name, limit=limit)
+            for build in builds:
+                filtered.append({
+                    'character_name': build.get('name', 'Unknown'),
+                    'class': build.get('class', 'Unknown'),
+                    'level': build.get('level', 100),
+                    'main_skill': build.get('mainSkill', 'Unknown'),
+                    'account_name': build.get('account', {}).get('name', ''),
+                    'depth': build.get('depth-solo', 0),
+                    'pob_code': '',
+                    'source': 'poe.ninja',
+                    'item_filter': item_name
+                })
+        except Exception as e:
+            print(f"[ERROR] Failed to search item: {e}", file=sys.stderr)
+
+    # 5. 직접 스킬/아이템 이름 검색 (키워드 매핑에 없는 경우)
+    if not filtered:
+        print(f"[INFO] Direct search for: {search_term}", file=sys.stderr)
+        try:
+            from poe_ninja_build_scraper import fetch_poe_ninja_builds
+            # 스킬로 먼저 시도
+            builds = fetch_poe_ninja_builds(league=league, skill=streamer_name, limit=limit)
+            if not builds:
+                # 아이템으로 시도
+                builds = fetch_poe_ninja_builds(league=league, item=streamer_name, limit=limit)
+
+            for build in builds:
+                filtered.append({
+                    'character_name': build.get('name', 'Unknown'),
+                    'class': build.get('class', 'Unknown'),
+                    'level': build.get('level', 100),
+                    'main_skill': build.get('mainSkill', 'Unknown'),
+                    'account_name': build.get('account', {}).get('name', ''),
+                    'depth': build.get('depth-solo', 0),
+                    'pob_code': '',
+                    'source': 'poe.ninja',
+                })
+        except Exception as e:
+            print(f"[ERROR] Failed direct search: {e}", file=sys.stderr)
+
+    # 6. 기존 캐시 검색 (fallback)
+    if not filtered:
+        streamer_builds = get_streamer_builds_cached(league, limit=50)
+        for build in streamer_builds:
+            streamer = build.get('streamer_name', '').lower()
+            channel = build.get('channel', '').lower()
+            if search_term in streamer or search_term in channel:
+                filtered.append(build)
+                if len(filtered) >= limit:
+                    break
 
     return filtered
 
@@ -473,27 +1232,24 @@ def find_similar_builds_to_pob(pob_url: str, league: str, limit: int = 10) -> Li
 
     try:
         # POB 분석
-        import requests
-        from pob_parser import decode_pob_code, parse_pob_xml
+        from pob_parser import get_pob_code_from_url, decode_pob_code, parse_pob_xml
 
         print(f"[INFO] Analyzing reference POB...", file=sys.stderr)
 
-        # POB 코드 가져오기
-        response = requests.get(pob_url)
-        if response.status_code != 200:
-            print(f"[ERROR] Could not fetch POB URL: {response.status_code}", file=sys.stderr)
+        # POB 코드 가져오기 (file://, pobb.in, pastebin 지원)
+        pob_code = get_pob_code_from_url(pob_url)
+        if not pob_code:
+            print(f"[ERROR] Could not fetch POB code from URL", file=sys.stderr)
             return []
 
-        # POB 코드 추출 (pastebin raw URL로 변환)
-        if 'pobb.in' in pob_url or 'pastebin.com' in pob_url:
-            # Get the code parameter from URL or fetch from page
-            pob_code = response.text
+        # XML 직접 로드인 경우 (로컬 파일에서 읽음)
+        if pob_code.startswith("__XML_DIRECT__"):
+            pob_xml = pob_code[14:]  # __XML_DIRECT__ 제거
+            print(f"[INFO] Loaded POB XML from local file", file=sys.stderr)
         else:
-            print(f"[ERROR] Unsupported POB URL format", file=sys.stderr)
-            return []
+            # XML 디코딩
+            pob_xml = decode_pob_code(pob_code)
 
-        # XML 디코딩
-        pob_xml = decode_pob_code(pob_code)
         if not pob_xml:
             print(f"[ERROR] Could not decode POB", file=sys.stderr)
             return []
@@ -641,6 +1397,35 @@ def get_popular_builds(league: str, limit: int = 5) -> List[Dict]:
         })
 
     return formatted_builds
+
+
+def load_korean_translations() -> Dict:
+    """한국어 번역 데이터 로드
+
+    우선순위:
+    1. merged_translations.json (병합된 최신 데이터)
+    2. poe_translations.json (PoeCharm 데이터)
+    """
+    data_dir = os.path.join(os.path.dirname(__file__), "data")
+
+    # 병합된 파일 우선
+    translation_files = [
+        os.path.join(data_dir, "merged_translations.json"),
+        os.path.join(data_dir, "poe_translations.json"),
+    ]
+
+    for translations_file in translation_files:
+        if os.path.exists(translations_file):
+            try:
+                with open(translations_file, 'r', encoding='utf-8') as f:
+                    data = json.load(f)
+                    print(f"[INFO] Loaded translations from {os.path.basename(translations_file)}", file=sys.stderr)
+                    return data
+            except Exception as e:
+                print(f"[WARN] Failed to load {translations_file}: {e}", file=sys.stderr)
+                continue
+
+    return {}
 
 
 def get_streamer_builds_cached(league: str, limit: int = 5) -> List[Dict]:
@@ -867,14 +1652,33 @@ if __name__ == "__main__":
     parser.add_argument('--include-user-build-analysis', action='store_true', help='Include user build analysis in output')
     parser.add_argument('--reference-pob', type=str, default=None, help='Reference POB URL to find similar builds')
     parser.add_argument('--streamer', type=str, default=None, help='Streamer/YouTuber name to filter builds')
+    parser.add_argument('--class', type=str, default=None, dest='char_class', help='Filter by class (Witch, Shadow, etc.)')
+    parser.add_argument('--sort', type=str, default='views', choices=['views', 'date', 'likes', 'price'], help='Sort order')
+    parser.add_argument('--budget', type=int, default=None, help='Max budget in chaos orbs')
+    parser.add_argument('--hardcore', action='store_true', help='Use Hardcore league prices')
 
     args = parser.parse_args()
+
+    # 하드코어 모드면 리그 이름 앞에 "Hardcore " 추가
+    if args.hardcore and args.league:
+        if not args.league.startswith("Hardcore"):
+            args.league = f"Hardcore {args.league}"
+    elif args.hardcore:
+        # 리그가 자동 감지되면 나중에 하드코어 접두사 추가
+        pass  # get_auto_recommendations에서 처리
+
+    # 리그 자동 감지 시 하드코어 처리
+    league = args.league
+    if league is None:
+        league = get_current_league()
+        if args.hardcore and not league.startswith("Hardcore"):
+            league = f"Hardcore {league}"
 
     # 맞춤 추천 모드 확인
     if args.reference_pob or args.streamer:
         # 맞춤 추천 모드
         result = get_personalized_recommendations(
-            league=args.league,
+            league=league,
             reference_pob=args.reference_pob,
             streamer_name=args.streamer,
             max_builds=args.max
@@ -882,10 +1686,13 @@ if __name__ == "__main__":
     else:
         # 일반 자동 추천
         result = get_auto_recommendations(
-            league=args.league,
+            league=league,
             user_characters=None,  # OAuth 연동 시 여기에 캐릭터 데이터 전달
             max_builds=args.max,
-            include_streamers=not args.no_streamers
+            include_streamers=not args.no_streamers,
+            char_class=args.char_class,
+            sort_order=args.sort,
+            budget=args.budget
         )
 
     if args.json_output:

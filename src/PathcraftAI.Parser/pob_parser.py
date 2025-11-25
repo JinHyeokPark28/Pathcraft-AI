@@ -257,7 +257,57 @@ def parse_pob_xml(xml_string, pob_url):
         level = build.get('level', 'N/A')
         build_name = f"{class_name} {asc_name} Lvl {level}"
 
-        # pobapi 계산 결과가 있으면 사용, 없으면 기본값 0
+        # XML에서 PlayerStat 추출 (pobapi 없이도 사용 가능)
+        xml_stats = {}
+        for stat in root.findall('.//PlayerStat'):
+            stat_name = stat.get('stat')
+            stat_value = stat.get('value')
+            if stat_name and stat_value:
+                try:
+                    xml_stats[stat_name] = float(stat_value)
+                except ValueError:
+                    xml_stats[stat_name] = 0
+
+        # DPS 계산 (CombinedDPS > FullDPS > TotalDPS 순으로 사용)
+        extracted_dps = (
+            xml_stats.get('CombinedDPS', 0) or
+            xml_stats.get('FullDPS', 0) or
+            xml_stats.get('TotalDPS', 0) or
+            xml_stats.get('TotalDotDPS', 0)
+        )
+
+        # Life/ES 추출
+        extracted_life = xml_stats.get('Life', 0)
+        extracted_es = xml_stats.get('EnergyShield', 0)
+        extracted_ehp = extracted_life + extracted_es
+
+        # 저항 추출
+        extracted_resists = {
+            "fire": int(xml_stats.get('FireResist', 0)),
+            "cold": int(xml_stats.get('ColdResist', 0)),
+            "lightning": int(xml_stats.get('LightningResist', 0)),
+            "chaos": int(xml_stats.get('ChaosResist', 0))
+        }
+
+        # 방어 스탯 추출
+        extracted_armour = xml_stats.get('Armour', 0)
+        extracted_evasion = xml_stats.get('Evasion', 0)
+        extracted_block = xml_stats.get('BlockChance', 0)
+        extracted_spell_block = xml_stats.get('SpellBlockChance', 0)
+
+        # pobapi 계산 결과가 있으면 사용, 없으면 XML에서 추출한 값 사용
+        final_stats = accurate_stats if accurate_stats else {
+            "dps": int(extracted_dps),
+            "life": int(extracted_life),
+            "energy_shield": int(extracted_es),
+            "ehp": int(extracted_ehp),
+            "resistances": extracted_resists,
+            "armour": int(extracted_armour),
+            "evasion": int(extracted_evasion),
+            "block": int(extracted_block),
+            "spell_block": int(extracted_spell_block)
+        }
+
         final_guide = {
             "meta": {
                 "build_name": build_name,
@@ -265,20 +315,11 @@ def parse_pob_xml(xml_string, pob_url):
                 "ascendancy": asc_name,
                 "pob_link": pob_url,
                 "version": build.get('targetVersion'),
-                "calculated_with_pobapi": accurate_stats is not None  # 정확한 계산 사용 여부
+                "calculated_with_pobapi": accurate_stats is not None,
+                "has_xml_stats": bool(xml_stats)
             },
             "build_notes": build_notes,
-            "stats": accurate_stats if accurate_stats else {
-                "dps": 0,
-                "life": 0,
-                "energy_shield": 0,
-                "ehp": 0,
-                "resistances": {"fire": 0, "cold": 0, "lightning": 0, "chaos": 0},
-                "armour": 0,
-                "evasion": 0,
-                "block": 0,
-                "spell_block": 0
-            },
+            "stats": final_stats,
             "overview": {"summary": "", "pros": [], "cons": []},
             "leveling": {"summary": "", "early_skills": [], "vendor_regex": {}},
             "progression_stages": [{
